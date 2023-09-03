@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="poDelSchNew" pageWidth="375" pageHeight="250" columnWidth="375" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="663c7c44-3ef1-48e9-a5c5-9359f952d31b">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db2"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="ponumber" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+    (REPLACE(NVL(TRIM(pl.subcode01),''),'NA','')|| ' '|| REPLACE(NVL(TRIM(pl.subcode02),''),'NA','')|| ' '|| REPLACE(NVL(TRIM(pl.subcode03),''),'NA','')|| ' '|| REPLACE(NVL(TRIM(pl.subcode04),''),'NA','')|| ' '|| 
+  REPLACE(NVL(TRIM(pl.subcode05),''),'NA','')|| ' '|| REPLACE(NVL(TRIM(pl.subcode06),''),'NA','')|| ' '|| REPLACE(NVL(TRIM(pl.subcode07),''),'NA','')|| ' '|| REPLACE(NVL(TRIM(pl.subcode08),''),'NA','')|| ' '|| 
+  REPLACE(NVL(TRIM(pl.subcode09),''),'NA','')|| ' '|| REPLACE(NVL(TRIM(pl.subcode10),''),'NA','')) ITEMCODE,
+      replace(pl.ITEMDESCRIPTION,' NA ','')ITEMDESCRIPTION,
+    TO_CHAR(dl.deliverydate, 'dd/mm/yyyy') deliverydate, nvl(SUM(dl.userprimaryquantity), 0) userprimaryquantity
+FROM
+    purchaseorderdelivery dl,
+    purchaseorderline pl
+WHERE
+    pl.purchaseordercode = dl.purorderlinepurchaseordercode
+    AND pl.orderline = dl.purchaseorderlineorderline
+    AND dl.purorderlinepurchaseordercode = $P{ponumber} 
+GROUP BY
+    TO_CHAR(dl.deliverydate, 'dd/mm/yyyy'),
+   (REPLACE(NVL(TRIM(pl.subcode01),''),'NA','')|| ' '|| REPLACE(NVL(TRIM(pl.subcode02),''),'NA','')|| ' '|| REPLACE(NVL(TRIM(pl.subcode03),''),'NA','')|| ' '|| REPLACE(NVL(TRIM(pl.subcode04),''),'NA','')|| ' '|| 
+  REPLACE(NVL(TRIM(pl.subcode05),''),'NA','')|| ' '|| REPLACE(NVL(TRIM(pl.subcode06),''),'NA','')|| ' '|| REPLACE(NVL(TRIM(pl.subcode07),''),'NA','')|| ' '|| REPLACE(NVL(TRIM(pl.subcode08),''),'NA','')|| ' '|| 
+  REPLACE(NVL(TRIM(pl.subcode09),''),'NA','')|| ' '|| REPLACE(NVL(TRIM(pl.subcode10),''),'NA','')),
+    replace(pl.ITEMDESCRIPTION,' NA ','')]]>
+	</queryString>
+	<field name="ITEMCODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ITEMCODE"/>
+	</field>
+	<field name="ITEMDESCRIPTION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ITEMDESCRIPTION"/>
+	</field>
+	<field name="DELIVERYDATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DELIVERYDATE"/>
+	</field>
+	<field name="USERPRIMARYQUANTITY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="USERPRIMARYQUANTITY"/>
+	</field>
+	<group name="orderGrp">
+		<groupHeader>
+			<band height="24">
+				<staticText>
+					<reportElement x="0" y="0" width="375" height="12" uuid="1d5bd06d-6277-4471-adb1-bfabbced8110"/>
+					<box>
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Delivery Schedule ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="12" width="55" height="12" uuid="24baaeb8-6566-4276-b4f1-03196c18fdba">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box leftPadding="5">
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Delivery Date]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="55" y="12" width="265" height="12" uuid="d521083c-cea6-4362-933c-d9611ff5ecd1"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Item Code ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="320" y="12" width="55" height="12" uuid="86b45adc-b7bb-4820-8f51-0db63f8c93f1"/>
+					<box rightPadding="5">
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Delivery Qty.]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="55" height="12" uuid="41783399-d1e6-4517-8d92-38dc171132a5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5">
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DELIVERYDATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="55" y="0" width="265" height="12" uuid="1aeaf498-82b7-4d4d-9528-4e224c0f6701">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5">
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ITEMCODE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;(#,##0.00#-)" isBlankWhenNull="true">
+				<reportElement x="320" y="0" width="55" height="12" uuid="b4de4817-78d5-4dd6-9586-18519cf4b6fa">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="5">
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{USERPRIMARYQUANTITY}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

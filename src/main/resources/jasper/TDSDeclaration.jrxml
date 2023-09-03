@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TDSDeclaration" pageWidth="595" pageHeight="842" columnWidth="585" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="33cc06dc-501e-4de9-b8ce-7317d32ec636">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="name" class="java.lang.String"/>
+	<field name="cardNo" class="java.lang.String"/>
+	<field name="panNo" class="java.lang.String"/>
+	<field name="emailId" class="java.lang.String"/>
+	<field name="address" class="java.lang.String"/>
+	<field name="monthRent" class="java.lang.String"/>
+	<field name="landLoardName" class="java.lang.String"/>
+	<field name="designation" class="java.lang.String"/>
+	<field name="dateOfBirth" class="java.time.ZonedDateTime"/>
+	<field name="contactNumber" class="java.lang.String"/>
+	<field name="landLoardPanNo" class="java.lang.String"/>
+	<field name="landLoardAddress" class="java.lang.String"/>
+	<field name="groupMasterBeans" class="java.util.List"/>
+	<group name="cardNo" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{cardNo}]]></groupExpression>
+		<groupHeader>
+			<band height="141">
+				<textField isBlankWhenNull="true">
+					<reportElement x="110" y="0" width="180" height="15" uuid="d0c164d0-d338-4890-bec0-9ce6843f67ca"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cardNo}+" " +$F{name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="110" height="15" uuid="b9e9a2e4-ee5c-4b9d-9e13-e3a29009fa85"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="15" width="110" height="15" uuid="7b2b11b0-5e54-44f4-8a8d-03c4614b5638"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Pan No]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="30" width="110" height="15" uuid="ed3562e1-7080-4cca-8541-7c3b2f3e75e3"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Email Id]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="45" width="110" height="15" uuid="94e6448d-3407-4b74-8402-910313a89cae"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Address]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="60" width="110" height="15" uuid="51598283-5490-4ba9-81ae-98edf82bd5da"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Monthly Rent
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="75" width="110" height="15" uuid="3e728476-a0f4-47fd-87cd-dac32f5ceeaf"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Land Lord PanNo
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="290" y="75" width="110" height="15" uuid="0a366c3f-822c-4488-8adf-c0a7e8f0cc75"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Rent Address
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="290" y="60" width="110" height="15" uuid="4217f3d3-c8f6-41b1-853d-f6c3e6aadea7"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Land Lord Name
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="290" y="30" width="110" height="15" uuid="b2d3be9b-f8cf-46c7-b9ba-734b94413adb"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Contact No
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="290" y="15" width="110" height="15" uuid="0dd7e0b3-5f71-4d8c-bc2c-754729845d1f"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Date Of Birth]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="290" y="0" width="110" height="15" uuid="763c7d6c-6003-438d-9ade-ef3ea721dcc7"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Designation]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="110" y="15" width="180" height="15" uuid="49081c7c-bb61-494a-a18e-7e8845868677"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{panNo}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="110" y="30" width="180" height="15" uuid="00888d13-b47c-4f97-8b34-6eaf9aa22323"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{emailId}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="110" y="45" width="475" height="15" uuid="8d0c34a4-ce6c-43fe-936a-6e740e10c1bb"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="110" y="60" width="180" height="15" uuid="32234cd8-750e-4faa-b4a4-7c68024103cd"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{monthRent}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="110" y="75" width="180" height="15" uuid="a96c86e4-06fd-431c-857f-0d0125eacf33"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{landLoardPanNo}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="400" y="0" width="185" height="15" uuid="81fff4c6-2164-475a-9261-3e1ee910fd24"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd-MMM-yyyy" isBlankWhenNull="true">
+					<reportElement x="400" y="15" width="185" height="15" uuid="3367fa3c-c111-4ede-b97b-d8c48ecc0a9b"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{dateOfBirth} != null ? java.sql.Timestamp.from($F{dateOfBirth}.toInstant()) : null)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="400" y="30" width="185" height="15" uuid="a04d52f9-87b1-4f89-940d-40f3bfb0e530"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{contactNumber}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="400" y="60" width="185" height="15" uuid="95251af6-f4da-4666-84a5-ef2ed0bc0a61"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{landLoardName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="400" y="75" width="185" height="15" uuid="e7096ac1-dffb-4748-b100-c5da8480a383"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{landLoardAddress}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="130" width="585" height="1" printWhenGroupChanges="cardNo" uuid="0681df83-f25e-4789-8ff1-ee990585ba2e"/>
+				</line>
+				<staticText>
+					<reportElement x="0" y="90" width="410" height="15" forecolor="#FF0E0A" uuid="ce128085-6b3f-42a4-846c-2a55ba846309"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[1. Rent receipt is quartely basis along with owner proof,Pan No and Rent Agreement.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="103" width="410" height="15" forecolor="#FF0E0A" uuid="98cb39cb-4d11-47fe-ad43-261666d7382a"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[2. Payment should be account payee cheque.]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<subreport>
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="0" y="0" width="585" height="20" uuid="a8f88982-93aa-441d-9d1d-0caa578cb55b"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{groupMasterBeans})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"TDSDeclaration_subreport01.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

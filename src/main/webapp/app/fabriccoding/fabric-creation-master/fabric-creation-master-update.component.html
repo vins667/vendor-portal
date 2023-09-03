@@ -1,0 +1,202 @@
+<div class="card">
+    <div class="body">
+        <div class="row">
+            <div class="col-12">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div class="row card-margin-bottom-10" style="border-bottom: 1px solid #f2f2f2;">
+                        <div class="col-md-8">
+                            <h5 id="jhi-fabric-creation-master-heading" style="margin-bottom: 0;">Woven Fabric Code Creation</h5>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                            </button>
+                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row card-margin-bottom-10" *ngIf="fabricCreationMaster.id">
+                        <div class="col-md-1">
+                            <label class="form-control-label" for="field_description">Code</label>
+                        </div>
+                        <div class="col-md-11">
+                            <input type="text" name="code" id="field_Code" class="form-control form-control-sm" [(ngModel)]="fabricCreationMaster.code" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-1">
+                            <label class="form-control-label" for="field_description">Description</label>
+                        </div>
+                        <div class="col-md-11">
+                            <textarea type="text" class="form-control form-control-sm" name="description" id="field_description" [(ngModel)]="fabricCreationMaster.description" maxlength="500" readonly="readonly" style="height: 60px;">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="row gutters-2">
+                        <div class="col-md-12">
+                            <fieldset class="scheduler-border-margin">
+                                <legend class="scheduler-border">Fabric Details:</legend>
+                                <div class="row gutters-2">
+                                    <div class="col-md-4">
+                                        <div class="form-group" style="margin-bottom: 0;">
+                                            <label class="form-control-label" for="field_fabricSubstractMaster">Type</label>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_fabricSubstractMaster" name="fabricSubstractMaster" [(ngModel)]="fabricCreationMaster.fabricSubstractMaster"  required (change)="fetchSubDetails(); fabricCoding();">
+                                                <option [ngValue]="fabricSubstractMasterOption.id === fabricCreationMaster.fabricSubstractMaster?.id ? fabricCreationMaster.fabricSubstractMaster : fabricSubstractMasterOption" *ngFor="let fabricSubstractMasterOption of fabricsubstractmasters;">{{fabricSubstractMasterOption.description}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="field_fabricSubstractDetails">Weave/Structure/Color</label>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_fabricSubstractDetails" name="fabricSubstractDetails" [(ngModel)]="fabricCreationMaster.fabricSubstractDetails"  required (change)="fabricCoding();">
+                                                <option *ngIf="!editForm.value.fabricSubstractDetails" [ngValue]="null" selected></option>
+                                                <option [ngValue]="fabricSubstractDetailsOption.id === fabricCreationMaster.fabricSubstractDetails?.id ? fabricCreationMaster.fabricSubstractDetails : fabricSubstractDetailsOption" *ngFor="let fabricSubstractDetailsOption of fabricsubstractdetails;">{{fabricSubstractDetailsOption.description}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="field_fabricSplFinishMaster">Special Finish</label>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_fabricSplFinishMaster" name="fabricSplFinishMaster" [(ngModel)]="fabricCreationMaster.fabricSplFinishMaster"  required (change)="fabricCoding();">
+                                                <option *ngIf="!editForm.value.fabricSplFinishMaster" [ngValue]="null" selected></option>
+                                                <option [ngValue]="fabricSplFinishMasterOption.id === fabricCreationMaster.fabricSplFinishMaster?.id ? fabricCreationMaster.fabricSplFinishMaster : fabricSplFinishMasterOption" *ngFor="let fabricSplFinishMasterOption of fabricsplfinishmasters;">{{fabricSplFinishMasterOption.description}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="row row-eq-height gutters-2">
+                        <div class="col-md-7">
+                            <fieldset class="scheduler-border">
+                                <legend class="scheduler-border">Count Details:</legend>
+                                <div class="row no-gutters">
+                                    <div class="col-md-11">
+                                        <div class="row gutters-2">
+                                            <div class="col-md-6" style="border-right: 1px solid #f2f2f2;">
+                                                <label class="form-control-label" for="field_epi">Warp&nbsp; <fa-icon [icon]="'plus-circle'" style="cursor: pointer; color: #d92419;" (click)="addWrapWeft();"></fa-icon></label>
+                                                <div class="row gutters-2 card-margin-bottom-5" *ngFor="let fabricCreationWarpDetail of fabricCreationMaster.fabricCreationWarpDetails;let indexWrap=index">
+                                                    <div class="col-md-3"><input type="text" name="warp1{{indexWrap}}" id="warp1{{indexWrap}}" class="form-control form-control-sm" [(ngModel)]="fabricCreationWarpDetail.warp1" (keyup)="fabricCoding();"/></div>
+                                                    <div class="col-md-1 text-center" style="font-size: 20px;">/</div>
+                                                    <div class="col-md-3"><input type="text" name="warp2{{indexWrap}}" id="warp2{{indexWrap}}" class="form-control form-control-sm" [(ngModel)]="fabricCreationWarpDetail.warp2" (keyup)="fabricCoding();"/></div>
+                                                    <div class="col-md-5"><select name="uom{{indexWrap}}" id="uom{{indexWrap}}"  class="form-control form-control-sm custom-select custom-select-sm"[(ngModel)]="fabricCreationWarpDetail.fabricUomMaster" (change)="fabricCoding();">
+                                                        <option [ngValue]="undefined" selected>Select Unit</option>
+                                                        <option [ngValue]="fabricUomMasterOption.id === fabricCreationWarpDetail.fabricUomMaster?.id ? fabricCreationWarpDetail.fabricUomMaster : fabricUomMasterOption" *ngFor="let fabricUomMasterOption of fabricuommasters;">{{fabricUomMasterOption.description}}</option>
+                                                    </select></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-control-label" for="field_epi">Weft</label>
+                                                <div class="row gutters-2 card-margin-bottom-5" *ngFor="let fabricCreationWeftDetail of fabricCreationMaster.fabricCreationWeftDetails; let indexWeft=index">
+                                                    <div class="col-md-3"><input type="text" name="weft1{{indexWeft}}" id="weft1{{indexWeft}}"  class="form-control form-control-sm" [(ngModel)]="fabricCreationWeftDetail.weft1" (keyup)="fabricCoding();"/></div>
+                                                    <div class="col-md-1 text-center" style="font-size: 20px;">/</div>
+                                                    <div class="col-md-3"><input type="text" name="weft2{{indexWeft}}" id="weft2{{indexWeft}}"  class="form-control form-control-sm" [(ngModel)]="fabricCreationWeftDetail.weft2" (keyup)="fabricCoding();"/></div>
+                                                    <div class="col-md-5"><select name="uomWeft{{indexWeft}}" id="uomWeft{{indexWeft}}"  class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="fabricCreationWeftDetail.fabricUomMaster" (change)="fabricCoding();">
+                                                        <option [ngValue]="undefined" selected>Select Unit</option>
+                                                        <option [ngValue]="fabricUomMasterOption.id === fabricCreationWeftDetail.fabricUomMaster?.id ? fabricCreationWeftDetail.fabricUomMaster : fabricUomMasterOption" *ngFor="let fabricUomMasterOption of fabricuommasters;">{{fabricUomMasterOption.description}}</option>
+                                                    </select></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="row gutters-2">
+                                            <div class="col-md-12">
+                                                <label class="form-control-label">&nbsp;</label>
+                                                <div class="row gutters-2 card-margin-bottom-5" *ngFor="let fabricCreationWarpDetail of fabricCreationMaster.fabricCreationWarpDetails; let index = index;">
+                                                    <fa-icon [icon]="'trash-alt'" style="font-size: 20px; cursor: pointer;" (click)="removeWrapWeft(index);"></fa-icon>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-2">
+                            <fieldset class="scheduler-border">
+                                <legend class="scheduler-border">Construction:</legend>
+                                <div class="row gutters-2">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="field_epi">EPI</label>
+                                            <input type="number" class="form-control form-control-sm" name="epi" id="field_epi" [(ngModel)]="fabricCreationMaster.epi" (keyup)="fabricCoding();"/>
+                                            <label class="form-control-label" for="field_epi">&nbsp;</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="field_ppi">PPI</label>
+                                            <input type="number" class="form-control form-control-sm" name="ppi" id="field_ppi" [(ngModel)]="fabricCreationMaster.ppi" (keyup)="fabricCoding();"/>
+                                            <label class="form-control-label" for="field_epi">&nbsp;</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-3">
+                            <fieldset class="scheduler-border">
+                                <legend class="scheduler-border">Other Details:</legend>
+                                <div class="row gutters-2">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="field_oth">&nbsp;</label>
+                                            <input type="text" class="form-control form-control-sm" name="oth" id="field_oth" [(ngModel)]="fabricCreationMaster.oth" maxlength="50" (keyup)="fabricCoding();"/>
+                                            <label class="form-control-label" for="field_oth">&nbsp;</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="field_fabricOthersMaster">&nbsp;</label>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_fabricOthersMaster" name="fabricOthersMaster" [(ngModel)]="fabricCreationMaster.fabricOthersMaster" (change)="fabricCoding();">
+                                                <option [ngValue]="undefined">N/A</option>
+                                                <option [ngValue]="fabricOthersMasterOption.id === fabricCreationMaster.fabricOthersMaster?.id ? fabricCreationMaster.fabricOthersMaster : fabricOthersMasterOption" *ngFor="let fabricOthersMasterOption of fabricothersmasters;">{{fabricOthersMasterOption.description}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-sm">
+                                <thead>
+                                <tr>
+                                    <th style="width: 70%">Content&nbsp; <fa-icon [icon]="'plus-circle'" style="cursor: pointer; color: #d92419;" (click)="addContent();"></fa-icon></th>
+                                    <th>Percentage</th>
+                                    <th style="width: 30px;"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let fabricCreationContentDetail of fabricCreationMaster.fabricCreationContentDetails;let indexContent=index">
+                                    <td>
+                                        <div class="input-group input-group-sm" style="margin-bottom: -5px;">
+                                            <input type="text" name="contentDesc{{indexContent}}" id="contentDesc{{indexContent}}" class="form-control form-control-sm" [value]="fabricCreationContentDetail.fabricContentMaster ? fabricCreationContentDetail.fabricContentMaster.description : ''" readonly/>
+                                            <div class="input-group-append input-group-append-top">
+                                                <button type="button" class="btn btn-sm btn-secondary" (click)="searchContent(indexContent)"><fa-icon [icon]="'search'"></fa-icon></button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><input type="number" name="percentage{{indexContent}}" id="percentage{{indexContent}}" class="form-control form-control-sm" [(ngModel)]="fabricCreationContentDetail.percentage"  (keyup)="fabricCoding();"/></td>
+                                    <td><fa-icon [icon]="'trash-alt'" style="font-size: 20px; cursor: pointer;" (click)="removeContent(indexContent);"></fa-icon></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--div>
+                        <div class="form-group" [hidden]="!fabricCreationMaster.id">
+                            <label for="id">ID</label>
+                            <input type="text" class="form-control" id="id" name="id"
+                                   [(ngModel)]="fabricCreationMaster.id" readonly />
+                        </div>
+
+                    </div-->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

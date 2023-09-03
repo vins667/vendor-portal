@@ -1,0 +1,56 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Document Master</span> {{documentMaster.id}}</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="documentMaster">
+                    <div class="row">
+                        <div class="col-md-4"><dt><span>Document Name</span></dt></div>
+                        <div class="col-md-8">
+                            <dd>
+                                <span>{{documentMaster.documentName}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"><dt><span>Document Description</span></dt></div>
+                        <div class="col-md-8">
+                            <dd>
+                                <span>{{documentMaster.documentDescription}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"><dt><span>Required Field</span></dt></div>
+                        <div class="col-md-8">
+                            <dd>
+                                <span>{{documentMaster.requiredField}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"><dt><span>Status</span></dt></div>
+                        <div class="col-md-8">
+                            <dd>
+                                <span *ngIf="documentMaster.status=='Y'">Active</span>
+                                <span *ngIf="documentMaster.status=='N'">Inactive</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/document-master', documentMaster.id, 'edit']"
+                            class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

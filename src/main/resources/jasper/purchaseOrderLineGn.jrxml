@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="purchaseOrderLine" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="11a1f513-10ab-443d-8ece-0c607d03d812">
+	<parameter name="currencycode" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="purchaseordercode" class="java.lang.String"/>
+	<field name="purchaseordercompanycode" class="java.lang.String"/>
+	<field name="purchaseordercountercode" class="java.lang.String"/>
+	<field name="projectcode" class="java.lang.String"/>
+	<field name="salesordercode" class="java.lang.String"/>
+	<field name="orderline" class="java.lang.String"/>
+	<field name="itemcode" class="java.lang.String"/>
+	<field name="itemdesc" class="java.lang.String"/>
+	<field name="tariffcode" class="java.lang.Double"/>
+	<field name="grossvaluewoheader" class="java.math.BigDecimal"/>
+	<field name="uom" class="java.lang.String"/>
+	<field name="qty" class="java.math.BigDecimal"/>
+	<field name="price" class="java.math.BigDecimal"/>
+	<field name="netvalue" class="java.math.BigDecimal"/>
+	<field name="igsttaxpers" class="java.math.BigDecimal"/>
+	<field name="igstvalue" class="java.math.BigDecimal"/>
+	<field name="sgsttaxpers" class="java.math.BigDecimal"/>
+	<field name="sgstvalue" class="java.math.BigDecimal"/>
+	<field name="cgstpers" class="java.math.BigDecimal"/>
+	<field name="cgstvalue" class="java.math.BigDecimal"/>
+	<field name="freight" class="java.math.BigDecimal"/>
+	<field name="discount" class="java.math.BigDecimal"/>
+	<variable name="rowcount" class="java.lang.Integer" resetType="Group" resetGroup="purchaseLine" calculation="Count">
+		<variableExpression><![CDATA[$F{purchaseordercode}]]></variableExpression>
+	</variable>
+	<variable name="netvalue1" class="java.math.BigDecimal" resetType="Group" resetGroup="purchaseLine" calculation="Sum">
+		<variableExpression><![CDATA[$F{netvalue}]]></variableExpression>
+	</variable>
+	<variable name="igstvalue1" class="java.math.BigDecimal" resetType="Group" resetGroup="purchaseLine" calculation="Sum">
+		<variableExpression><![CDATA[$F{igstvalue}]]></variableExpression>
+	</variable>
+	<variable name="sgstvalue1" class="java.math.BigDecimal" resetType="Group" resetGroup="purchaseLine" calculation="Sum">
+		<variableExpression><![CDATA[$F{sgstvalue}]]></variableExpression>
+	</variable>
+	<variable name="cgstvalue1" class="java.math.BigDecimal" resetType="Group" resetGroup="purchaseLine" calculation="Sum">
+		<variableExpression><![CDATA[$F{cgstvalue}]]></variableExpression>
+	</variable>
+	<variable name="qty1" class="java.math.BigDecimal" resetType="Group" resetGroup="purchaseLine" calculation="Sum">
+		<variableExpression><![CDATA[$F{qty}]]></variableExpression>
+	</variable>
+	<variable name="grossvaluewoheader1" class="java.math.BigDecimal" resetType="Group" resetGroup="purchaseLine" calculation="Sum">
+		<variableExpression><![CDATA[$F{grossvaluewoheader}]]></variableExpression>
+	</variable>
+	<group name="purchaseLine">
+		<groupExpression><![CDATA[$F{purchaseordercode}]]></groupExpression>
+	</group>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="25" height="12" uuid="45cc30ba-b2d8-4fd1-82f2-d0665d2626bc">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{rowcount}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="25" y="0" width="245" height="12" uuid="cd022e81-864d-40f4-952c-70280f5ba3fb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itemdesc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.###;(###0.###-)" isBlankWhenNull="true">
+				<reportElement x="270" y="0" width="40" height="12" uuid="c2c8c3fc-62f0-4fe6-b6c4-9b7cd4545786">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tariffcode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="0" width="35" height="12" uuid="a0965287-c91c-41a7-87b8-ef5df08b3c45">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{uom}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;(#,##0.00#-)" isBlankWhenNull="true">
+				<reportElement x="345" y="0" width="60" height="12" uuid="946242e2-fdbc-444c-b7f8-fd0e65168b70">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00###;(#,##0.00###-)" isBlankWhenNull="true">
+				<reportElement x="440" y="0" width="60" height="12" uuid="f8987e06-883e-48bf-b1ec-e08e8f438b07">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="0" width="35" height="12" uuid="e2b5d578-7a70-45c6-8743-7191304b25b2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{currencycode}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00###;(#,##0.00###-)" isBlankWhenNull="true">
+				<reportElement x="500" y="0" width="60" height="12" uuid="b4991063-c77e-4b63-ad4a-de8ffcfd34dd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{netvalue}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;(#,##0.00#-)" isBlankWhenNull="true">
+				<reportElement x="560" y="0" width="25" height="12" uuid="8fa44e43-f7df-40df-ba8d-de2c003ce25e">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cgstpers}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;(#,##0.00#-)" isBlankWhenNull="true">
+				<reportElement x="585" y="0" width="45" height="12" uuid="1b13be50-3144-4fce-ba12-6a0eeebeb20a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cgstvalue}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;(#,##0.00#-)" isBlankWhenNull="true">
+				<reportElement x="630" y="0" width="25" height="12" uuid="b6e668f8-b281-41c5-a3a2-066abd02cda7">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sgsttaxpers}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;(#,##0.00#-)" isBlankWhenNull="true">
+				<reportElement x="655" y="0" width="45" height="12" uuid="1852de88-4568-4e68-8510-935efa50ec27">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sgstvalue}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;(#,##0.00#-)" isBlankWhenNull="true">
+				<reportElement x="700" y="0" width="25" height="12" uuid="7e483fb5-7166-4a81-a02b-51630a262232">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{igsttaxpers}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;(#,##0.00#-)" isBlankWhenNull="true">
+				<reportElement x="725" y="0" width="45" height="12" uuid="3e2a1195-f86c-407f-bd41-989f940660bb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{igstvalue}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00###;(#,##0.00###-)" isBlankWhenNull="true">
+				<reportElement x="770" y="0" width="61" height="12" uuid="208e18b2-689f-458a-be39-64ad7493f115">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grossvaluewoheader}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

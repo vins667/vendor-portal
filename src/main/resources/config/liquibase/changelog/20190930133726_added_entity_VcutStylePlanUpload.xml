@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    
+    <!--
+        Added the entity VcutStylePlanUpload.
+    -->
+    <changeSet id="20190930133726-1" author="jhipster">
+        <createTable tableName="vcut_style_plan_upload">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="factory" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="floor" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="plan_date" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="style" type="varchar(15)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="po_no" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="color_name" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="buyer_name" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="quantity" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="kick_off" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="smv" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="days" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="operators" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="helpers" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="item_name" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="working_hours" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="merchant_name" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="merchant" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="line_no" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="active_plan" type="boolean">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="create_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="vcut_session_master_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="vcut_plan_change_master_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="vcut_style_plan_upload_seq" incrementBy="1" cycle="false"/>
+
+        <dropDefaultValue tableName="vcut_style_plan_upload" columnName="plan_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="vcut_style_plan_upload" columnName="created_date" columnDataType="datetime"/>
+    </changeSet>
+</databaseChangeLog>

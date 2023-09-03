@@ -1,0 +1,99 @@
+<div class="card">
+    <div class="body">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h5 id="jhi-template-master-heading">
+                <span>Template Master</span>
+            </h5>
+            <hr/>
+            <div class="row">
+                <div class="col-10">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!templateMaster.id">
+                            <div class="col-md-1">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-11">
+                                <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="templateMaster.id" readonly/>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-1">
+                                <label class="form-control-label" for="field_templateName">Template</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control form-control-sm text-uppercase" name="templateName" id="field_templateName" [(ngModel)]="templateMaster.templateName" maxlength="100" required/>
+                                <div
+                                    [hidden]="!(editForm.controls.templateName?.dirty && editForm.controls.templateName?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.templateName?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.templateName?.errors?.maxlength">
+                                        This field cannot be longer than 100 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="form-control-label" for="field_templateName">Category</label>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" id="field_categoryMaster" name="categoryMaster" [(ngModel)]="templateMaster.categoryMaster"  required>
+                                    <option *ngIf="!editForm.value.categoryMaster" [ngValue]="null" selected></option>
+                                    <option [ngValue]="categoryMasterOption.id === templateMaster.categoryMaster?.id ? templateMaster.categoryMaster : categoryMasterOption" *ngFor="let categoryMasterOption of categorymasters;">{{categoryMasterOption.description}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-12">
+                                <table class="table table-sm table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="align-middle"><span>Specification</span></th>
+                                        <th class="align-center align-middle"><span>Required</span></th>
+                                        <th class="align-center align-middle"><span>Show&nbsp;In&nbsp;Bidding</span></th>
+                                        <th class="align-middle"><span>Field Type</span></th>
+                                        <th class="align-middle"><span>Values</span><span class="font-italic" style="font-size: 10px;">(Seperate by comma)</span></th>
+                                        <th class="button-column"><fa-icon [icon]="'plus-circle'" style="cursor: pointer" (click)="addRow();"></fa-icon></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let templateMasterDetail of templateMaster.templateDetails; let index = index;">
+                                        <td><input type="text" class="form-control form-control-sm text-uppercase" name="specificationCode_{{index}}" id="field_specificationCode_{{index}}" [(ngModel)]="templateMasterDetail.specification" [required]="(templateMasterDetail.id ? 'true' : 'false')"/></td>
+                                        <td class="align-center align-middle"><input  type="checkbox" style="width: 15px; height: 15px;" name="required_{{index}}" id="field_required_{{index}}" [(ngModel)]="templateMasterDetail.required"/></td>
+                                        <td class="align-center align-middle"><input  type="checkbox" style="width: 15px; height: 15px;" name="showInBid_{{index}}" id="field_showInBid_{{index}}" [(ngModel)]="templateMasterDetail.showInBid"/></td>
+                                        <td>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm"  name="fieldType_{{index}}" id="field_fieldType_{{index}}" [(ngModel)]="templateMasterDetail.fieldType" (change)="selected(index)" [required]="(templateMasterDetail.id || templateMasterDetail.specification ? 'true' : 'false')">
+                                                <option value="T">TEXTFIELD</option>
+                                                <option value="D">DROPDOWN</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" name="fieldValue_{{index}}" id="field_fieldValue_{{index}}" [(ngModel)]="templateMasterDetail.fieldValue" [readOnly]="!templateMasterDetail.fieldType || templateMasterDetail.fieldType !== 'D'" [required]="(templateMasterDetail.fieldType && templateMasterDetail.fieldType==='D'? 'true' : 'false')"/>
+                                        </td>
+                                        <td class="button-column">
+                                            <!--fa-icon *ngIf="templateMasterDetail.fieldType && templateMasterDetail.fieldType==='D'" (click)="viewRow(index)" [icon]="'eye'" style="cursor: pointer;" class="text-info"></fa-icon-->
+                                            <fa-icon (click)="removeRow(index)" [icon]="'trash-alt'" style="cursor: pointer;" class="text-danger"></fa-icon>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-12">
+                                <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round" (click)="previousState()">
+                                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                                </button>
+                                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

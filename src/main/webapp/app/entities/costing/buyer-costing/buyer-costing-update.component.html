@@ -1,0 +1,177 @@
+<div class="card">
+    <div class="body">
+        <h5 id="hi-buyer-costing-heading">Buyer Costing</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-12">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!editForm.get('id').value">
+                            <div class="col-md-2">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control form-control-sm" id="id" name="id" ormControlName="id"  readonly />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_orderQty">Order Qty</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control form-control-sm" name="orderQty" id="field_orderQty" formControlName="orderQty"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_smv">SMV</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control form-control-sm" name="smv" id="field_smv" formControlName="smv"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_subTotal">Sub Total</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control form-control-sm" name="subTotal" id="field_subTotal" formControlName="subTotal"/>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_margin">Margin</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control form-control-sm"  name="margin" id="field_margin" formControlName="margin"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_sellingPrice1">Selling Price(In INR)</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number"  class="form-control form-control-sm" name="sellingPrice1" id="field_sellingPrice1" formControlName="sellingPrice1"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_sellingPrice2">Selling Price(In Curr.)</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control form-control-sm" name="sellingPrice2" id="field_sellingPrice2" formControlName="sellingPrice2"/>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_wastage">Wastage</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control form-control-sm" name="wastage" id="field_wastage" formControlName="wastage"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_currency">Currency</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control form-control-sm" name="currency" id="field_currency" formControlName="currency"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_convRate">Conv.Rate</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control form-control-sm" name="convRate" id="field_convRate" formControlName="convRate"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset class="scheduler-border-margin">
+                                    <legend class="scheduler-border">Details</legend>
+                                    <div class="row gutters-2">
+                                        <div class="col-md-12">
+                                            <table class="table table-sm table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>&nbsp;</th>
+                                                        <th>&nbsp;</th>
+                                                        <th>&nbsp;</th>
+                                                        <th><span>Item</span></th>
+                                                        <th><span>Description</span></th>
+                                                        <th class="align-center"><span>UOM</span></th>
+                                                        <th class="align-right"><span>Avg</span></th>
+                                                        <th class="align-right"><span>Rate</span></th>
+                                                        <th class="align-right"><span>Shrinkage %</span></th>
+                                                        <th class="align-right"><span>Process.Rate</span></th>
+                                                        <th class="align-right"><span>Amount</span></th>
+                                                        <th class="align-right"><span>Amt.Wastage</span></th>
+                                                        <th class="align-right"><span>Curr.Amt</span></th>
+                                                        <th class="align-right">&nbsp;</th>
+                                                    </tr>
+                                                </thead>
+                                                 <tbody>
+                                                    <ng-container *ngFor="let buyerCostingDetail of buyerCostingDetails; let index = index;">
+                                                        <tr>
+                                                            <td style="font-weight:bold;">
+                                                                <fa-icon [icon]="'plus-circle'" style="color: #00FF00; cursor: pointer;" (click)="changeExpend(buyerCostingDetail, true);" *ngIf="buyerCostingDetail && !buyerCostingDetail.expend"></fa-icon>
+                                                                <fa-icon [icon]="'minus-circle'"style="color: #FF0000; cursor: pointer;" (click)="changeExpend(buyerCostingDetail, false);" *ngIf="buyerCostingDetail && buyerCostingDetail.expend && buyerCostingDetail.expend === true"></fa-icon>
+                                                            </td>
+                                                            <td colspan="9">{{buyerCostingDetail.groupCode}}</td>
+                                                            <td class="align-right" style="width: 100px;"><input type="text" class="form-control form-control-sm" id="totalAmount_{{index}}" name="totalAmount_{{index}}" [(ngModel)]="buyerCostingDetail.totalAmount" [ngModelOptions]="{standalone: true}" style="text-align: right;" readonly/></td>
+                                                            <td class="align-right" style="width: 100px;"><input type="text" class="form-control form-control-sm" id="totalAmtwast_{{index}}" name="totalAmtwast_{{index}}" [(ngModel)]="buyerCostingDetail.totalAmtwast" [ngModelOptions]="{standalone: true}" style="text-align: right;" readonly/></td>
+                                                            <td class="align-right" style="width: 100px;"><input type="text" class="form-control form-control-sm" id="totalCurrAmt_{{index}}" name="totalCurrAmt_{{index}}" [(ngModel)]="buyerCostingDetail.totalCurrAmt" [ngModelOptions]="{standalone: true}" style="text-align: right;" readonly/></td>
+                                                            <td class="button-column"><fa-icon  *ngIf="buyerCostingDetail.expend && buyerCostingDetail.expend === true" [icon]="'plus'" style="color: #00FF00; cursor: pointer;" (click)="addRow(buyerCostingDetail);"></fa-icon></th></fa-icon></td>
+                                                        </tr>
+                                                        <ng-container *ngIf="buyerCostingDetail.expend && buyerCostingDetail.expend === true">
+                                                          <tr style="background-color: white;" *ngFor="let buyerCostingSubDetail of buyerCostingDetail.buyerCostingSubDetails; let h = index;">
+                                                                <th colspan="3">&nbsp;</th>
+                                                                <td>
+                                                                    <select  type="text" name="itemType_{{index}}_{{h}}" id="itemType_{{index}}_{{h}}" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="buyerCostingSubDetail.itemType" [ngModelOptions]="{standalone: true}" (change)="getDecription(buyerCostingSubDetail);" style="width:80px;">
+                                                                        <option [value]="null">-select-</option>
+                                                                        <option *ngFor="let costingGroupDetail of buyerCostingSubDetail.costingGroupDetails;" [value]="costingGroupDetail.code">{{costingGroupDetail.code}}</option> 
+                                                                    </select>
+                                                                </td>
+                                                                <td style="width:200px;"><input name="description_{{index}}_{{h}}" id="description_{{index}}_{{h}}" [(ngModel)]="buyerCostingSubDetail.description" type="text" class="form-control form-control-sm text-uppercase"  [ngbTypeahead]="search"  [ngModelOptions]="{standalone: true}"  [resultFormatter]="formatter" [inputFormatter]="formatter" [disabled]="!buyerCostingSubDetail.itemType"/></td>
+                                                                <td style="width: 150px;">
+                                                                    <select  type="text" name="umo_{{index}}_{{h}}" id="umo_{{index}}_{{h}}" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="buyerCostingSubDetail.umo" [ngModelOptions]="{standalone: true}">
+                                                                        <option *ngFor="let unitOfMeasure of buyerCostingSubDetail.unitOfMeasures;" [value]="unitOfMeasure.code">{{unitOfMeasure.longdescription}}</option> 
+                                                                    </select>
+                                                                </td>
+                                                                <td class="align-right" style="width: 100px;"><input name="avg_{{index}}_{{h}}" id="avg_{{index}}_{{h}}"  type="number" class="form-control form-control-sm" [(ngModel)]="buyerCostingSubDetail.avg" [ngModelOptions]="{standalone: true}" style="text-align: right;" (keyup)="amountCalculate();"/></td>
+                                                                <td class="align-right" style="width: 100px;"><input name="rate_{{index}}_{{h}}" id="rate_{{index}}_{{h}}"  type="number" class="form-control form-control-sm" [(ngModel)]="buyerCostingSubDetail.rate" [ngModelOptions]="{standalone: true}" style="text-align: right;" (keyup)="amountCalculate();"/></td>
+                                                                <td class="align-right" style="width: 100px;"><input name="shrinkage_{{index}}_{{h}}" id="shrinkage_{{index}}_{{h}}"  type="number" class="form-control form-control-sm" [(ngModel)]="buyerCostingSubDetail.shrinkage" [ngModelOptions]="{standalone: true}" style="text-align: right;" (keyup)="amountCalculate();"/></td>
+                                                                <td class="align-right" style="width: 100px;"><input name="processrate_{{index}}_{{h}}" id="processrate_{{index}}_{{h}}"  type="number" class="form-control form-control-sm" [(ngModel)]="buyerCostingSubDetail.processrate" [ngModelOptions]="{standalone: true}" style="text-align: right;" (keyup)="amountCalculate();"/></td>
+                                                                <td class="align-right" style="width: 100px;"><input name="amount_{{index}}_{{h}}" id="amount_{{index}}_{{h}}"  type="number" class="form-control form-control-sm" [(ngModel)]="buyerCostingSubDetail.amount" [ngModelOptions]="{standalone: true}" style="text-align: right;" readonly/></td>
+                                                                <td class="align-right" style="width: 100px;"><input name="amtwast_{{index}}_{{h}}" id="amtwast_{{index}}_{{h}}"  type="number" class="form-control form-control-sm" [(ngModel)]="buyerCostingSubDetail.amtwast" [ngModelOptions]="{standalone: true}" style="text-align: right;" readonly/></td>
+                                                                <td class="align-right" style="width: 100px;"><input name="curramt_{{index}}_{{h}}" id="curramt_{{index}}_{{h}}"  type="number" class="form-control form-control-sm" [(ngModel)]="buyerCostingSubDetail.curramt" [ngModelOptions]="{standalone: true}" style="text-align: right;" readonly/></td>
+                                                                <td class="button-column"><fa-icon (click)="removeRow(buyerCostingDetail,h)" [icon]="'trash-alt'" style="cursor: pointer;" class="text-danger"></fa-icon></td>
+                                                           </tr>
+                                                            <tr style="background-color:#CFCFCF">
+                                                                <td style="padding-left: 10px;font-weight: bold;" colspan="10">Total</td>
+                                                                <td class="align-right" style="width: 100px;"><input type="text" class="form-control form-control-sm" id="totalAmount_{{index}}" name="totalAmount_{{index}}" [(ngModel)]="buyerCostingDetail.totalAmount" [ngModelOptions]="{standalone: true}" style="text-align: right;" readonly/></td>
+                                                                <td class="align-right" style="width: 100px;"><input type="text" class="form-control form-control-sm" id="totalAmtwast_{{index}}" name="totalAmtwast_{{index}}" [(ngModel)]="buyerCostingDetail.totalAmtwast" [ngModelOptions]="{standalone: true}" style="text-align: right;" readonly/></td>
+                                                                <td class="align-right" style="width: 100px;"><input type="text" class="form-control form-control-sm" id="totalCurrAmt_{{index}}" name="totalCurrAmt_{{index}}" [(ngModel)]="buyerCostingDetail.totalCurrAmt" [ngModelOptions]="{standalone: true}" style="text-align: right;" readonly/></td>
+                                                                <td></td>
+                                                           </tr>
+                                                            <!-- <tr style="background-color:#CFCFCF">
+                                                                <td style="padding-left: 10px;font-weight: bold;" colspan="10">Total</td>
+                                                                <td class="align-right" style="padding-right: 25px;font-weight: bold;">{{buyerCostingDetail.totalAmount  | number:'1.2-2'}}</td>
+                                                                <td class="align-right" style="padding-right: 25px;font-weight: bold;">{{buyerCostingDetail.totalAmtwast | number:'1.2-2'}}</td>
+                                                                <td class="align-right" style="padding-right: 25px;font-weight: bold;">{{buyerCostingDetail.totalCurrAmt | number:'1.2-2'}}</td>
+                                                                <td></td>
+                                                           </tr> -->
+                                                        </ng-container> 
+                                                    </ng-container>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" id="cancel-save" class="btn btn-sm btn-round btn-secondary"  (click)="previousState()">
+                                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                                </button>
+                                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-sm btn-round btn-blush">
+                                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

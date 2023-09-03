@@ -1,0 +1,138 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="saveConfirm()">
+    <div class="card">
+        <div class="card-header body pb-1">
+            <div class="row">
+                <div class="col-md-7">
+                    <h6 id="jhi-asset-master-heading" data-cy="SalesOrderClosingCreateUpdateHeading">Create or edit a
+                        Sales Order Closing</h6>
+                </div>
+                <div class="col-md-5">
+                    <div class="text-right">
+                        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton"
+                                class="m-0 btn btn-xs btn-secondary btn-round" (click)="previousState()">
+                            <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" class=" btn btn-xs btn-blush btn-round" *ngIf="salesOrderClosing.status !== 'Closed'">
+                            <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body body">
+            <table class="table table-sm" aria-describedby="page-heading">
+                <thead>
+                <tr>
+                    <th scope="col" style="width: 20px;"><span>&nbsp;</span></th>
+                    <th scope="col"><span>Project</span></th>
+                    <th scope="col"><span>Style</span></th>
+                    <th scope="col"><span>Customer</span></th>
+                    <th scope="col" class="text-right"><span>Order Quantity</span></th>
+                    <th scope="col" class="text-right"><span>Tolerance%</span></th>
+                    <th scope="col" class="text-right"><span>Total Quantity</span></th>
+                    <th scope="col" class="text-right"><span>Shipped Quantity</span></th>
+                    <th scope="col" class="text-right"><span>Shipped%</span></th>
+                    <th scope="col"><span>Status</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngIf="salesOrderClosing" data-cy="entityTable">
+                    <td>
+                        <fa-icon [icon]="'plus-circle'" class="text-success" *ngIf="salesOrderClosing.isChecked" (click)="checked(false)"></fa-icon>
+                        <fa-icon [icon]="'minus-circle'" class="text-danger" *ngIf="!salesOrderClosing.isChecked" (click)="checked(true)"></fa-icon>
+                    </td>
+                    <td>
+                        {{ salesOrderClosing.projectCode }}
+                    </td>
+                    <td>{{ salesOrderClosing.style }}</td>
+                    <td>{{ salesOrderClosing.customerName }}</td>
+                    <td class="text-right">{{ salesOrderClosing.orderQuantity }}</td>
+                    <td class="text-right">{{ salesOrderClosing.tolerance | number: '1.2-2'}}%</td>
+                    <td class="text-right">{{ salesOrderClosing.totalQuantity }}</td>
+                    <td class="text-right">{{ salesOrderClosing.shippedQuantity }}</td>
+                    <td class="text-right">{{ salesOrderClosing.shippedPercentage | number: '1.2-2'}}%</td>
+                    <td>{{ salesOrderClosing.status }}</td>
+                </tr>
+                <tr *ngIf="!salesOrderClosing.isChecked">
+                    <td>&nbsp;</td>
+                    <td colspan="9">
+                        <table class="table table-sm mb-0" aria-describedby="page-heading">
+                            <thead>
+                            <tr>
+                                <th scope="col" style="width: 20px;"><span>&nbsp;</span></th>
+                                <th scope="col"><span>SO</span></th>
+                                <th scope="col"><span>Date</span></th>
+                                <th scope="col"><span>Style</span></th>
+                                <th scope="col" class="text-right"><span>Order Quantity</span></th>
+                                <th scope="col" class="text-right"><span>Tolerance%</span></th>
+                                <th scope="col" class="text-right"><span>Total Quantity</span></th>
+                                <th scope="col" class="text-right"><span>Shipped Quantity</span></th>
+                                <th scope="col" class="text-right"><span>Shipped%</span></th>
+                                <th scope="col"><span>Close</span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container  *ngFor="let salesOrderClosingHeader of salesOrderClosing.salesOrderClosingHeaderBeans; let index = index;">
+                                    <tr data-cy="entityTable">
+                                        <td>
+                                            <fa-icon [icon]="'plus-circle'" class="text-success" *ngIf="salesOrderClosingHeader.isChecked" (click)="checked(false, salesOrderClosingHeader)"></fa-icon>
+                                            <fa-icon [icon]="'minus-circle'" class="text-danger" *ngIf="!salesOrderClosingHeader.isChecked" (click)="checked(true, salesOrderClosingHeader)"></fa-icon>
+                                        </td>
+                                        <td>{{ salesOrderClosingHeader.salesordercode }}</td>
+                                        <td>{{ salesOrderClosingHeader.salesorderdate }}</td>
+                                        <td>{{ salesOrderClosingHeader.style }}</td>
+                                        <td class="text-right">{{ salesOrderClosingHeader.orderQuantity }}</td>
+                                        <td class="text-right">{{ salesOrderClosingHeader.tolerance | number: '1.2-2'}}%</td>
+                                        <td class="text-right">{{ salesOrderClosingHeader.totalQuantity }}</td>
+                                        <td class="text-right">{{ salesOrderClosingHeader.shippedQuantity }}</td>
+                                        <td class="text-right">{{ salesOrderClosingHeader.shippedPercentage | number: '1.2-2'}}%</td>
+                                        <td><input type="checkbox" name="status{{index}}" id="status{{index}}"  [(ngModel)]="salesOrderClosingHeader.status"/></td>
+                                    </tr>
+                                    <tr *ngIf="!salesOrderClosingHeader.isChecked">
+                                        <td>&nbsp;</td>
+                                        <td colspan="9">
+                                            <table class="table table-sm mb-0" aria-describedby="page-heading">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col"><span>Line</span></th>
+                                                    <th scope="col"><span>Sub&nbsp;Line</span></th>
+                                                    <th scope="col"><span>Style</span></th>
+                                                    <th scope="col"><span>Color</span></th>
+                                                    <th scope="col"><span>Size</span></th>
+                                                    <th scope="col" class="text-right"><span>Order Quantity</span></th>
+                                                    <th scope="col" class="text-right"><span>Tolerance%</span></th>
+                                                    <th scope="col" class="text-right"><span>Total Quantity</span></th>
+                                                    <th scope="col" class="text-right"><span>Shipped Quantity</span></th>
+                                                    <th scope="col" class="text-right"><span>Shipped%</span></th>
+                                                    <th scope="col"><span>Status</span></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let salesOrderClosingDetail of salesOrderClosingHeader.salesOrderClosingDetailsBeans" data-cy="entityTable">
+                                                    <td>{{ salesOrderClosingDetail.orderline }}</td>
+                                                    <td>{{ salesOrderClosingDetail.ordersubline }}</td>
+                                                    <td>{{ salesOrderClosingDetail.style }}</td>
+                                                    <td>{{ salesOrderClosingDetail.styleColor }}</td>
+                                                    <td>{{ salesOrderClosingDetail.styleSize }}</td>
+                                                    <td class="text-right">{{ salesOrderClosingDetail.orderQuantity }}</td>
+                                                    <td class="text-right">{{ salesOrderClosingDetail.tolerance | number: '1.2-2'}}%</td>
+                                                    <td class="text-right">{{ salesOrderClosingDetail.totalQuantity }}</td>
+                                                    <td class="text-right">{{ salesOrderClosingDetail.shippedQuantity }}</td>
+                                                    <td class="text-right">{{ salesOrderClosingDetail.shippedPercentage | number: '1.2-2'}}%</td>
+                                                    <td>{{ salesOrderClosingDetail.status }}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

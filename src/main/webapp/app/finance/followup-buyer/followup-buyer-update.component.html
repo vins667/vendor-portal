@@ -1,0 +1,94 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <div class="card">
+        <div class="card-header body pb-1">
+            <div class="row">
+                <div class="col-md-7">
+                    <h6 id="jhi-followup-buyer-heading" data-cy="FollowupBuyerCreateUpdateHeading">Create or edit a
+                        Buyer&nbsp;Master</h6>
+                </div>
+                <div class="col-md-5">
+                    <div class="text-right">
+                        <button type="button" id="cancel-save" class="m-0 btn btn-xs btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-xs btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body body">
+            <div class="row" [hidden]="!editForm.get('id').value">
+                <div class="col-md-1">
+                <label for="id">ID</label>
+                </div>
+                <div class="col-md-5">
+                <input type="text" class="form-control form-control-xs" id="id" name="id" formControlName="id"
+                       readonly />
+            </div>
+            </div>
+            <div class="row" style="margin-top: 10px">
+                <div class="col-md-1">
+                    <label class="form-label">Buyer code</label>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" class="form-control form-control-xs text-uppercase" name="buyercode" id="field_buyercode"
+                           formControlName="buyercode"/>
+                    <div *ngIf="editForm.get('buyercode').invalid && (editForm.get('buyercode').dirty || editForm.get('buyercode').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('buyercode').errors.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('buyercode').errors.maxlength">
+                            This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-md-1">
+                    <label class="form-label">Buyer&nbsp;Name</label>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" class="form-control form-control-xs text-uppercase" name="buyername" id="field_buyername"
+                           formControlName="buyername"/>
+                    <div *ngIf="editForm.get('buyername').invalid && (editForm.get('buyername').dirty || editForm.get('buyername').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('buyername').errors.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('buyername').errors.maxlength">
+                            This field cannot be longer than 200 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-md-1">
+                    <label class="form-label">Status</label>
+                </div>
+                <div class="col-md-5"style="width: 425px;">
+                    <select name="flag" formControlName="flag" class="form-control form-control-xs custom-select custom-select-xs" >
+                        <option value="Y">Active</option>
+                        <option value="N">In-active</option>
+                    </select>
+                    <div *ngIf="editForm.get('flag').invalid && (editForm.get('flag').dirty || editForm.get('flag').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('flag').errors.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('flag').errors.maxlength">
+                            This field cannot be longer than 1 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

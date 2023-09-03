@@ -1,0 +1,59 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="modal-header bg-blush" style="padding: 10px;">
+        <h5 class="modal-title" id="myWorkerWorkFlowLabel">Leave Approval Flow
+            <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+        </h5>
+    </div>
+    <div class="modal-body">
+        <div *ngIf="!leaveMasterRemarksDetails.allowEntry && leaveMasterRemarksDetails.empCode && (leaveMasterRemarksDetails.status==='E' || leaveMasterRemarksDetails.status==='Q')" class="alert alert-danger" style="border-radius: 25px;">
+            <ng-container *ngIf="leaveMasterRemarksDetails.empCode">Pending with <strong>{{leaveMasterRemarksDetails.empName}}({{leaveMasterRemarksDetails.empCode}}):</strong></ng-container>
+        </div>
+        <div style="overflow-x: hidden; overflow-y: scroll;height: 300px;">
+            <div *ngFor="let leaveMasterRemarksDetail of leaveMasterRemarksDetails.leaveMasterRemarksDetails; index as i; even as isEven; odd as isOdd" [class]="(leaveMasterRemarksDetail.status && leaveMasterRemarksDetail.status==='C') ? 'alert alert-success' : (leaveMasterRemarksDetail.status && leaveMasterRemarksDetail.status==='R') ? 'alert alert-danger' : isEven ? 'alert alert-dark': 'alert alert-warning'" style="border-radius: 25px;">
+                <ng-container *ngIf="leaveMasterRemarksDetail.empCode"><strong>{{leaveMasterRemarksDetail.empName}}({{leaveMasterRemarksDetail.empCode}}):</strong></ng-container>
+                <p>{{leaveMasterRemarksDetail.remarks}}</p>
+                <span style="padding: 10px;">
+                    <span class="time-left font-weight-light font-italic" *ngIf="leaveMasterRemarksDetail.status">
+                        <ng-container *ngIf="leaveMasterRemarksDetail.status==='F'">Forward</ng-container>
+                        <ng-container *ngIf="leaveMasterRemarksDetail.status==='C'">Forward HR</ng-container>
+                        <ng-container *ngIf="leaveMasterRemarksDetail.status==='R'">Reject</ng-container>
+                    </span>
+                    <span class="time-right">{{leaveMasterRemarksDetail.status | date:'dd-MMM-yy hh:mm a'}}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer modal-footer-padding">
+        <div class="col-md-12" style="padding-left: 0;">
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Action</label>
+                    <select class="form-control form-control-sm custom-select custom-select-sm" id="field_authType" name="authType" [(ngModel)]="currentLeaveMasterRemarksDetail.status" maxlength="1" #authType  (ngModelChange)="onChangeAuthType(currentLeaveMasterRemarksDetail.status)" [disabled]="isValidForm()" style="font-size: 75%">
+                        <option *ngFor="let master of leaveMasterRemarksDetails.statusList;" [ngValue]="master.id">{{master.desc}}</option>
+                    </select>
+                </div>
+                <div class="col-md-4" [hidden]="true">
+                    <label>Forward To</label>
+                    <select class="form-control form-control-sm custom-select custom-select-sm" id="field_forwardCode" name="forwardCode" [(ngModel)]="currentLeaveMasterRemarksDetail.forwardCode" required [disabled]="isValidForm()" style="font-size: 75%">
+                        <option [ngValue]="null">Select</option>
+                        <option *ngFor="let master of masters;" [ngValue]="master.id">{{master.id}}-{{master.desc}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer modal-footer-padding-border">
+        <div class="input-group">
+            <input itype="text" class="form-control" placeholder="Write your message here..." name="remarks" id="field_remarks" [(ngModel)]="currentLeaveMasterRemarksDetail.remarks" required #field_remarks="ngModel" [disabled]="isValidForm()">
+            <span class="input-group-append">
+                <button type="submit" [disabled]="editForm.form.invalid || isSaving || isValidForm()" class="btn btn-blush">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Send</span>
+                </button>
+            </span>
+        </div>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()" style="margin-bottom: 10px;">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

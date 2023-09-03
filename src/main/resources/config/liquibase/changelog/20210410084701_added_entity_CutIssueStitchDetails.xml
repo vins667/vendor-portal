@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the entity CutIssueStitchDetails.
+    -->
+    <changeSet id="20210410084701-1" author="jhipster">
+        <createTable tableName="cut_issue_stitch_details">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="itemtypecode" type="varchar(3)">
+                <constraints nullable="true" />
+            </column>
+            <column name="decosubcode_01" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="decosubcode_02" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="decosubcode_03" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="decosubcode_04" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="decosubcode_05" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="decosubcode_06" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="decosubcode_07" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="decosubcode_08" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="decosubcode_09" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="decosubcode_10" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="logicalwarehousecode" type="varchar(8)">
+                <constraints nullable="true" />
+            </column>
+            <column name="physicalwarehousecode" type="varchar(8)">
+                <constraints nullable="true" />
+            </column>
+            <column name="whslocationwarehousezonecode" type="varchar(3)">
+                <constraints nullable="true" />
+            </column>
+            <column name="warehouselocationcode" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="qualitylevelcode" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="lotcode" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="containeritemtypecode" type="varchar(3)">
+                <constraints nullable="true" />
+            </column>
+            <column name="containersubcode_01" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="containerelementcode" type="varchar(15)">
+                <constraints nullable="true" />
+            </column>
+            <column name="elementssubcodekey" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="elementscode" type="varchar(15)">
+                <constraints nullable="true" />
+            </column>
+            <column name="customertype" type="varchar(1)">
+                <constraints nullable="true" />
+            </column>
+            <column name="customercode" type="varchar(8)">
+                <constraints nullable="true" />
+            </column>
+            <column name="suppliertype" type="varchar(1)">
+                <constraints nullable="true" />
+            </column>
+            <column name="suppliercode" type="varchar(8)">
+                <constraints nullable="true" />
+            </column>
+            <column name="projectcode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="baseprimaryunitcode" type="varchar(3)">
+                <constraints nullable="true" />
+            </column>
+            <column name="baseprimaryquantityunit" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="basesecondaryunitcode" type="varchar(3)">
+                <constraints nullable="true" />
+            </column>
+            <column name="basesecondaryquantityunit" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="packagingcode" type="varchar(3)">
+                <constraints nullable="true" />
+            </column>
+            <column name="packagingquantityunit" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="bundle_code" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="start_piece" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="end_piece" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="stocktransactionid" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="createdby" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="createddate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="lastupdatedby" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="lastupdateddate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="cut_plan_issue_stitch_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="cut_plan_bundle_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="cut_issue_stitch_details_seq" incrementBy="1" cycle="false"/>
+        <dropDefaultValue tableName="cut_issue_stitch_details" columnName="createddate" columnDataType="datetime"/>
+        <dropDefaultValue tableName="cut_issue_stitch_details" columnName="lastupdateddate" columnDataType="datetime"/>
+    </changeSet>
+</databaseChangeLog>

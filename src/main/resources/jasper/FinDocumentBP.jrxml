@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FinDocumentRpt" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6a48d542-4593-4c4d-98db-c5398874b955">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["E:\\vamaniapp\\new\\datatexbi\\src\\main\\resources\\config\\jasper"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_CONN" class="java.sql.Connection"/>
+	<parameter name="documentcode" class="java.lang.String"/>
+	<parameter name="paymentReq" class="java.lang.String"/>
+	<parameter name="createdby" class="java.lang.String"/>
+	<parameter name="createddate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="financialyearcode" class="java.lang.String"/>
+	<field name="businessunit" class="java.lang.String"/>
+	<field name="division" class="java.lang.String"/>
+	<field name="financialmonth" class="java.lang.String"/>
+	<field name="documenttype" class="java.lang.String"/>
+	<field name="documentno" class="java.lang.String"/>
+	<field name="documentdate" class="java.lang.String"/>
+	<field name="postingdate" class="java.lang.String"/>
+	<field name="currenctcode" class="java.lang.String"/>
+	<field name="exchangerate" class="java.math.BigDecimal"/>
+	<field name="chequenumber" class="java.lang.String"/>
+	<field name="chequedate" class="java.lang.String"/>
+	<field name="remark" class="java.lang.String"/>
+	<field name="currentstatus" class="java.lang.String"/>
+	<field name="orderpartner" class="java.lang.String"/>
+	<field name="orderpartnerdesc" class="java.lang.String"/>
+	<field name="glcode" class="java.lang.String"/>
+	<field name="descriptions" class="java.lang.String"/>
+	<field name="profitcentercode" class="java.lang.String"/>
+	<field name="costcentercode" class="java.lang.String"/>
+	<field name="amountindc" class="java.math.BigDecimal"/>
+	<field name="amountincc" class="java.math.BigDecimal"/>
+	<field name="comments" class="java.lang.String"/>
+	<field name="templatename" class="java.lang.String"/>
+	<field name="doccurrenctcode" class="java.lang.String"/>
+	<field name="chequeRef" class="java.lang.String"/>
+	<field name="entrydate" class="java.lang.String"/>
+	<field name="amountInWord" class="java.lang.String"/>
+	<field name="headerTemplate" class="java.lang.String"/>
+	<field name="costcenterdescription" class="java.lang.String"/>
+	<field name="narration" class="java.lang.String"/>
+	<field name="finBankPaymentCreditBeans" class="java.util.List"/>
+	<field name="preparedBy" class="java.lang.String"/>
+	<field name="payto" class="java.lang.String"/>
+	<field name="creationdatetime" class="java.lang.String"/>
+	<field name="profitcenterdesc" class="java.lang.String"/>
+	<field name="reffindoccode" class="java.lang.String"/>
+	<variable name="rowcount" class="java.lang.Integer" resetType="Group" resetGroup="docs" calculation="Count">
+		<variableExpression><![CDATA[$F{documentno}]]></variableExpression>
+	</variable>
+	<variable name="drAmount" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{amountincc}.doubleValue()>0 ? $F{amountincc} : null]]></variableExpression>
+	</variable>
+	<variable name="crAmount" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{amountincc}.doubleValue()<0 ? new java.math.BigDecimal($F{amountincc}.doubleValue()*-1) : null]]></variableExpression>
+	</variable>
+	<variable name="totalDrAmount" class="java.math.BigDecimal" resetType="Group" resetGroup="docs" calculation="Sum">
+		<variableExpression><![CDATA[$V{drAmount}]]></variableExpression>
+	</variable>
+	<variable name="totalCrAmount" class="java.math.BigDecimal" resetType="Group" resetGroup="docs" calculation="Sum">
+		<variableExpression><![CDATA[$V{crAmount}]]></variableExpression>
+	</variable>
+	<group name="docs" isStartNewPage="true" keepTogether="true">
+		<groupExpression><![CDATA[$F{financialyearcode} + $F{documentno}]]></groupExpression>
+		<groupHeader>
+			<band height="156">
+				<rectangle>
+					<reportElement x="0" y="45" width="277" height="84" uuid="33ba4a2b-e707-4944-8700-7cc246008dc6">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+				</rectangle>
+				<rectangle>
+					<reportElement x="0" y="0" width="555" height="45" uuid="08c8ca26-044a-4753-87a8-6b6a17a1ebb9">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+				</rectangle>
+				<staticText>
+					<reportElement x="0" y="73" width="65" height="14" uuid="6813f408-38ed-4508-87b6-2180d19e22c4">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Vch. No. : ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="129" width="65" height="12" uuid="0784619d-3276-44c6-a9db-41084de3ac4b"/>
+					<box leftPadding="0" rightPadding="0">
+						<pen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[CODE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="65" y="129" width="285" height="12" uuid="fc158e53-8707-4bb3-92aa-0df7fc0f2876">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box leftPadding="0" rightPadding="0">
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Account Reference]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="350" y="129" width="65" height="12" uuid="592916c7-2790-48e4-b2a9-bb31c17d6094"/>
+					<box leftPadding="0" rightPadding="0">
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Reference#]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="485" y="129" width="70" height="12" uuid="55bb44eb-d036-4d30-868e-71deda19665e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<box leftPadding="0" rightPadding="0">
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Cr. Amount"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="415" y="129" width="70" height="12" uuid="93bdab45-2d77-456c-8244-e1bc73282ddb">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="0" rightPadding="0">
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Dr. Amount"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="555" height="15" uuid="dfe81527-0b02-435d-af39-d411c8c58011">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true" isUnderline="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[VAMANI OVERSEAS PVT. LTD.]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="277" y="45" width="278" height="84" uuid="930c3c6e-a24d-4925-b134-5a8be125d4cf">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+				</rectangle>
+				<staticText>
+					<reportElement x="0" y="87" width="65" height="14" uuid="a277e81e-b6b4-4665-9bc7-19ce1b7d9319">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Profit center : ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="65" y="87" width="212" height="14" uuid="541f4ecb-3f8c-414a-bee6-1a1d9e4d83ad">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{profitcenterdesc}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="101" width="65" height="14" uuid="ff768fc7-ee0b-4c14-a913-f29a26ad7b62">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Currency :]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="65" y="101" width="212" height="14" uuid="c3cec645-08b4-459d-976b-fdf9acbf9253">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{doccurrenctcode}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="115" width="65" height="14" uuid="06431289-c5d5-4750-90b4-63e077b06c15">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Cheque No : ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="65" y="115" width="212" height="14" uuid="f7a67b3b-e096-4a49-b863-21100a7190b1">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{chequenumber}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="277" y="73" width="65" height="14" uuid="7385b1e1-512f-4392-b43c-dfbb8d7adcfa">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Voucher Date : ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="342" y="73" width="213" height="14" uuid="9d465314-af29-47f3-9d4b-08c5ee7326ba"/>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{documentdate}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="277" y="87" width="65" height="14" uuid="3c42b295-e719-4c39-b670-33f8e6f66579">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Month:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="277" y="101" width="65" height="14" uuid="e012cffa-7e67-4844-81c9-8de126c1338f">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Exchange Rate:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="277" y="115" width="65" height="14" uuid="b5e2d014-5a29-4b90-a4b0-2ba50b1fd3b1">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Cheque Date: ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="342" y="87" width="213" height="14" uuid="eb9daa3a-72f6-4271-8b99-3cf212e321d7"/>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{financialmonth}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="true">
+					<reportElement x="342" y="101" width="213" height="14" uuid="f3bf19cb-5e3a-4feb-bc26-3ee5f969b00a"/>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{exchangerate}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="342" y="115" width="213" height="14" uuid="e8fa3bb9-f3fc-46f1-809d-32e096a75d0b"/>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{chequedate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="15" width="554" height="15" uuid="bb3c74f7-4445-47d0-b2cc-bf1e5d1e173c">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{headerTemplate}]]></textFieldExpression>
+				</textField>
+				<subreport>
+					<reportElement x="0" y="141" width="555" height="15" uuid="02a3a72d-907c-44aa-837a-692015c6d147">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{finBankPaymentCreditBeans})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"/FinDocumentCreditRptBP.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isBlankWhenNull="true">
+					<reportElement x="65" y="73" width="212" height="14" uuid="7f486367-fbb7-4afe-a27e-e451a5193a45">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{documentno}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="45" width="65" height="14" uuid="702edede-f960-4401-b92d-6c7db1c5ac93">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Status :]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="65" y="45" width="212" height="14" uuid="3af66b90-3be5-4062-961a-36f4b1123d20">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{currentstatus}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="30" width="555" height="15" uuid="2e7d42ec-95dd-459b-bb3c-4945bddff7b5">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" isUnderline="false" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Bank Payment Voucher]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="59" width="65" height="14" uuid="e4503207-c265-458f-802b-f0b7d13b668a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Company : ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="65" y="59" width="212" height="14" uuid="7cd5e865-9096-4464-8292-34c995e55469">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{division}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="277" y="59" width="65" height="14" uuid="cdf17f9d-52f8-44cd-96d9-f656f8df35a3">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Business Unit : ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="342" y="59" width="213" height="14" uuid="925cff89-47fe-4cbc-bda6-5627f353828d">
+						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{businessunit}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="153">
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="555" height="30" uuid="2b767768-3da7-4012-a483-1a37223c7f75">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box topPadding="5" leftPadding="5">
+						<pen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Total in Words : " + $F{amountInWord}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="110" width="210" height="15" uuid="43f7a81c-c4b2-4efc-aa41-6591c568829e">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="0"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Prepared By]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="210" y="110" width="176" height="15" uuid="127d2af3-0e0e-48ca-bb8c-ec7370cd1dbb">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="10"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Checked By]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="386" y="110" width="167" height="15" uuid="ac89e7f7-4f48-44c7-b8ad-0f4ad9147c37">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="0"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Verified By]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="42" width="555" height="30" uuid="bde19e40-725d-49ff-88b0-54d92ab586b3">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box topPadding="5" leftPadding="5">
+						<pen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Narrations : " + $F{narration}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="125" width="210" height="14" uuid="17bc3918-5964-45f2-b4bf-8d839fe78799">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{preparedBy}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="30" width="80" height="12" uuid="f36d6e79-4572-4902-b2c8-dddbe8dfae08">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[$F{payto} !=null]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="5">
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Cheque in favour of :]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="80" y="30" width="475" height="12" uuid="b2b889ad-cde6-46d5-969f-4d582cb6e3d9">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{payto}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="139" width="210" height="14" uuid="f63b6856-7681-4d60-96d0-15fb4f03bdfc">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{creationdatetime}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="20">
+				<subreport>
+					<reportElement x="0" y="0" width="555" height="20" uuid="b709e478-d97d-43be-8e0e-f7f25b2ba26a">
+						<printWhenExpression><![CDATA[$P{paymentReq}.contains("Y")]]></printWhenExpression>
+					</reportElement>
+					<subreportParameter name="documentcode">
+						<subreportParameterExpression><![CDATA[$F{documentno}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="createdby">
+						<subreportParameterExpression><![CDATA[$F{preparedBy}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="createddate">
+						<subreportParameterExpression><![CDATA[$F{creationdatetime}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{SUBREPORT_CONN}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"/BankPaymentAdvice_new.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band height="802">
+			<rectangle>
+				<reportElement x="0" y="0" width="554" height="802" uuid="068aeb28-a86f-44d0-9633-f03374bb6670">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="65" width="530" height="270" forecolor="#C2C2C2" uuid="289eef5c-056d-428f-aba6-b997592adaed">
+					<printWhenExpression><![CDATA[$F{reffindoccode} != null && $F{reffindoccode}.trim().length()>0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="45" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[REVERSAL VOUCHER]]></text>
+			</staticText>
+		</band>
+	</background>
+</jasperReport>

@@ -1,0 +1,109 @@
+<div class="card">
+    <div class="body">
+        <div align="center" class="centered" *ngIf="isProcess">
+            <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+        </div>
+        <h5 id="jhi-vendor-buyer-audit-heading">Create or edit a Vendor Buyer Audit</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-12">
+                <form name="editForm" role="form" novalidate>
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-2"><label class="form-control-label" for="field_vendorMaster">Vendor</label></div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control form-control-sm" id="field_vendorMaster" name="vendorMaster" [value]="this.vendorBuyerAuditDetail?.vendorMaster ? this.vendorBuyerAuditDetail?.vendorMaster?.description : ''" readonly>
+                        </div>
+                        <div class="col-md-2"><label class="form-control-label" for="field_buyerMaster">Buyer</label></div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control form-control-sm" id="field_buyerMaster" name="buyerMaster" [value]="this.vendorBuyerAuditDetail?.buyerMaster ? this.vendorBuyerAuditDetail?.buyerMaster?.buyerName : ''" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <fieldset class="scheduler-border">
+                                <legend class="scheduler-border">Audits:</legend>
+                                <div *ngFor="let master of vendorBuyerAuditDetail.masters; let index = index">
+                                    <div class="row card-margin-bottom-5">
+                                        <div class="col-md-4">{{ index + 1 }}. {{master.desc}}</div>
+                                        <div class="col-md-8">
+                                            <table class="table table-sm">
+                                                <tr>
+                                                    <td class="align-middle font-bold" style="width: 60%"></td>
+                                                    <td class="align-middle font-bold" style="width: 50px;"><label class="form-control-label" for="field_Grade{{index}}">Grade</label></td>
+                                                    <td style="width: 30%;"><input type="text" class="form-control form-control-sm" id="field_Grade{{index}}" name="grade{{index}}" [(ngModel)]="master.name"></td>
+                                                    <td class="align-center button-column" style="width: 10%;">
+                                                        <button type="button" name="btnView" class="btn btn-sm btn-blush" (click)="viewChange(master);">
+                                                            <fa-icon [icon]="'eye'"></fa-icon>&nbsp;View
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <fieldset class="scheduler-border">
+                                <legend class="scheduler-border">Details: <ng-container *ngIf="selectedMaster">{{selectedMaster.desc}}</ng-container></legend>
+                                <ng-container *ngIf="auditQuesBuyerMapping">
+                                    <div class="row" *ngIf="auditQuesBuyerMapping.vendorAuditGroupMasterBeans && auditQuesBuyerMapping.vendorAuditGroupMasterBeans.length>0">
+                                        <div class="col-md-12 example-container">
+                                            <mat-tab-group *ngIf="auditQuesBuyerMapping.vendorAuditGroupMasterBeans" [disableRipple]="true">
+                                                <mat-tab *ngFor="let auditGroupMasterBean of auditQuesBuyerMapping.vendorAuditGroupMasterBeans;">
+                                                    <ng-template mat-tab-label>
+                                                        <span>{{auditGroupMasterBean.groupName}}</span>
+                                                    </ng-template>
+                                                    <ng-template matTabContent>
+                                                        <table class="table table-sm table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="width: 350px;">&nbsp;</th>
+                                                                    <th class="align-center" colspan="3">Date: {{currentDate | date: 'dd-MM-yyyy'}}</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style="width: 350px;">Questions</th>
+                                                                    <th style="width: 150px;">Status</th>
+                                                                    <th style="width: 150px;">Remarks</th>
+                                                                    <th style="width: 150px;">Upload</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr *ngFor="let vendorAuditQuesDetail of auditGroupMasterBean.vendorAuditQuesDetails; let index = index;">
+                                                                <td><div style="padding-left: 15px;"><span class="font-bold">{{index+1}}.&nbsp;</span>{{vendorAuditQuesDetail.auditQuestion}}</div></td>
+                                                                <td>
+                                                                    <select name="" id="" class="form-control form-control-sm custom-select custom-select-sm">
+                                                                        <option>Select</option>
+                                                                        <option value="Y">Pass</option>
+                                                                        <option value="Y">Fail</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td><input name="" id="" type="text" class="form-control form-control-sm"></td>
+                                                                <td><input name="" id="" type="file" class="form-control form-control-sm"></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </ng-template>
+                                                </mat-tab>
+                                            </mat-tab-group>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

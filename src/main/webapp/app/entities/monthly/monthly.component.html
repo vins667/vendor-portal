@@ -1,0 +1,55 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Salary Detail</span>
+            </h5>
+            <jhi-alert></jhi-alert>
+            <br/>
+            <div class="table-responsive" *ngIf="salaryBeans">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><span>Month</span></th>
+                        <th class="text-right"><span>Paid Days</span></th>
+                        <th class="text-right"><span>Earned</span></th>
+                        <th class="text-right"><span>Arrears</span></th>
+                        <th class="text-right"><span>Deductions</span></th>
+                        <th class="text-right"><span>Net Pay</span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody *ngIf="selectedMonthly">
+                    <tr *ngFor="let salaryBean of salaryBeans ;trackBy: trackId">
+                        <td [class.font-bold]="(selectedMonthly.id.monthYear==salaryBean.monthYear)">{{salaryBean.displayMonthYear}}</td>
+                        <td [class.font-bold]="(selectedMonthly.id.monthYear==salaryBean.monthYear)" class="text-right">{{salaryBean.dayNo}}</td>
+                        <td [class.font-bold]="(selectedMonthly.id.monthYear==salaryBean.monthYear)" class="text-right">{{salaryBean.totSal | number : '1.2-2'}}</td>
+                        <td [class.font-bold]="(selectedMonthly.id.monthYear==salaryBean.monthYear)" class="text-right">{{salaryBean.arrAmt | number : '1.2-2'}}</td>
+                        <td [class.font-bold]="(selectedMonthly.id.monthYear==salaryBean.monthYear)" class="text-right">{{salaryBean.totDed | number : '1.2-2'}}</td>
+                        <td [class.font-bold]="(selectedMonthly.id.monthYear==salaryBean.monthYear)" class="text-right">{{salaryBean.netSal | number : '1.2-2'}}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="button" class="btn btn-info btn-sm" (click)="viewDetails(salaryBean);">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="salaryBeans && salaryBeans.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+            <div>
+                <jhi-monthly-details-detail [monthly]="selectedMonthly"></jhi-monthly-details-detail>
+            </div>
+        </div>
+    </div>
+</div>

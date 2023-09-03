@@ -1,0 +1,99 @@
+<div align="center" class="centered" *ngIf="isDownload">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6">
+                <h6 id="page-heading">
+                    Tds Document Query
+                </h6>
+            </div>
+            <div class="col-md-6 text-right">
+                <button type="button" id="cancel-save" class="btn btn-xs btn-secondary btn-round m-0" (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="button" id="btn-save" class="btn btn-xs btn-blush btn-round m-0" (click)="save()">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <h6><span *ngIf="tdsYearMaster">Financial Year - {{tdsYearMaster.financeYear}}</span></h6>
+        <table class="table table-sm table-bordered">
+            <tbody>
+            <tr>
+                <th><label class="form-control-label">Name</label> </th>
+                <td>{{tdsDeclarationUpload.name}}</td>
+                <th><label class="form-control-label">Designation</label></th>
+                <td>{{tdsDeclarationUpload.designation}}</td>
+            </tr>
+            <tr>
+                <th><label class="form-control-label">Pan No</label></th>
+                <td>{{tdsDeclarationUpload.panNo}}</td>
+                <th><label class="form-control-label">Date Of Birth</label></th>
+                <td>{{tdsDeclarationUpload.dateOfBirth | date: 'dd-MMM-yyyy'}}</td>
+            </tr>
+            <tr>
+                <th><label class="form-control-label">Email Id</label></th>
+                <td>{{tdsDeclarationUpload.emailId}}</td>
+                <th><label class="form-control-label">Contact No</label></th>
+                <td>{{tdsDeclarationUpload.contactNumber}}</td>
+            </tr>
+            <tr>
+                <th><label class="form-control-label">Address</label></th>
+                <td colspan="3">{{tdsDeclarationUpload.address}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Group</th>
+                                <th>File Name</th>
+                                <th style="width: 70px;">Download</th>
+                                <th style="width: 70px;">Accept</th>
+                                <th style="width: 70px;">Reject</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <ng-container *ngFor="let groupMaster of tdsDeclarationUpload.tdsGroupMasterbean;let index = index;">
+                            <tr style="background-color: #fff;">
+                                <td><h6>{{groupMaster.groupCode}} </h6></td>
+                                <td colspan="4"></td>
+                            </tr>
+                            <ng-container *ngFor="let tdsDeclarationUploadDetail of groupMaster.tdsDeclarationUploadDetailBean;let i = index;">
+                                <tr style="background-color: rgba(0, 0, 0, 0.03);">
+                                    <td>&nbsp;</td>
+                                    <td style="padding-left:10px;font-weight:normal;">
+                                        {{i + 1}}. {{tdsDeclarationUploadDetail.originalFileName}}
+                                    </td>
+                                    <td class="button-column"><fa-icon [icon]="'download'" style="color: #00FF00;cursor: pointer;padding-left: 10px;" (click)="download(tdsDeclarationUploadDetail);"></fa-icon></td>
+                                    <td><input type="checkbox" name="accept{{index}}id{{i}}" id="field_accept{{index}}id{{i}}" [(ngModel)]="tdsDeclarationUploadDetail.accept" (change)="clickValidate(tdsDeclarationUploadDetail, 'accept')" [attr.disabled]="tdsDeclarationUploadDetail.approvalFlag ? true : null"></td>
+                                    <td><input type="checkbox" name="reject{{index}}id{{i}}" id="field_reject{{index}}id{{i}}" [(ngModel)]="tdsDeclarationUploadDetail.reject" (change)="clickValidate(tdsDeclarationUploadDetail, 'reject')" [attr.disabled]="tdsDeclarationUploadDetail.approvalFlag ? true : null"></td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <h5>Notes</h5>
+                <p>1. Document to be uploaded for income tax related for the period 01.Apr.2023 to 31.Mar.2024.</p>
+                <p>2. HRA receipt in original with revenue stamp along with rent agreement, payment proof and copy of Landlord's pan card.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

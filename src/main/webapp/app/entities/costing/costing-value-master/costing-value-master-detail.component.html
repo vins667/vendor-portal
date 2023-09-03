@@ -1,0 +1,44 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Costing Value Master</span> {{costingValueMaster.id}}</h5>
+        <hr>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="costingValueMaster">
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Process Name</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{costingValueMaster.processname}}</span>
+                            </dd>
+                        </div>
+                        <div class="col-md-3"><dt><span>Value Type</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span *ngIf="costingValueMaster.valuetype=='PM'">Per Minute</span>
+                                <span *ngIf="costingValueMaster.valuetype=='PC'">Per Pc</span>
+                            </dd>
+                        </div>
+                        <div class="col-md-3"><dt><span>Value</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{costingValueMaster.value}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                              [routerLink]="['/costing-value-master', costingValueMaster.id, 'edit']"
+                            class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,149 @@
+<div align="center" class="centered" *ngIf="isProcess">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+    <h2>Please wait ....</h2>
+</div>
+<form name="editForm" role="form" novalidate [formGroup]="editForm">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 id="jhi-asset-master-heading">Stitching Line Issue<span *ngIf="editForm.controls['id'].value"># {{editForm.controls['id'].value}}</span></h6>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-right">
+                        <button type="button" id="report-entity" class="btn btn-sm btn-xs btn-danger btn-round m-0" (click)="generatePdf();">
+                            <fa-icon [icon]="'file-pdf'"></fa-icon>&nbsp;<span>Report</span>&nbsp;
+                        </button>
+                        <button type="button" id="cancel-entity" class="btn btn-sm btn-xs btn-second btn-round m-0" (click)="previousState();">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>&nbsp;
+                        </button>
+                        <button *ngIf="!editForm.controls['postedBy'].value" type="button" id="save-entity" class="btn btn-sm btn-xs btn-blush btn-round m-0" [disabled]="editForm.invalid || isSaving" (click)="save()">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>&nbsp;
+                        </button>
+
+                        <button *ngIf="!editForm.controls['postedBy'].value && editForm.controls['id'].value" (click)="postSave();" type="button" id="post-entity" class="btn btn-sm btn-xs btn-info btn-round m-0" [disabled]="isSaving || editForm.invalid || editForm.controls['postedBy'].value">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Post</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white">
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_productionCode">PO#</label></div>
+                <div class="col-md-3">
+                    <div class="input-group  mb-0 pb-0">
+                        <input type="text" class="form-control form-control-xs" name="productionCode" id="field_productionCode" formControlName="productionCode" [attr.disabled]="editForm.controls['id'].value ? 'true' : null"/>
+                        <div class="input-group-append input-group-append-top">
+                            <button type="button" name="btnSearch" id="btnSearch" (click)="callDetails();" class="btn btn-xs btn-blush" [disabled]="editForm.controls['id'].value ? 'true' : null">
+                                <fa-icon [icon]="'search'"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_plantCode">Plant</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="plantCode" id="field_plantCode" formControlName="plantCode" (change)="fetchLines();" *ngIf="!editForm.controls['id'].value">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let userPlant of userPlants" [value]="userPlant.id.plantCode">{{userPlant.plantDescription}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs custom-select custom-select-xs" name="plantDescription" id="field_plantDescription" formControlName="plantDescription" *ngIf="editForm.controls['id'].value" disabled>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_projectcode">Project</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="projectcode" id="field_projectcode" formControlName="projectcode" disabled/>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_style">Style</label></div>
+                <div class="col-md-3"><input type="text" class="form-control form-control-xs" name="style" id="field_style" formControlName="style" readonly/></div>
+                <div class="col-md-1"><label class="form-control-label" for="field_color">Color</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="color" id="field_color" formControlName="color" (change)="selectColor()" *ngIf="!editForm.controls['id'].value">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let color of colors" [value]="color.name">{{color.desc}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="colordescription" id="field_colordescription" formControlName="colordescription" *ngIf="editForm.controls['id'].value" disabled/>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_destination">Destination</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="destination" id="field_destination" formControlName="destination" (change)="selectDestination()" *ngIf="!editForm.controls['id'].value">
+                        <option [value]="undefined">Select</option>
+                        <option [value]="destinationOption.name" *ngFor="let destinationOption of destinations;">{{destinationOption.desc}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="destinationDesc" id="field_destinationDesc" formControlName="destinationDesc" readonly *ngIf="editForm.controls['id'].value" disabled>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_line">Line</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="line" id="field_line" formControlName="line" (change)="selectLine()" *ngIf="!editForm.controls['id'].value">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let resource of resources" [value]="resource.id.code">{{resource.id.code +'-'+ resource.longdescription}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="lineDesc" id="field_lineDesc" formControlName="lineDesc" readonly *ngIf="editForm.controls['id'].value" disabled>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_issuedate">Issue Date</label><sup class="form-required">*</sup></div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input id="field_issuedate" class="form-control form-control-xs" [owlDateTime]="issueDateTemp" type="text" name="issuedate" formControlName="issuedate"/>
+                        <div class="input-group-append input-group-append-top">
+                            <button type="button" class="btn btn-blush btn-xs" [owlDateTimeTrigger]="issueDateTemp"><span><fa-icon [icon]="'calendar'" ></fa-icon></span></button>
+                        </div>
+                    </div>
+                    <owl-date-time #issueDateTemp></owl-date-time>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body p-0 pb-2" [hidden]="!editForm.controls['style'].value || !editForm.controls['color'].value || !editForm.controls['destination'].value">
+            <div class="col-12 p-0">
+                <div class="table-responsive scroll-popup-table-4" id="entities">
+                    <table class="table table-sm table-bordered mb-1" aria-describedby="page-heading">
+                        <thead>
+                        <tr>
+                            <th style="width: 90px;">SlNo#</th>
+                            <th style="width: 90px;">Bundle#</th>
+                            <th style="width: 90px;">Bundle&nbsp;Id</th>
+                            <th>Color</th>
+                            <th style="width: 90px;" class="text-center">Size</th>
+                            <th style="width: 90px;" class="text-center">Start&nbsp;Seq</th>
+                            <th style="width: 90px;" class="text-center">End&nbsp;Seq</th>
+                            <th style="width: 90px;">Warehouse</th>
+                            <th style="width: 90px;" class="text-center">UOM</th>
+                            <th style="width: 90px;" class="text-right">Pieces</th>
+                            <th style="width: 40px;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ng-container *ngFor="let stitchLineIssueDetail of stitchLineIssueDetails; let index = index;">
+                            <tr [style.background-color]="stitchLineIssueDetail.colorCode ? stitchLineIssueDetail.colorCode : '#fff'">
+                                <td class="p-1"><input type="text" name="slNo{{index}}" id="field_slNo{{index}}" class="form-control form-control-xs" [value]="index+1" readonly/></td>
+                                <td class="p-1"><input type="text" #bundleCode name="bundleCode{{index}}" id="field_bundleCode{{index}}" class="form-control form-control-xs" [(ngModel)]="stitchLineIssueDetail.bundleCode" [ngModelOptions]="{standalone: true}" (blur)="fetchDetails(index);" (keyup.enter)="fetchDetails(index);" [disabled]="!editForm.controls['style'].value || !editForm.controls['color'].value || stitchLineIssueDetail.subcode08"/></td>
+                                <td class="p-1"><input type="text" name="id{{index}}" id="field_id{{index}}" class="form-control form-control-xs" [(ngModel)]="stitchLineIssueDetail.id" [ngModelOptions]="{standalone: true}" readonly/></td>
+                                <td class="p-1">
+                                    <input type="text" name="subcode05{{index}}" id="field_subcode05{{index}}" class="form-control form-control-xs" [(ngModel)]="stitchLineIssueDetail.subcode05" readonly [ngModelOptions]="{standalone: true}" *ngIf="stitchLineIssueDetail.itemtypecode && stitchLineIssueDetail.itemtypecode === 'HFC'"/>
+                                    <input type="text" name="subcode07{{index}}" id="field_subcode07{{index}}" class="form-control form-control-xs" [(ngModel)]="stitchLineIssueDetail.subcode07" readonly [ngModelOptions]="{standalone: true}" *ngIf="stitchLineIssueDetail.itemtypecode && stitchLineIssueDetail.itemtypecode === 'CPT'"/>
+                                </td>
+                                <td class="p-1">
+                                    <input type="text" name="subcode06{{index}}" id="field_subcode06{{index}}" class="form-control form-control-xs text-center" [(ngModel)]="stitchLineIssueDetail.subcode06" readonly [ngModelOptions]="{standalone: true}" *ngIf="stitchLineIssueDetail.itemtypecode && stitchLineIssueDetail.itemtypecode === 'HFC'"/>
+                                    <input type="text" name="subcode08{{index}}" id="field_subcode08{{index}}" class="form-control form-control-xs text-center" [(ngModel)]="stitchLineIssueDetail.subcode08" readonly [ngModelOptions]="{standalone: true}" *ngIf="stitchLineIssueDetail.itemtypecode && stitchLineIssueDetail.itemtypecode === 'CPT'"/>
+                                </td>
+                                <td class="p-1"><input type="text" name="startPiece{{index}}" id="field_startPiece{{index}}" class="form-control form-control-xs text-center" [(ngModel)]="stitchLineIssueDetail.startPiece" readonly [ngModelOptions]="{standalone: true}"/></td>
+                                <td class="p-1"><input type="text" name="endPiece{{index}}" id="field_endPiece{{index}}" class="form-control form-control-xs text-center" [(ngModel)]="stitchLineIssueDetail.endPiece" readonly [ngModelOptions]="{standalone: true}"/></td>
+                                <td class="p-1"><input type="text" name="logicalwarehousecode{{index}}" id="field_logicalwarehousecode{{index}}" class="form-control form-control-xs" [(ngModel)]="stitchLineIssueDetail.logicalwarehousecode" readonly [ngModelOptions]="{standalone: true}"/></td>
+                                <td class="p-1"><input type="text" name="primaryuomcode{{index}}" id="field_primaryuomcode{{index}}" class="form-control form-control-xs text-center" [(ngModel)]="stitchLineIssueDetail.primaryuomcode" readonly [ngModelOptions]="{standalone: true}"/></td>
+                                <td class="p-1"><input type="text" name="primaryquantity{{index}}" id="field_primaryquantity{{index}}" class="form-control form-control-xs text-right" [(ngModel)]="stitchLineIssueDetail.primaryquantity" readonly [ngModelOptions]="{standalone: true}"/></td>
+                                <td class="p-1 text-center align-middle font-13">
+                                    <fa-icon *ngIf="!editForm.controls['postedBy'].value" [icon]="'trash'" class="text-danger" style="cursor: pointer;" (click)="deleteRow(index, stitchLineIssueDetail);"></fa-icon>
+                                    <fa-icon *ngIf="stitchLineIssueDetail.detailId && editForm.controls['postedBy'].value" [icon]="'exchange-alt'" style="cursor: pointer;" (click)="callTransfer(stitchLineIssueDetail);"></fa-icon>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

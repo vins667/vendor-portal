@@ -1,0 +1,93 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-supervisor-employee-details-heading">Supervisor Attendance Details</h5>
+        <hr>
+        <div class="row  text-right">
+            <div class="col-md-6 text-left">
+                <div class="row">
+                    <div class="col-md-2"><label class="form-control-label" for="field_employeeType">Employee</label></div>
+                    <div class="col-md-10">
+                        <select class="form-control form-control-sm custom-select custom-select-sm" id="field_employeeType" name="employeeType" [(ngModel)]="supervisorEmployeeDetail.cardNo" (change)="onNavigateChange()">
+                            <option [ngValue]="employeeView.login" *ngFor="let employeeView of employeeViews;">{{employeeView.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+            </div>
+            <div class="col-md-3 text-right">
+                <div class="btn-group">
+                    <div
+                        class="btn btn-sm btn-blush"
+                        mwlCalendarPreviousView
+                        [view]="view"
+                        [(viewDate)]="viewDate"
+                        (viewDateChange)="activeDayIsOpen = false" (click)="onNavigateChange()">
+                        Previous
+                    </div>
+                    <div
+                        class="btn btn-sm btn-outline-blush"
+                        mwlCalendarToday
+                        [(viewDate)]="viewDate" (click)="onNavigateChange()">
+                        Today
+                    </div>
+                    <div
+                        class="btn btn-sm btn-blush"
+                        mwlCalendarNextView
+                        [view]="view"
+                        [(viewDate)]="viewDate"
+                        (viewDateChange)="activeDayIsOpen = false" (click)="onNavigateChange()">
+                        Next
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <div [ngSwitch]="view">
+                            <mwl-calendar-month-view
+                                *ngSwitchCase="'month'"
+                                [cellTemplate]="customCellTemplate"
+                                [viewDate]="viewDate"
+                                [events]="events">
+                            </mwl-calendar-month-view>
+                            <mwl-calendar-week-view
+                                *ngSwitchCase="'week'"
+                                [viewDate]="viewDate"
+                                [events]="events">
+                            </mwl-calendar-week-view>
+                            <mwl-calendar-day-view  
+                                   *ngSwitchCase="'day'" 
+                                    [viewDate]="viewDate"
+                                    [events]="events">
+                            </mwl-calendar-day-view>
+                            <ng-template #customCellTemplate let-day="day" let-locale="locale"
+                                let-tooltipPlacement="tooltipPlacement"
+                                let-highlightDay="highlightDay" let-unhighlightDay="unhighlightDay" 
+                                let-eventClicked="eventClicked"
+                                let-tooltipTemplate="tooltipTemplate" 
+                                let-tooltipAppendToBody="tooltipAppendToBody" let-tooltipDelay="tooltipDelay">
+                                <div class="cal-cell-top" [ngStyle]="{'backgroundColor':lockedWeekendFilter(day.date)? '#6fbde1' : null}">
+                                    <span class="cal-day-number">
+                                        {{ day.date | calendarDate:'monthViewDayNumber':locale }}
+                                    </span>
+                                </div>
+                                <div *ngIf="day.events.length > 0" [ngStyle]="{'backgroundColor':lockedWeekendFilter(day.date)? '#6fbde1' : null}">
+                                    <div *ngFor="let event of day.events; let index = index;">
+                                        <div  [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event"
+                                              [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody"> 
+                                              <p [ngStyle]="{'color': event.title === 'Absent' ? 'red' : (event.title !== 'Absent' ? 'blue' : null) }" style="font-size:14px;margin-left:2px;">{{event.title}}</p>
+                                        </div>
+                                     </div>
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

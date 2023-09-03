@@ -1,0 +1,164 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-conveyance-master-heading">Conveyance Master Hr Approval</h5>
+        <hr/>
+        <div class="row" *ngIf="conveyanceMasters">
+            <div class="col-12">
+               <form name="editForm" role="form" novalidate #editForm="ngForm" enctype="multipart/form-data">
+                    <div>
+                        <div class="alert alert-danger" *ngIf="conveyanceMasters.totalDistance>200"><span class="font-weight-bold">Total distance is {{conveyanceMasters.totalDistance}} km.</span></div>
+                        <div class="row card-margin-bottom-10" [hidden]="!conveyanceMasters.id">
+                            <div class="col-md-2">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="conveyanceMasters.id"  readonly />
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_conveyanceType">Vehicle Type</label>
+                            </div>
+                            <div class="col-md-4">
+                                <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="vehicleType" id="field_vehicleType" [(ngModel)]="conveyanceMasters.vehicleType" disabled>
+                                    <option value="T">Two Wheeler</option>
+                                    <option value="F">Four Wheeler</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_empCode">Employee Code</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" name="empCode" id="field_empCode" [(ngModel)]="conveyanceMasters.empCode" readonly/>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_name">Name</label>
+                            </div>
+                            <div class="col-md-4">
+                                    <input type="text" class="form-control form-control-sm" name="name" id="field_name" [(ngModel)]="conveyanceMasters.name" readonly/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_conveyanceDate">Conveyance Date</label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group input-group-sm">
+                                    <input [owlDateTime]="leaveFrom" name="leaveDateFrom" id="field_leaveDateFrom" placeholder="Date From" class="form-control form-control-sm"   [(ngModel)]="conveyanceMasters.conveyanceDate"  disabled>
+                                    <div class="input-group-append input-group-append-top">
+                                        <div class="btn btn-blush" [owlDateTimeTrigger]="leaveFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                    </div>
+                                </div>
+                                <owl-date-time [pickerType]="'calendar'" #leaveFrom></owl-date-time>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_conveyanceType">Conveyance Type</label>
+                            </div>
+                            <div class="col-md-4">
+                                <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="conveyanceType" id="field_conveyanceType" [(ngModel)]="conveyanceMasters.conveyanceType" readonly>
+                                    <option value="O">Owned</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <fieldset class="scheduler-border-margin">
+                                    <legend class="scheduler-border">Vehicle Details:</legend>
+                                    <div class="row gutters-2">
+                                        <div class="col-md-3">
+                                            <label class="form-control-label" for="field_vehicleNo">Vehicle No</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-control-label" for="field_totalDistance">Total Distance</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-control-label" for="field_rateMaster">Rate</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-control-label" for="field_totalAmount">Total Amount</label>
+                                        </div>
+                                    </div>
+                                    <div class="row gutters-2">
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control form-control-sm" name="vehicleNo" id="field_vehicleNo" [(ngModel)]="conveyanceMasters.vehicleNo"  readonly/>
+                                        </div>
+                                          <div class="col-md-3">
+                                                <input type="number" class="form-control form-control-sm" name="totalDistance" id="field_totalDistance"  [(ngModel)]="conveyanceMasters.totalDistance" readonly/>
+                                            </div>
+
+                                        <div class="col-md-3">
+                                             <input type="number" class="form-control form-control-sm" name="rate" id="field_rate"  [(ngModel)]="conveyanceMasters.rate"  readonly>
+                                        </div>
+
+                                           <div class="col-md-3">
+                                                <input type="number" class="form-control form-control-sm" name="totalAmount" id="field_totalAmount"  [(ngModel)]="conveyanceMasters.totalAmount" readonly/>
+                                            </div>
+                                    </div>
+                                    <div class="row gutters-2">
+                                        <div class="col-md-4">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-control-label"></label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset class="scheduler-border-margin">
+                                    <legend class="scheduler-border">Multiple Trips</legend>
+                                    <div class="row gutters-2">
+                                        <div class="col-md-12">
+                                            <table class="table table-sm table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th><span>From Location</span></th>
+                                                    <th><span>To Location</span></th>
+                                                    <th><span>Trip Start</span></th>
+                                                    <th><span>Trip End</span></th>
+                                                    <th><span>Misc.Amount</span></th>
+                                                    <th><span>Reason</span></th>
+                                                    <th><span>Attachment</span></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let conveyanceMasterDetail of conveyanceMasters.conveyanceMasterDetails; let index = index;">
+                                                        <td><input type="text" class="form-control form-control-sm text-uppercase" name="fromLocation_{{index}}" id="field_fromLocation_{{index}}"  [(ngModel)]="conveyanceMasterDetail.fromLocation" readonly/></td>
+                                                        <td><input type="text" class="form-control form-control-sm text-uppercase" name="toLocation_{{index}}" id="field_toLocation_{{index}}"  [(ngModel)]="conveyanceMasterDetail.toLocation" readonly/></td>
+                                                        <td><input type="number" class="form-control form-control-sm" name="tripStart_{{index}}" id="field_tripStart"  [(ngModel)]="conveyanceMasterDetail.tripStart" readonly/></td>
+                                                        <td><input type="number" class="form-control form-control-sm" name="tripEnd_{{index}}" id="field_tripEnd_{{index}}"  [(ngModel)]="conveyanceMasterDetail.tripEnd" readonly/></td>
+                                                        <td><input type="text" class="form-control form-control-sm text-uppercase" name="miscAmount_{{index}}" id="field_miscAmount_{{index}}"  [(ngModel)]="conveyanceMasterDetail.miscAmount" readonly/></td>
+                                                        <td><input type="text" class="form-control form-control-sm text-uppercase" name="reason_{{index}}" id="field_reason_{{index}}"  [(ngModel)]="conveyanceMasterDetail.reason" readonly/></td>
+                                                        <td *ngIf="conveyanceMasterDetail.attachDisplayFile" class="button-column"><fa-icon [icon]="'download'" style="color: #00FF00;cursor: pointer;" (click)="download(conveyanceMasterDetail);"></fa-icon></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="btn-group">
+                                    <button type="button" id="cancel-previous" class="btn btn-sm btn-secondary"  (click)="previousState()">
+                                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                                    </button>
+                                    <button type="button" id="approved-entity" [disabled]="conveyanceMasters.hrApprovedDate" class="btn btn-sm btn-success" (click)="saveApproved()">
+                                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Approved</span>
+                                    </button>
+                                    <button type="button" id="reject-entity" [disabled]="conveyanceMasters.hrApprovedDate" class="btn btn-sm btn-blush" (click)="saveReject()">
+                                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Reject</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<jhi-alert></jhi-alert>

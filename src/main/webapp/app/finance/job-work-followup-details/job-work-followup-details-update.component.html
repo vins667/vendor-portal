@@ -1,0 +1,78 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <div class="card">
+        <div class="card-header body pb-1">
+            <div class="row">
+                <div class="col-md-7">
+                    <h6 id="jhi-job-work-followup-details-heading" data-cy="JobWorkFollowupDetailsCreateUpdateHeading">Create or edit a
+                        Buyer&nbsp;Master</h6>
+                </div>
+                <div class="col-md-5">
+                    <div class="text-right">
+                        <button type="button" id="cancel-save" class="m-0 btn btn-xs btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-xs btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body body">
+            <div class="row" [hidden]="!editForm.get('id').value">
+                <div class="col-md-1">
+                    <label for="id">ID</label>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" class="form-control form-control-xs" id="id" name="id" formControlName="id" readonly />
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px">
+                <div class="col-md-1">
+                    <label class="form-label">Job Work</label>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" class="form-control form-control-xs text-uppercase" name="buyercode" id="field_buyercode" [value]="editForm.controls['jobWorkFollowup']!.value?.jobworkname" readonly/>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px">
+                <div class="col-md-1">
+                    <label class="form-label">Job Work</label>
+                </div>
+                <div class="col-md-5">
+                    <div class="input-group input-group-sm mb-0">
+                        <input [owlDateTime]="jobWorkDateTemp" disabled name="jobWorkDate" id="field_jobWorkDate" class="form-control form-control-sm" formControlName="jobWorkDate">
+                        <div class="input-group-append input-group-append-top">
+                            <button type="button" class="btn btn-blush" [owlDateTimeTrigger]="jobWorkDateTemp" disabled><span><fa-icon [icon]="'calendar'"></fa-icon></span></button>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #jobWorkDateTemp></owl-date-time>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px">
+                <div class="col-md-1">
+                    <label class="form-label">Submit Date</label>
+                </div>
+                <div class="col-md-5">
+                    <div class="input-group input-group-sm mb-0">
+                        <input [owlDateTime]="submitDateTemp" name="submitDate" id="field_submitDate" [owlDateTimeTrigger]="submitDateTemp" class="form-control form-control-sm" formControlName="submitDate">
+                        <div class="input-group-append input-group-append-top">
+                            <button type="button" class="btn btn-blush" [owlDateTimeTrigger]="submitDateTemp"><span><fa-icon [icon]="'calendar'"></fa-icon></span></button>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #submitDateTemp></owl-date-time>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px">
+                <div class="col-md-1">
+                    <label class="form-label">Remarks</label>
+                </div>
+                <div class="col-md-5">
+                    <textarea name="remarks" id="remarks" formControlName="remarks" rows="3" class="form-control text-area"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

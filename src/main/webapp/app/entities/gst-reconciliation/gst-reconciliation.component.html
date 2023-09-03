@@ -1,0 +1,110 @@
+<div align="center" class="centered" *ngIf="isDownload">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>GST Reconciliation</span>
+            </h5>
+            <div class="row">
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm" name="difference" id="field_difference"
+                        placeholder="Enter Amont" type="number" [(ngModel)]="parameterList.parameter1" required />
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm" name="difference" id="field_difference"
+                        placeholder="Enter GSTIN" type="text" [(ngModel)]="parameterList.parameter2" />
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm" name="difference" id="field_difference"
+                        placeholder="Invoice No" type="text" [(ngModel)]="parameterList.parameter3" />
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm" name="difference" id="field_difference"
+                        placeholder="Supplier Name" type="text" [(ngModel)]="parameterList.parameter4"/>
+                </div>
+                <div class="col-md-4 text-right">
+                    <div class="btn-group">
+                        <button id="jh-excel-entity" class="btn btn-sm btn-info btn-round float-right"
+                            (click)="reconsileData()">
+                            <fa-icon [icon]="'upload'"></fa-icon>
+                            <span>Reconcile</span>
+                        </button> &nbsp;&nbsp;
+
+                        <button id="jh-excel-entity" class="btn btn-sm btn-blush btn-round float-right"
+                            (click)="SaveData()">
+                            <fa-icon [icon]="'save'"></fa-icon>
+                            <span>Submit</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse"
+                            [callback]="transition.bind(this)">
+                            <th jhiSortBy="gstin"><span>Sr.No</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="gstin"><span>Gstin</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="supplierName"><span>Supplier Name</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="invoiceNo"><span>Invoice No</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th>Type</th>
+                            <th jhiSortBy="invoiceAmount" class="text-right"><span>Invoice Amount</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="cgstAmount" class="text-right"><span>CGST</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="sgstAmount" class="text-right"><span>SGST</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="igstAmount" class="text-right"><span>IGST</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="differenceAmt" class="text-right"><span>Difference</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="status" class="text-right"><span>Status</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let reclist of gstReconciliations; let index = index; trackBy: trackId">
+                            <tr>
+                                <td rowspan="2" class="align-middle">{{index+1}}</td>
+                                <td rowspan="2" class="align-middle">{{reclist.gstin}}</td>
+                                <td rowspan="2" class="align-middle">{{reclist.supplierName}}</td>
+                                <td rowspan="2" class="align-middle">{{reclist.invoiceNo}}</td>
+                                <td>VOPL</td>
+                                <td class="text-right">{{reclist.invoiceAmount | number: '1.2-2'}}</td>
+                                <td class="text-right">{{reclist.cgstAmount | number: '1.2-2'}}</td>
+                                <td class="text-right">{{reclist.sgstAmount | number: '1.2-2'}}</td>
+                                <td class="text-right">{{reclist.igstAmount | number: '1.2-2'}}</td>
+                                <td rowspan="2" class="align-middle text-right">
+                                    {{reclist.differenceAmt | number: '1.2-2'}}</td>
+                                <td rowspan="2" class="align-middle text-right">{{reclist.status}}</td>
+                            </tr>
+                            <tr>
+                                <td>GOVT</td>
+                                <td class="text-right">{{reclist.invoiceAmount | number:  '1.2-2'}}</td>
+                                <td class="text-right">{{reclist.govtCgstAmount | number: '1.2-2'}}</td>
+                                <td class="text-right">{{reclist.govtSgstAmount | number: '1.2-2'}}</td>
+                                <td class="text-right">{{reclist.govtIgstAmount | number: '1.2-2'}}</td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <ng-snotify></ng-snotify>

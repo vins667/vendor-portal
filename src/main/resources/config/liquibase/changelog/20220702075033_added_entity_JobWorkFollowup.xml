@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <!--
+        Added the entity JobWorkFollowup.
+    -->
+    <changeSet id="20220702075033-1" author="jhipster">
+        <createTable tableName="job_work_followup">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="true"/>
+            </column>
+            <column name="jobworkcode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="jobworkname" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="buyercode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="buyername" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="responsiblepersoncode_01" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="responsiblepersonname_01" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="responsiblepersonmail_01" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="responsiblepersoncode_02" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="responsiblepersonname_02" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="responsiblepersonmail_02" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="responsiblepersoncode_03" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="responsiblepersonname_03" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="responsiblepersonmail_03" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_01_reminderpersoncode_01" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_01_reminderpersonname_01" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_01_reminderpersonmail_01" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_01_reminderpersoncode_02" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_01_reminderpersonname_02" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_01_reminderpersonmail_02" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_01_reminderpersoncode_03" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_01_reminderpersonname_03" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_01_reminderpersonmail_03" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_02_reminderpersoncode_01" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_02_reminderpersonname_01" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_02_reminderpersonmail_01" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_02_reminderpersoncode_02" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_02_reminderpersonname_02" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_02_reminderpersonmail_02" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_02_reminderpersoncode_03" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_02_reminderpersonname_03" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="level_02_reminderpersonmail_03" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+		<createSequence startValue="1"  sequenceName="job_work_followup_seq" incrementBy = "1" cycle = "false"/>
+
+    </changeSet>
+
+
+
+</databaseChangeLog>

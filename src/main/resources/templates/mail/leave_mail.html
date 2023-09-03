@@ -1,0 +1,48 @@
+<html>
+    <head><meta charset="ISO-8859-1"></head>
+    <body>
+        <table align='center' bgcolor='#d92419' width='98%' cellpadding='0' cellspacing='0' style='border-color:#e8b36d; border-style:solid; border-width:thick;'>
+            <tr th:if="${flag == 'E'}">
+                <td style="text-align: center;font-weight: bold; font-size: 18px ;color:white">Please Sanction My <span th:text="${leaveTypeName}" th:remove="tag"/> Request</td>
+                <br/>
+            </tr>
+            <tr th:if="${flag == 'A' || flag == 'R'}">
+                <td style="text-align: center;font-weight: bold; font-size: 18px ;color:white">Status of My <span th:text="${leaveTypeName}" th:remove="tag"/> Request</td>
+                <br/>
+            </tr>
+            <tr>
+                <td>
+                    <table align='center' cellpadding='10' bgcolor='#f7ad9d' cellspacing='1' width='98%'>
+                        <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);'>
+                            <td align='right'>Employee Code :</td><td><span th:text="${empCode}" th:remove="tag"/></td>
+                            <td align='right'>Name :</td><td><span th:text="${name}" th:remove="tag"/></td>
+                        </tr>
+                        <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);'>
+                            <td align='right'>Leave Type :</td><td colspan=3><span th:text="${leaveTypeName}" th:remove="tag"/>(<span th:text="${leaveTypeCode}" th:remove="tag"/>)</td>
+                        </tr>
+                        <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);'>
+                            <td align='right'>Date From :</td><td><span th:text="${leaveDateFrom}" th:remove="tag"/></td>
+                            <td align='right'>Date To</td><td><span th:text="${leaveDateTo}" th:remove="tag"/></td>
+                        </tr>
+                        <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);'>
+                            <td align='right' >Reason :</td><td colspan='3'><span th:text="${reason}" th:remove="tag"/></td>
+                        </tr>
+                        <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);'  th:if="${flag == 'A' || flag == 'R' || flag == 'C'}">
+                            <td align='right' ><span th:text="${remarksBy}" th:remove="tag"/> :</td><td colspan='3'><span th:text="${remarks}" th:remove="tag"/></td>
+                        </tr>
+                        <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);font-weight:bold;' th:if="${flag == 'E'}">
+                            <td align='center' colspan='4'><a th:href='${url}'>Click to Approve/Reject</a></td>
+                        </tr>
+                        <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);font-weight:bold;' th:if="${flag == 'A'}">
+                            <td align='right' >Status :</td><td colspan='3' style="color:green; font-size: 15px;">Approved</td>
+                        </tr>
+
+                        <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);font-weight:bold;' th:if="${flag == 'R'}">
+                            <td align='right' >Status :</td><td colspan='3' style="color:red; font-size: 15px;">Rejected</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

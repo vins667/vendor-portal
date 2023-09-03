@@ -1,0 +1,97 @@
+<div class="card">
+    <div class="body">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div *ngIf="newsDetails">
+                    <h5><span>News Details</span> {{newsDetails.id}}</h5>
+                    <hr>
+                    <jhi-alert-error></jhi-alert-error>
+                    <div>
+                        <div class="row md-bottom-5" [hidden]="!newsDetails.id">
+                            <div class="col-md-3"><label for="id">ID</label></div>
+                            <div class="col-md-9"><input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="newsDetails.id" readonly /></div>
+                        </div>
+                        <div class="row md-bottom-5">
+                            <div class="col-md-3"><label class="form-control-label" for="field_newsTitle">News Title</label></div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="newsTitle" id="field_newsTitle" [(ngModel)]="newsDetails.newsTitle" required maxlength="255" placeholder="Enter Title" disabled/>
+                            </div>
+                        </div>
+                        <div class="row md-bottom-5">
+                            <div class="col-md-3"><label class="form-control-label" for="field_newsMaster">News Type</label></div>
+                            <div class="col-md-3" *ngIf="newsDetails.newsMaster">
+                                <input type="text" class="form-control form-control-sm" id="field_newsMaster" name="newsMaster" [value]="newsDetails.newsMaster.newsName" disabled/>
+                            </div>
+                            <div class="col-md-3"><label class="form-control-label" for="field_displayDays">No Of Days</label></div>
+                            <div class="col-md-3">
+                                <input type="number" class="form-control form-control-sm" name="displayDays" min="0" id="field_displayDays" [(ngModel)]="newsDetails.displayDays" required placeholder="Enter No Of Days" disabled/>
+                            </div>
+                        </div>
+                        <div class="row md-bottom-5" *ngIf="newsDetails.newsMaster && newsDetails.newsMaster.newsName=='NEW JOINING'">
+                            <div class="col-md-3"><label class="form-control-label" for="field_newsMaster">Emp Code</label></div>
+                            <div class="col-md-3"><input type="text" class="form-control form-control-sm" name="empCode" [(ngModel)]="newsDetails.empCode" id="field_empCode" maxlength="255" placeholder="Enter Emp Code" disabled/></div>
+                            <div class="col-md-6"><input type="text" class="form-control form-control-sm" name="empName" [(ngModel)]="newsDetails.empName" id="field_empName" maxlength="255" disabled/></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><label>Factory</label></div>
+                            <div class="col-md-9">
+                                <select class="form-control form-control-sm list-box" multiple style="height: 150px;" disabled>
+                                    <option *ngFor="let item of newsDetails.factoryMasters" [value]="item?.id">{{item?.factoryName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="field_mailBody">News Body</label>
+                                    <ckeditor id="field_mailBody" required [(ngModel)]="ckeditorContent" #myckeditor [ngModelOptions]="{standalone: true}" disabled></ckeditor>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <label class="form-control-label" for="field_mailFlag">Mail&nbsp;Flag</label>
+                                    <div class="input-group-append" style="margin-top: 5px;">
+                                        &nbsp;&nbsp;&nbsp;<input type="checkbox" name="mailFlag" id="field_mailFlag" [(ngModel)]="newsDetails.mailFlag" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <label class="form-control-label" for="field_notificationFlag">Notification&nbsp;Flag&nbsp;</label>
+                                    <div class="input-group-append" style="margin-top: 5px;">
+                                        &nbsp;&nbsp;&nbsp;<input type="checkbox" name="notificationFlag" id="field_notificationFlag"
+                                                                 [(ngModel)]="newsDetails.notificationFlag" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Attachment</div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3" *ngFor="let newsDetailsAttach of newsDetails.newsDetailsAttaches">
+                                    <a href="javascript: void(0)" (click)="download(newsDetailsAttach);" style="color: #00adef;" title="{{newsDetailsAttach.attachDisplayFile}}">{{newsDetailsAttach.attachDisplayFile}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit"
+                        (click)="previousState()"
+                        class="btn btn-sm btn-secondary btn-round">
+                    <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                </button>
+
+                <button [disabled]="newsDetails.approvedDate" type="button" class="btn btn-sm btn-blush btn-round" (click)="approvalNews();">
+                    <fa-icon [icon]="'check'"></fa-icon>&nbsp;<span> Approve</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <!--
+        Added the constraints for entity CutIssueStitchDetails.
+    -->
+    <changeSet id="20210410084701-2" author="jhipster">
+        <addForeignKeyConstraint baseColumnNames="cut_plan_issue_stitch_id"
+                                 baseTableName="cut_issue_stitch_details"
+                                 constraintName="fk_cut_issue_stitch_details_cut_plan_issue_stitch_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cut_plan_issue_stitch"/>
+    </changeSet>
+</databaseChangeLog>

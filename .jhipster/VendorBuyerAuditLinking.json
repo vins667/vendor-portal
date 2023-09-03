@@ -1,0 +1,56 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "vendorMaster",
+            "otherEntityName": "vendorMaster",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "code"
+        },
+        {
+            "relationshipName": "buyerMaster",
+            "otherEntityName": "buyerMaster",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "buyerCode",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "vendorBuyerAuditLinking"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lastUpdatedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "lastUpdatedDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20190912094519",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "vendor_buyer_audit_linking",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

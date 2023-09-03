@@ -1,0 +1,83 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Vendor Buyer Audits</span>
+                <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-vendor-buyer-audit" [disabled]="!buyerMaster" (click)="routeNew();">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span>New</span>
+                </button>
+            </h5>
+            <div class="row">
+                <div class="col-md-1"><label class="form-control-label" for="field_vendorMaster">Vendor</label></div>
+                <div class="col-md-3">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control form-control-sm" id="field_vendorMaster" name="vendorMaster" [value]="vendorMaster ? vendorMaster.description : ''" required readonly>
+                        <div class="input-group-append input-group-append-top"><button type="button" class="btn btn-sm btn-blush" (click)="searchContent();"><fa-icon [icon]="'search'"></fa-icon></button></div>
+                    </div>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_buyerMaster">Buyer</label></div>
+                <div class="col-md-3">
+                    <select name="buyerMaster" id="field_buyerMaster" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="buyerMaster" (change)="searchAudits();">
+                        <option *ngIf="!buyerMaster" [ngValue]="undefined" selected>Select Buyer</option>
+                        <option [ngValue]="buyerMasterOption.buyerCode === buyerMaster?.buyerCode ? buyerMaster : buyerMasterOption" *ngFor="let buyerMasterOption of buyerMasters;">{{buyerMasterOption.buyerName}}</option>
+                    </select>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_buyerMaster">Audits</label></div>
+                <div class="col-md-3">
+                    <select name="buyerMaster" id="field_audits" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="auditMaster">
+                        <option *ngIf="!auditMaster" [ngValue]="undefined" selected>Select Audit</option>
+                        <option [ngValue]="auditMasterOption.id === auditMaster?.id ? auditMaster : auditMasterOption" *ngFor="let auditMasterOption of auditMasters;">{{auditMasterOption.desc}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="table-responsive" *ngIf="vendorBuyerAudits?.length > 0">
+                <table class="table table-striped" aria-describedby="page-heading">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let vendorBuyerAudit of vendorBuyerAudits ;trackBy: trackId">
+                        <td><a [routerLink]="['/vendor-buyer-audit', vendorBuyerAudit.id, 'view' ]">{{vendorBuyerAudit.id}}</a></td>
+                        <td class="text-right">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/vendor-buyer-audit', vendorBuyerAudit.id, 'view' ]"
+                                        class="btn btn-info btn-sm">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/vendor-buyer-audit', vendorBuyerAudit.id, 'edit']"
+                                        class="btn btn-primary btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/vendor-buyer-audit', { outlets: { popup: vendorBuyerAudit.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div [hidden]="vendorBuyerAudits?.length === 0">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

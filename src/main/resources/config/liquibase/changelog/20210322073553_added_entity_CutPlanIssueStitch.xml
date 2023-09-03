@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the entity CutPlanIssueStitch.
+    -->
+    <changeSet id="20210322073553-1" author="jhipster">
+        <createTable tableName="cut_plan_issue_stitch">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="transaction_type" type="varchar(1)">
+                <constraints nullable="true" />
+            </column>
+            <column name="plant_code" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            <column name="plant_description" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="destination_plant_code" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            <column name="destination_plant_description" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="projectcode" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="style" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            <column name="color" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            <column name="colordescription" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="termsofdeliverycode" type="varchar(3)">
+                <constraints nullable="true" />
+            </column>
+            <column name="termsofdeliverydescription" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+            <column name="termsofshippingcode" type="varchar(2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="termsofshippingdescription" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+            <column name="eway" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="createdby" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="createddate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="lastupdatedby" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="lastupdateddate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="posted_by" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="posted_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="cut_plan_issue_stitch_seq" incrementBy="1" cycle="false"/>
+        <dropDefaultValue tableName="cut_plan_issue_stitch" columnName="createddate" columnDataType="datetime"/>
+        <dropDefaultValue tableName="cut_plan_issue_stitch" columnName="lastupdateddate" columnDataType="datetime"/>
+    </changeSet>
+</databaseChangeLog>

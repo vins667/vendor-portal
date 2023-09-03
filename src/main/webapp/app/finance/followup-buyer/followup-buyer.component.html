@@ -1,0 +1,90 @@
+<div align="center" class="centered" *ngIf="isDownload">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6">
+                <h6 id="page-heading">
+                    <span>Buyer&nbsp;Master</span>
+                </h6>
+            </div>
+            <div class="col-md-6 text-right">
+                <button id="jh-create-entity" class="btn btn-xs btn-blush btn-round float-right jh-create-entity create-direct-booking-entry m-0" [routerLink]="['/followup-buyers/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span>New&nbsp;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-2">
+                <input type="text" class="form-control form-control-xs" name="buyerCode" id="field_buyerCode" placeholder="Enter Buyer code" [(ngModel)]="search.code"/>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control form-control-xs" name="buyerDescription" id="field_buyerName" placeholder="Enter Buyer Name" [(ngModel)]="search.description"/>
+            </div>
+            <div class="col-md-7 text-right">
+                <button class="btn btn-xs btn-round btn-success m-0" type="button" (click)="loadPage();">
+                    <fa-icon [icon]="'search'"></fa-icon> <span>Search</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="loadPage.bind(this)">
+                    <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="buyercode"><span>Buyercode</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="buyername"><span>Buyername</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="flag"><span>Flag</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let followupBuyer of followupBuyers ;trackBy: trackId">
+                    <td>{{followupBuyer.id}}</td>
+                    <td>{{followupBuyer.buyercode}}</td>
+                    <td>{{followupBuyer.buyername}}</td>
+                    <td>{{followupBuyer.flag}}</td>
+                    <td class="text-right button-column">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/followup-buyers', followupBuyer.id, 'edit']"
+                                    class="btn btn-info  btn-sm">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/followup-buyers', { outlets: { popup: followupBuyer.id + '/delete'} }]"
+                                    replaceUrl="true"
+                                    queryParamsHandling="merge"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" id="no-result" *ngIf="followupBuyers?.length === 0">
+            <span>No data found</span>
+        </div>
+        <div *ngIf="followupBuyers?.length > 0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                                [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                                (pageChange)="loadPage($event)"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

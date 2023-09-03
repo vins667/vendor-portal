@@ -1,0 +1,10 @@
+
+  ${AnsiColor.GREEN}██████╗ ${AnsiColor.RED} ████████╗    █████╗    ███╗   ██╗    █████╗
+  ${AnsiColor.GREEN}██╔══██╗${AnsiColor.RED} ██╔═════╝   ██╔══██╗   ████╗  ██║   ██╔══██╗
+  ${AnsiColor.GREEN}██║  ██║${AnsiColor.RED} ██████╗     ███████║   ██╔██╗ ██║   ███████║
+  ${AnsiColor.GREEN}██║  ██║${AnsiColor.RED} ██╔═══╝     ██╔══██║   ██║╚██╗██║   ██╔══██║
+  ${AnsiColor.GREEN}██████╔╝${AnsiColor.RED} ████████╗   ██║  ██║   ██║ ╚████║   ██║  ██║
+  ${AnsiColor.GREEN}╚═════╝ ${AnsiColor.RED} ╚═══════╝   ╚═╝  ╚═╝   ╚═╝  ╚═══╝   ╚═╝  ╚═╝
+
+${AnsiColor.BRIGHT_BLUE}:: Vivek Kumar Jaiswal 🤓  :: Running Spring Boot ${spring-boot.version} ::
+:: https://www.deana.co.in ::${AnsiColor.DEFAULT}

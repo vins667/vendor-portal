@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Latest News Feed</span>
+            </h5>
+            <jhi-alert></jhi-alert>
+            <ng-container *ngIf="news && news.articles"></ng-container>
+            <div class="row" *ngFor="let article of news.articles;">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="body" style="min-height: 100px;">
+                            <div class="row" style="margin-bottom:-30px;">
+                                <div class="col-md-2">
+                                    <img src="{{article.urlToImage}}" style="width:90%;height: 90%;"/>
+                                </div>
+                                <div class="col-md-10">
+                                    <h6>{{article.title}}</h6>
+                                    <p>{{article.description}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Operation Master</span> {{operationMaster.id}}</h5>
+        <hr>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="operationMaster">
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Description</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                    <span>{{operationMaster.description}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/operation-master', operationMaster.id, 'edit']"
+                            class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

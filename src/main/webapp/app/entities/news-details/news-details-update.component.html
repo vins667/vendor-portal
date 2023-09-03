@@ -1,0 +1,215 @@
+<div class="card">
+    <div class="body">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <h5 id="jhi-news-details-heading">Create or edit a News Details</h5>
+                    <div>
+                        <jhi-alert-error></jhi-alert-error>
+                        <div class="row md-bottom-5" [hidden]="!newsDetails.id">
+                            <div class="col-md-3"><label for="id">ID</label></div>
+                            <div class="col-md-9"><input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="newsDetails.id" readonly /></div>
+                        </div>
+                        <div class="row md-bottom-5">
+                            <div class="col-md-3"><label class="form-control-label" for="field_newsTitle">News Title</label></div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="newsTitle" id="field_newsTitle" [(ngModel)]="newsDetails.newsTitle" required maxlength="255" placeholder="Enter Title" [readOnly]="isNewJoining"/>
+                                <div [hidden]="!(editForm.controls.newsTitle?.dirty && editForm.controls.newsTitle?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.newsTitle?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.newsTitle?.errors?.maxlength">
+                                        This field cannot be longer than 255 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row md-bottom-5">
+                            <div class="col-md-3"><label class="form-control-label" for="field_newsMaster">News Type</label></div>
+                            <div class="col-md-3">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" id="field_newsMaster" name="newsMaster" [(ngModel)]="newsDetails.newsMaster"  required (change)="newJoining();">
+                                    <option [ngValue]="newsMasterOption.id === newsDetails.newsMaster?.id ? newsDetails.newsMaster : newsMasterOption" *ngFor="let newsMasterOption of newsmasters; trackBy: trackNewsMasterById">{{newsMasterOption.newsName}}</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.newsMaster?.dirty && editForm.controls.newsMaster?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.newsMaster?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-3"><label class="form-control-label" for="field_displayDays">No Of Days</label></div>
+                            <div class="col-md-3">
+                                <input type="number" class="form-control form-control-sm" name="displayDays" min="0" id="field_displayDays" [(ngModel)]="newsDetails.displayDays" required placeholder="Enter No Of Days" [readOnly]="isNewJoining"/>
+                                <div [hidden]="!(editForm.controls.displayDays?.dirty && editForm.controls.displayDays?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.displayDays?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.displayDays?.errors?.number">
+                                        This field should be a number.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row md-bottom-5" *ngIf="newsDetails.newsMaster && newsDetails.newsMaster.newsName=='NEW JOINING'">
+                            <div class="col-md-3"><label class="form-control-label" for="field_newsMaster">Emp Code</label></div>
+                            <div class="col-md-3"><input type="text" class="form-control form-control-sm" name="empCode" [(ngModel)]="newsDetails.empCode" (blur)="callDetails();" id="field_empCode" maxlength="255" placeholder="Enter Emp Code"/></div>
+                            <div class="col-md-6"><input type="text" class="form-control form-control-sm" name="empName" [(ngModel)]="newsDetails.empName" id="field_empName" maxlength="255" disabled/></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><label>Factory</label></div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="row" style="margin-right:15px;">
+                                        <div class="col-md-12 table-bordered" style="margin-left: 15px;">
+                                            <div class="row" [formGroup]="listBoxForm">
+                                                <div class="col-md-5 col-lg-5 col-sm-12">
+                                                    <label class="text-center vertical-spacing-5">{{availableText}}</label>
+                                                    <input type="text" class="form-control form-control-sm vertical-spacing-5" placeholder="{{availableFilterPlaceholder}}"
+                                                           formControlName="availableSearchInput" />
+                                                    <select class="form-control form-control-sm list-box" formControlName="availableListBox" multiple style="height: 150px;">
+                                                        <option *ngFor="let item of availableItems | arrayFilter:['name', searchTermAvailable] | arraySort:['name', 'ASC']; trackBy:trackByValue" [value]="item?.id" (dblclick)="moveAvailableItemToSelected(item)">{{item?.factoryName}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2 col-lg-2 col-sm-12 center-block text-center">
+                                                    <button type="button" class="btn btn-sm btn-blush col-md-8 col-md-offset-2 atr top80 sm-spacing" *ngIf="moveAllButton" (click)="moveAllItemsToSelected()">
+                                                        <fa-icon [icon]="'angle-double-right'"></fa-icon>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-blush col-md-8 col-md-offset-2 str vertical-spacing-5 sm-spacing" [disabled]="!availableListBoxControl.value?.length" (click)="moveMarkedAvailableItemsToSelected()">
+                                                        <fa-icon [icon]="'chevron-right'"></fa-icon>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-blush col-md-8 col-md-offset-2 stl vertical-spacing-5 sm-spacing" [disabled]="!selectedListBoxControl.value?.length" (click)="moveMarkedSelectedItemsToAvailable()">
+                                                        <fa-icon [icon]="'chevron-left'"></fa-icon>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-blush col-md-8 col-md-offset-2 atl bottom10 sm-spacing" *ngIf="moveAllButton" (click)="moveAllItemsToAvailable()">
+                                                        <fa-icon [icon]="'angle-double-left'"></fa-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-5 col-lg-5 col-sm-12">
+                                                    <label class="text-center vertical-spacing-5">{{selectedText}}</label>
+                                                    <input type="text" class="form-control form-control-sm vertical-spacing-5" placeholder="{{selectedFilterPlaceholder}}"
+                                                           formControlName="selectedSearchInput" />
+                                                    <select class="form-control form-control-sm list-box" multiple style="height: 150px;" formControlName="selectedListBox">
+                                                        <option *ngFor="let item of selectedItems | arrayFilter:['name', searchTermSelected] | arraySort:['name', 'ASC'];trackBy:trackByValue" [value]="item?.id" (dblclick)="moveSelectedItemToAvailable(item)">{{item?.factoryName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="field_mailBody">News Body</label>
+                                    <ckeditor id="field_mailBody" required [(ngModel)]="ckeditorContent" #myckeditor [ngModelOptions]="{standalone: true}"></ckeditor>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="!isNewJoining">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <label class="form-control-label" for="field_mailFlag">Mail&nbsp;Flag</label>
+                                    <div class="input-group-append" style="margin-top: 5px;">
+                                        &nbsp;&nbsp;&nbsp;<input type="checkbox" name="mailFlag" id="field_mailFlag" [(ngModel)]="newsDetails.mailFlag" />
+                                    </div>
+                                </div>
+                                <div [hidden]="!(editForm.controls.mailFlag?.dirty && editForm.controls.mailFlag?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.mailFlag?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-2" [hidden]="true">
+                                <div class="input-group">
+                                    <label class="form-control-label" for="field_notificationFlag">Notification&nbsp;Flag&nbsp;</label>
+                                    <div class="input-group-append" style="margin-top: 5px;">
+                                        &nbsp;&nbsp;&nbsp;<input type="checkbox" name="notificationFlag" id="field_notificationFlag"
+                                                                 [(ngModel)]="newsDetails.notificationFlag" />
+                                    </div>
+                                </div>
+                                <div [hidden]="!(editForm.controls.notificationFlag?.dirty && editForm.controls.notificationFlag?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.notificationFlag?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-7 text-right">
+                                    <button type="button" id="previewByID" (click)="previewByUID();" class="btn btn-sm btn-round btn-blush">
+                                        <fa-icon [icon]="'sync'"></fa-icon>&nbsp;<span>Preview</span>
+                                    </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="!isNewJoining">
+                        <div class="col-md-3">Attachment</div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3" *ngFor="let newsDetailsAttach of newsDetails.newsDetailsAttaches">
+                                    <a href="javascript: void(0)" (click)="download(newsDetailsAttach);" style="color: #00adef;" title="{{newsDetailsAttach.attachDisplayFile}}">{{newsDetailsAttach.attachDisplayFile}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" id="cancel-save" class="btn btn-sm btn-round btn-secondary"  (click)="previousState()">
+                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                            </button>
+                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving || newsDetails.approvedDate" class="btn btn-sm btn-round btn-blush">
+                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                            </button>
+                        </div>
+                        <div class="col-md-6 text-right" *ngIf="!isNewJoining">
+                            <button type="button" id="attach-button" class="btn btn-sm btn-round btn-success" (click)="displayAttachMethod();" [disabled]="!newsDetails.id || newsDetails.approvedDate">
+                                <fa-icon [icon]="'paperclip'"></fa-icon>&nbsp;<span>Attach</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<form role="form" (ngSubmit)="saveUpload()" enctype="multipart/form-data">
+    <div class="container chatDiv" style="position: fixed; width: 350px; right: 10px; bottom: 0; background: white; z-index: 2000; border: 1px solid #ccc; padding: 0" *ngIf="displayAttach==true">
+        <div class="card bg-default" style="margin-bottom: 0px;">
+            <div style="height: 30px; padding-top: 5px; padding-left: 15px;" class="card-heading bg-blush" id="accordion">
+                <div class="row">
+                    <div class="col-md-10"><fa-icon [icon]="'paperclip'"></fa-icon> News Attachment</div>
+                    <div class="col-md-2 text-right"><span style="margin-right: 15px;"><fa-icon [icon]="'times'" (click)="displayAttachMethod()"></fa-icon></span></div>
+                </div>
+            </div>
+        </div>
+        <div id="collapseOne"  style="display:flex; flex-direction:column;height: 300px;">
+            <div class="body">
+                <div style="height: 200px;overflow-y: scroll !important;overflow-x: hidden !important;">
+                    <ng-container *ngFor="let attach of attachButtons;">
+                        <div class="row table-bordered">
+                            <div class="col-md-9">
+                                <input type="file" class="form-control-file" style="padding-top: 5px;" (change)="selectFile($event)"/>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-sm btn-round btn-blush" type="button" (click)="addMoreAttachment();"><fa-icon [icon]="'plus'"></fa-icon></button>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="button" id="cancel-upload" class="btn btn-sm btn-secondary"  (click)="displayAttachMethod()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" class="btn btn-success btn-sm" name="upload-button" id="upload-button" [disabled]="newsDetails.flag=='A'"><fa-icon [icon]="'save'"></fa-icon> Upload</button>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

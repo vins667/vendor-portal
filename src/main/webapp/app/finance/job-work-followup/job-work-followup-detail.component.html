@@ -1,0 +1,111 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="jobWorkFollowup">
+            <h2><span>Job Work Followup</span> {{jobWorkFollowup.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Jobworkcode</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.jobworkcode}}</span>
+                </dd>
+                <dt><span>Jobworkname</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.jobworkname}}</span>
+                </dd>
+                <dt><span>Buyercode</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.buyercode}}</span>
+                </dd>
+                <dt><span>Buyername</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.buyername}}</span>
+                </dd>
+                <dt><span>Responsiblepersoncode 01</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.responsiblepersoncode01}}</span>
+                </dd>
+                <dt><span>Responsiblepersonname 01</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.responsiblepersonname01}}</span>
+                </dd>
+                <dt><span>Responsiblepersoncode 02</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.responsiblepersoncode02}}</span>
+                </dd>
+                <dt><span>Responsiblepersonname 02</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.responsiblepersonname02}}</span>
+                </dd>
+                <dt><span>Responsiblepersoncode 03</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.responsiblepersoncode03}}</span>
+                </dd>
+                <dt><span>Responsiblepersonname 03</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.responsiblepersonname03}}</span>
+                </dd>
+                <dt><span>Level 01 Reminderpersoncode 01</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.level01reminderpersoncode01}}</span>
+                </dd>
+                <dt><span>Level 01 Reminderpersonname 01</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.level01reminderpersonname01}}</span>
+                </dd>
+                <dt><span>Level 01 Reminderpersoncode 02</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.level01reminderpersoncode02}}</span>
+                </dd>
+                <dt><span>Level 01 Reminderpersonname 02</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.level01reminderpersonname02}}</span>
+                </dd>
+                <dt><span>Level 01 Reminderpersoncode 03</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.level01reminderpersoncode03}}</span>
+                </dd>
+                <dt><span>Level 01 Reminderpersonname 03</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.level01reminderpersonname03}}</span>
+                </dd>
+                <dt><span>Level 02 Reminderpersoncode 01</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.level02reminderpersoncode01}}</span>
+                </dd>
+                <dt><span>Level 02 Reminderpersonname 01</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.level02reminderpersonname01}}</span>
+                </dd>
+                <dt><span>Level 02 Reminderpersoncode 02</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.level02reminderpersoncode02}}</span>
+                </dd>
+                <dt><span>Level 02 Reminderpersonname 02</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.level02reminderpersonname02}}</span>
+                </dd>
+                <dt><span>Level 02 Reminderpersoncode 03</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.level02reminderpersoncode03}}</span>
+                </dd>
+                <dt><span>Level 02 Reminderpersonname 03</span></dt>
+                <dd>
+                    <span>{{jobWorkFollowup.level02reminderpersonname03}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/job-work-followup', jobWorkFollowup.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

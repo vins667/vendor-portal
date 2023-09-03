@@ -1,0 +1,132 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "fabricSubstractMaster",
+            "otherEntityName": "fabricSubstractMaster",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "fabricSubstractDetails",
+            "otherEntityName": "fabricSubstractDetails",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "fabricSplFinishMaster",
+            "otherEntityName": "fabricSplFinishMaster",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "fabricOthersMaster",
+            "otherEntityName": "fabricOthersMaster",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "fabricCreationWeftDetails",
+            "otherEntityName": "fabricCreationWeftDetails",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "fabricCreationMaster"
+        },
+        {
+            "relationshipName": "fabricCreationWarpDetails",
+            "otherEntityName": "fabricCreationWarpDetails",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "fabricCreationMaster"
+        },
+        {
+            "relationshipName": "fabricCreationContentDetails",
+            "otherEntityName": "fabricCreationContentDetails",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "fabricCreationMaster"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "15"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "1000"
+        },
+        {
+            "fieldName": "epi",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "ppi",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "oth",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String",
+            "fieldValidateRulesMaxlength": "1"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lastUpdatedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "lastUpdatedDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20190827085733",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "fabric_creation_master",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

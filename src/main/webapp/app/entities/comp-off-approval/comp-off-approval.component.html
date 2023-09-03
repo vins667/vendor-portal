@@ -1,0 +1,92 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Comp Off Approval</span>
+            </h5>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <select name="leaveStatus" id="leaveStatus" class="form-control custom-select custom-select-sm" [(ngModel)]="leavesearch.leaveStatus">
+                        <option value="P">Pending</option>
+                        <option value="A">Approved</option>
+                        <option value="R">Rejected</option>
+                    </select>
+                </div>
+                <div class="col-md-2" *ngIf="leavesearch.leaveStatus && leavesearch.leaveStatus!=='P'">
+                    <div class="input-group input-group-sm">
+                        <input [owlDateTime]="leaveFrom" name="leaveDateFrom" id="field_leaveDateFrom" placeholder="Date From" class="form-control form-control-sm" required [(ngModel)]="leaveDateFrom">
+                        <div class="input-group-append input-group-append-top">
+                            <div class="btn btn-blush" [owlDateTimeTrigger]="leaveFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #leaveFrom></owl-date-time>
+                </div>
+                <div class="col-md-2" *ngIf="leavesearch.leaveStatus && leavesearch.leaveStatus!=='P'">
+                    <div class="input-group input-group-sm">
+                        <input [owlDateTime]="leaveTo" name="leaveDateTo" id="field_leaveDateTo" placeholder="Date To" class="form-control form-control-sm" required [(ngModel)]="leaveDateTo">
+                        <div class="input-group-append input-group-append-top">
+                            <div class="btn btn-blush" [owlDateTimeTrigger]="leaveTo"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #leaveTo></owl-date-time>
+                </div>
+                <div class="col-md-2"><input type="text" name="empCode" class="form-control form-control-sm" placeholder="Enter Employee Code" [(ngModel)]="leavesearch.empCode"/></div>
+                <div class="col-md-2">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-round btn-blush" style="margin-top: 0;" (click)="search()"><fa-icon [icon]="'search'"></fa-icon><span> Search</span></button>
+                        &nbsp;&nbsp;
+                        <button id="jh-create-entity" class="btn btn-sm btn-round btn-success" (click)="save()" [disabled]="!compOffSaveMasters" style="margin-top: 0;">
+                            <fa-icon [icon]="'save'"></fa-icon><span> Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" *ngIf="compOffMasters">
+                <table class="table table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th><span>Card No</span></th>
+                        <th><span>Name</span></th>
+                        <th jhiSortBy="compOffDate"><span>Comp Off Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="timeFrom"><span>Time From</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="timeTo"><span>Time To</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="balance"><span>Balance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="remarks"><span>Reason</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th><span>Action</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let compOffMaster of compOffMasters ;trackBy: trackId">
+                        <td>{{compOffMaster.id}}</td>
+                        <td><ng-container *ngIf="compOffMaster.userCode">{{compOffMaster.userCode.login}}</ng-container></td>
+                        <td><ng-container *ngIf="compOffMaster.userCode">{{compOffMaster.userCode.firstName}} {{compOffMaster.userCode.lastName}}</ng-container></td>
+                        <td>{{compOffMaster.compOffDate | date:'dd-MM-yyyy'}}</td>
+                        <td>{{compOffMaster.timeFrom}}</td>
+                        <td>{{compOffMaster.timeTo}}</td>
+                        <td>{{compOffMaster.balance}}</td>
+                        <td>{{compOffMaster.remarks}}</td>
+                        <td class="align-right button-column">
+                            <select name="leaveApprove" id="leaveApprove" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="compOffMaster.flag" [disabled]="(compOffMaster.flag=='A' || compOffMaster.flag=='C' || compOffMaster.flag=='R' || compOffMaster.flag=='Q') && compOffMaster.hodApprovedDate" (change)="pushValue(compOffMaster);" style="font-size: 0.6571em !important;">
+                                <option value="E">Select</option>
+                                <option value="A">Approve</option>
+                                <option value="R">Reject</option>
+                            </select>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="compOffMasters && compOffMasters.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

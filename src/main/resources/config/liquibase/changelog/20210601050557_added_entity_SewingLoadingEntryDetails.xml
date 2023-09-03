@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <!--
+        Added the entity SewingLoadingEntryDetails.
+    -->
+    <changeSet id="20210601050557-1" author="jhipster">
+        <createTable tableName="sewing_loading_entry_details">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="companycode" type="varchar(3)">
+                <constraints nullable="false" />
+            </column>
+            <column name="itemtypecode" type="varchar(3)">
+                <constraints nullable="false" />
+            </column>
+            <column name="subcode_01" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_02" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_03" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_04" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_05" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_06" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_07" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_08" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_09" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_10" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="productdescription" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="uom" type="varchar(3)">
+                <constraints nullable="true" />
+            </column>
+            <column name="logicalwarehousecode" type="varchar(8)">
+                <constraints nullable="true" />
+            </column>
+            <column name="logicalwarehousedesc" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="reservationquantity" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="stockquantity" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="issuedquantity" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="balancequantity" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="selectedquantity" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="sewing_loading_entry_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="sewing_loading_entry_details_seq" incrementBy="1" cycle="false"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,100 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Worker Recruitment</span> {{workerRecruitment.id}}</h5>
+        <hr>
+        <form name="editForm" role="form" novalidate #editForm="ngForm">
+            <div class="row">
+                <div class="col-8">
+                    <div *ngIf="workerRecruitment">
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Aadhar No</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{workerRecruitment.aadharNo}}</span></dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Name</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{workerRecruitment.name}}</span></dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Dob</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{workerRecruitment.dob | date:'mediumDate'}}</span></dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Father Name</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{workerRecruitment.fatherName}}</span></dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Address</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{workerRecruitment.address}}</span></dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Designation</span></dt></div>
+                            <div class="col-md-9">
+                                <dd>
+                                    {{workerRecruitment.designationMaster?.designationName}}
+                                </dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Pan No</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{workerRecruitment.panNo}}</span></dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Bank Acc No</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{workerRecruitment.bankAccNo}}</span></dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Designation</span></dt></div>
+                            <div class="col-md-9">
+                                <dd>
+                                    {{workerRecruitment.bankMaster?.bankName}}
+                                </dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Bank Branch</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{workerRecruitment.bankBranch}}</span></dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Corespond Address</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{workerRecruitment.corespondAddress}}</span></dd>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/worker-recruitment', workerRecruitment.id, 'edit']"
+                            class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+                <div class="col-4">
+                    <div style="width:340px;height:300px;">
+                        <img [src]="'../file_upload/workerrecruitemt/profile/'+workerRecruitment.fileName" style="border-radius:5px;"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

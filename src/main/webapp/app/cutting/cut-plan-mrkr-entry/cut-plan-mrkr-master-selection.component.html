@@ -1,0 +1,66 @@
+<div class="centered" *ngIf="isProcess">
+    <div class="loader">
+    </div>
+</div>
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5>Choose Marker</h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+</div>
+<div class="modal-body scroll-popup-table-2">
+    <div class="card">
+        <div class="card-header">
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_style">Style</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control form-control-xs" name="style" id="field_style" [(ngModel)]="markerMasterEntry.style" disabled/>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_colorDesc">Color</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control form-control-xs" name="colorDesc" id="field_colorDesc" [(ngModel)]="markerMasterEntry.colorDesc" disabled/>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_style">Plant</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="plantDescription" id="field_plantDescription" [(ngModel)]="markerMasterEntry.plantDescription" disabled/>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body py-2" *ngIf="markerMasterEntries">
+            <div class="">
+                <div class="table-responsive" id="entities2">
+                    <table class="table table-sm table-bordered" aria-describedby="page-heading">
+                        <thead>
+                        <tr>
+                            <th style="width: 20px;"></th>
+                            <th style="width: 80px;">Marker#</th>
+                            <th style="width: 70px;">Length#</th>
+                            <ng-container *ngIf="markerDestinationBean && markerDestinationBean.sizeCodes">
+                                <th *ngFor="let sizesBean of markerDestinationBean.sizeCodes;" style="width: 100px;" class="text-center"><span>{{ sizesBean.sizeCode }}</span></th>
+                            </ng-container>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ng-container *ngFor="let markerMasterEntry1 of markerMasterEntries; let indexHeader = index ">
+                            <tr class="bg-white">
+                                <td style="width: 20px; border: 1px solid #dee2e6;">
+                                    <fa-icon [icon]="'plus-circle'" style="cursor: pointer;" class="font-15 text-success" (click)="pushMarker(markerMasterEntry1);"></fa-icon>
+                                </td>
+                                <td style="width: 70px; border: 1px solid #dee2e6;">
+                                    <input type="text" name="markerCode{{indexHeader}}" id="markerCode{{indexHeader}}" class="form-control form-control-xs text-center bg-white"  [(ngModel)]="markerMasterEntry1.markerCode" disabled>
+                                </td>
+                                <td style="width: 70px; border: 1px solid #dee2e6;">
+                                    <input type="text" class="form-control form-control-xs text-center bg-white" name="length{{indexHeader}}" id="field_length{{indexHeader}}" [(ngModel)]="markerMasterEntry1.length" required disabled/>
+                                </td>
+                                <td *ngFor="let markerEntryDetail of markerMasterEntry1.markerEntryDetails; let index = index;" style="width: 100px; border: 1px solid #dee2e6;" class="text-center">
+                                    <input type="text" name="sizeQty{{indexHeader}}_{{index}}" id="field_sizeQty{{indexHeader}}_{{index}}" [(ngModel)]="markerEntryDetail.sizeQty" class="form-control form-control-xs text-center bg-white" disabled/>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

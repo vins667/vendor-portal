@@ -1,0 +1,66 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Recruitment Document Master</span> {{recruitmentDocumentMaster.id}}</h5>
+        <hr>
+        <div class="row">
+            <div class="col-10">
+                <div *ngIf="recruitmentDocumentMaster">
+                    <jhi-alert-error></jhi-alert-error>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Description</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{recruitmentDocumentMaster.description}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Document Mandatory</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{recruitmentDocumentMaster.documentMandatory}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Force Type</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <ng-container *ngIf="recruitmentDocumentMaster.forceDocumentType==='O'">Original</ng-container>
+                                <ng-container *ngIf="recruitmentDocumentMaster.forceDocumentType==='P'">Provisional</ng-container>
+                                <ng-container *ngIf="recruitmentDocumentMaster.forceDocumentType==='A'">Original/Provisional</ng-container>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Attach Type</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <ng-container *ngIf="recruitmentDocumentMaster.attachType==='C'">Checked</ng-container>
+                                <ng-container *ngIf="recruitmentDocumentMaster.attachType==='U'">Upload</ng-container>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Document Type</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <ng-container *ngIf="recruitmentDocumentMaster.documentType==='S'">Staff</ng-container>
+                                <ng-container *ngIf="recruitmentDocumentMaster.documentType==='W'">Worker</ng-container>
+                                <ng-container *ngIf="recruitmentDocumentMaster.documentType==='A'">Staff/Worker</ng-container>
+                            </dd>
+                        </div>
+                    </div>
+                    <button type="submit" (click)="previousState()" class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button" [routerLink]="['/recruitment-document-master', recruitmentDocumentMaster.id, 'edit']"
+                            class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

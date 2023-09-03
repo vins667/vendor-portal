@@ -1,0 +1,76 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Tds Group Details</span>
+                <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-tds-group-details" [routerLink]="['/tds-group-details/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span >New</span>
+                </button>
+            </h5>
+            <jhi-alert></jhi-alert>
+            <br/>
+            <div class="table-responsive" *ngIf="tdsGroupDetails">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="id"><span>ID</span>&nbsp;<fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th><span>Year</span></th>
+                        <th jhiSortBy="tdsGroupMaster.id"><span>Group&nbsp;Code</span>&nbsp;<fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="perkCode"><span>Perk&nbsp;Code</span>&nbsp;<fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="perkDescription"><span>Description</span>&nbsp;<fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="perkLimit"><span>Perk&nbsp;Limit</span>&nbsp;<fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="perkType"><span>Perk&nbsp;Type</span>&nbsp;<fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="perkMode"><span>Perk&nbsp;Mode</span>&nbsp;<fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let tdsGroupDetails of tdsGroupDetails ;trackBy: trackId">
+                        <td><a [routerLink]="['/tds-group-details', tdsGroupDetails.id, 'view' ]">{{tdsGroupDetails.id}}</a></td>
+                        <td>{{tdsGroupDetails.tdsGroupMaster?.year}}</td>
+                        <td>{{tdsGroupDetails.tdsGroupMaster?.groupCode}}</td>
+                        <td>{{tdsGroupDetails.perkCode}}</td>
+                        <td>{{tdsGroupDetails.perkDescription}}</td>
+                        <td>{{tdsGroupDetails.perkLimit}}</td>
+                        <td><ng-container *ngIf="tdsGroupDetails.perkType=='E'">Earn</ng-container><ng-container *ngIf="tdsGroupDetails.perkType=='D'">Deducted</ng-container></td>
+                        <td><ng-container *ngIf="tdsGroupDetails.perkMode=='E'">Entry</ng-container><ng-container *ngIf="tdsGroupDetails.perkMode=='A'">Auto</ng-container><ng-container *ngIf="tdsGroupDetails.perkMode=='C'">Calculated</ng-container></td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/tds-group-details', tdsGroupDetails.id, 'view' ]"
+                                        class="btn btn-info btn-sm">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/tds-group-details', tdsGroupDetails.id, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/', 'tds-group-details', { outlets: { popup: tdsGroupDetails.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="tdsGroupDetails && tdsGroupDetails.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

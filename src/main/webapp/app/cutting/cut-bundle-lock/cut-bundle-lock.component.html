@@ -1,0 +1,53 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Cut Bundle Lock</span>
+            </h5>
+            <jhi-alert></jhi-alert>
+            <br/>
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="id.plantCode"><span>Plant</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="id.productionCode"><span>Production Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="lockedBy"><span>Locked By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="lockedDate"><span>Locked Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let cutBundleLock of cutBundleLocks ;trackBy: trackId">
+                        <td>{{cutBundleLock.id.plantCode}}</td>
+                        <td>{{cutBundleLock.id.productionCode}}</td>
+                        <td>{{cutBundleLock.lockedBy}}</td>
+                        <td>{{cutBundleLock.lockedDate}}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="button" (click)="delete(cutBundleLock)"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="cutBundleLocks && cutBundleLocks.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                                    [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+                    </ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

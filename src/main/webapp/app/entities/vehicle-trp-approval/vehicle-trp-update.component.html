@@ -1,0 +1,166 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-vehicle-master-heading">Vehicle Request</h5>
+        <hr/>
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <div class="row md-bottom-5" [hidden]="!vehicleMaster.id">
+                <div class="col-md-2"><label for="id">ID</label></div>
+                <div class="col-md-8"><input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="vehicleMaster.id" readonly /></div>
+            </div>
+            <div class="row md-bottom-5" [hidden]="!vehicleMaster.user">
+                <div class="col-md-2"><label for="id">Name</label></div>
+                <div class="col-md-8"><input type="text" class="form-control form-control-sm" id="name" name="name" value="{{vehicleMaster.user.firstName +' '+ vehicleMaster.user.lastName}} ({{vehicleMaster.user.login}})" readonly /></div>
+            </div>
+            <div class="row md-bottom-5">
+                <div class="col-md-2"><label class="form-control-label" for="field_vehicleType">Vehicle Type</label></div>
+                <div class="col-md-3">
+                    <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="vehicleType" id="field_vehicleType" [(ngModel)]="vehicleMaster.vehicleType" required maxlength="2" disabled>
+                        <option value="NC">Normal Vehicle</option>
+                        <option value="LC">Luxury Vehicle</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.vehicleType?.dirty && editForm.controls.vehicleType?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.vehicleType?.errors?.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.vehicleType?.errors?.maxlength">
+                            This field cannot be longer than 2 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-2"><label class="form-control-label" for="field_noVehicle">No Vehicle</label></div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-sm" name="noVehicle" id="field_noVehicle" [(ngModel)]="vehicleMaster.noVehicle" required disabled/>
+                    <div [hidden]="!(editForm.controls.noVehicle?.dirty && editForm.controls.noVehicle?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.noVehicle?.errors?.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.noVehicle?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row md-bottom-5">
+                <div class="col-md-2"><label class="form-control-label" for="field_vehicleDate">Vehicle Date</label></div>
+                <div class="col-md-3">
+                    <div class="input-group input-group-sm">
+                        <input [owlDateTime]="leaveFrom" id="field_vehicleDate" type="text" class="form-control" name="vehicleDate" [(ngModel)]="vehicleDate" required disabled/>
+                        <div class="input-group-append input-group-append-top">
+                            <div class="btn btn-blush" [owlDateTimeTrigger]="leaveFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                        </div>
+                    </div>
+                    <owl-date-time #leaveFrom></owl-date-time>
+                    <div [hidden]="!(editForm.controls.vehicleDate?.dirty && editForm.controls.vehicleDate?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.vehicleDate?.errors?.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.vehicleDate?.errors?.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row md-bottom-5">
+                <div class="col-md-2"><label class="form-control-label" for="field_placeFrom">Place From</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-sm text-uppercase" name="placeFrom" id="field_placeFrom" [(ngModel)]="vehicleMaster.placeFrom" maxlength="250" required disabled/>
+                    <div [hidden]="!(editForm.controls.placeFrom?.dirty && editForm.controls.placeFrom?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.placeFrom?.errors?.maxlength">
+                            This field cannot be longer than 250 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-2"><label class="form-control-label" for="field_placeTo">Place To</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-sm text-uppercase" name="placeTo" id="field_placeTo" [(ngModel)]="vehicleMaster.placeTo" maxlength="250" required disabled/>
+                    <div [hidden]="!(editForm.controls.placeTo?.dirty && editForm.controls.placeTo?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.placeTo?.errors?.maxlength">
+                            This field cannot be longer than 250 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row md-bottom-5">
+                <div class="col-md-2"><label class="form-control-label" for="field_purpose">Purpose</label></div>
+                <div class="col-md-8">
+                    <textarea type="text" class="form-control" name="purpose" id="field_purpose" [(ngModel)]="vehicleMaster.purpose" maxlength="500" required disabled></textarea>
+                    <div [hidden]="!(editForm.controls.purpose?.dirty && editForm.controls.purpose?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.purpose?.errors?.maxlength">
+                            This field cannot be longer than 500 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row md-bottom-5">
+                <div class="col-md-2"><label class="form-control-label" for="field_hodApprovedBy">Hod Approved By</label></div>
+                <div class="col-md-8">
+                    <select class="form-control form-control-sm custom-select custom-select-sm" name="hodApprovedBy" id="field_hodApprovedBy" [(ngModel)]="vehicleMaster.hodApprovedBy" required disabled>
+                        <option *ngIf="hodEmployeeView" [value]="hodEmployeeView.login | lowercase">{{hodEmployeeView.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row md-bottom-5">
+                <div class="col-md-2">Flag</div>
+                <div class="col-md-3">
+                    <select name="leaveApprove" id="leaveApprove" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="vehicleMaster.flag" [disabled]="vehicleMaster.adminApprovedBy" required (change)="requiredValidate();">
+                        <option value="C">Approve</option>
+                        <option value="R">Reject</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row md-bottom-5">
+                <div class="col-md-2"><label class="form-control-label" for="field_vehicleNumber">Vehicle Number</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-sm" name="vehicleNumber" id="field_vehicleNumber" [(ngModel)]="vehicleMaster.vehicleNumber" maxlength="100" [required]="isRequired" [disabled]="vehicleMaster.adminApprovedBy"/>
+                    <div [hidden]="!(editForm.controls.vehicleNumber?.dirty && editForm.controls.vehicleNumber?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.vehicleNumber?.errors?.maxlength">
+                            This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-2"><label class="form-control-label" for="field_driverName">Driver Name</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-sm" name="driverName" id="field_driverName" [(ngModel)]="vehicleMaster.driverName" maxlength="100"  [required]="isRequired" [disabled]="vehicleMaster.adminApprovedBy"/>
+                    <div [hidden]="!(editForm.controls.driverName?.dirty && editForm.controls.driverName?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.driverName?.errors?.maxlength">
+                            This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"><label class="form-control-label" for="field_adminRemarks">Admin Remarks</label></div>
+                <div class="col-md-8">
+                    <textarea type="text" class="form-control" name="adminRemarks" id="field_adminRemarks" [(ngModel)]="vehicleMaster.adminRemarks" maxlength="500" [disabled]="vehicleMaster.adminApprovedBy"></textarea>
+                    <div [hidden]="!(editForm.controls.adminRemarks?.dirty && editForm.controls.adminRemarks?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.adminRemarks?.errors?.maxlength">
+                            This field cannot be longer than 500 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                    </button>
+                    <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving || vehicleMaster.adminApprovedBy" class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

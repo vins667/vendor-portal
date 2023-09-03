@@ -1,0 +1,62 @@
+<div class="centered" *ngIf="isProcess">
+    <div class="loader">
+    </div>
+</div>
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5>Scanned By {{packingProductionEntry.scannedBy === 'PCS' ? 'Piece' : 'Bundle'}}</h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+</div>
+<div class="modal-body">
+    <div class="row clearfix">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <div class="row pb-1">
+                                <div class="col-md-4">Bundle#</div>
+                                <div class="col-md-8">
+                                    <input type="text" #scanner name="scanId" id="field_scanId" class="form-control form-control-xs" [(ngModel)]="scanId" [ngModelOptions]="{standalone: true}" (blur)="fetchData()" (keyup.enter)="fetchData()"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3"><button type="button" class="btn btn-xs btn-blush" name="btnAddAll" id="field_btnAddAll" (click)="addAll()"><fa-icon [icon]="'plus'"></fa-icon>&nbsp;Add All</button></div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive table-responsive-sm">
+                        <table class="table table-sm table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>SlNo#</th>
+                                    <th>Bundle&nbsp;Id</th>
+                                    <th>Color</th>
+                                    <th>Size</th>
+                                    <th>Product#</th>
+                                    <th>Product&nbsp;Id</th>
+                                    <th>UOM</th>
+                                    <th>Pieces</th>
+                                    <th style="width: 40px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let stitchIssuePackDetail of stitchIssuePackDetails; let index = index;">
+                                <td>{{index+1}}</td>
+                                <td>{{stitchIssuePackDetail.cutPlanBundleId}}</td>
+                                <td>{{stitchIssuePackDetail.decosubcode06}}</td>
+                                <td>{{stitchIssuePackDetail.decosubcode07}}</td>
+                                <td>{{stitchIssuePackDetail.productCode}}</td>
+                                <td>{{stitchIssuePackDetail.cutPlanBundleDetailsId}}</td>
+                                <td>{{stitchIssuePackDetail.baseprimaryunitcode}}</td>
+                                <td>{{stitchIssuePackDetail.baseprimaryquantityunit}}</td>
+                                <td><input type="checkbox" name="checked{{index}}" id="field_checked{{index}}" [(ngModel)]="stitchIssuePackDetail.checked"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

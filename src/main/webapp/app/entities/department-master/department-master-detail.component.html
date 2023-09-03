@@ -1,0 +1,49 @@
+<div class="card">
+    <div class="body">
+        <div *ngIf="departmentMaster">
+            <h5><span>Department Master</span> {{departmentMaster.id}}</h5>
+            <hr/>
+            <div class="row">
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Dept Code</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{departmentMaster.deptCode}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Dept Desc</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{departmentMaster.deptDesc}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <dt><span>Status</span></dt>
+                        </div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span><ng-container *ngIf="departmentMaster.status=='Y'">Active</ng-container><ng-container *ngIf="departmentMaster.status=='N'">Inactive</ng-container></span>
+                            </dd>
+                        </div>
+                    </div>
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/department-master', departmentMaster.id, 'edit']"
+                            class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

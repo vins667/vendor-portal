@@ -1,0 +1,57 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="travelForexDetails">
+            <h2><span>Travel Forex Details</span> {{travelForexDetails.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Forex Type</span></dt>
+                <dd>
+                    <span>{{travelForexDetails.forexType}}</span>
+                </dd>
+                <dt><span>Required Amount</span></dt>
+                <dd>
+                    <span>{{travelForexDetails.requiredAmount}}</span>
+                </dd>
+                <dt><span>Approved Amount</span></dt>
+                <dd>
+                    <span>{{travelForexDetails.approvedAmount}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{travelForexDetails.createdBy}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{travelForexDetails.createdDate}}</span>
+                </dd>
+                <dt><span>Last Updated By</span></dt>
+                <dd>
+                    <span>{{travelForexDetails.lastUpdatedBy}}</span>
+                </dd>
+                <dt><span>Last Updated Date</span></dt>
+                <dd>
+                    <span>{{travelForexDetails.lastUpdatedDate}}</span>
+                </dd>
+                <dt><span>Travel Application Master</span></dt>
+                <dd>
+                    <div *ngIf="travelForexDetails.travelApplicationMaster">
+                        <a [routerLink]="['/travel-application-master', travelForexDetails.travelApplicationMaster?.id, 'view']">{{travelForexDetails.travelApplicationMaster?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/travel-forex-details', travelForexDetails.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

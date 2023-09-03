@@ -1,0 +1,101 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-recruitment-state-master-heading">Recruitment State Master</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                        <div>
+                            <div class="row card-margin-bottom-10" [hidden]="!recruitmentStateMaster.id">
+                                <div class="col-md-3">
+                                    <label for="id">ID</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control form-control-sm" id="id" name="id"[(ngModel)]="recruitmentStateMaster.id" readonly />
+                                </div>
+                            </div>
+                            
+                            <div class="row card-margin-bottom-10">
+                                <div class="col-md-3">
+                                    <label class="form-control-label" for="field_code">Code</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control form-control-sm" name="code" id="field_code" [(ngModel)]="recruitmentStateMaster.code" required maxlength="50"/>
+                                    <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                                        <small class="form-text text-danger"
+                                        [hidden]="!editForm.controls.code?.errors?.required">
+                                        This field is required.
+                                        </small>
+                                        <small class="form-text text-danger"
+                                        [hidden]="!editForm.controls.code?.errors?.maxlength">
+                                        This field cannot be longer than 50 characters.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row card-margin-bottom-10">
+                                <div class="col-md-3">
+                                     <label class="form-control-label" for="field_description">Description</label> 
+                                </div>
+                                <div class="col-md-9">
+                                        <input type="text" class="form-control form-control-sm" name="description" id="field_description" [(ngModel)]="recruitmentStateMaster.description" required maxlength="100"/>
+                                        <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                                            <small class="form-text text-danger"
+                                            [hidden]="!editForm.controls.description?.errors?.required">
+                                            This field is required.
+                                            </small>
+                                            <small class="form-text text-danger"
+                                            [hidden]="!editForm.controls.description?.errors?.maxlength">
+                                            This field cannot be longer than 100 characters.
+                                            </small>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="row card-margin-bottom-10">
+                                <div class="col-md-3">
+                                    <label class="form-control-label" for="field_recruitmentCountryMaster">Country</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <select class="form-control form-control-sm custom-select custom-select-sm" id="field_recruitmentCountryMaster" name="recruitmentCountryMaster" [(ngModel)]="recruitmentStateMaster.recruitmentCountryMaster"  required>
+                                        <option *ngIf="!editForm.value.recruitmentCountryMaster" [ngValue]="null" selected></option>
+                                        <option [ngValue]="recruitmentCountryMasterOption.id === recruitmentStateMaster.recruitmentCountryMaster?.id ? recruitmentStateMaster.recruitmentCountryMaster : recruitmentCountryMasterOption" *ngFor="let recruitmentCountryMasterOption of recruitmentcountrymasters; trackBy: trackRecruitmentCountryMasterById">{{recruitmentCountryMasterOption.description}}</option>
+                                    </select>
+                                    <div [hidden]="!(editForm.controls.recruitmentCountryMaster?.dirty && editForm.controls.recruitmentCountryMaster?.invalid)">
+                                        <small class="form-text text-danger"
+                                            [hidden]="!editForm.controls.recruitmentCountryMaster?.errors?.required">
+                                            This field is required.
+                                        </small>
+                                     </div>
+                                </div>
+                            </div>
+                            <div class="row card-margin-bottom-10">
+                                <div class="col-md-3">
+                                    <label class="form-control-label" for="field_status">Status</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="status" id="field_status" [(ngModel)]="recruitmentStateMaster.status" required>
+                                        <option value="Y">Active</option>
+                                        <option value="N">Inactive</option>
+                                    </select>
+                                    <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                                        <small class="form-text text-danger"
+                                        [hidden]="!editForm.controls.status?.errors?.maxlength">
+                                        This field cannot be longer than 1 characters.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                            </button>
+                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                            </button>
+                      </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>

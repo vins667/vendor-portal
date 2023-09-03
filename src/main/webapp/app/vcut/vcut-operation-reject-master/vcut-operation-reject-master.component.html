@@ -1,0 +1,72 @@
+<div>
+    <h2 id="page-heading">
+        <span>Vcut Operation Reject Masters</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-vcut-operation-reject-master" [routerLink]="['/vcut-operation-reject-master/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create a new Vcut Operation Reject Master
+            </span>
+        </button>
+    </h2>
+    <div class="table-responsive">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="descriptionLocal"><span>Description Local</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="type"><span>Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdBy"><span>Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastUpdatedBy"><span>Last Updated By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastUpdatedDate"><span>Last Updated Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let vcutOperationRejectMaster of vcutOperationRejectMasters ;trackBy: trackId">
+                <td><a [routerLink]="['/vcut-operation-reject-master', vcutOperationRejectMaster.id, 'view' ]">{{vcutOperationRejectMaster.id}}</a></td>
+                <td>{{vcutOperationRejectMaster.description}}</td>
+                <td>{{vcutOperationRejectMaster.descriptionLocal}}</td>
+                <td>{{vcutOperationRejectMaster.type}}</td>
+                <td>{{vcutOperationRejectMaster.createdBy}}</td>
+                <td>{{vcutOperationRejectMaster.createdDate | date:'medium'}}</td>
+                <td>{{vcutOperationRejectMaster.lastUpdatedBy}}</td>
+                <td>{{vcutOperationRejectMaster.lastUpdatedDate | date:'medium'}}</td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/vcut-operation-reject-master', vcutOperationRejectMaster.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/vcut-operation-reject-master', vcutOperationRejectMaster.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/vcut-operation-reject-master', { outlets: { popup: vcutOperationRejectMaster.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="vcutOperationRejectMasters?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading"><span>Delivery Challan Approval</span></h5>
+            <div class="row">
+                <div class="col-md-3">
+                    <input type="text" name="factCode" id="factCode" class="form-control form-control-sm text-uppercase" [(ngModel)]="deliveryChallanSearch.factCode" placeholder="Factory Code"/>
+                </div>
+                <div class="col-md-2">
+                    <select name="status" id="status" class="form-control custom-select custom-select-sm" [(ngModel)]="deliveryChallanSearch.status">
+                        <option value="E">Pending</option>
+                        <option value="A">Approved</option>
+                        <option value="R">Rejected</option>
+                    </select>
+                </div>
+                <div class="col-md-7 text-right">
+                    <button id="jh-search-entity" class="btn btn-sm btn-info btn-round" type="button" style="margin: 0;" (click)="search()">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                        <span >Search</span>
+                    </button>
+                </div>
+            </div>
+           </br>
+            <jhi-alert></jhi-alert>
+            <div class="table-responsive" *ngIf="deliveryChallans">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th><span>ID</span></th>
+                        <th><span>Code</span></th>
+                        <th><span>Factory</span></th>
+                        <th><span>GST Number</span></th>
+                        <th><span>Challan Type</span></th>
+                        <th><span>Challan Date</span></th>
+                        <th><span>Status</span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let deliveryChallan of deliveryChallans ;trackBy: trackId">
+                        <td>{{deliveryChallan.id}}</a></td>
+                        <td>{{deliveryChallan.factCode}}</td>
+                        <td>{{deliveryChallan.factDescription}}</td>
+                        <td>{{deliveryChallan.fGSTNumber}}</td>
+                        <td><ng-container *ngIf="deliveryChallan.challanType =='R'">Returnable</ng-container><ng-container *ngIf="deliveryChallan.challanType =='N'">Non Returnable</ng-container></td>
+                        <td>{{deliveryChallan.challanDate | date:'dd/MM/yyyy'}}</td>
+                        <td><ng-container *ngIf="deliveryChallan.flag =='E'">Pending</ng-container><ng-container *ngIf="deliveryChallan.flag =='A'">Approved</ng-container><ng-container *ngIf="deliveryChallan.flag =='R'">Rejected</ng-container></td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/deliver-challan-approval', deliveryChallan.id, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="deliveryChallans && deliveryChallans.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

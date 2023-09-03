@@ -1,0 +1,61 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Terms Condition Master</span>
+                <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-terms-condition-master" [routerLink]="['/terms-condition-master/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span >new</span>
+                </button>
+            </h5>
+            <jhi-alert></jhi-alert>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="applicableDate"><span>Applicable Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="closedDate"><span>Closed Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th><span>Report Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let termsConditionMaster of termsConditionMasters ;trackBy: trackId">
+                        <td><a [routerLink]="['/terms-condition-master', termsConditionMaster.id, 'view' ]">{{termsConditionMaster.id}}</a></td>
+                        <td>{{termsConditionMaster.applicableDate | date:'dd/MM/yyyy'}}</td>
+                        <td>{{termsConditionMaster.closedDate | date:'dd/MM/yyyy'}}</td>
+                        <td>{{termsConditionMaster.reportTypeMaster?.desc}}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/terms-condition-master', termsConditionMaster.id, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/', 'terms-condition-master', { outlets: { popup: termsConditionMaster.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div [hidden]="termsConditionMasters?.length === 0">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

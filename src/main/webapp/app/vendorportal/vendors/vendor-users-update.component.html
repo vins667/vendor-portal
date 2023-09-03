@@ -1,0 +1,97 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <ngb-tabset>
+        <ngb-tab>
+            <ng-template ngbTabTitle>Finance User</ng-template>
+            <ng-template ngbTabContent>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-striped">
+                                <thead>
+                                <tr>
+                                    <th>User Name</th>
+                                    <th>Designation</th>
+                                    <th>Email Id</th>
+                                    <th>Mobile Number</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let vendorUsers of vendorFinanceUsers; let index = index;" [class.bg-success-light]="vendorUsers.dataFlag && vendorUsers.dataFlag === 'N'" [class.bg-warning-light]="vendorUsers.dataFlag && vendorUsers.dataFlag === 'U'" [class.bg-danger-light]="vendorUsers.dataFlag && vendorUsers.dataFlag === 'D'" [ngbTooltip]="vendorUsers.dataFlag && vendorUsers.dataFlag==='U'? 'Updated' : vendorUsers.dataFlag && vendorUsers.dataFlag==='N' ? 'New' : vendorUsers.dataFlag && vendorUsers.dataFlag==='D'? 'Deleted' : '' ">
+                                    <td><input type="text" class="form-control form-control-sm text-uppercase" [name]="'userNameFinance' + index" [(ngModel)]="vendorUsers.userName" disabled></td>
+                                    <td><input type="text" class="form-control form-control-sm text-uppercase" [name]="'designationFinance' + index" [(ngModel)]="vendorUsers.designation" disabled></td>
+                                    <td><input type="text" class="form-control form-control-sm text-lowercase" [name]="'emailIdFinance' + index" [(ngModel)]="vendorUsers.emailId" disabled></td>
+                                    <td><input type="text" class="form-control form-control-sm text-uppercase" [name]="'mobileNumberFinance' + index" [(ngModel)]="vendorUsers.mobileNumber" disabled></td>
+                                    <td class="button-column"><button type="button" (click)="removeUser(vendorUsers.index, 'FINANCE')" class="btn btn-sm btn-blush"  disabled><fa-icon [icon]="'times'"></fa-icon></button></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+            <ng-template ngbTabTitle>Tax User</ng-template>
+            <ng-template ngbTabContent>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-striped">
+                                <thead>
+                                <tr>
+                                    <th>User Name</th>
+                                    <th>Designation</th>
+                                    <th>Email Id</th>
+                                    <th>Mobile Number</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let vendorUsers of vendorTaxUsers; let index = index;" [class.bg-success-light]="vendorUsers.dataFlag && vendorUsers.dataFlag === 'N'" [class.bg-warning-light]="vendorUsers.dataFlag && vendorUsers.dataFlag === 'U'" [class.bg-danger-light]="vendorUsers.dataFlag && vendorUsers.dataFlag === 'D'" [ngbTooltip]="vendorUsers.dataFlag && vendorUsers.dataFlag==='U'? 'Updated' : vendorUsers.dataFlag && vendorUsers.dataFlag==='N' ? 'New' : vendorUsers.dataFlag && vendorUsers.dataFlag==='D'? 'Deleted' : '' ">
+                                    <td><input type="text" class="form-control form-control-sm text-uppercase" [name]="'userNameTax' + index" [(ngModel)]="vendorUsers.userName" disabled></td>
+                                    <td><input type="text" class="form-control form-control-sm text-uppercase" [name]="'designationTax' + index" [(ngModel)]="vendorUsers.designation" disabled></td>
+                                    <td><input type="text" class="form-control form-control-sm text-lowercase" [name]="'emailIdTax' + index" [(ngModel)]="vendorUsers.emailId" disabled></td>
+                                    <td><input type="text" class="form-control form-control-sm text-uppercase" [name]="'mobileNumberTax' + index" [(ngModel)]="vendorUsers.mobileNumber" disabled></td>
+                                    <td class="button-column"><button type="button" (click)="removeUser(vendorUsers.index, 'TAX')" class="btn btn-sm btn-blush" disabled><fa-icon [icon]="'times'"></fa-icon></button></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+            <ng-template ngbTabTitle>Payment User</ng-template>
+            <ng-template ngbTabContent>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-striped">
+                                <thead>
+                                <tr>
+                                    <th>User Name</th>
+                                    <th>Designation</th>
+                                    <th>Email Id</th>
+                                    <th>Mobile Number</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let vendorUsers of vendorPaymentUsers; let index = index;" [class.bg-success-light]="vendorUsers.dataFlag && vendorUsers.dataFlag === 'N'" [class.bg-warning-light]="vendorUsers.dataFlag && vendorUsers.dataFlag === 'U'" [class.bg-danger-light]="vendorUsers.dataFlag && vendorUsers.dataFlag === 'D'" [ngbTooltip]="vendorUsers.dataFlag && vendorUsers.dataFlag==='U'? 'Updated' : vendorUsers.dataFlag && vendorUsers.dataFlag==='N' ? 'New' : vendorUsers.dataFlag && vendorUsers.dataFlag==='D'? 'Deleted' : '' ">
+                                    <td><input type="text" class="form-control form-control-sm text-uppercase" [name]="'userNamePayment' + index" [(ngModel)]="vendorUsers.userName" disabled></td>
+                                    <td><input type="text" class="form-control form-control-sm text-uppercase" [name]="'designationPayment' + index" [(ngModel)]="vendorUsers.designation" disabled></td>
+                                    <td><input type="text" class="form-control form-control-sm text-lowercase" [name]="'emailIdPayment' + index" [(ngModel)]="vendorUsers.emailId" disabled></td>
+                                    <td><input type="text" class="form-control form-control-sm text-uppercase" [name]="'mobileNumberPayment' + index" [(ngModel)]="vendorUsers.mobileNumber" disabled></td>
+                                    <td class="button-column"><button type="button" (click)="removeUser(vendorUsers.index, 'PAYMENT')" class="btn btn-sm btn-blush"  disabled><fa-icon [icon]="'times'"></fa-icon></button></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</form>

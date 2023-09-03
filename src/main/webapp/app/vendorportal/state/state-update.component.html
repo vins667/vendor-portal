@@ -1,0 +1,106 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-state-heading">Create or edit a State</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!state.id">
+                            <div class="col-md-3"><label for="id">ID</label></div>
+                            <div class="col-md-9"><input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="state.id" readonly /></div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_stateCode">State Code</label></div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="stateCode" id="field_stateCode" [(ngModel)]="state.stateCode" required maxlength="10"/>
+                                <div [hidden]="!(editForm.controls.stateCode?.dirty && editForm.controls.stateCode?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.stateCode?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.stateCode?.errors?.maxlength">
+                                        This field cannot be longer than 10 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_stateName">State Name</label></div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="stateName" id="field_stateName" [(ngModel)]="state.stateName" required maxlength="45"/>
+                                <div [hidden]="!(editForm.controls.stateName?.dirty && editForm.controls.stateName?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.stateName?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.stateName?.errors?.maxlength">
+                                        This field cannot be longer than 45 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_geoCode">Geo Code</label></div>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control form-control-sm" name="geoCode" id="field_geoCode" [(ngModel)]="state.geoCode" />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_gstStateCode">Gst State Code</label></div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="gstStateCode" id="field_gstStateCode" [(ngModel)]="state.gstStateCode" maxlength="2"/>
+                                <div [hidden]="!(editForm.controls.gstStateCode?.dirty && editForm.controls.gstStateCode?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.gstStateCode?.errors?.maxlength">
+                                        This field cannot be longer than 2 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_status">Status</label></div>
+                            <div class="col-md-9">
+                                <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="status" id="field_status" [(ngModel)]="state.status" required maxlength="1">
+                                    <option value="Y">Active</option>
+                                    <option value="N">Inactive</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.status?.errors?.maxlength">
+                                        This field cannot be longer than 1 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_country">Country</label></div>
+                            <div class="col-md-9">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" id="field_country" name="country" [(ngModel)]="state.country"  required>
+                                    <option *ngIf="!editForm.value.country" [ngValue]="null" selected></option>
+                                    <option [ngValue]="countryOption.id === state.country?.id ? state.country : countryOption" *ngFor="let countryOption of countries; trackBy: trackCountryById">{{countryOption.countryName}}</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.country?.dirty && editForm.controls.country?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.country?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

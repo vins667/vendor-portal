@@ -1,0 +1,151 @@
+<div class="card">
+        <div class="body">
+             <form name="editForm" role="form" novalidate #editForm="ngForm">
+                <div class="row" style="margin-bottom: -20px;">
+                    <div class="col-md-12">
+                        <h5>Device Detail</h5>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-12">
+                        <ngb-tabset #tabs>
+                            <ngb-tab [id]="'hw'">
+                                <ng-template ngbTabTitle>
+                                    Hardware
+                                </ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-12">
+                                                <div class="row card-margin-bottom-10">
+                                                    <div class="col-md-2"><label class="form-control-label" for="field_systemId">Asset Code</label></div>
+                                                    <div class="col-md-4"><input type="number" class="form-control form-control-sm" name="systemId" id="field_systemId" [(ngModel)]="assetAuditDetails.assetCode" readonly/></div>
+                                                    <div class="col-md-2"><label class="form-control-label" for="field_uuid">Uuid</label></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" name="uuid" id="field_uuid" [(ngModel)]="assetAuditDetails.uuid" maxlength="100" readonly/></div>
+                                                </div>
+                                                <div class="row card-margin-bottom-10">
+                                                    <div class="col-md-2"><label class="form-control-label" for="field_name">Name</label></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" name="name" id="field_name" [(ngModel)]="assetAuditDetails.name" maxlength="200" readonly/></div>
+                                                    <div class="col-md-2"><label class="form-control-label" for="field_manufacturer">Manufacturer</label></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" name="manufacturer" id="field_manufacturer" [(ngModel)]="assetAuditDetails.manufacturer" maxlength="100" readonly/></div>
+                                                </div>
+                                                <div class="row card-margin-bottom-10">
+                                                    <div class="col-md-2"><label class="form-control-label" for="field_hostname">Hostname</label></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" name="hostname" id="field_hostname" [(ngModel)]="assetAuditDetails.hostname" maxlength="100" readonly/></div>
+                                                    <div class="col-md-2"><label class="form-control-label" for="field_model">Model</label></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" name="model" id="field_model" [(ngModel)]="assetAuditDetails.model" maxlength="200" readonly/></div>
+                                                </div>
+                                                <div class="row card-margin-bottom-10">
+                                                    <div class="col-md-2"><label class="form-control-label" for="field_ip">Ip</label></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" name="ip" id="field_ip" [(ngModel)]="assetAuditDetails.ip" maxlength="45" readonly/></div>
+                                                    <div class="col-md-2"><label class="form-control-label" for="field_serial">Serial</label></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" name="serial" id="field_serial" [(ngModel)]="assetAuditDetails.serial" maxlength="200" readonly/></div>
+                                                </div>
+                                                <div class="row card-margin-bottom-10">
+                                                    <div class="col-md-2"><label class="form-control-label" for="field_storageCount">Storage GB</label></div>
+                                                    <div class="col-md-4"><input type="number" class="form-control form-control-sm" name="storageCount" id="field_storageCount" [value]="assetAuditDetails.storageCount/1024 | number: '1.0-0'" readonly/></div>
+                                                    <div class="col-md-2"><label class="form-control-label" for="field_memoryCount">Memory GB</label></div>
+                                                    <div class="col-md-4"><input type="number" class="form-control form-control-sm" name="memoryCount" id="field_memoryCount" [value]="assetAuditDetails.memoryCount/1048576 | number: '1.0-0'" readonly/></div>
+                                                </div>
+                                                <div class="row card-margin-bottom-10">
+                                                    <div class="col-md-2"><label class="form-control-label" for="field_type">Type</label></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" name="type" id="field_type" [(ngModel)]="assetAuditDetails.type" maxlength="50" readonly/></div>
+                                                    <div class="col-md-2"><label class="form-control-label" for="field_osInstallationDate">Os Installation Date</label></div>
+                                                    <div class="col-md-4"><input id="field_osInstallationDate" type="text" class="form-control form-control-sm" name="osInstallationDate" [value]="osInstallationDate | date: 'dd-MMM-yyyy'" readonly/></div>
+                                                </div>
+                                                <div class="row card-margin-bottom-10">
+                                                    <div class="col-md-2">
+                                                        <label class="form-control-label" for="field_osGroup">Os Group</label></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" name="osGroup" id="field_osGroup" [(ngModel)]="assetAuditDetails.osGroup" maxlength="50" readonly/></div>
+                                                    <div class="col-md-2"><label class="form-control-label" for="field_osFamily">Os Family</label></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" name="osFamily" id="field_osFamily" [(ngModel)]="assetAuditDetails.osFamily" maxlength="50" readonly/></div>
+                                                </div>
+                                                <div class="row card-margin-bottom-10">
+                                                    <div class="col-md-2"><label class="form-control-label" for="field_osName">Os Name</label></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" name="osName" id="field_osName" [(ngModel)]="assetAuditDetails.osName" maxlength="100" readonly/></div>
+                                                    <div class="col-md-2"><label class="form-control-label" for="field_osVersion">Os Version</label></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" name="osVersion" id="field_osVersion" [(ngModel)]="assetAuditDetails.osVersion" maxlength="50" readonly/></div>
+                                                </div>
+                                                <div>
+                                                    <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                                                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                                                    </button>
+                                                </div>
+                                        </div>
+                                    </div>
+                             </ng-template>
+                            </ngb-tab>
+                            <ngb-tab [id]="'sw'">
+                                <ng-template ngbTabTitle>
+                                    Software
+                                </ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-12">
+                                                <div class="table-responsive" *ngIf="assetAuditDetails.assetAuditSoftwareDetailsList">
+                                                        <table class="table table-sm table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th><span>Publisher</span></th>
+                                                                    <th><span>Name</span></th>
+                                                                    <th><span>Installed On</span></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr *ngFor="let assetAuditSoftwareDetails of assetAuditDetails.assetAuditSoftwareDetailsList">
+                                                                <td>{{assetAuditSoftwareDetails.publisher}}</td>
+                                                                <td>{{assetAuditSoftwareDetails.name}}</td>
+                                                                <td>{{assetAuditSoftwareDetails.installedOn | date:'dd-MMM-yyyy'}}</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                        </div>
+                                      </div>
+
+                                    <div>
+                                        <button type="button" id="cancel-save-1" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                                        </button>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab [id]="'key'">
+                                <ng-template ngbTabTitle>
+                                    Keys
+                                </ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-12">
+                                            <div class="table-responsive" *ngIf="assetAuditDetails.assetAuditSoftwareKeyDetails">
+                                                <table class="table table-sm table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th><span>Name</span></th>
+                                                        <th><span>Key</span></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr *ngFor="let assetAuditSoftwareKeyDetail of assetAuditDetails.assetAuditSoftwareKeyDetails">
+                                                        <td>{{assetAuditSoftwareKeyDetail.name}}</td>
+                                                        <td>{{assetAuditSoftwareKeyDetail.key}}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <button type="button" id="cancel-save-2" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                                        </button>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                        </ngb-tabset>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    

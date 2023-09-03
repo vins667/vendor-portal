@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    
+    <!--
+        Added the entity GstGovtUpload.
+    -->
+    <changeSet id="20200321060302-1" author="jhipster">
+        <createTable tableName="gst_govt_upload">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="g_gstin" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="g_supplier" type="varchar(200)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="g_invno" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="g_invdate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="g_invtype" type="varchar(5)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="g_state" type="varchar(40)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="g_reverse" type="varchar(5)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="g_invamt" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="g_invnet" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="g_rate" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="g_cgst" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="g_sgst" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="g_igst" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="g_cess" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="g_month" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="g_location" type="varchar(40)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="g_srlno" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="g_status" type="varchar(5)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="g_confirmdate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+		<createSequence startValue="1" sequenceName="gst_govt_upload_seq" incrementBy="1" cycle="false"/>
+        <dropDefaultValue tableName="gst_govt_upload" columnName="g_invdate" columnDataType="datetime"/>
+        <dropDefaultValue tableName="gst_govt_upload" columnName="g_confirmdate" columnDataType="datetime"/>
+    </changeSet>
+
+    <changeSet id="20200321060302-1-relations" author="jhipster">
+
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+
+   
+
+</databaseChangeLog>

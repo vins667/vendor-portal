@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity VcutSessionDetails.
+    -->
+    <changeSet id="20190930121012-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="vcut_session_master_id"
+                                 baseTableName="vcut_session_details"
+                                 constraintName="fk_vcut_session_details_vcut_session_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vcut_session_master"/>
+
+    </changeSet>
+</databaseChangeLog>

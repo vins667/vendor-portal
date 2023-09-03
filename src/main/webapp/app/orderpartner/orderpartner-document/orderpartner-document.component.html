@@ -1,0 +1,92 @@
+<div align="center" class="centered" *ngIf="isDownload">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h6 id="page-heading">
+            <span>Order Partner</span>
+        </h6>
+    </div>
+
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-2">
+                <select class="form-control form-control-xs custom-select custom-select-xs" name="flag" id="field_flag" [(ngModel)]="search.companyCode">
+                    <option value="1">Customer</option>
+                    <option value="2">Supplier</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control form-control-xs" name="supplierCode" id="field_supplierCode" [placeholder]="search.companyCode ==='2' ? 'Enter Supplier' : 'Enter Customer'" [(ngModel)]="search.code"/>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control form-control-xs" name="supplierName" id="field_supplierName" [placeholder]="search.companyCode ==='2' ? 'Enter Supplier Name' : 'Enter Customer Name'" [(ngModel)]="search.description"/>
+            </div>
+            <div class="col-md-5 text-right">
+                <button class="btn btn-xs btn-round btn-blush m-0" type="button" (click)="loadPage();">
+                    &nbsp;<fa-icon [icon]="'search'"></fa-icon> <span>Search</span>&nbsp;
+                </button>
+                <button class="btn btn-xs btn-round btn-success m-0" type="button" (click)="generateXLS();">
+                    &nbsp;<fa-icon [icon]="'file-excel'"></fa-icon> <span>Export</span>&nbsp;
+                </button>
+                <button id="jh-excel-entity" class="btn btn-xs btn-info btn-round jh-create-entity create-doc-file-upload" style="margin-top:0;" [routerLink]="['/view-orderpartner/upload']">
+                    <fa-icon [icon]="'upload'"></fa-icon>
+                    <span>Bulk Upload</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped" aria-describedby="page-heading">
+                <thead>
+                <tr>
+                    <th><span>Type</span></th>
+                    <th><span>Company</span></th>
+                    <th><span>Partner Code</span></th>
+                    <th><span>Partner Name</span></th>
+                    <th><span>GSTN</span></th>
+                    <th><span>Pan</span></th>
+                    <th><span>MSME</span></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngIf="orderpartnerDocuments">
+                    <tr *ngFor="let orderpartnerDocument of orderpartnerDocuments; let index=index;" data-cy="entityTable">
+                        <td>{{ orderpartnerDocument.customersuppliertype === '1' ? 'Customer' : 'Supplier' }}</td>
+                        <td>{{ orderpartnerDocument.customersuppliercompanycode }}</td>
+                        <td>{{ orderpartnerDocument.customersuppliercode }}</td>
+                        <td>{{ orderpartnerDocument.legalname1 }}</td>
+                        <td>{{ orderpartnerDocument.gstinnumber }}</td>
+                        <td>{{ orderpartnerDocument.commissionerate }}</td>
+                        <td>{{ orderpartnerDocument.eccno }}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/view-orderpartner', orderpartnerDocument.customersuppliertype.trim(), orderpartnerDocument.customersuppliercode.trim(), 'edit']"
+                                        class="btn btn-blush btn-xs">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" id="no-result" *ngIf="orderpartnerDocuments?.length === 0">
+            <span>No data found</span>
+        </div>
+        <div *ngIf="orderpartnerDocuments?.length > 0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

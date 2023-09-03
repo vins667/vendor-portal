@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TdsDeclarationUploadReport" pageWidth="1000" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ac99dbbf-cadc-4935-a801-c9c9a108cef7">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="financialYear" class="java.lang.String"/>
+	<field name="factory" class="java.lang.String"/>
+	<field name="cardNo" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="contactNumber" class="java.lang.String"/>
+	<field name="emailId" class="java.lang.String"/>
+	<field name="department" class="java.lang.String"/>
+	<field name="designation" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="960" height="25" uuid="f66c700f-f4c5-4cf9-ac0e-4705605c2d30"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="18" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Tds Declaration Upload  Report]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement positionType="FixRelativeToBottom" mode="Transparent" x="840" y="25" width="121" height="15" backcolor="#E6E6E6" uuid="aed56e37-7fd9-473e-8852-bcc9e8e39e27"/>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="60" height="15" backcolor="#E6E6E6" uuid="c0ac1104-104a-40a2-847e-e6382ab1c9a8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5015809f-c503-448e-8906-3da5d3b11c09"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Fin Year]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="60" y="0" width="140" height="15" backcolor="#E6E6E6" uuid="e99d5281-958c-426d-a49d-f05436af442f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a569ce6b-60a3-4528-94bc-4deb9ed915bf"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Factory]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="200" y="0" width="82" height="15" backcolor="#E6E6E6" uuid="4af43101-5cf6-4ec0-b0b0-d25393c7c9e0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1457f745-cc53-49b9-ba82-083f51893893"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Card No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="282" y="0" width="178" height="15" backcolor="#E6E6E6" uuid="5b79ccd8-ce61-493e-a2a0-63c707cc5607">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="79c9c377-1106-4baf-be79-e3d51a0a1a99"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="460" y="0" width="89" height="15" backcolor="#E6E6E6" uuid="7416d704-04e7-4a3e-95bb-66f261979791">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="08a6615a-5b61-4951-a0ce-a5c744cc98a0"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Mobile No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="549" y="0" width="171" height="15" backcolor="#E6E6E6" uuid="47097336-8321-4d05-a0c9-c17a677f5f3e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0ced0846-a3de-45a2-9ff3-cedb2fb7d0be"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Email Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="720" y="0" width="120" height="15" backcolor="#E6E6E6" uuid="9c73fa65-f45e-4b8d-b695-bd7ad44e0e45">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4746b9ef-e87b-44d0-8a9c-4f3a10671320"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Department]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="840" y="0" width="120" height="15" backcolor="#E6E6E6" uuid="4aa09920-8144-48f8-8fd7-803702a2a830">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6e7b57ce-7d7b-415e-8205-d14464ed4f83"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Designation]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="60" height="15" uuid="b46d8d64-27b9-4863-991c-dbdb4a82442e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5015809f-c503-448e-8906-3da5d3b11c09"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{financialYear}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="60" y="0" width="140" height="15" uuid="c05ea20b-e19c-470e-b1d7-f75fb418b0c4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a569ce6b-60a3-4528-94bc-4deb9ed915bf"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factory}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="200" y="0" width="83" height="15" uuid="fb911a48-0b47-4321-8280-c8535014c525">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1457f745-cc53-49b9-ba82-083f51893893"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cardNo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="283" y="0" width="178" height="15" uuid="e9283701-2fb0-4bb8-b91a-58fd8c865f22">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="79c9c377-1106-4baf-be79-e3d51a0a1a99"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="461" y="0" width="88" height="15" uuid="76ce03eb-a31c-45a4-bdbf-28c681992f7b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="08a6615a-5b61-4951-a0ce-a5c744cc98a0"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contactNumber}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="549" y="0" width="171" height="15" uuid="56ad0e3c-3224-4a3a-a39e-9873e372f21b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0ced0846-a3de-45a2-9ff3-cedb2fb7d0be"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{emailId}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="720" y="0" width="120" height="15" uuid="70575a31-d08f-46a1-a0dd-b6d35bf812da">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4746b9ef-e87b-44d0-8a9c-4f3a10671320"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{department}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="840" y="0" width="120" height="15" uuid="e25367f6-73e2-4040-87a9-50084b755ce2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6e7b57ce-7d7b-415e-8205-d14464ed4f83"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

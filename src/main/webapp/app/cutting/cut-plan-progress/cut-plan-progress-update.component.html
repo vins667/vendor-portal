@@ -1,0 +1,267 @@
+<div align="center" class="centered" *ngIf="isProcess">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+    <h2>Please wait ....</h2>
+</div>
+<form name="editForm" role="form" novalidate #editForm="ngForm">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 id="jhi-asset-master-heading">Cut Plan Entry# <span *ngIf="cutPlanEntry.id">{{cutPlanEntry.id}}</span> - Production Progress <span class="text-danger font-weight-bold" *ngIf="cutPlanEntry.progressPostedDate">(Posted)</span></h6>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-right">
+                        <button type="button" id="cancel-entity" class="btn btn-sm btn-xs btn-second btn-round m-0" (click)="previousState();">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white pt-1 pb-1">
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_productionCode">PO#</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="productionCode" id="field_productionCode" [(ngModel)]="cutPlanEntry.productionCode" disabled/>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_plantDescription">Plant</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="plantDescription" id="field_plantDescription" [(ngModel)]="cutPlanEntry.plantDescription" readonly/>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_destinationDesc">Destination</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="destinationDesc" id="field_destinationDesc" [(ngModel)]="cutPlanEntry.destinationDesc" readonly/>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_style">Project</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="style" id="field_style" [(ngModel)]="cutPlanEntry.style" readonly required />
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_colorDisplay">Color</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="colorDisplay" id="field_colorDisplay" [(ngModel)]="cutPlanEntry.color" readonly>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_markercode">Marker#</label></div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-7"><input type="text" class="form-control form-control-xs" name="markercode" id="field_markercode" [value]="markerBean.markercode + '' + (markerMasterEntity && markerMasterEntity.bodyFabric ? ' - Primary Fabric' : ' - Secondary Fabric')" readonly/></div>
+                        <div class="col-md-5"><label class="form-control-label">Length: </label>&nbsp;&nbsp;<span class="font-weight-bold">{{markerBean.markerLength}}</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_orderQty">PO&nbsp;Qty</label></div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="orderQty" id="field_orderQty" [(ngModel)]="cutPlanEntry.orderQty" readonly />
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_tolerance">Tolerance%</label></div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="tolerance" id="field_tolerance" [(ngModel)]="cutPlanEntry.tolerance" readonly />
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_netOrderQty">Net&nbsp;Qty</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="netOrderQty" id="field_netOrderQty" [value]="calculateTotal('orderQty')" readonly />
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_summerizedDescription">Fabric&nbsp;Code</label>
+                </div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control form-control-xs" name="summerizedDescription" id="field_summerizedDescription" [(ngModel)]="cutPlanEntry.summerizedDescription" readonly>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_widthLength">Fabric&nbsp;Req.</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="widthLength" id="field_widthLength" [value]="markerMasterEntity && markerMasterEntity.length && cutPlanEntry.noPlies ? markerMasterEntity.length*cutPlanEntry.noPlies : 0" readonly required />
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_resourceDescription">Resource</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="resourceDescription" id="field_resourceDescription" [value]="cutPlanEntry.resourceCode ? cutPlanEntry.resourceCode +'-'+cutPlanEntry.resourceDescription : ''" readonly/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_noPlies">Plan/Act&nbsp;Plies</label>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-6"><input type="number" class="form-control form-control-xs" name="noPlies" id="field_noPlies" [(ngModel)]="cutPlanEntry.noPlies" readonly/></div>
+                        <div class="col-md-6"><input type="number" class="form-control form-control-xs" name="actualNoPlies" id="field_actualNoPlies" [(ngModel)]="cutPlanEntry.actualNoPlies" readonly/></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white pt-1 pb-1" *ngIf="cutPlanEntry.cutPlanProgressEntryBeans">
+            <div class="row">
+                <div class="col-md-12">
+                    <ngb-tabset [activeId]="activeTab">
+                        <ng-container *ngFor="let cutPlanProgressEntryBean of cutPlanEntry.cutPlanProgressEntryBeans; let index = index">
+                            <ngb-tab [disabled]="index > 0 && !cutPlanEntry.cutPlanProgressEntryBeans[index-1].progressPostedBy ? 'true' : null" [id]="cutPlanProgressEntryBean.operationCode">
+                                <ng-template ngbTabTitle>
+                                    {{cutPlanProgressEntryBean.operationDescription}}
+                                </ng-template>
+                                <ng-template ngbTabContent>
+                                    <fieldset class="scheduler-border-margin">
+                                        <legend class="scheduler-border">{{cutPlanProgressEntryBean.operationDescription}}</legend>
+                                        <div class="row">
+                                            <div class="col-md-1"><label class="form-control-label" for="field_noCutters{{index}}">Operators#</label></div>
+                                            <div class="col-md-3">
+                                                <input type="number" class="form-control form-control-xs" name="noCutters{{index}}" id="field_noCutters{{index}}" [(ngModel)]="cutPlanProgressEntryBean.noCutters" required (blur)="changeDate(cutPlanProgressEntryBean);"/>
+                                            </div>
+                                            <div class="col-md-1"><label class="form-control-label" for="field_totalHour{{index}}">Total&nbsp;Hour</label></div>
+                                            <div class="col-md-3"><input type="number" class="form-control form-control-xs" name="totalHour{{index}}" id="field_totalHour{{index}}" [(ngModel)]="cutPlanProgressEntryBean.totalHour" readonly required/></div>
+                                            <div class="col-md-4 text-right">
+                                                <button type="button" id="save-entity{{index}}" class="btn btn-sm btn-xs btn-blush btn-round m-0" (click)="save(cutPlanProgressEntryBean)" [disabled]="isSaving || editForm.invalid || cutPlanEntry.status || cutPlanProgressEntryBean.progressPostedDate">
+                                                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                                                </button>
+                                                <button type="button" id="post-entity{{index}}" class="btn btn-sm btn-xs btn-warning btn-round m-0" [disabled]="cutPlanProgressEntryBean.progressPostedDate || !cutPlanProgressEntryBean.progressEntryDate" (click)="callPost(cutPlanProgressEntryBean);">
+                                                    <fa-icon [icon]="'paper-plane'"></fa-icon>&nbsp;<span>Post</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row pt-2">
+                                            <div class="col-md-1"><label class="form-control-label" for="field_startDate{{index}}">Start&nbsp;Time</label></div>
+                                            <div class="col-md-3">
+                                                <div class="input-group mb-0">
+                                                    <input [owlDateTime]="startDate" name="startDateFrom{{index}}" id="field_startDate{{index}}" placeholder="Start Time" class="form-control form-control-xs" required [(ngModel)]="cutPlanProgressEntryBean.startDate" (dateTimeInput)="changeDate(cutPlanProgressEntryBean);">
+                                                    <div class="input-group-append input-group-append-top">
+                                                        <div class="btn btn-blush btn-xs" [owlDateTimeTrigger]="startDate"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                                    </div>
+                                                </div>
+                                                <owl-date-time #startDate></owl-date-time>
+                                            </div>
+                                            <div class="col-md-1"><label class="form-control-label" for="field_endDate{{index}}">End&nbsp;Time</label></div>
+                                            <div class="col-md-3">
+                                                <div class="input-group mb-0">
+                                                    <input [owlDateTime]="endDate" name="endDateFrom{{index}}" id="field_endDate{{index}}" placeholder="End Time" class="form-control form-control-xs" required [(ngModel)]="cutPlanProgressEntryBean.endDate" (dateTimeInput)="changeDate(cutPlanProgressEntryBean);">
+                                                    <div class="input-group-append input-group-append-top">
+                                                        <div class="btn btn-blush btn-xs" [owlDateTimeTrigger]="endDate"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                                    </div>
+                                                </div>
+                                                <owl-date-time #endDate></owl-date-time>
+                                                <input type="hidden" name="lastProgress{{index}}" id="lastProgress{{index}}" [(ngModel)]="cutPlanProgressEntryBean.lastProgress"/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </ng-template>
+                            </ngb-tab>
+                        </ng-container>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-card-header pt-1 pb-1" *ngIf="markerMasterEntity && markerMasterEntity.markerEntryDetails">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive" id="entities2">
+                        <table class="table table-sm table-bordered mb-1" aria-describedby="page-heading">
+                            <thead>
+                            <tr>
+                                <th style="width: 120px;">Sizes</th>
+                                <th *ngFor="let markerEntryDetail of markerMasterEntity.markerEntryDetails;" style="width: 100px;" class="text-center"><span>{{ markerEntryDetail.sizeCode }}</span></th>
+                                <th style="width: 100px;" class="text-center">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td style="width: 120px;">PO Qty</td>
+                                <td *ngFor="let markerEntryDetail of markerMasterEntity.markerEntryDetails; let index = index;" style="width: 100px;" class="text-center bg-white text-black">
+                                    {{markerEntryDetail.orderQty}}
+                                </td>
+                                <td style="width: 100px;" class="text-center">{{calculateTotal('orderQty')}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Marker Ratio</td>
+                                <td *ngFor="let markerEntryDetail of markerMasterEntity.markerEntryDetails; let index = index;" style="width: 100px;" class="text-center bg-white text-black">
+                                    {{markerEntryDetail.sizeQty}}
+                                </td>
+                                <td style="width: 100px;" class="text-center">{{calculateTotal('sizeQty')}}</td>
+                            </tr>
+                            <tr>
+                                <th style="width: 120px;">To be Cut</th>
+                                <th *ngFor="let markerEntryDetail of markerMasterEntity.markerEntryDetails; let index = index;" style="width: 100px;" class="text-center bg-white text-black">
+                                    {{markerEntryDetail.pliesQty}}
+                                </th>
+                                <th style="width: 100px;" class="text-center">{{calculateTotal('pliesQty')}}</th>
+                            </tr>
+                            <tr>
+                                <th style="width: 120px;">Actual Cut</th>
+                                <th *ngFor="let markerEntryDetail of markerMasterEntity.markerEntryDetails; let index = index;" style="width: 100px;" class="text-center bg-white text-black">
+                                    {{markerEntryDetail.actualPliesQty}}
+                                </th>
+                                <th style="width: 100px;" class="text-center">{{calculateTotal('actualPliesQty')}}</th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-12">
+                    <div class="table-responsive scroll-popup-table">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                            <tr>
+                                <th colspan="3"></th>
+                                <th colspan="3" class="text-center">Selected</th>
+                                <th colspan="3" class="text-center">Actual</th>
+                            </tr>
+                            <tr>
+                                <th style="width: 50px;"></th>
+                                <th>Lot#</th>
+                                <th>Roll#</th>
+                                <th class="text-right">Roll&nbsp;Qty</th>
+                                <th class="text-right">Plies#</th>
+                                <th class="text-right">End&nbsp;Bit</th>
+                                <th class="text-right">Roll&nbsp;Qty</th>
+                                <th class="text-right">Plies#</th>
+                                <th class="text-right">End&nbsp;Bit</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <ng-container *ngFor="let balance of markerBean.balances; let balIndex = index;">
+                                <tr [class]="!balance.issuedBy ? 'bg-danger-light text-white' : 'bg-white text-black'" [title]="!balance.issuedBy ? 'Roll not issue' : ''">
+                                    <td class="align-middle">
+                                        <ng-container *ngIf="balIndex !== 0"><fa-icon [icon]="'arrow-up'" (click)="moveUp(balance, balIndex);" style="cursor: pointer" title="Move Up"></fa-icon></ng-container>
+                                        <ng-container *ngIf="balIndex === 0"><fa-icon [icon]="'arrow-up'" (click)="moveUp(balance, balIndex);" style="visibility: hidden"></fa-icon></ng-container>
+                                        &nbsp;&nbsp;
+                                        <ng-container *ngIf="balIndex !== (markerBean.balances.length - 1)"><fa-icon [icon]="'arrow-down'" (click)="moveDown(balance, balIndex);" style="cursor: pointer" title="Move Down"></fa-icon></ng-container>
+                                        <ng-container *ngIf="balIndex === (markerBean.balances.length - 1)"><fa-icon [icon]="'arrow-down'" (click)="moveDown(balance, balIndex);" style="visibility: hidden"></fa-icon></ng-container>
+                                    </td>
+                                    <td class="align-middle">{{balance.lotcode}}</td>
+                                    <td class="align-middle">{{balance.elementscode}}</td>
+                                    <td class="text-right align-middle">
+                                        <input type="text" name="baseprimaryquantityunit{{balIndex}}" id="field_baseprimaryquantityunit{{balIndex}}" class="form-control form-control-xs text-right" value="{{balance.baseprimaryquantityunit | number: '1.3-3'}}" readonly/>
+                                    </td>
+                                    <td class="text-right align-middle">
+                                        <input type="text" name="noPlies{{balIndex}}" id="field_noPlies{{balIndex}}" class="form-control form-control-xs text-right" value="{{balance.noPlies}}" readonly/>
+                                    </td>
+                                    <td class="text-right align-middle">
+                                        <input type="text" name="endBits{{balIndex}}" id="field_endBits{{balIndex}}" class="form-control form-control-xs text-right" value="{{balance.endBits | number: '1.3-3'}}" readonly/>
+                                    </td>
+                                    <td class="text-right align-middle">
+                                        <input type="text" name="actualRollQty{{balIndex}}" id="field_actualRollQty{{balIndex}}" class="form-control form-control-xs text-right" [(ngModel)]="balance.actualRollQty" (blur)="calculateRollDetails(balance);" [disabled]="!balance.issuedBy || cutPlanEntry.cutPlanProgressEntryBeans[0].progressPostedBy ? true : null"/>
+                                    </td>
+                                    <td class="text-right align-middle">
+                                        <input type="text" name="actualNoPlies{{balIndex}}" id="field_actualNoPlies{{balIndex}}" class="form-control form-control-xs text-right" [(ngModel)]="balance.actualNoPlies" readonly/>
+                                    </td>
+                                    <td class="text-right align-middle">
+                                        <input type="text" name="actualEndBit{{balIndex}}" id="field_actualEndBit{{balIndex}}" class="form-control form-control-xs text-right" [(ngModel)]="balance.actualEndBits" readonly/>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

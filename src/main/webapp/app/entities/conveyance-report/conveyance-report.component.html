@@ -1,0 +1,25 @@
+<div class="card">
+    <div class="body">
+        <div align="center" class="centered" *ngIf="isDownload">
+            <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+        </div>
+        <div>
+            <h5 id="page-heading">
+                <span>Conveyance Report</span>
+            </h5>
+            <hr/>
+        </div>
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-2">Control No</div>
+            <div class="col-md-4">
+                <input type="text" name="cardNo" id="field_cardNo" [(ngModel)]="salarySearch.cardNo" class="form-control form-control-sm"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-sm btn-blush btn-round" style="margin-top: 0;" [disabled]="isDownload" (click)="generateReport();"><fa-icon [icon]="'download'"></fa-icon> <span>Generate</span></button>&nbsp;&nbsp;
+                <button type="reset" class="btn btn-sm btn-secondary btn-round" style="margin-top: 0;" [disabled]="isDownload"><fa-icon [icon]="'times'"></fa-icon> <span>Reset</span></button>
+            </div>
+        </div>
+    </div>
+</div>

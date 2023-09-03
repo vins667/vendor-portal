@@ -1,0 +1,62 @@
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5>Barcode Print - {{ btnType === 'B' ? 'Bundle' : 'Piece'}}</h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+</div>
+<div class="modal-body p-2">
+    <div class="centered" *ngIf="isSaving">
+        <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+    </div>
+    <div class="card">
+        <div class="card-footer body py-2">
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_productionCode">PO#</label></div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control form-control-xs" name="productionCode" id="field_productionCode" [(ngModel)]="search.code" readonly/>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_style">Style</label></div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control form-control-xs" name="style" id="field_style" [(ngModel)]="search.id" readonly />
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_color">Color</label></div>
+                <div class="col-md-2">
+                    <input type class="form-control form-control-xs" name="color" id="field_color" [(ngModel)]="search.desc" readonly/>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body p-0 py-2">
+            <div class="row px-2">
+                <div class="col-md-6 text-center">
+                    <h6 class="m-0">Pending Printing</h6>
+                </div>
+                <div class="col-md-6 text-center">
+                    <h6 class="m-0">Already Printed</h6>
+                </div>
+            </div>
+            <div class="row px-2">
+                <div class="col-md-6 px-2">
+                    <div class="btn-group" style="width: 100%;">
+                        <button type="button" class="btn btn-primary" style="width: 100%;" [disabled]="isSaving" (click)="printBundles();" *ngIf="btnType === 'B'">Bundle Print</button>
+                        <button type="button" class="btn btn-secondary" style="width: 100%;" [disabled]="isSaving" (click)="printPieces();" *ngIf="btnType === 'P'">Piece Print</button>
+                    </div>
+                </div>
+                <div class="col-md-6 px-2">
+                    <div class="btn-group" style="width: 100%;">
+                        <button type="button" class="btn btn-primary" style="width: 100%;" [disabled]="isSaving" (click)="reprintBundles();" *ngIf="btnType === 'B'">Bundle Re-Print</button>
+                        <button type="button" class="btn btn-secondary" style="width: 100%;" [disabled]="isSaving" (click)="reprintPieces();" *ngIf="btnType === 'P'">Piece Re-Print</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-md-6">
+                    <ngx-treeview class="minimize-tree-view" [config]="config" [items]="items" (selectedChange)="values = $event" (filterChange)="onFilterChange($event)">
+                    </ngx-treeview>
+                </div>
+                <div class="col-md-6">
+                    <ngx-treeview class="minimize-tree-view" [config]="config" [items]="printedItems" (selectedChange)="printedValues = $event" (filterChange)="onFilterChange($event)">
+                    </ngx-treeview>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

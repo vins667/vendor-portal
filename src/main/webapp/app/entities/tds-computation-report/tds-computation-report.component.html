@@ -1,0 +1,53 @@
+<form name="editForm" role="form" novalidate [formGroup]="listBoxForm" (ngSubmit)="generateReport()">
+    <div align="center" class="centered" *ngIf="isDownload">
+        <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h6 id="page-heading"><span>TDS Computation</span></h6>
+        </div>
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-md-2">Financial Year</div>
+                <div class="col-md-4">
+                    <select name="finYear" class="form-control form-control-xs custom-select custom-select-xs multi-width-425 bg-white" formControlName="financialYear">
+                        <option *ngFor="let tdsYearMaster of tdsYearMasters" [value]="tdsYearMaster.code">{{tdsYearMaster.financeYear}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-2">Group</div>
+                <div class="col-md-4">
+                    <p-multiSelect [options]="groups" formControlName="groupCode" optionLabel="desc" defaultLabel="ALL GROUP" optionValue="code" styleClass="multi-width-425" (onChange)="changeByDivision();"></p-multiSelect>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-2">Factory</div>
+                <div class="col-md-4">
+                    <p-multiSelect [options]="factoryMasters" formControlName="factory" optionLabel="factoryName" defaultLabel="ALL FACTORY" optionValue="factoryCode" styleClass="multi-width-425"></p-multiSelect>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-2">Gross Salary</div>
+                <div class="col-md-4">
+                    <input type="number" name="grossSalary" id="field_grossSalary" class="form-control form-control-xs multi-width-425 bg-white" formControlName="grossSalary"></input>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-2">File Type</div>
+                <div class="col-md-4">
+                    <select name="finYear" class="form-control form-control-xs custom-select custom-select-xs multi-width-425 bg-white" formControlName="reportType">
+                        <option value="PDF">PDF</option>
+                        <option value="XLS">EXCEL</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-sm btn-blush btn-round" style="margin-top: 0;" [disabled]="isDownload" (click)="generateReport();"><fa-icon [icon]="'download'"></fa-icon> <span>Generate</span></button>&nbsp;&nbsp;
+                    <button type="reset" class="btn btn-sm btn-secondary btn-round" style="margin-top: 0;" [disabled]="isDownload"><fa-icon [icon]="'times'"></fa-icon> <span>Reset</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

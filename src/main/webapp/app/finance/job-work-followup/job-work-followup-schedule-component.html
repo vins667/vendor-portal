@@ -1,0 +1,110 @@
+<div align="center" class="centered" *ngIf="isSaving">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<form name="editForm" role="form" novalidate>
+    <div class="modal-header bg-blush" style="padding:10px;">
+        <h5 id="page-heading">
+            <span>Select Scheduler</span> "<span class="font-italic" *ngIf="jobWorkFollowup">{{jobWorkFollowup.jobworkname}}</span>"
+            <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true"
+                    (click)="close()">&times;
+            </button>
+        </h5>
+    </div>
+    <div class="modal-body py-2">
+        <div class="row mb-2" style="background-color: #f0f0f0;">
+            <div class="col-md-12">
+                <div class="row mt-2 mb-2">
+                    <div class="col-md-12 text-right">
+                        <button type="button" (click)="save()" id="save-entity" class="btn btn-xs btn-blush btn-round" >
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="row mt-2 mb-2">
+                    <div class="col-md-1">
+                        <label class="form-label">Year</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="year" [(ngModel)]="jobWorkFollowupSchedule.finYear" class="form-control form-control-xs custom-select custom-select-xs" (change)="yearChange();">
+                            <option value="undefined">Select Year</option>
+                            <option *ngFor="let year of years" [value]="year.value">{{year.label}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-label">Type</label>
+                    </div>
+                    <div class="col-md-3" style="width: 200px;">
+                        <select name="schType" id="field_schType" [(ngModel)]="jobWorkFollowupSchedule.schType" class="form-control form-control-xs custom-select custom-select-xs" (change)="chooseDate();">
+                            <option value="undefined">Select Type</option>
+                            <option value="Q">QUARTERLY</option>
+                            <option value="M">MONTHLY</option>
+                            <option value="F">FORTNIGHT</option>
+                            <option value="W">WEEKLY</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-label">Day</label>
+                    </div>
+                    <div class="col-md-3" style="width: 200px;">
+                        <div class="row">
+                            <div [class]="jobWorkFollowupSchedule.schType && jobWorkFollowupSchedule.schType === 'F' ? 'col-md-6' : 'col-md-12'">
+                                <select name="onDate" id="field_onDate" [(ngModel)]="jobWorkFollowupSchedule.onDate" class="form-control form-control-xs custom-select custom-select-xs" (change)="selectDate();">
+                                    <option value="undefined">Select Type</option>
+                                    <option *ngFor="let chooseDay of chooseDays" value="{{chooseDay.value}}">{{chooseDay.label}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6" style="width: 200px;" *ngIf="jobWorkFollowupSchedule.schType && jobWorkFollowupSchedule.schType === 'F'">
+                                <select name="onDateSecond" id="field_onDateSecond" [(ngModel)]="jobWorkFollowupSchedule.onDateSecond" class="form-control form-control-xs custom-select custom-select-xs" (change)="selectDate();">
+                                    <option value="undefined">Select Type</option>
+                                    <option *ngFor="let chooseDay of chooseDaysSecond" value="{{chooseDay.value}}">{{chooseDay.label}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-1">
+                        <label class="form-label">Resp.Reminder</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" name="respReminder" [(ngModel)]="jobWorkFollowupSchedule.respReminder" class="form-control form-control-sm">
+
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-label">Level1 Reminder</label>
+                    </div>
+                    <div class="col-md-3" style="width: 200px;">
+                        <input type="number" name="level1Reminder" [(ngModel)]="jobWorkFollowupSchedule.level1Reminder" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-label">Level2 Reminder</label>
+                    </div>
+                    <div class="col-md-3" style="width: 200px;">
+                        <input type="number" name="level2Reminder" [(ngModel)]="jobWorkFollowupSchedule.level2Reminder" class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="background-color: #f0f0f0;" *ngIf="monthlyBeans?.length >0">
+            <div class="col-md-12">
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <table class="table table-sm" style="background-color: #fff;">
+                            <tbody>
+                            <tr *ngFor="let monthlyBean of monthlyBeans">
+                                <th style="width: 70px; background-color: #d2d691;">{{monthlyBean.month}}</th>
+                                <td style="width: 30px; text-align: center; background-color: #FBFAF0; border: 1px solid grey;" *ngFor="let dayBean of monthlyBean.daysBeans">
+                                    {{dayBean.day}}<br/>
+                                    <fa-icon [icon]="'check-circle'" class="text-success" *ngIf="dayBean.selectDay"></fa-icon>
+                                    <fa-icon [icon]="'times-circle'" class="text-danger" *ngIf="!dayBean.selectDay"></fa-icon>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

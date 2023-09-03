@@ -1,0 +1,159 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-gst-vopl-upload-heading">Create or edit a Gst Vopl Upload</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_vVchno">V Vchno</label>
+                    <input type="text" class="form-control" name="vVchno" id="field_vVchno"
+                           formControlName="vVchno"/>
+                    <div *ngIf="editForm.get('vVchno').invalid && (editForm.get('vVchno').dirty || editForm.get('vVchno').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('vVchno').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('vVchno').errors.maxlength">
+                        This field cannot be longer than 15 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_vVchdate">V Vchdate</label>
+                    <div class="d-flex">
+                        <input id="field_vVchdate" type="datetime-local" class="form-control" name="vVchdate" formControlName="vVchdate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_vGstin">V Gstin</label>
+                    <input type="text" class="form-control" name="vGstin" id="field_vGstin"
+                           formControlName="vGstin"/>
+                    <div *ngIf="editForm.get('vGstin').invalid && (editForm.get('vGstin').dirty || editForm.get('vGstin').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('vGstin').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('vGstin').errors.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_vSupplierCode">V Supplier Code</label>
+                    <input type="text" class="form-control" name="vSupplierCode" id="field_vSupplierCode"
+                           formControlName="vSupplierCode"/>
+                    <div *ngIf="editForm.get('vSupplierCode').invalid && (editForm.get('vSupplierCode').dirty || editForm.get('vSupplierCode').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('vSupplierCode').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('vSupplierCode').errors.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_vSupplierName">V Supplier Name</label>
+                    <input type="text" class="form-control" name="vSupplierName" id="field_vSupplierName"
+                           formControlName="vSupplierName"/>
+                    <div *ngIf="editForm.get('vSupplierName').invalid && (editForm.get('vSupplierName').dirty || editForm.get('vSupplierName').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('vSupplierName').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('vSupplierName').errors.maxlength">
+                        This field cannot be longer than 200 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_vInvoiceno">V Invoiceno</label>
+                    <input type="text" class="form-control" name="vInvoiceno" id="field_vInvoiceno"
+                           formControlName="vInvoiceno"/>
+                    <div *ngIf="editForm.get('vInvoiceno').invalid && (editForm.get('vInvoiceno').dirty || editForm.get('vInvoiceno').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('vInvoiceno').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('vInvoiceno').errors.maxlength">
+                        This field cannot be longer than 25 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_vInvoicedate">V Invoicedate</label>
+                    <div class="d-flex">
+                        <input id="field_vInvoicedate" type="datetime-local" class="form-control" name="vInvoicedate" formControlName="vInvoicedate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_vInvamt">V Invamt</label>
+                    <input type="number" class="form-control" name="vInvamt" id="field_vInvamt"
+                           formControlName="vInvamt"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_vInvnet">V Invnet</label>
+                    <input type="number" class="form-control" name="vInvnet" id="field_vInvnet"
+                           formControlName="vInvnet"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_vCgst">V Cgst</label>
+                    <input type="number" class="form-control" name="vCgst" id="field_vCgst"
+                           formControlName="vCgst"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_vSgst">V Sgst</label>
+                    <input type="number" class="form-control" name="vSgst" id="field_vSgst"
+                           formControlName="vSgst"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_vIgst">V Igst</label>
+                    <input type="number" class="form-control" name="vIgst" id="field_vIgst"
+                           formControlName="vIgst"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_uploadDate">Upload Date</label>
+                    <div class="d-flex">
+                        <input id="field_uploadDate" type="datetime-local" class="form-control" name="uploadDate" formControlName="uploadDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_confirmDate">Confirm Date</label>
+                    <div class="d-flex">
+                        <input id="field_confirmDate" type="datetime-local" class="form-control" name="confirmDate" formControlName="confirmDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_status">Status</label>
+                    <input type="text" class="form-control" name="status" id="field_status"
+                           formControlName="status"/>
+                    <div *ngIf="editForm.get('status').invalid && (editForm.get('status').dirty || editForm.get('status').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('status').errors.maxlength">
+                        This field cannot be longer than 2 characters.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

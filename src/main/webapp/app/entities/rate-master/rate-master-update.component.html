@@ -1,0 +1,73 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-rate-master-heading">Rate Master</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!editForm.get('id').value">
+                            <div class="col-md-3">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control form-control-sm" id="id" name="id" formControlName="id" readonly/>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_rate">Rate</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="number" class="form-control form-control-sm" name="rate" id="field_rate" formControlName="rate"/>
+                                <div *ngIf="editForm.get('rate').invalid && (editForm.get('rate').dirty || editForm.get('rate').touched)">
+                                    <small class="form-text text-danger"  *ngIf="editForm.get('rate').errors.required">
+                                         This field is required.
+                                    </small>
+                                    <small class="form-text text-danger" [hidden]="!editForm.get('rate')?.errors?.number">
+                                        This field should be a number.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                             <div class="col-md-3">
+                                <label class="form-control-label" for="field_startDate">Start Date</label>
+                             </div>
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="input-group input-group-sm">
+                                                <input [owlDateTime]="leaveFrom" name="leaveDateFrom" id="field_leaveDateFrom" placeholder="Date From" class="form-control form-control-sm" required formControlName="leaveDateFrom">
+                                                <div class="input-group-append input-group-append-top">
+                                                    <div class="btn btn-blush" [owlDateTimeTrigger]="leaveFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                                </div>
+                                            </div>
+                                            <owl-date-time [pickerType]="'calendar'" #leaveFrom></owl-date-time>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="editForm.get('startDate').invalid && (editForm.get('startDate').dirty || editForm.get('startDate').touched)">
+                                        <small class="form-text text-danger" *ngIf="editForm.get('startDate').errors.required">
+                                            This field is required.
+                                        </small>
+                                        <small class="form-text text-danger" [hidden]="!editForm.get('startDate').errors?.ZonedDateTimelocal">
+                                            This field should be a date and time.
+                                        </small>
+                                    </div>
+                             </div>
+                        </div>
+                     </div>
+                     <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                  </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

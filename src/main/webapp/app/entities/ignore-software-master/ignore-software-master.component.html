@@ -1,0 +1,74 @@
+<div class="card">
+         <div class="body">
+                <h5 id="page-heading"><span>Ignore Software Master</span></h5>
+                    <div class="row card-margin-bottom-10">
+                            <div class="col-md-4">
+                                <input class="form-control form-control-sm text-uppercase ng-valid ng-dirty ng-touched" name="swName" id="field_swName" placeholder="Sw Name" type="text" [(ngModel)]="ignoreSoftwareSearchMasters.swName"/>
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control form-control-sm  text-uppercase ng-valid ng-dirty ng-touched" name="swPublisher" id="field_swPublisher" placeholder="Sw Publisher" type="text" [(ngModel)]="ignoreSoftwareSearchMasters.swPublisher"/>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <button class="btn btn-sm btn-round btn-blush"  style="margin-top:0;" type="button" (click)="search();">
+                                    <fa-icon [icon]="'search'"></fa-icon>
+                                    <span >Search</span>
+                                </button>
+                                <button class="btn btn-sm btn-round btn-blush"  style="margin-top:0;" class="btn btn-sm btn-blush btn-round  jh-create-entity create-ignore-software-master" [routerLink]="['/ignore-software-master/new']">
+                                    <fa-icon [icon]="'plus'"></fa-icon>
+                                    <span>New</span>
+                                </button>
+                            </div>
+                    </div>
+            <div class="table-responsive" *ngIf="ignoreSoftwareMasters">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="swName"><span>Sw Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="swPublisher"><span>Sw Publisher</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let ignoreSoftwareMaster of ignoreSoftwareMasters ;trackBy: trackId">
+                        <td><a [routerLink]="['/ignore-software-master', ignoreSoftwareMaster.id, 'view' ]">{{ignoreSoftwareMaster.id}}</a></td>
+                        <td>{{ignoreSoftwareMaster.swName}}</td>
+                        <td>{{ignoreSoftwareMaster.swPublisher}}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/ignore-software-master', ignoreSoftwareMaster.id, 'view' ]"
+                                        class="btn btn-info btn-sm">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/ignore-software-master', ignoreSoftwareMaster.id, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/', 'ignore-software-master', { outlets: { popup: ignoreSoftwareMaster.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+             <div *ngIf="ignoreSoftwareMasters && ignoreSoftwareMasters.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+</div>
+ </div>

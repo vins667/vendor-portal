@@ -1,0 +1,90 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="cutPlanIssueStitch">
+            <h2><span>Cut Plan Issue Stitch</span> {{ cutPlanIssueStitch.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Transaction Type</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.transactionType }}</span>
+                </dd>
+                <dt><span>Plant Code</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.plantCode }}</span>
+                </dd>
+                <dt><span>Plant Description</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.plantDescription }}</span>
+                </dd>
+                <dt><span>Destination Plant Code</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.destinationPlantCode }}</span>
+                </dd>
+                <dt><span>Destination Plant Description</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.destinationPlantDescription }}</span>
+                </dd>
+                <dt><span>Projectcode</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.projectcode }}</span>
+                </dd>
+                <dt><span>Style</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.style }}</span>
+                </dd>
+                <dt><span>Termsofdeliverycode</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.termsofdeliverycode }}</span>
+                </dd>
+                <dt><span>Termsofdeliverydescription</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.termsofdeliverydescription }}</span>
+                </dd>
+                <dt><span>Termsofshippingcode</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.termsofshippingcode }}</span>
+                </dd>
+                <dt><span>Termsofshippingdescription</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.termsofshippingdescription }}</span>
+                </dd>
+                <dt><span>Eway</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.eway }}</span>
+                </dd>
+                <dt><span>Createdby</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.createdby }}</span>
+                </dd>
+                <dt><span>Createddate</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.createddate }}</span>
+                </dd>
+                <dt><span>Lastupdatedby</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.lastupdatedby }}</span>
+                </dd>
+                <dt><span>Lastupdateddate</span></dt>
+                <dd>
+                    <span>{{ cutPlanIssueStitch.lastupdateddate }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/cut-plan-issue-stitch', cutPlanIssueStitch.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

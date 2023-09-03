@@ -1,0 +1,46 @@
+<div>
+    <h5 id="page-heading" style="margin-top: 10px;">
+        <span>Branches</span>
+    </h5>
+</div>
+<div class="table-responsive" *ngIf="vendorBranchDetails">
+    <table class="table table-sm table-striped">
+        <thead>
+        <tr>
+            <th><span>Sr. No</span></th>
+            <th><span>Address</span></th>
+            <th><span>Vend Type Master</span></th>
+            <th><span>Vend Sub Type Master</span></th>
+            <th><span>Gst Number</span></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let vendorBranchDetail of vendorBranchDetails ;trackBy: trackId; let index = index" [class.bg-success-light]="vendorBranchDetail.dataFlag && vendorBranchDetail.dataFlag === 'N'" [class.bg-warning-light]="vendorBranchDetail.dataFlag && vendorBranchDetail.dataFlag === 'U'" [class.bg-danger-light]="vendorBranchDetail.dataFlag && vendorBranchDetail.dataFlag === 'D'" [ngbTooltip]="vendorBranchDetail.dataFlag && vendorBranchDetail.dataFlag==='U'? 'Updated' : vendorBranchDetail.dataFlag && vendorBranchDetail.dataFlag==='N' ? 'New' : vendorBranchDetail.dataFlag && vendorBranchDetail.dataFlag==='D'? 'Deleted' : '' ">
+            <td>{{index + 1}}</td>
+            <td>{{vendorBranchDetail.addressLine1}}</td>
+            <td>{{vendorBranchDetail.vendTypeMasterDesc}}</td>
+            <td>{{vendorBranchDetail.vendSubTypeMasterDesc}}</td>
+            <td>{{vendorBranchDetail.gstNumber}}</td>
+            <td class="text-right button-column">
+                <div class="btn-group">
+                    <button type="button"
+                            (click)="open(vendorBranchDetail.id);"
+                            [disabled]="vendorBranchDetail.dataFlag && vendorBranchDetail.dataFlag === 'D'"
+                            class="btn btn-success btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="vendorBranchDetails && vendorBranchDetails.length">
+    <div class="row justify-content-center">
+        <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+    </div>
+    <div class="row justify-content-center">
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+    </div>
+</div>

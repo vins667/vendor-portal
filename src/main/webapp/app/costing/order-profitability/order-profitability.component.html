@@ -1,0 +1,63 @@
+<div align="center" class="centered" *ngIf="isSaving">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<form name="editForm" role="form" (ngSubmit)="save()" #editForm="ngForm">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 id="jhi-asset-master-heading">Order Profitability</h6>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-right">
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || diCostanalysises?.length===0 || isSaving"
+                                class="btn btn-sm btn-xs btn-blush btn-round m-0">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer p-2 bg-white text-black">
+            <div class="col-8">
+                <div class="row">
+                    <div class="col-md-1">
+                        <label class="form-control-label">Project</label>
+                    </div>
+                    <div class="col-md-4">
+                        <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteProject" [minSearchLength]="3" [placeholder]="'Search Project'" [textSearching]="'Please wait...'" [inputClass]="'form-control form-control-xs d-inline'" [(ngModel)]="projectcode" (selected)="onProjectSelected($event)">
+                        </ng2-completer>
+                        <!--input type="text" class="form-control form-control-xs text-uppercase" name="login" id="field_login" [(ngModel)]="projectcode" (blur)="fetchDetails();" required/-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer p-2 body bg-white text-black">
+            <div class="col-8">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-sm table-xs table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th><span>Item</span></th>
+                                <th><span>Budgeted Price / Pcs</span></th>
+                                <th><span>Actual Price / Pcs</span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let diCostanalysis of diCostanalysises; let index = index;">
+                                <td>{{diCostanalysis.description}}</td>
+                                <td>{{diCostanalysis.costline | number: '1.2-2'}}</td>
+                                <td>
+                                    <input type="number" class="form-control form-control-xs text-uppercase" name="actualprice_{{index}}" id="field_actualprice_{{index}}" [(ngModel)]="diCostanalysis.actualprice"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

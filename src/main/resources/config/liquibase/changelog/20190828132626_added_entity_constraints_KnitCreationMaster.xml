@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity KnitCreationMaster.
+    -->
+    <changeSet id="20190828132626-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="yarn_count_master_id"
+                                 baseTableName="knit_creation_master"
+                                 constraintName="fk_knit_creation_master_yarn_count_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="yarn_count_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="yarn_type_master_id"
+                                 baseTableName="knit_creation_master"
+                                 constraintName="fk_knit_creation_master_yarn_type_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="yarn_type_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="knit_type_master_id"
+                                 baseTableName="knit_creation_master"
+                                 constraintName="fk_knit_creation_master_knit_type_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="knit_type_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="knit_process_master_id"
+                                 baseTableName="knit_creation_master"
+                                 constraintName="fk_knit_creation_master_knit_process_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="knit_process_master"/>
+
+    </changeSet>
+</databaseChangeLog>

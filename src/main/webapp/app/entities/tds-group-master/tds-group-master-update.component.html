@@ -1,0 +1,92 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-country-heading">Tds Group Master</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                        <div>
+                            <div class="row card-margin-bottom-10" [hidden]="!tdsGroupMaster.id">
+                                <div class="col-md-3">
+                                    <label for="id">ID</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="tdsGroupMaster.id" readonly />
+                                </div>
+                            </div>
+                            <div class="row card-margin-bottom-10">
+                                  <div class="col-md-3">
+                                    <label class="form-control-label" for="field_year">Year</label>
+                                  </div>
+                                   <div class="col-md-9">
+                                       <select class="form-control form-control-sm custom-select custom-select-sm" name="year" id="field_year" [(ngModel)]="tdsGroupMaster.year" required>
+                                           <option *ngFor="let tdsYearMasterOption of tdsyearmasters;" [value]="tdsYearMasterOption.code">{{tdsYearMasterOption.financeYear}}</option>
+                                       </select>
+                                   </div>
+                            </div>
+                            <div class="row card-margin-bottom-10">
+                                <div class="col-md-3">
+                                     <label class="form-control-label" for="field_groupCode">Group Code</label>
+                                </div>
+                                <div class="col-md-9">
+                                        <input type="text" class="form-control form-control-sm" name="groupCode" id="field_groupCode" [(ngModel)]="tdsGroupMaster.groupCode" required maxlength="15"/>
+                                        <div [hidden]="!(editForm.controls.groupCode?.dirty && editForm.controls.groupCode?.invalid)">
+                                            <small class="form-text text-danger"
+                                            [hidden]="!editForm.controls.groupCode?.errors?.required">
+                                            This field is required.
+                                            </small>
+                                            <small class="form-text text-danger"
+                                            [hidden]="!editForm.controls.groupCode?.errors?.maxlength">
+                                            This field cannot be longer than 15 characters.
+                                            </small>
+                                        </div>
+                                </div>
+                           </div>
+                           <div class="row card-margin-bottom-10">
+                                <div class="col-md-3">
+                                    <label class="form-control-label" for="field_groupDescription">Group Description</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control form-control-sm" name="groupDescription" id="field_groupDescription" [(ngModel)]="tdsGroupMaster.groupDescription" required maxlength="500"/>
+                                    <div [hidden]="!(editForm.controls.groupDescription?.dirty && editForm.controls.groupDescription?.invalid)">
+                                        <small class="form-text text-danger"
+                                        [hidden]="!editForm.controls.groupDescription?.errors?.required">
+                                        This field is required.
+                                        </small>
+                                        <small class="form-text text-danger"
+                                        [hidden]="!editForm.controls.groupDescription?.errors?.maxlength">
+                                        This field cannot be longer than 500 characters.
+                                        </small>
+                                    </div>
+                                </div>
+                           </div>
+                           <div class="row card-margin-bottom-10">
+                                <div class="col-md-3">
+                                    <label class="form-control-label" for="field_groupLimit">Group Limit</label> 
+                                </div>
+                                <div class="col-md-9">
+                                        <input type="number" class="form-control form-control-sm" name="groupLimit" id="field_groupLimit" [(ngModel)]="tdsGroupMaster.groupLimit" />
+                                </div>
+                           </div>
+                           <div class="row card-margin-bottom-10">
+                                <div class="col-md-3">
+                                     <label class="form-control-label" for="field_groupOrder">Group Order</label>
+                                </div>
+                                <div class="col-md-9">
+                                     <input type="number" class="form-control form-control-sm" name="groupOrder" id="field_groupOrder" [(ngModel)]="tdsGroupMaster.groupOrder" />
+                                </div>
+                           </div>
+                     </div>
+                     <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"   (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                 </form>
+            </div>
+        </div>
+    </div>
+</div>

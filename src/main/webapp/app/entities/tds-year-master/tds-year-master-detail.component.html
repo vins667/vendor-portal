@@ -1,0 +1,55 @@
+<div class="card">
+    <div class="body">
+        <h2><span>TDS Year</span> {{tdsYearMaster.id}}</h2>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="tdsYearMaster">
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Code</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{tdsYearMaster.code}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Finance Year</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{tdsYearMaster.financeYear}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Active</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{tdsYearMaster.active}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Expired</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{tdsYearMaster.expired}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-round btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/tds-year-master', tdsYearMaster.id, 'edit']"
+                            class="btn btn-blush btn-round btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

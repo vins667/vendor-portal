@@ -1,0 +1,210 @@
+<div class="card">
+    <div class="body">
+        <div class="row">
+            <div class="col-md-4">
+                <aside id="leftsidebar">
+                    <ul class="nav nav-tabs buttonwrapper" style="padding: 5px 0 5px 5px !important;">
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-padding"
+                               mwlCalendarPreviousView
+                               [view]="view"
+                               [(viewDate)]="viewDate"
+                               (viewDateChange)="activeDayIsOpen = false"
+                               (click)="fetchEvents()"
+                               href="javascript:void(0);">
+                                Previous
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-padding active"
+                               mwlCalendarToday
+                               [(viewDate)]="viewDate" (click)="fetchEvents()"
+                                href="javascript:void(0);">
+                                Today
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-padding"
+                               mwlCalendarNextView
+                               [view]="view"
+                               [(viewDate)]="viewDate"
+                               (viewDateChange)="activeDayIsOpen = false" (click)="fetchEvents()"
+                               href="javascript:void(0);">
+                                Next
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+            <div class="col-md-3 align-center align-middle">
+                <h5>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h5>
+            </div>
+            <div class="col-md-4">
+                <aside class="text-right">
+                    <ul class="nav nav-tabs buttonwrapper" style="padding: 5px 0 5px 5px !important;">
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-padding"
+                               (click)="view = CalendarView.Month"
+                               [class.active]="view === CalendarView.Month"
+                               href="javascript:void(0);">
+                                Month
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-padding"
+                               (click)="view = CalendarView.Week"
+                               [class.active]="view === CalendarView.Week"
+                               href="javascript:void(0);">
+                                Week
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-padding"
+                               (click)="view = CalendarView.Day"
+                               [class.active]="view === CalendarView.Day"
+                               href="javascript:void(0);">
+                                Day
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+            <div class="col-md-1">
+                <div class="btn-group">
+                    <div style="margin-left: -20px;" class="btn btn-info btn-round" (click)="open(content, 'New Event');">
+                        <fa-icon [icon]="'plus'"></fa-icon>
+                    </div>&nbsp;
+                    <div class="btn btn-warning btn-round" (click)="fetchOthers();">
+                        <fa-icon [icon]="'sync'"></fa-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template #loading>
+            <div class="text-center">
+                <fa-icon [icon]="'spinner'" style="font-size: 100px;"></fa-icon>
+                <br>
+                Loading events...
+            </div>
+        </ng-template>
+        <div class="row">
+            <div class="col-md-12">
+                <div *ngIf="observableList | async; else loading; let events">
+                    <div [ngSwitch]="view">
+                        <mwl-calendar-month-view
+                            *ngSwitchCase="'month'"
+                            [viewDate]="viewDate"
+                            [events]="events"
+                            [activeDayIsOpen]="activeDayIsOpen"
+                            (dayClicked)="dayClicked($event.day, events)"
+                            (beforeViewRender)="beforeMonthViewRender($event)"
+                            (eventClicked)="handleEvent('Clicked', $event.event, content)"
+                            [refresh]="refresh">
+                        </mwl-calendar-month-view>
+                        <mwl-calendar-week-view
+                            *ngSwitchCase="'week'"
+                            [viewDate]="viewDate"
+                            [events]="events"
+                            [refresh]="refresh">
+                        </mwl-calendar-week-view>
+                        <mwl-calendar-day-view
+                            *ngSwitchCase="'day'"
+                            [viewDate]="viewDate"
+                            [events]="events">
+                            [refresh]="refresh"
+                        </mwl-calendar-day-view>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #content let-modal>
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <div class="modal-header bg-blush" style="padding: 10px;">
+            <h4 class="modal-title" id="modal-basic-title" style="margin-top: 0px;">{{messageTitle}}</h4>
+            <button style="top: 10px;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div style="font-size: 13px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_eventFrom">Event From</label>
+                            <div class="d-flex">
+                                <div class="input-group">
+                                    <input [owlDateTime]="eventFrom" name="field_eventFrom" id="field_eventFrom" placeholder="Event From" class="form-control" required [(ngModel)]="eventFromDate">
+                                    <div class="input-group-append input-group-append-top">
+                                        <div class="btn btn-blush"><span [owlDateTimeTrigger]="eventFrom"><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                    </div>
+                                </div>
+                                <owl-date-time #eventFrom></owl-date-time>
+                            </div>
+                            <div [hidden]="!(editForm.controls.eventFrom?.dirty && editForm.controls.eventFrom?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.eventFrom?.errors?.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.eventFrom?.errors?.ZonedDateTimelocal">
+                                    This field should be a date and time.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_eventTo">Event To</label>
+                            <div class="d-flex">
+                                <div class="input-group">
+                                    <input [owlDateTime]="eventTo" name="field_eventTo" id="field_eventTo" placeholder="Event To" class="form-control" required [(ngModel)]="eventToDate">
+                                    <div class="input-group-append input-group-append-top">
+                                        <div class="btn btn-blush"><span [owlDateTimeTrigger]="eventTo"><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                    </div>
+                                </div>
+                                <owl-date-time #eventTo></owl-date-time>
+                            </div>
+                            <div [hidden]="!(editForm.controls.eventTo?.dirty && editForm.controls.eventTo?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.eventTo?.errors?.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.eventTo?.errors?.ZonedDateTimelocal">
+                                    This field should be a date and time.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_eventTitle">Event Title</label>
+                            <input type="text" class="form-control" name="eventTitle" id="field_eventTitle"
+                                   [(ngModel)]="event.eventTitle" required maxlength="500"/>
+                            <div [hidden]="!(editForm.controls.eventTitle?.dirty && editForm.controls.eventTitle?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.eventTitle?.errors?.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.eventTitle?.errors?.maxlength">
+                                    This field cannot be longer than 500 characters.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="col-12 text-right">
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-blush btn-round">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span class="d-none d-md-inline">Save</span>
+                </button>
+                <button type="button" class="btn btn-secondary btn-round" *ngIf="event.id" (click)="deleteEvent();">
+                    <fa-icon [icon]="'times'"></fa-icon>
+                    <span class="d-none d-md-inline">Delete</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<ng-snotify></ng-snotify>

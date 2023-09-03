@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity BillRegister.
+    -->
+    <changeSet id="20220511060718-1" author="jhipster">
+        <createTable tableName="bill_register">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="companycode" type="varchar(3)">
+                <constraints nullable="false" />
+            </column>
+            <column name="divisioncode" type="varchar(3)">
+                <constraints nullable="false" />
+            </column>
+            <column name="invoicetypecode" type="varchar(3)">
+                <constraints nullable="false" />
+            </column>
+            <column name="code" type="varchar(15)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_bill_register__code" />
+            </column>
+            <column name="invoicedate" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="style" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            <column name="customercode" type="varchar(8)">
+                <constraints nullable="false" />
+            </column>
+            <column name="customername" type="varchar(200)">
+                <constraints nullable="false" />
+            </column>
+            <column name="createdby" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="createddate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="updatedby" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="updateddate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+        <createSequence startValue="1" sequenceName="bill_register_seq" incrementBy="1" cycle="false"/>
+        <dropDefaultValue tableName="bill_register" columnName="createddate" columnDataType="datetime"/>
+        <dropDefaultValue tableName="bill_register" columnName="updateddate" columnDataType="datetime"/>
+    </changeSet>
+</databaseChangeLog>

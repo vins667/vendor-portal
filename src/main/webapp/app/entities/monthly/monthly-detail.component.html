@@ -1,0 +1,160 @@
+<div class="card">
+    <div class="body">
+        <div class="row" *ngIf="monthly">
+            <div class="col-md-1"></div>
+            <div class="col-md-6">
+                <table class="table table-sm table-bordered table-striped">
+                    <tr>
+                        <td colspan="5" class="bg-background">
+                            <h6 style="margin-bottom: 0;">Earning Breakup</h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="font-bold" style="width: 20%">Type</th>
+                        <th class="text-right" style="width: 20%">Amount</th>
+                        <th class="text-right" style="width: 20%">Earned</th>
+                        <th class="text-right" style="width: 20%">Arrears</th>
+                        <th class="text-right" style="width: 20%">Total</th>
+                    </tr>
+                    <tr *ngIf="monthly.all1">
+                        <td class="font-bold" style="width: 20%">{{monthly.all1}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.rat1 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn1 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.arr1 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn1 + monthly.arr1 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="monthly.all2">
+                        <td class="font-bold" style="width: 20%">{{monthly.all2}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.rat2 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn2 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.arr2 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn2 + monthly.arr2 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="monthly.all3">
+                        <td class="font-bold" style="width: 20%">{{monthly.all3}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.rat3 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn3 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.arr3 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn3 + monthly.arr3 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="monthly.all4">
+                        <td class="font-bold" style="width: 20%">{{monthly.all4}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.rat4 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn4 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.arr4 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn4 + monthly.arr4 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="monthly.all5">
+                        <td class="font-bold" style="width: 20%">{{monthly.all5}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.rat5 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn5 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.arr5 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn5 + monthly.arr5 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="monthly.all6">
+                        <td class="font-bold" style="width: 20%">{{monthly.all6}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.rat6 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn6 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.arr6 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn6 + monthly.arr6 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="monthly.all7">
+                        <td class="font-bold" style="width: 20%">{{monthly.all7}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.rat7 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn7 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.arr7 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn7 + monthly.arr7 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="monthly.all8">
+                        <td class="font-bold" style="width: 20%">{{monthly.all8}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.rat8 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn8 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.arr8 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn8 + monthly.arr8 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="monthly.all9">
+                        <td class="font-bold" style="width: 20%">{{monthly.all9}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.rat9 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn9 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.arr9 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn9 + monthly.arr9 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="monthly.all10">
+                        <td class="font-bold" style="width: 20%">{{monthly.all10}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.rat10 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn10 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.arr10 | number : '1.2-2'}}</td>
+                        <td class="text-right" style="width: 20%">{{monthly.earn10 + monthly.arr10 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <th class="font-bold bg-blush text-color" style="width: 20%">Total</th>
+                        <th class="text-right bg-blush text-color" style="width: 20%">{{monthly.ptotSal | number : '1.2-2'}}</th>
+                        <th class="text-right bg-blush text-color" style="width: 20%">{{monthly.totSal | number : '1.2-2'}}</th>
+                        <th class="text-right bg-blush text-color" style="width: 20%">{{monthly.arrAmt | number : '1.2-2'}}</th>
+                        <th class="text-right bg-blush text-color" style="width: 20%">{{monthly.totSal + monthly.arrAmt | number : '1.2-2'}}</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-sm table-bordered table-striped">
+                    <tr>
+                        <td colspan="2" class="bg-background">
+                            <h6 style="margin-bottom: 0;">Deduction Breakup</h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="font-bold" style="width: 40%">Type</th>
+                        <th class="text-right" style="width: 30%">Deductions</th>
+                    </tr>
+                    <tr *ngIf="monthly.dall1">
+                        <td class="font-bold" style="width: 40%">{{monthly.dall1}}</td>
+                        <td class="text-right" style="width: 30%">{{monthly.ded1 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="monthly.dall2">
+                        <td class="font-bold" style="width: 40%">{{monthly.dall2}}</td>
+                        <td class="text-right" style="width: 30%">{{monthly.ded2 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="monthly.dall3">
+                        <td class="font-bold" style="width: 40%">{{monthly.dall3}}</td>
+                        <td class="text-right" style="width: 30%">{{monthly.ded3 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="monthly.dall4">
+                        <td class="font-bold" style="width: 40%">{{monthly.dall4}}</td>
+                        <td class="text-right" style="width: 30%">{{monthly.ded4 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="monthly.dall5">
+                        <td class="font-bold" style="width: 40%">{{monthly.dall5}}</td>
+                        <td class="text-right" style="width: 30%">{{monthly.ded5 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="monthly.dall6">
+                        <td class="font-bold" style="width: 40%">{{monthly.dall6}}</td>
+                        <td class="text-right" style="width: 30%">{{monthly.ded6 | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <th class="font-bold bg-blush text-color" style="width: 40%">Total</th>
+                        <th class="text-right bg-blush text-color" style="width: 30%">{{monthly.totDed | number : '1.2-2'}}</th>
+                    </tr>
+                </table>
+                <button *ngIf="monthly && monthly.id.monthYear" class="btn btn-sm btn-blush btn-round" type="button" (click)="postMail(monthly.id.monthYear)" [disabled]="isDownloading"><fa-icon [icon]="'envelope'"></fa-icon><span> Email</span></button>
+                <button *ngIf="monthly && monthly.id.monthYear" class="btn btn-sm btn-info btn-round" type="button" (click)="generateReport(monthly.id.monthYear)" [disabled]="isDownloading"><fa-icon [icon]="'download'"></fa-icon><span> Download</span></button>
+        </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="row" *ngIf="monthly">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <table class="table table-sm table-bordered table-striped">
+                    <tr>
+                        <td class="bg-background">
+                            <h6 style="margin-bottom: 0;">Total Pay Salary</h6>
+                        </td>
+                        <td class="bg-background text-right">
+                            <h6 style="margin-bottom: 0;">{{monthly.netSal | number : '1.2-2'}}</h6>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

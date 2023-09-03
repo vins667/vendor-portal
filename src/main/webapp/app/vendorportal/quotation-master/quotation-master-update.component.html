@@ -1,0 +1,118 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-quotation-master-heading">Create or edit a Quotation Master</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!quotationMaster.id">
+                            <div class="col-md-3">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="quotationMaster.id" readonly />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_eventType">Event Type</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select type="text" class="form-control form-control-sm custom-select custom-select-sm"  name="eventType" id="field_eventType"  [(ngModel)]="quotationMaster.eventType" required>
+                                    <option value="S">Sale</option>
+                                    <option value="P">Purchase</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_processflow">Process Flow Approval </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_Rfq">Rfq</label>
+                            </div>
+                            <div class="col-md-1">
+                                <input type="checkbox" class="form-control form-control-sm" name="rfq" id="field_rfq" [(ngModel)]="quotationMaster.rfq"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_bidding">Bidding </label>
+                            </div>
+                            <div class="col-md-1">
+                                <input type="checkbox" class="form-control form-control-sm" name="bidding" id="field_bidding" [(ngModel)]="quotationMaster.bidding"/>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_projectTitle">Project Title</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="projectTitle" id="field_projectTitle" [(ngModel)]="quotationMaster.projectTitle" required/>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_category">Category</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select type="text" class="form-control form-control-sm custom-select custom-select-sm"  name="category" id="field_category"  [(ngModel)]="quotationMaster.category" required>
+                                    <option value="PA001">PA001 - PAPER ITEMS</option>
+                                    <option value="PA002">PA002 - PAPER ITEMS</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_sourcingTeam">Sourcing Team</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="sourcingTeam" id="field_sourcingTeam" [(ngModel)]="quotationMaster.sourcingTeam" required>
+                                    <option value="PP">Blr General Purchase(PP)</option>
+                                    <option value="PP">Blr General Purchase(PP)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_projectRegion">Project Region</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="projectRegion" id="field_projectRegion" [(ngModel)]="quotationMaster.projectRegion" required>
+                                    <option value="PA4">PA-4 - Shimoga Region</option>
+                                    <option value="PA3">PA-3 -Faridabad Region</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_template">Template</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="template" id="field_template"  [(ngModel)]="quotationMaster.template" required>
+                                    <option value="CO">Copier Paper Template</option>
+                                    <option value="CO">Copier Paper Template</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_remarks">Remarks</label>
+                            </div>
+                            <div class="col-md-9">
+                                <textarea class="form-control form-control-sm" name="remarks" id="field_remarks" [(ngModel)]="quotationMaster.remarks" rows="2" maxlength="500"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,256 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-worker-recruitment-heading">Create or edit a profile</h5>
+        <hr/>
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <div class="row">
+                <div class="col-8">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!workerRecruitment.id">
+                            <div class="col-md-3">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="workerRecruitment.id" readonly />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_aadharNo">Aadhar No</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="input-group input-group-sm">
+                                    <input #aadharNo type="number" class="form-control form-control-sm" name="aadharNo" maxlength="12" id="field_aadharNo" [(ngModel)]="workerRecruitment.aadharNo" required  [disabled]="isAadhaar"/>
+                                    <div class="input-group-append input-group-append-top">
+                                        <button type="button" class="btn btn-secondary btn-sm" (click)="scanAadhar();" [disabled]="!workerRecruitment.aadharNo"><fa-icon [icon]="'qrcode'"></fa-icon></button>
+                                    </div>
+                                </div>
+                                <div [hidden]="!(editForm.controls.aadharNo?.dirty && editForm.controls.aadharNo?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.aadharNo?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.aadharNo?.errors?.maxlength">
+                                        This field cannot be longer than 20 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_name">Name</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="name" id="field_name" [(ngModel)]="workerRecruitment.name" required maxlength="60" [disabled]="isName"/>
+                                <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.name?.errors?.required">
+                                           This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.name?.errors?.maxlength">
+                                           This field cannot be longer than 60 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_dob">Dob</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="input-group input-group-sm">
+                                    <input [owlDateTime]="dob" name="dob" id="field_dob" placeholder="dob" [owlDateTimeTrigger]="dob" class="form-control form-control-sm" required [(ngModel)]="workerRecruitment.dob" [disabled]="isDob || !workerRecruitment.aadharNo" (click)="existCheck();" (mouseup)="existCheck();" readonly (mouseover)="existCheck();">
+                                    <div class="input-group-append input-group-append-top">
+                                        <button type="button" class="btn btn-blush" [owlDateTimeTrigger]="dob" [disabled]="isDob || !workerRecruitment.aadharNo" (click)="existCheck();"><span><fa-icon [icon]="'calendar'"></fa-icon></span></button>
+                                    </div>
+                                </div>
+                                <owl-date-time [pickerType]="'calendar'" #dob></owl-date-time>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_fatherName">Father/Husb.&nbsp;Name</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="fatherName" id="field_fatherName" [(ngModel)]="workerRecruitment.fatherName" required maxlength="60" [disabled]="isFather" (mouseup)="existCheck();"/>
+                                <div [hidden]="!(editForm.controls.fatherName?.dirty && editForm.controls.fatherName?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.fatherName?.errors?.required">
+                                           This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.fatherName?.errors?.maxlength">
+                                           This field cannot be longer than 60 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_address">Address</label>
+                            </div>
+                            <div class="col-md-9">
+                                <textarea class="form-control form-control-sm"  name="address" id="field_address" [(ngModel)]="workerRecruitment.address" required maxlength="500" rows="2" [disabled]="isAddress" (mouseup)="existCheck();"></textarea>
+                                <div [hidden]="!(editForm.controls.address?.dirty && editForm.controls.address?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.address?.errors?.required">
+                                           This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.address?.errors?.maxlength">
+                                           This field cannot be longer than 500 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="">Department</label></div>
+                            <div class="col-md-9">
+                                <ng-select class="form-control form-control-sm" id="field_departmentMaster" name="departmentMaster" [(ngModel)]="workerRecruitment.departmentMasterId"  required (mouseup)="existCheck();">
+                                    <ng-option *ngFor="let departmentMasterOption of departmentmasters;" [value]="departmentMasterOption.id">{{departmentMasterOption.deptDesc}}</ng-option>
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="">Designation</label>
+                            </div>
+                            <div class="col-md-9">
+                                <ng-select class="form-control form-control-sm" id="field_designationMaster" name="designationMaster" [(ngModel)]="workerRecruitment.designationMasterId"  required (mouseup)="existCheck();">
+                                    <ng-option *ngFor="let designationMasterOption of designationmasters; trackBy: trackDesignationMasterById" [value]="designationMasterOption.id">{{designationMasterOption.designationName}}</ng-option>
+                                </ng-select>
+                                <div [hidden]="!(editForm.controls.designationMaster?.dirty && editForm.controls.designationMaster?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.designationMaster?.errors?.required">
+                                           This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_panNo">Pan No</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm text-uppercase" name="panNo" id="field_panNo" [(ngModel)]="workerRecruitment.panNo" maxlength="20" (mouseup)="existCheck();"/>
+                                <div [hidden]="!(editForm.controls.panNo?.dirty && editForm.controls.panNo?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.panNo?.errors?.maxlength">
+                                           This field cannot be longer than 20 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="">Bank Name</label>
+                            </div>
+                            <div class="col-md-9">
+                                <ng-select class="form-control form-control-sm" id="field_bankName" name="bankMaster" [(ngModel)]="workerRecruitment.bankMasterId"  required (mouseup)="existCheck();">
+                                    <ng-option *ngFor="let bankMasterOption of bankmasters; trackBy: trackBankMasterById" [value]="bankMasterOption.id">{{bankMasterOption.bankName}}</ng-option>
+                                </ng-select>
+                                <div [hidden]="!(editForm.controls.bankMaster?.dirty && editForm.controls.bankMaster?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.bankMaster?.errors?.required">
+                                           This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_bankBranch">Bank Branch</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm text-uppercase" name="bankBranch" id="field_bankBranch" [(ngModel)]="workerRecruitment.bankBranch" required maxlength="50" (mouseup)="existCheck();"/>
+                                <div [hidden]="!(editForm.controls.bankBranch?.dirty && editForm.controls.bankBranch?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.bankBranch?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.bankBranch?.errors?.maxlength">
+                                        This field cannot be longer than 50 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_bankAccNo">Bank Acc No</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm text-uppercase" name="bankAccNo" id="field_bankAccNo" [(ngModel)]="workerRecruitment.bankAccNo" required maxlength="20" (mouseup)="existCheck();"/>
+                                <div [hidden]="!(editForm.controls.bankAccNo?.dirty && editForm.controls.bankAccNo?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.bankAccNo?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.bankAccNo?.errors?.maxlength">
+                                        This field cannot be longer than 20 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_address">Correspondence Address</label>
+                            </div>
+                            <div class="col-md-9">
+                                <textarea class="form-control form-control-sm text-uppercase"  name="corespondAddress" id="field_corespondAddress" [(ngModel)]="workerRecruitment.corespondAddress" required maxlength="500" rows="2" (mouseup)="existCheck();"></textarea>
+                                <div [hidden]="!(editForm.controls.corespondAddress?.dirty && editForm.controls.corespondAddress?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.corespondAddress?.errors?.required">
+                                    This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.corespondAddress?.errors?.maxlength">
+                                    This field cannot be longer than 500 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="button" id="clear-save" class="btn btn-sm btn-info btn-round"  (click)="clearPage()">
+                            <fa-icon [icon]="'sync'"></fa-icon>&nbsp;<span>Clear</span>
+                        </button>
+                        <button type="button" id="save-entity" (click)="save()" [disabled]="editForm.form.invalid || isSaving || (workerRecruitment.status && workerRecruitment.status !== 'E')" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                        <button type="button" id="save-new-entity" (click)="saveNew()" [disabled]="editForm.form.invalid || isSaving || (workerRecruitment.status && workerRecruitment.status !== 'E')" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save & New</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-4" *ngIf="!workerRecruitment.fileName">
+                    <div style="width:340px;height:300px;">
+                        <webcam [height]="500" [width]="335" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam" [imageQuality]="1">
+                        </webcam>
+                        <img [src]="webcamImage.imageAsDataUrl"  *ngIf="webcamImage" style="border-radius:5px;"/>
+                    </div>
+                    <div class="card-margin-bottom-10" style="text-align:center">
+                        <button type="button" class="btn btn-md btn-blush btn-round" (click)="triggerSnapshot();" *ngIf="!webcamImage">Snap Photo</button>
+                        <button type="button" class="btn btn-md btn-blush btn-round" (click)="toggleWebcam();" *ngIf="!showWebcam">ReSnap Photo</button>
+                    </div>
+                </div>
+                <div class="col-4" *ngIf="workerRecruitment.fileName">
+                    <div style="width:340px;height:300px;">
+                        <img [src]="'../file_upload/workerrecruitemt/profile/'+workerRecruitment.fileName" style="border-radius:5px;"/>
+                    </div>
+                    <div class="card-margin-bottom-10" style="text-align:center">
+                        <button type="button" class="btn btn-md btn-blush btn-round" (click)="getWebcam();">ReSnap Photo</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

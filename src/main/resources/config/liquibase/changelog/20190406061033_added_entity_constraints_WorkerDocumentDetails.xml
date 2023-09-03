@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity WorkerDocumentDetails.
+    -->
+    <changeSet id="20190406061033-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="recruitment_document_master_id"
+                                 baseTableName="worker_document_details"
+                                 constraintName="fk_worker_document_details_recruitment_document_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="recruitment_document_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="worker_joining_id"
+                                 baseTableName="worker_document_details"
+                                 constraintName="fk_worker_document_details_worker_joining_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="worker_joining"/>
+
+    </changeSet>
+</databaseChangeLog>

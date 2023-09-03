@@ -1,0 +1,86 @@
+<div class="card">
+    <div class="body">
+            <h5><span>Tds Group Details</span> {{tdsGroupDetails.id}}</h5>
+            <hr>
+            <div class="row">
+                <div class="col-8">
+                        <div *ngIf="tdsGroupDetails">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <dt><span>Year</span></dt>
+                                </div>
+                                <div class="col-md-9">
+                                    <span>{{tdsGroupDetails.tdsGroupMaster?.year}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-md-3">
+                                        <dt><span>Tds Group Code</span></dt>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <span>{{tdsGroupDetails.tdsGroupMaster?.groupCode}}</span>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <dt><span>Perk Code</span></dt>
+                                </div>
+                                <div class="col-md-9">
+                                    <span>{{tdsGroupDetails.perkCode}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <dt><span>Perk Description</span></dt>
+                                </div>
+                                <div class="col-md-9">
+                                    <span>{{tdsGroupDetails.perkDescription}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <dt><span>Perk Limit</span></dt>
+                                </div>
+                                <div class="col-md-9">
+                                    <span>{{tdsGroupDetails.perkLimit}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <dt><span>Perk Type</span></dt>
+                                </div>
+                                <div class="col-md-9">
+                                        <dd>
+                                            <span *ngIf="tdsGroupDetails.perkType=='E'">Earn</span>
+                                            <span *ngIf="tdsGroupDetails.perkType=='D'">Deducted</span>
+                                        </dd>
+                                </div>
+                            </div>
+                           <div class="row">
+                                <div class="col-md-3">
+                                    <dt><span>Perk Mode</span></dt>
+                                </div>
+                                <div class="col-md-9">
+                                        <dd>
+                                            <span *ngIf="tdsGroupDetails.perkMode=='E'">Entry</span>
+                                            <span *ngIf="tdsGroupDetails.perkMode=='A'">Auto</span>
+                                            <span *ngIf="tdsGroupDetails.perkMode=='C'">Calculated</span>
+                                        </dd>
+                                 </div>
+                            </div>
+                            <button type="submit"
+                                    (click)="previousState()"
+                                    class="btn btn-sm btn-info btn-round">
+                                    <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                            </button>
+
+                            <button type="button"
+                                    [routerLink]="['/tds-group-details', tdsGroupDetails.id, 'edit']"
+                                    class="btn btn-sm btn-blush btn-round">
+                                   <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                            </button>
+                     </div>
+                </div>
+            </div>
+    </div>
+</div>

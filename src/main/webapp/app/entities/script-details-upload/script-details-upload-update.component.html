@@ -1,0 +1,105 @@
+<div class="card">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+        <div class = "card-header">
+            <div class = "row">
+                <div class ="col-md-6">
+                    <h6 id="script-details-upload-heading">Create or Edit a Script Details Upload</h6>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-right">
+                        <button type="button" id="cancel-save" class="btn btn-xs btn-secondary btn-round m-0"
+                                (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
+                                class="btn btn-xs btn-blush btn-round m-0">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white">
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_id">S No.</label></div>
+                <div class="col-md-4"><input type="text" class="form-control form-control-xs" name="id" id="field_id" formControlName="id" readonly></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_shippingBillNo">Ship. Bill No</label></div>
+                <div class="col-md-4"><input type="text" class="form-control form-control-xs" name="shippingBillNo" id="field_shippingBillNo" formControlName="shippingBillNo" readonly /></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_invoiceNo">Invoice No.</label></div>
+                <div class="col-md-4"><input type="text" class="form-control form-control-xs" name="invoiceNo" id="field_invoiceNo" formControlName="invoiceNo" readonly/></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_shippingBillDate">Ship. Bill Date</label></div>
+                <div class="col-md-4">
+                    <div class="input-group mb-0">
+                        <input type="text" [owlDateTime]="dateFrom" name="shippingBillDate" id="field_shippingBillDate" placeholder="Date From" class="form-control form-control-xs" formControlName="shippingBillDate" [readonly]="editForm.get('id').value">
+                        <div class="input-group-append input-group-append-top">
+                            <button type="button" class="btn btn-xs btn-blush" [owlDateTimeTrigger]="dateFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></button>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #dateFrom [disabled]="editForm.get('id').value"></owl-date-time>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_scrollNo">Scroll No.</label></div>
+                <div class="col-md-4"><input type="text" class="form-control form-control-xs" name="scrollNo" id="field_scrollNo" formControlName="scrollNo" readonly /></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_portCode">Port Code</label></div>
+                <div class="col-md-4"><input type="text" class="form-control form-control-xs" name="portCode" id="field_portCode" formControlName="portCode" readonly/></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_sanctionedValue">Sanctioned Value</label></div>
+                <div class="col-md-4"><input type="number" class="form-control form-control-xs text-right" name="sanctionedValue" id="field_sanctionedValue" formControlName="sanctionedValue" readonly/></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_fobInFc">FOB in FC</label></div>
+                <div class="col-md-4"><input type="number" class="form-control form-control-xs text-right" name="fobInFc" id="field_fobInFc" formControlName="fobInFc" readonly/></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_fobInInr">FOB in INR</label></div>
+                <div class="col-md-4"><input type="number" class="form-control form-control-xs text-right" name="fobInInr" id="field_fobInInr" formControlName="fobInInr" readonly/></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_brcNumber">BRC Number</label></div>
+                <div class="col-md-4"><input type="text" class="form-control form-control-xs" name="brcNumber" id="field_brcNumber" formControlName="brcNumber" readonly/></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_customerName">Customer Name</label></div>
+                <div class="col-md-4"><input type="text" class="form-control form-control-xs" name="customerName" id="field_customerName" formControlName="customerName" readonly/></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_shippingBillDate">Date</label></div>
+                <div class="col-md-4">
+                    <div class="input-group mb-0">
+                        <input type="text" [owlDateTime]="entryDateFrom" name="entryDate" id="field_entryDate" placeholder="Date From" class="form-control form-control-xs" formControlName="entryDate" [readonly]="editForm.get('id').value">
+                        <div class="input-group-append input-group-append-top">
+                            <button type="button" class="btn btn-xs btn-blush" [owlDateTimeTrigger]="entryDateFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></button>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #entryDateFrom [disabled]="editForm.get('id').value"></owl-date-time>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_brcRealisedValue">BRC Value</label></div>
+                <div class="col-md-4"><input type="number" class="form-control form-control-xs text-right" name="brcRealisedValue" id="field_brcRealisedValue" formControlName="brcRealisedValue" readonly/></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_ifscCode">IFSC</label></div>
+                <div class="col-md-4"><input type="text" class="form-control form-control-xs" name="ifscCode" id="field_ifscCode" formControlName="ifscCode" readonly/></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_scriptNo">Script No</label></div>
+                <div class="col-md-4"><input type="text" class="form-control form-control-xs" name="scriptNo" id="field_scriptNo" formControlName="scriptNo" readonly/></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_scriptAmount">Script Value</label></div>
+                <div class="col-md-4"><input type="number" class="form-control form-control-xs text-right" name="scriptAmount" id="field_scriptAmount" formControlName="scriptAmount" readonly/></div>
+            </div>
+        </div>
+    </form>
+</div>

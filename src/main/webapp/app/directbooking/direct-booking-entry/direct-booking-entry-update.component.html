@@ -1,0 +1,519 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <div class="card">
+        <div class="body pb-0">
+            <div class="row">
+                <div class="col-md-5">
+                    <h6 id="jhi-asset-master-heading">Create or Edit Direct Booking System</h6>
+                </div>
+                <div class="col-md-2 pr-0">
+                    <ng-container *ngIf="editForm.controls['findocumentcode'] && editForm.controls['findocumentcode'].value">
+                        <h6><span class="font-weight-bold">Voch#</span>&nbsp;<span class="font-weight-normal">{{editForm.controls['findocumentcode'].value}}</span></h6>
+                    </ng-container>
+                </div>
+                <div class="col-md-5">
+                    <div class="text-right">
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="this.editForm.controls['flag'].value !== 'E' || editForm.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                        <button type="button" id="forward-entity" *ngIf="this.editForm.controls['id'].value" [disabled]="this.editForm.controls['flag'].value !== 'E' || editForm.invalid || isSaving" class="btn btn-sm btn-warning btn-round" (click)="forwardBooking();">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Forward for Approval</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr class="p-0 mt-0">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row mb-1">
+                        <div class="col-md-1"><label class="form-control-label" for="field_company">Company</label></div>
+                        <div class="col-md-3">
+                            <select class="form-control form-control-xs custom-select custom-select-xs" name="company" id="field_company" formControlName="company" (change)="fetchDivision(); fetchBusinessUnit();" [attr.disabled]="this.editForm.controls['id'].value ? true : null">
+                                <option [value]="'undefined'">Select Company</option>
+                                <option [value]="companyOption.code" *ngFor="let companyOption of companies;">{{companyOption.code + '-' + companyOption.longdescription}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1"><label class="form-control-label" for="field_division">Division</label></div>
+                        <div class="col-md-3">
+                            <select class="form-control form-control-xs custom-select custom-select-xs" name="division" id="field_division" formControlName="division" (change)="fetchFactories()" [attr.disabled]="this.editForm.controls['id'].value ? true : null">
+                                <option [value]="'undefined'">Select Division</option>
+                                <option [value]="divisionOption.id.code" *ngFor="let divisionOption of divisions;">{{divisionOption.id.code + '-' + divisionOption.longdescription}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1"><label class="form-control-label" for="field_businessunitcode">Business&nbsp;unit</label></div>
+                        <div class="col-md-3">
+                            <select class="form-control form-control-xs custom-select custom-select-xs" name="businessunitcode" id="field_businessunitcode" formControlName="businessunitcode" [attr.disabled]="this.editForm.controls['id'].value ? true : null" (change)="fetchFactories()">
+                                <option [value]="'undefined'">Select Business Unit</option>
+                                <option [value]="finbusinessunitOption.id.code" *ngFor="let finbusinessunitOption of finbusinessunits;">{{finbusinessunitOption.id.code + '-' + finbusinessunitOption.longdescription}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-1"><label for="id">Entry#</label></div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control form-control-xs" id="id" name="id" formControlName="id" placeholder="Auto" readonly disabled />
+                        </div>
+                        <div class="col-md-1"><label class="form-control-label" for="field_bookingdate">Posting&nbsp;Date</label></div>
+                        <div class="col-md-3">
+                            <div class="input-group mb-0">
+                                <input type="text" class="form-control form-control-xs" [owlDateTime]="bookingdate" name="bookingdate" id="field_bookingdate" placeholder="Entry Date" formControlName="bookingdate" [max]="maxdate" (dateTimeInput)="validatePostingDate($event);"/>
+                                <div class="input-group-append input-group-append-top">
+                                    <button type="button" class="btn btn-xs btn-blush" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null"><fa-icon [icon]="'calendar'" [owlDateTimeTrigger]="bookingdate"></fa-icon></button>
+                                </div>
+                            </div>
+                            <owl-date-time [pickerType]="'calendar'" #bookingdate></owl-date-time>
+                        </div>
+                        <div class="col-md-1"><label class="form-control-label" for="field_factorycode">Factory</label></div>
+                        <div class="col-md-3">
+                            <select class="form-control form-control-xs custom-select custom-select-xs" name="factorycode" id="field_factorycode" formControlName="factorycode" (change)="selectFactory();" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null">
+                                <option [value]="'undefined'">Select Factory</option>
+                                <option [value]="factoryOption.factCode" *ngFor="let factoryOption of factories;">{{factoryOption.factCode + '-' + factoryOption.searchdescription}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-1"><label class="form-control-label" for="field_bookingtype">Type</label></div>
+                        <div class="col-md-3">
+                            <select class="form-control form-control-xs custom-select custom-select-xs" name="bookingtype" id="field_bookingtype" formControlName="bookingtype" [attr.disabled]="this.editForm.controls['id'].value ? true : null">
+                                <option [value]="'undefined'">Select Type</option>
+                                <option [value]="'P'">Purchase</option>
+                                <!--option [value]="'S'">Sales</option-->
+                                <option [value]="'E'">Service</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1"><label class="form-control-label">Booking&nbsp;For</label></div>
+                        <div class="col-md-3">
+                            <input type="radio" class="custom-radio" name="bookingfor" id="field_bookingfor_customer" value="1" formControlName="bookingfor" (change)="remoteURL();" [attr.disabled]="this.editForm.controls['id'].value ? true : null">&nbsp; Customer
+                            <input type="radio" class="custom-radio" name="bookingfor" id="field_bookingfor_supplier" value="2" formControlName="bookingfor" (change)="remoteURL()" [attr.disabled]="this.editForm.controls['id'].value ? true : null">&nbsp; Supplier
+                        </div>
+                        <div class="col-md-1">
+                            <label class="form-control-label" for="field_suppliercustomercode">
+                                {{this.editForm.controls['bookingfor'].value === '2' ? 'Supplier' : 'Customer'}}
+                            </label>
+                        </div>
+                        <div class="col-md-3 pr-3">
+                            <input type="hidden" name="suppliercustomercode" id="field_suppliercustomercode" formControlName="suppliercustomercode"/>
+                            <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteSupplier" [minSearchLength]="3" [placeholder]="this.editForm.controls['bookingfor'].value === '2' ? 'Search Supplier' : 'Search Customer'" [textSearching]="'Please wait...'" [inputClass]="!this.editForm.controls['suppliercustomercode'].value || this.editForm.controls['suppliercustomercode'].value.length ===0 ? 'form-control form-control-xs d-inline input-required' : 'form-control form-control-xs d-inline'" formControlName="suppliercustomerdesc" (selected)="onSupplierSelected($event)" [disableInput]="this.editForm.controls['id'].value">
+                            </ng2-completer>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-1"><label class="form-control-label" for="field_billno">Bill#</label></div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control form-control-xs" name="billno" id="field_billno" placeholder="Enter Bill#" formControlName="billno" maxlength="16" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null"/>
+                        </div>
+                        <div class="col-md-1">
+                            <label class="form-control-label" for="field_billdate">Bill&nbsp;Date</label>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group mb-0">
+                                <input type="text" class="form-control form-control-xs" [owlDateTime]="billdate" name="billdate" id="field_billdate" placeholder="Bill Date" formControlName="billdate" [max]="maxdate" (dateTimeInput)="validateBillDate($event);"/>
+                                <div class="input-group-append input-group-append-top">
+                                    <button type="button" class="btn btn-xs btn-blush" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null"><fa-icon [icon]="'calendar'" [owlDateTimeTrigger]="billdate"></fa-icon></button>
+                                </div>
+                            </div>
+                            <owl-date-time [pickerType]="'calendar'" #billdate></owl-date-time>
+                        </div>
+                        <div class="col-md-1">
+                            <label class="form-control-label" for="field_billamount">
+                                Bill&nbsp;Amount
+                            </label>
+                        </div>
+                        <div class="col-md-3 pr-3">
+                            <input type="number" class="form-control form-control-xs text-right" name="billamount" id="field_billamount" formControlName="billamount"  [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null" (change)="calculateDiscountFrieghtAndOthers()"/>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-1"><label class="form-control-label" for="field_costcentercode">Cost&nbsp;center</label></div>
+                        <div class="col-md-3">
+                            <input type="hidden" name="costcentercode" id="field_costcentercode" formControlName="costcentercode"/>
+                            <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteCostcenter" [minSearchLength]="3" [placeholder]="'Search Cost center'" [textSearching]="'Please wait...'" [inputClass]="!this.editForm.controls['costcentercode'].value || this.editForm.controls['costcentercode'].value.length ===0 ? 'form-control form-control-xs d-inline input-required' : 'form-control form-control-xs d-inline'" formControlName="costcenterdesc" (selected)="onCostcenterSelected($event)" [disableInput]="this.editForm.controls['flag'].value !== 'E'">
+                            </ng2-completer>
+                        </div>
+                        <div class="col-md-1"><label class="form-control-label" for="field_paymenttermcode">Payment&nbsp;Term</label></div>
+                        <div class="col-md-3">
+                            <input type="hidden" name="paymenttermcode" id="field_paymenttermcode" formControlName="paymenttermcode"/>
+                            <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemotePaymentmethod" [minSearchLength]="3" [placeholder]="'Search Payment Term'" [textSearching]="'Please wait...'" [inputClass]="!this.editForm.controls['paymenttermcode'].value || this.editForm.controls['paymenttermcode'].value.length ===0 ? 'form-control form-control-xs d-inline input-required' : 'form-control form-control-xs d-inline'" formControlName="paymenttermdesc" (selected)="onPaymentmethodSelected($event)" [disableInput]="this.editForm.controls['flag'].value !== 'E'">
+                            </ng2-completer>
+                        </div>
+                        <div class="col-md-1">
+                            <label class="form-control-label" for="field_factorystate">
+                                {{this.editForm.controls['bookingfor'].value === '2' ? 'Sup./' : 'Cust./'}}Fact.State
+                            </label>
+                        </div>
+                        <div class="col-md-3 pr-3">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control form-control-xs" name="suppliercustomerstate" id="field_suppliercustomerstate" formControlName="suppliercustomerstate" readonly disabled/>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control form-control-xs" name="factorystate" id="field_factorystate" formControlName="factorystate" readonly disabled/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-1"><label class="form-control-label">Project#</label></div>
+                        <div class="col-md-3">
+                            <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteProject" [minSearchLength]="3" [placeholder]="'Search Project'" [textSearching]="'Please wait...'" [inputClass]="'form-control form-control-xs d-inline'" formControlName="projectcode" (selected)="onProjectSelected($event)" [disableInput]="this.editForm.controls['flag'].value !== 'E'">
+                            </ng2-completer>
+                        </div>
+                        <div class="col-md-1">
+                            <label class="form-control-label"><input type="checkbox" class="custom-checkbox margin-top-2" name="gateNoRequired" id="field_gateNoRequired" formControlName="gateNoRequired" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null"/>&nbsp;Gate&nbsp;Entry</label></div>
+                        <div class="col-md-3">
+                                <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteGateentry" [minSearchLength]="3" [placeholder]="'Search Gate Entry Number'" [textSearching]="'Please wait...'" [inputClass]="editForm.controls['gateNoRequired'].value && editForm.controls['gateNoRequired'].value === true && !editForm.controls['gateentrynumber'].value ? 'form-control form-control-xs d-inline input-required' : 'form-control form-control-xs d-inline'" formControlName="gateentrynumber" (selected)="onGateEntrySelected($event)" [disableInput]="this.editForm.controls['flag'].value !== 'E' || !this.editForm.controls['factorycode'].value || this.editForm.controls['factorystate'].value !=='09 '">
+                                </ng2-completer>
+                                <!--input type="text" class="form-control form-control-xs" name="gatenumber" id="field_gatenumber" placeholder="Enter Gate Number" formControlName="gatenumber" [required]="editForm.controls['gateNoRequired'].value && editForm.controls['gateNoRequired'].value === true ? true : false" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null"/-->
+                         </div>
+                        <div class="col-md-1">
+                            <label class="form-control-label">Gate&nbsp;Pass</label></div>
+                        <div class="col-md-3">
+                            <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteGatepass" [minSearchLength]="3" [placeholder]="'Search Gate Pass Number'" [textSearching]="'Please wait...'" [inputClass]="editForm.controls['gateNoRequired'].value && editForm.controls['gateNoRequired'].value === true && !editForm.controls['gatenumber'].value ? 'form-control form-control-xs d-inline input-required' : 'form-control form-control-xs d-inline'" formControlName="gatenumber" (selected)="onGatePassSelected($event)" [disableInput]="this.editForm.controls['flag'].value !== 'E' || !this.editForm.controls['factorycode'].value || this.editForm.controls['factorystate'].value ==='09 '">
+                            </ng2-completer>
+                            <!--input type="text" class="form-control form-control-xs" name="gatenumber" id="field_gatenumber" placeholder="Enter Gate Number" formControlName="gatenumber" [required]="editForm.controls['gateNoRequired'].value && editForm.controls['gateNoRequired'].value === true ? true : false" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null"/-->
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-1"><label class="form-control-label">For Customer</label></div>
+                        <div class="col-md-3">
+                            <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteCustomer" [minSearchLength]="3" [placeholder]="'Search Customer'" [textSearching]="'Please wait...'" [inputClass]="'form-control form-control-xs d-inline'" formControlName="customerGstName" (selected)="onCustomerSelected($event)" [disableInput]="this.editForm.controls['flag'].value !== 'E'">
+                            </ng2-completer>
+                        </div>
+                        <div class="col-md-1"><label class="form-control-label" for="field_styleNo">Style#</label></div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control form-control-xs" name="styleNo" id="field_styleNo" placeholder="Enter Style#" formControlName="styleNo" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null"/>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-1"><label class="form-control-label" for="field_vehicleNo">Vehicle#</label></div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control form-control-xs" name="vehicleNo" id="field_vehicleNo" placeholder="Enter Vehicle#" formControlName="vehicleNo" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null"/>
+                        </div>
+                        <div class="col-md-1"><label class="form-control-label" for="field_remarks">Remarks</label></div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control form-control-xs" name="remarks" id="field_remarks" placeholder="Enter Remarks" formControlName="remarks" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null"/>
+                        </div>
+                        <!--div class="col-md-4">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <input type="checkbox" class="custom-checkbox margin-top-2" name="rcmBill" id="field_rcmBill" formControlName="rcmBill" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null"/>
+                                </div>&nbsp;&nbsp;&nbsp;
+                                <div class="input-group-append">RCM</div>
+                            </div>
+                        </div-->
+                        <div class="col-md-1 pr-0">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <input type="checkbox" class="custom-checkbox margin-top-2" name="tcsApplicable" id="field_tcsApplicable" formControlName="tcsApplicable" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null" (change)="calculateDiscountFrieghtAndOthers();"/>
+                                </div>&nbsp;&nbsp;&nbsp;
+                                <div class="input-group-append">TCS</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control form-control-xs text-right" name="tcsValue" id="field_tcsValue" formControlName="tcsValue" [attr.disabled]="editForm.controls['tcsApplicable'].value && editForm.controls['tcsApplicable'].value === true ? null : true" [required]="editForm.controls['tcsApplicable'].value && editForm.controls['tcsApplicable'].value === true ? true : null" (blur)="calculateDiscountFrieghtAndOthers();"/>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-1 pr-0">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <input type="checkbox" class="custom-checkbox margin-top-2" name="discountApplicable" id="field_discountApplicable" formControlName="discountApplicable" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null" (change)="calculateDiscountFrieghtAndOthers();"/>
+                                </div>&nbsp;&nbsp;&nbsp;
+                                <div class="input-group-append">Discount</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col-md-6 pr-0">
+                                    <select class="form-control form-control-xs custom-select custom-select-xs" name="discountType" id="field_discountType" formControlName="discountType" [attr.disabled]="editForm.controls['discountApplicable'].value && editForm.controls['discountApplicable'].value === true ? null : true" [required]="editForm.controls['discountApplicable'].value && editForm.controls['discountApplicable'].value === true ? true : null" (change)="calculateDiscountFrieghtAndOthers();">
+                                        <option [value]="'undefined'">Select Type</option>
+                                        <option [value]="'P'">Percentage</option>
+                                        <option [value]="'V'">Value</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control form-control-xs text-right" name="discountValue" id="field_discountValue" formControlName="discountValue" [attr.disabled]="editForm.controls['discountApplicable'].value && editForm.controls['discountApplicable'].value === true ? null : true" [required]="editForm.controls['discountApplicable'].value && editForm.controls['discountApplicable'].value === true ? true : null" (blur)="calculateDiscountFrieghtAndOthers();"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 pr-0">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <input type="checkbox" class="custom-checkbox margin-top-2" name="freightApplicable" id="field_freightApplicable" formControlName="freightApplicable" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null" (change)="calculateDiscountFrieghtAndOthers();"/>
+                                </div>&nbsp;&nbsp;&nbsp;
+                                <div class="input-group-append">Freight</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col-md-6 pr-0">
+                                    <select class="form-control form-control-xs custom-select custom-select-xs" name="freightType" id="field_freightType" formControlName="freightType" [attr.disabled]="editForm.controls['freightApplicable'].value && editForm.controls['freightApplicable'].value === true ? null : true" [required]="editForm.controls['freightApplicable'].value && editForm.controls['freightApplicable'].value === true ? true : null" (change)="calculateDiscountFrieghtAndOthers();">
+                                        <option [value]="'undefined'">Select Type</option>
+                                        <option [value]="'P'">Percentage</option>
+                                        <option [value]="'V'">Value</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control form-control-xs text-right" name="freightValue" id="field_freightValue" formControlName="freightValue" [attr.disabled]="editForm.controls['freightApplicable'].value && editForm.controls['freightApplicable'].value === true ? null : true" [required]="editForm.controls['freightApplicable'].value && editForm.controls['freightApplicable'].value === true ? true : null" (blur)="calculateDiscountFrieghtAndOthers();"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 pr-0">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <input type="checkbox" class="custom-checkbox margin-top-2" name="otherChargesApplicable" id="field_otherChargesApplicable" formControlName="otherChargesApplicable" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null" (change)="calculateDiscountFrieghtAndOthers();"/>
+                                </div>&nbsp;&nbsp;&nbsp;
+                                <div class="input-group-append">Others</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col-md-6 pr-0">
+                                    <select class="form-control form-control-xs custom-select custom-select-xs" name="otherChargesType" id="field_otherChargesType" formControlName="otherChargesType" [attr.disabled]="editForm.controls['otherChargesApplicable'].value && editForm.controls['otherChargesApplicable'].value === true ? null : true" [required]="editForm.controls['otherChargesApplicable'].value && editForm.controls['otherChargesApplicable'].value === true ? true : null" (change)="calculateDiscountFrieghtAndOthers();">
+                                        <option [value]="'undefined'">Select Type</option>
+                                        <option [value]="'P'">Percentage</option>
+                                        <option [value]="'V'">Value</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control form-control-xs text-right" name="otherChargesValue" id="field_otherChargesValue" formControlName="otherChargesValue" [attr.disabled]="editForm.controls['otherChargesApplicable'].value && editForm.controls['otherChargesApplicable'].value === true ? null : true" [required]="editForm.controls['otherChargesApplicable'].value && editForm.controls['otherChargesApplicable'].value === true ? true : null" (blur)="calculateDiscountFrieghtAndOthers();"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-1" *ngIf="orderpartnertdss?.length > 0">
+        <div class="body p-1">
+            <div class="table-responsive" id="entities1">
+                <table class="table table-sm table-bordered mb-1" aria-describedby="page-heading">
+                    <thead>
+                    <tr>
+                        <th style="width: 200px;"><span>TDS Desc.</span></th>
+                        <th style="width: 100px;"><span>TDS Code</span></th>
+                        <th style="width: 100px;"><span>TDS Tax Code</span></th>
+                        <th style="width: 100px;" class="text-right"><span>TDS%</span></th>
+                        <th style="width: 20px;"></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let orderpartnertds of orderpartnertdss ;let index = index">
+                            <td>{{orderpartnertds.longdescription}}</td>
+                            <td>{{orderpartnertds.id.tdscode}}</td>
+                            <td>{{orderpartnertds.id.tdsitaxcode}}</td>
+                            <td class="text-right">{{orderpartnertds.value}}</td>
+                            <td><input type="checkbox" name="tdsApplicable{{index}}" id="form_tdsApplicable{{index}}" [(ngModel)]="orderpartnertds.tdsApplicable" [ngModelOptions]="{standalone: true}" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null" (change)="selectTDS(index);"/></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-1">
+        <div class="body p-1">
+            <div class="table-responsive" id="entities2">
+                <table class="table table-sm table-bordered mb-1" aria-describedby="page-heading">
+                    <thead>
+                    <tr>
+                        <th style="width: 100px;"><span>Value</span></th>
+                        <th style="width: 100px;"><span>Tax Value</span></th>
+                        <th style="width: 100px;"><span>Total Value</span></th>
+                        <th style="width: 100px;"><span>TDS Value</span></th>
+                        <th style="width: 100px;" *ngIf="editForm.controls['tcsApplicable'].value"><span>TCS Value</span></th>
+                        <th></th>
+                        <th style="width: 100px;"><span>Diff/Round</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control form-control-xs text-right" name="value" id="field_value" formControlName="value" readonly/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-xs text-right" name="taxvalue" id="field_taxvalue" formControlName="taxvalue" readonly/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-xs text-right" name="totalvalue" id="field_totalvalue" formControlName="totalvalue" readonly/>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td class="p-0 m-0">
+                                        <input type="text" class="form-control form-control-xs text-right" name="tdsValue" id="field_tdsValue" formControlName="tdsValue" [attr.disabled]="!editForm.controls['mtds'].value ? true : null"/>
+                                    </td>
+                                    <td class="p-0 m-0">
+                                        <input type="checkbox" class="custom-checkbox" name="mtds" id="field_mtds" formControlName="mtds" [attr.disabled]="editForm.get('tdsValue').value && editForm.get('tdsValue').value>0 ? null : true" (change)="calculateDiscountFrieghtAndOthers();"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td *ngIf="editForm.controls['tcsApplicable'].value">
+                            <input type="text" class="form-control form-control-xs text-right" name="tdstcsValue" id="field_tdstcsValue" [value]="getTCSValue()" readonly/>
+                        </td>
+                        <td></td>
+                        <td>
+                            <input type="text" class="form-control form-control-xs text-right" name="roundOffValue" id="field_roundOffValue" formControlName="roundOffValue" readonly/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-1" *ngIf="this.editForm.controls['factorystate'].value && this.editForm.controls['suppliercustomerstate'].value">
+        <div class="body p-1">
+            <div class="table-responsive" id="entities3">
+                <table class="table table-sm table-bordered mb-1" aria-describedby="page-heading">
+                    <thead>
+                    <tr>
+                        <th><span>Sr.No</span></th>
+                        <th><span>Itemtype</span></th>
+                        <th><span>Item</span></th>
+                        <th style="width: 250px;"><span>GL#</span></th>
+                        <th><span>HSN</span></th>
+                        <th class="text-right"><span>Quantity</span></th>
+                        <th class="text-center"><span>UOM</span></th>
+                        <th class="text-right"><span>Rate</span></th>
+                        <th style="width: 120px;" class="text-right"><span>Amount</span></th>
+                        <th style="width: 120px;" class="text-right"><span>Discount</span></th>
+                        <th style="width: 120px;" class="text-right"><span>Freight</span></th>
+                        <th style="width: 120px;" class="text-right"><span>Others</span></th>
+                        <th style="width: 120px;" class="text-right"><span>Taxable&nbsp;Amount</span></th>
+                        <th class="text-right" *ngIf="this.editForm.controls['factorystate'].value && this.editForm.controls['suppliercustomerstate'].value && this.editForm.controls['factorystate'].value === this.editForm.controls['suppliercustomerstate'].value"><span>CGST(%)</span></th>
+                        <th class="text-right" *ngIf="this.editForm.controls['factorystate'].value && this.editForm.controls['suppliercustomerstate'].value && this.editForm.controls['factorystate'].value === this.editForm.controls['suppliercustomerstate'].value"><span>CGST Value</span></th>
+                        <th class="text-right" *ngIf="this.editForm.controls['factorystate'].value && this.editForm.controls['suppliercustomerstate'].value && this.editForm.controls['factorystate'].value === this.editForm.controls['suppliercustomerstate'].value"><span>SGST(%)</span></th>
+                        <th class="text-right" *ngIf="this.editForm.controls['factorystate'].value && this.editForm.controls['suppliercustomerstate'].value && this.editForm.controls['factorystate'].value === this.editForm.controls['suppliercustomerstate'].value"><span>SGST Value</span></th>
+                        <th class="text-right" *ngIf="this.editForm.controls['factorystate'].value && this.editForm.controls['suppliercustomerstate'].value && this.editForm.controls['factorystate'].value !== this.editForm.controls['suppliercustomerstate'].value"><span>IGST(%)</span></th>
+                        <th class="text-right" *ngIf="this.editForm.controls['factorystate'].value && this.editForm.controls['suppliercustomerstate'].value && this.editForm.controls['factorystate'].value !== this.editForm.controls['suppliercustomerstate'].value"><span>IGST Value</span></th>
+                        <th class="text-right"><span>GST(%)</span></th>
+                        <th class="text-right"><span>Total GST</span></th>
+                        <th class="text-right"><span>Total Value</span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let directBookingDetail of directBookingDetails;let index = index" class="mb-1">
+                        <td>
+                            <input type="text" class="form-control form-control-xs" id="id{{index}}" name="id{{index}}" [value]="index + 1" style="width: 70px;" readonly/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-xs" id="itemtypecode{{index}}" name="itemtypecode{{index}}" [(ngModel)]="directBookingDetail.itemtypecode" readonly [ngModelOptions]="{standalone: true}" style="width: 100px;" required/>
+                        </td>
+                        <td>
+                            <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteItems" [minSearchLength]="3" [placeholder]="'Search Item'" [textSearching]="'Please wait...'" [inputClass]="'form-control form-control-xs d-inline width-200'"  [(ngModel)]="directBookingDetail.summerizeddescription" (selected)="onLineItemSelected($event, directBookingDetail)" (blur)="itemTrim(directBookingDetail)" [ngModelOptions]="{standalone: true}" [disableInput]="this.editForm.controls['flag'].value !== 'E'">
+                            </ng2-completer>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-xs" name="glcode{{index}}" id="field_glcode{{index}}" [value]="directBookingDetail.glcode ? directBookingDetail.glcode.trim() + '-' + directBookingDetail.gldescription : ''" style="width: 200px;" readonly required/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-xs" name="hsncode{{index}}" id="field_hsncode{{index}}" [(ngModel)]="directBookingDetail.hsncode" [ngModelOptions]="{standalone: true}" style="width: 120px;" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null" required (blur)="hsnTrim(directBookingDetail)"/>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-xs text-right" name="quantity{{index}}" id="field_quantity{{index}}" [(ngModel)]="directBookingDetail.quantity" [ngModelOptions]="{standalone: true}" style="width: 100px;" (blur)="calculateDiscountFrieghtAndOthers();" (change)="calculateDiscountFrieghtAndOthers();" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null" required/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-xs text-center" name="uom{{index}}" id="field_uom{{index}}" [(ngModel)]="directBookingDetail.uom" readonly disabled [ngModelOptions]="{standalone: true}" style="width: 80px;"/>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-xs text-right" name="price{{index}}" id="field_price{{index}}" [(ngModel)]="directBookingDetail.price" [ngModelOptions]="{standalone: true}" style="width: 100px;" (blur)="calculateDiscountFrieghtAndOthers();" (change)="calculateDiscountFrieghtAndOthers();" [attr.disabled]="this.editForm.controls['flag'].value !== 'E' ? true : null"" required/>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-xs text-right" name="amount{{index}}" id="field_amount{{index}}" [(ngModel)]="directBookingDetail.amount" readonly disabled [ngModelOptions]="{standalone: true}" style="width: 120px;"/>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-xs text-right" name="discount{{index}}" id="field_discount{{index}}" [(ngModel)]="directBookingDetail.discount" readonly disabled [ngModelOptions]="{standalone: true}" style="width: 120px;"/>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-xs text-right" name="freight{{index}}" id="field_freight{{index}}" [(ngModel)]="directBookingDetail.freight" readonly disabled [ngModelOptions]="{standalone: true}" style="width: 120px;"/>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-xs text-right" name="others{{index}}" id="field_others{{index}}" [(ngModel)]="directBookingDetail.others" readonly disabled [ngModelOptions]="{standalone: true}" style="width: 120px;"/>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-xs text-right" name="taxablevalue{{index}}" id="field_taxablevalue{{index}}" [(ngModel)]="directBookingDetail.taxablevalue" readonly disabled [ngModelOptions]="{standalone: true}" style="width: 120px;"/>
+                        </td>
+                        <td *ngIf="this.editForm.controls['factorystate'].value && this.editForm.controls['suppliercustomerstate'].value && this.editForm.controls['factorystate'].value === this.editForm.controls['suppliercustomerstate'].value">
+                            <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteCGst" [minSearchLength]="1" [placeholder]="'Search CGST'" [textSearching]="'Please wait...'" [inputClass]="'form-control form-control-xs d-inline width-100'"  [(ngModel)]="directBookingDetail.cgstdesc" (selected)="onLineCGSTSelected($event, directBookingDetail)" [ngModelOptions]="{standalone: true}" [disableInput]="this.editForm.controls['flag'].value !== 'E'">
+                            </ng2-completer>
+                        </td>
+                        <td *ngIf="this.editForm.controls['factorystate'].value && this.editForm.controls['suppliercustomerstate'].value && this.editForm.controls['factorystate'].value === this.editForm.controls['suppliercustomerstate'].value">
+                            <table>
+                                <tr>
+                                    <td class="p-0 m-0">
+                                        <input type="number" class="form-control form-control-xs text-right" name="cgstvalue{{index}}" id="field_cgstvalue{{index}}" [(ngModel)]="directBookingDetail.cgstvalue" [ngModelOptions]="{standalone: true}" style="width: 100px;" (blur)="calculateDiscountFrieghtAndOthers();" (change)="calculateDiscountFrieghtAndOthers();" [disabled]="!directBookingDetail.mcgst">
+                                    </td>
+                                    <td class="p-0 m-0">
+                                        <input type="checkbox" class="custom-checkbox" name="mcgst{{index}}" id="field_mcgst{{index}}" [(ngModel)]="directBookingDetail.mcgst" [ngModelOptions]="{standalone: true}" [disabled]="!directBookingDetail.cgstdesc" (change)="calculateDiscountFrieghtAndOthers();">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td *ngIf="this.editForm.controls['factorystate'].value && this.editForm.controls['suppliercustomerstate'].value && this.editForm.controls['factorystate'].value === this.editForm.controls['suppliercustomerstate'].value">
+                            <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteSGst" [minSearchLength]="1" [placeholder]="'Search SGST'" [textSearching]="'Please wait...'" [inputClass]="'form-control form-control-xs d-inline width-100'"  [(ngModel)]="directBookingDetail.sgstdesc" (selected)="onLineSGSTSelected($event, directBookingDetail)" [ngModelOptions]="{standalone: true}" [disableInput]="this.editForm.controls['flag'].value !== 'E'">
+                            </ng2-completer>
+                        </td>
+                        <td *ngIf="this.editForm.controls['factorystate'].value && this.editForm.controls['suppliercustomerstate'].value && this.editForm.controls['factorystate'].value === this.editForm.controls['suppliercustomerstate'].value">
+                            <table>
+                                <tr>
+                                    <td class="p-0 m-0">
+                                        <input type="number" class="form-control form-control-xs text-right" name="sgstvalue{{index}}" id="field_sgstvalue{{index}}" [(ngModel)]="directBookingDetail.sgstvalue" [ngModelOptions]="{standalone: true}" style="width: 100px;" (blur)="calculateDiscountFrieghtAndOthers();" (change)="calculateDiscountFrieghtAndOthers();" [disabled]="!directBookingDetail.msgst"/>
+                                    </td>
+                                    <td class="p-0 m-0">
+                                        <input type="checkbox" class="custom-checkbox" name="msgst{{index}}" id="field_msgst{{index}}" [(ngModel)]="directBookingDetail.msgst" [ngModelOptions]="{standalone: true}" [disabled]="!directBookingDetail.sgstdesc" (change)="calculateDiscountFrieghtAndOthers();"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td *ngIf="this.editForm.controls['factorystate'].value && this.editForm.controls['suppliercustomerstate'].value && this.editForm.controls['factorystate'].value !== this.editForm.controls['suppliercustomerstate'].value">
+                            <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteIGst" [minSearchLength]="1" [placeholder]="'Search IGST'" [textSearching]="'Please wait...'" [inputClass]="'form-control form-control-xs d-inline width-100'"  [(ngModel)]="directBookingDetail.igstdesc" (selected)="onLineIGSTSelected($event, directBookingDetail)" [ngModelOptions]="{standalone: true}" [disableInput]="this.editForm.controls['flag'].value !== 'E'">
+                            </ng2-completer>
+                        </td>
+                        <td *ngIf="this.editForm.controls['factorystate'].value && this.editForm.controls['suppliercustomerstate'].value && this.editForm.controls['factorystate'].value !== this.editForm.controls['suppliercustomerstate'].value">
+                            <table>
+                                <tr>
+                                    <td class="p-0 m-0">
+                                        <input type="number" class="form-control form-control-xs text-right" name="igstvalue{{index}}" id="field_igstvalue{{index}}" [(ngModel)]="directBookingDetail.igstvalue" [ngModelOptions]="{standalone: true}" style="width: 100px;" (blur)="calculateDiscountFrieghtAndOthers();" (change)="calculateDiscountFrieghtAndOthers();" [disabled]="!directBookingDetail.migst"/>
+                                    </td>
+                                    <td class="p-0 m-0">
+                                        <input type="checkbox" class="custom-checkbox" name="migst{{index}}" id="field_migst{{index}}" [(ngModel)]="directBookingDetail.migst" [ngModelOptions]="{standalone: true}" [disabled]="!directBookingDetail.igstdesc" (change)="calculateDiscountFrieghtAndOthers();"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-xs text-right" name="gstperc{{index}}" id="field_gstperc{{index}}" [(ngModel)]="directBookingDetail.gstperc" readonly disabled [ngModelOptions]="{standalone: true}" style="width: 100px;"/>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-xs text-right" name="gstvalue{{index}}" id="field_gstvalue{{index}}" [(ngModel)]="directBookingDetail.gstvalue" readonly disabled [ngModelOptions]="{standalone: true}" style="width: 100px;"/>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-xs text-right" name="totalvalue{{index}}" id="field_totalvalue{{index}}" [(ngModel)]="directBookingDetail.totalvalue" readonly disabled [ngModelOptions]="{standalone: true}" style="width: 100px;"/>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-link p-0 m-0" [disabled]="this.editForm.controls['flag'].value !== 'E'" (click)="delete(directBookingDetail, index);"><fa-icon [icon]="'trash'" class="font-15 text-danger"></fa-icon></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="19" *ngIf="this.editForm.controls['factorystate'].value && this.editForm.controls['suppliercustomerstate'].value && this.editForm.controls['factorystate'].value !== this.editForm.controls['suppliercustomerstate'].value">
+                            <button type="button" name="btn14" id="btn14" class="btn btn-blush btn-sm" (click)="addRow()" [disabled]="this.editForm.controls['flag'].value !== 'E'"><fa-icon [icon]="'plus'"></fa-icon> Add more row</button>
+                        </td>
+                        <td colspan="21" *ngIf="this.editForm.controls['factorystate'].value && this.editForm.controls['suppliercustomerstate'].value && this.editForm.controls['factorystate'].value === this.editForm.controls['suppliercustomerstate'].value">
+                            <button type="button" name="btn16" id="btn16" class="btn btn-blush btn-sm" (click)="addRow()" [disabled]="this.editForm.controls['flag'].value !== 'E'"><fa-icon [icon]="'plus'"></fa-icon> Add more row</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

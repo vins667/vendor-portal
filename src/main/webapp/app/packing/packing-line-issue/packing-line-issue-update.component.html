@@ -1,0 +1,142 @@
+<div align="center" class="centered" *ngIf="isProcess">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+    <h2>Please wait ....</h2>
+</div>
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 id="jhi-asset-master-heading">Packing Line Issue<span *ngIf="editForm.controls['id'].value"># {{editForm.controls['id'].value}}</span></h6>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-right">
+                        <button type="button" id="report-entity" class="btn btn-sm btn-xs btn-danger btn-round m-0" (click)="generatePdf();">
+                            <fa-icon [icon]="'file-pdf'"></fa-icon>&nbsp;<span>Report</span>&nbsp;
+                        </button>
+                        <button type="button" id="cancel-entity" class="btn btn-sm btn-xs btn-second btn-round m-0" (click)="previousState();">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>&nbsp;
+                        </button>
+                        <button *ngIf="!editForm.controls['postedBy'].value" type="submit" id="save-entity" class="btn btn-sm btn-xs btn-blush btn-round m-0" [disabled]="editForm.invalid || isSaving">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>&nbsp;
+                        </button>
+
+                        <button *ngIf="!editForm.controls['postedBy'].value && editForm.controls['id'].value" (click)="postSave();" type="button" id="post-entity" class="btn btn-sm btn-xs btn-info btn-round m-0" [disabled]="isSaving || editForm.invalid || editForm.controls['postedBy'].value">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Post</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white">
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_productionCode">PO#</label></div>
+                <div class="col-md-3">
+                    <div class="input-group  mb-0 pb-0">
+                        <input type="text" class="form-control form-control-xs" name="productionCode" id="field_productionCode" formControlName="productionCode" [attr.disabled]="editForm.controls['id'].value ? 'true' : null"/>
+                        <div class="input-group-append input-group-append-top">
+                            <button type="button" name="btnSearch" id="btnSearch" (click)="callDetails();" class="btn btn-xs btn-blush" [disabled]="editForm.controls['id'].value ? 'true' : null">
+                                <fa-icon [icon]="'search'"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_plantCode">Plant</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="plantCode" id="field_plantCode" formControlName="plantCode" (change)="fetchLines();" *ngIf="!editForm.controls['id'].value">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let userPlant of userPlants" [value]="userPlant.id.plantCode">{{userPlant.plantDescription}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs custom-select custom-select-xs" name="plantDescription" id="field_plantDescription" formControlName="plantDescription" *ngIf="editForm.controls['id'].value" disabled>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_projectcode">Project</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="projectcode" id="field_projectcode" formControlName="projectcode" disabled/>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_style">Style</label></div>
+                <div class="col-md-3"><input type="text" class="form-control form-control-xs" name="style" id="field_style" formControlName="style" readonly/></div>
+                <div class="col-md-1"><label class="form-control-label" for="field_color">Color</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="color" id="field_color" formControlName="color" (change)="selectColor()" *ngIf="!editForm.controls['id'].value">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let color of colors" [value]="color.name">{{color.desc}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="colordescription" id="field_colordescription" formControlName="colordescription" *ngIf="editForm.controls['id'].value" disabled/>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_destination">Destination</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="destination" id="field_destination" formControlName="destination" (change)="selectDestination()" *ngIf="!editForm.controls['id'].value">
+                        <option [value]="undefined">Select</option>
+                        <option [value]="destinationOption.name" *ngFor="let destinationOption of destinations;">{{destinationOption.desc}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="destinationDesc" id="field_destinationDesc" formControlName="destinationDesc" readonly *ngIf="editForm.controls['id'].value" disabled>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_line">Line</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="line" id="field_line" formControlName="line" (change)="selectLine()" *ngIf="!editForm.controls['id'].value">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let resource of resources" [value]="resource.id.code">{{resource.id.code +'-'+ resource.longdescription}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="lineDesc" id="field_lineDesc" formControlName="lineDesc" readonly *ngIf="editForm.controls['id'].value" disabled>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_issuedate">Issue&nbsp;Date</label><sup class="form-required">*</sup></div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input id="field_issuedate" class="form-control form-control-xs" [owlDateTime]="issueDateTemp" type="text" name="issuedate" formControlName="issuedate"/>
+                        <div class="input-group-append input-group-append-top">
+                            <button type="button" class="btn btn-blush btn-xs" [owlDateTimeTrigger]="issueDateTemp"><span><fa-icon [icon]="'calendar'" ></fa-icon></span></button>
+                        </div>
+                    </div>
+                    <owl-date-time #issueDateTemp></owl-date-time>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_scannedBy0">Scanned</label></div>
+                <div class="col-md-3">
+                    <input type="radio" class="custom-radio" name="scannedBy" id="field_scannedBy0" value="PCS" formControlName="scannedBy"/>&nbsp;PCS&nbsp;
+                    <input type="radio" class="custom-radio" name="scannedBy" id="field_scannedBy1" value="BNDL" formControlName="scannedBy"/>&nbsp;BUNDLE&nbsp;
+                    <button type="button" name="btn-scanned" id="btn-scanned" (click)="scanData();" [hidden]="!editForm.controls['style'].value || !editForm.controls['color'].value || !editForm.controls['destination'].value"><fa-icon [icon]="'search'"></fa-icon>&nbsp;Scan</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body p-0 pb-2" [hidden]="!editForm.controls['style'].value || !editForm.controls['color'].value || !editForm.controls['destination'].value">
+            <div class="col-12 p-0">
+                <div class="table-responsive scroll-popup-table-4" id="entities">
+                    <table class="table table-sm table-bordered mb-1" aria-describedby="page-heading">
+                        <thead>
+                        <tr class="bg-white">
+                            <th>SlNo#</th>
+                            <th>Bundle&nbsp;Id</th>
+                            <th>Color</th>
+                            <th>Size</th>
+                            <th>Product#</th>
+                            <th>Product&nbsp;Id</th>
+                            <th>UOM</th>
+                            <th>Pieces</th>
+                            <th style="width: 40px;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ng-container *ngFor="let stitchIssuePackDetail of stitchIssuePackDetails; let index = index;">
+                            <tr>
+                                <td>{{index+1}}</td>
+                                <td>{{stitchIssuePackDetail.cutPlanBundleId}}</td>
+                                <td>{{stitchIssuePackDetail.decosubcode06}}</td>
+                                <td>{{stitchIssuePackDetail.decosubcode07}}</td>
+                                <td>{{stitchIssuePackDetail.productCode}}</td>
+                                <td>{{stitchIssuePackDetail.cutPlanBundleDetailsId}}</td>
+                                <td>{{stitchIssuePackDetail.baseprimaryunitcode}}</td>
+                                <td>{{stitchIssuePackDetail.baseprimaryquantityunit}}</td>
+                                <td><fa-icon *ngIf="!editForm.controls['postedBy'].value" [icon]="'trash'" class="text-danger" style="cursor: pointer;" (click)="deleteRow(index, stitchIssuePackDetail);"></fa-icon></td>
+                            </tr>
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

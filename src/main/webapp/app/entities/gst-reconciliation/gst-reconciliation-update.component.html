@@ -1,0 +1,179 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-gst-reconciliation-heading">Create or edit a Gst Reconciliation</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_unitCode">Unit Code</label>
+                    <input type="text" class="form-control" name="unitCode" id="field_unitCode"
+                           formControlName="unitCode"/>
+                    <div *ngIf="editForm.get('unitCode').invalid && (editForm.get('unitCode').dirty || editForm.get('unitCode').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('unitCode').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('unitCode').errors.maxlength">
+                        This field cannot be longer than 5 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gstin">Gstin</label>
+                    <input type="text" class="form-control" name="gstin" id="field_gstin"
+                           formControlName="gstin"/>
+                    <div *ngIf="editForm.get('gstin').invalid && (editForm.get('gstin').dirty || editForm.get('gstin').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gstin').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gstin').errors.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_invoiceType">Invoice Type</label>
+                    <input type="text" class="form-control" name="invoiceType" id="field_invoiceType"
+                           formControlName="invoiceType"/>
+                    <div *ngIf="editForm.get('invoiceType').invalid && (editForm.get('invoiceType').dirty || editForm.get('invoiceType').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('invoiceType').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('invoiceType').errors.maxlength">
+                        This field cannot be longer than 5 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_invoiceNo">Invoice No</label>
+                    <input type="text" class="form-control" name="invoiceNo" id="field_invoiceNo"
+                           formControlName="invoiceNo"/>
+                    <div *ngIf="editForm.get('invoiceNo').invalid && (editForm.get('invoiceNo').dirty || editForm.get('invoiceNo').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('invoiceNo').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('invoiceNo').errors.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_invoiceDate">Invoice Date</label>
+                    <div class="d-flex">
+                        <input id="field_invoiceDate" type="datetime-local" class="form-control" name="invoiceDate" formControlName="invoiceDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_supplierName">Supplier Name</label>
+                    <input type="text" class="form-control" name="supplierName" id="field_supplierName"
+                           formControlName="supplierName"/>
+                    <div *ngIf="editForm.get('supplierName').invalid && (editForm.get('supplierName').dirty || editForm.get('supplierName').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('supplierName').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('supplierName').errors.maxlength">
+                        This field cannot be longer than 200 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_state">State</label>
+                    <input type="text" class="form-control" name="state" id="field_state"
+                           formControlName="state"/>
+                    <div *ngIf="editForm.get('state').invalid && (editForm.get('state').dirty || editForm.get('state').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('state').errors.maxlength">
+                        This field cannot be longer than 40 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_invoiceAmount">Invoice Amount</label>
+                    <input type="number" class="form-control" name="invoiceAmount" id="field_invoiceAmount"
+                           formControlName="invoiceAmount"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_reverseAmount">Reverse Amount</label>
+                    <input type="number" class="form-control" name="reverseAmount" id="field_reverseAmount"
+                           formControlName="reverseAmount"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cgstAmount">Cgst Amount</label>
+                    <input type="number" class="form-control" name="cgstAmount" id="field_cgstAmount"
+                           formControlName="cgstAmount"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_sgstAmount">Sgst Amount</label>
+                    <input type="number" class="form-control" name="sgstAmount" id="field_sgstAmount"
+                           formControlName="sgstAmount"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_igstAmount">Igst Amount</label>
+                    <input type="number" class="form-control" name="igstAmount" id="field_igstAmount"
+                           formControlName="igstAmount"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cessAmount">Cess Amount</label>
+                    <input type="number" class="form-control" name="cessAmount" id="field_cessAmount"
+                           formControlName="cessAmount"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_location">Location</label>
+                    <input type="text" class="form-control" name="location" id="field_location"
+                           formControlName="location"/>
+                    <div *ngIf="editForm.get('location').invalid && (editForm.get('location').dirty || editForm.get('location').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('location').errors.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_srlNumber">Srl Number</label>
+                    <input type="text" class="form-control" name="srlNumber" id="field_srlNumber"
+                           formControlName="srlNumber"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_status">Status</label>
+                    <input type="text" class="form-control" name="status" id="field_status"
+                           formControlName="status"/>
+                    <div *ngIf="editForm.get('status').invalid && (editForm.get('status').dirty || editForm.get('status').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('status').errors.maxlength">
+                        This field cannot be longer than 5 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_creationDate">Creation Date</label>
+                    <div class="d-flex">
+                        <input id="field_creationDate" type="datetime-local" class="form-control" name="creationDate" formControlName="creationDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,527 @@
+<div class="row">
+    <div class="col-md-12 bg-blush-light">
+        <div align="center" class="centered" *ngIf="isWait">
+            <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+        </div>
+        <div class="row" style="margin-bottom: -10px;">
+            <div class="col-md-12">&nbsp;</div>
+        </div>
+        <div class="row card-margin-bottom-2">
+            <div class="col-md-6">
+                <h6 class="text-color" style="font-weight: 500; padding: 0; margin: 0;">&nbsp;Production Dashboard</h6>
+            </div>
+            <div class="col-md-6">
+            <span class="text-color float-right">
+                Offline
+                <fa-icon [icon]="'toggle-off'" *ngIf="!isOnline" style="color: red; cursor: pointer;" (click)="changeOnline(true);"></fa-icon>
+                <fa-icon [icon]="'toggle-on'" *ngIf="isOnline" style="color: red; cursor: pointer;" (click)="changeOnline(undefined);"></fa-icon>
+                Online
+            </span>
+            </div>
+        </div>
+        <div class="row card-margin-bottom-2" style="padding-left: 5px;">
+            <div class="col-md-6">
+                <ul class="nav nav-tabs buttonwrapper">
+                    <li class="nav-item active">
+                        <ng-container *ngIf="isOnline">
+                            <div class="input-group input-group-sm" style="margin-bottom: 0;">
+                                <input type="text" class="form-control form-control-sm" [owlDateTime]="dateFrom" name="leaveDateFrom" id="field_leaveDateFrom1" placeholder="Date From" [(ngModel)]="filterDateFrom" disabled readonly style="border-width: 0 !important; font-size: 13px !important; font-weight:600;"/>
+                                <div class="input-group-append">
+                                    <fa-icon [icon]="'calendar'" [owlDateTimeTrigger]="dateFrom" style="font-size: 20px;"></fa-icon>&nbsp;&nbsp;&nbsp;
+                                </div>
+                                <div class="input-group-append">
+                                    <fa-icon [icon]="'sync'" style="font-size: 20px;" class="text-color-active" (click)="refreshScreen();"></fa-icon>&nbsp;&nbsp;&nbsp;
+                                </div>
+                            </div>
+                            <owl-date-time [pickerType]="'calendar'" #dateFrom></owl-date-time>
+                        </ng-container>
+                        <ng-container *ngIf="!isOnline">
+                            <div class="input-group input-group-sm" style="margin-bottom: 0;">
+                                <input type="text" class="form-control form-control-sm" [owlDateTime]="dateFrom" name="leaveDateFrom" id="field_leaveDateFrom2" [max]="filterMaxDateFrom" placeholder="Date From" [(ngModel)]="filterDateFrom" readonly style="border-width: 0 !important; font-size: 13px !important;"/>
+                                <div class="input-group-append">
+                                    <fa-icon [icon]="'calendar'" [owlDateTimeTrigger]="dateFrom" style="font-size: 20px;" class="text-color-active"></fa-icon>&nbsp;&nbsp;&nbsp;
+                                </div>
+                                <div class="input-group-append">
+                                    <fa-icon [icon]="'sync'" style="font-size: 20px; cursor: pointer;" class="text-color-active" (click)="refreshScreen();"></fa-icon>&nbsp;&nbsp;&nbsp;
+                                </div>
+                            </div>
+                            <owl-date-time [pickerType]="'calendar'" #dateFrom></owl-date-time>
+                        </ng-container>
+                    </li>
+                </ul>
+            </div>
+            <!--div class="col-md-4 text-center">
+                <ul class="nav nav-tabs buttonwrapper">
+                    <li class="nav-item">
+                        <div class="nav-link nav-link-padding active">
+                        <ng-container *ngIf="isOnline">
+                            Auto Refresh Off
+                            <fa-icon [icon]="'toggle-off'" *ngIf="!isRefresh" style="color: red; cursor: pointer;" (click)="changeRefresh(true);"></fa-icon>
+                            <fa-icon [icon]="'toggle-on'" *ngIf="isRefresh" style="color: red; cursor: pointer;" (click)="changeRefresh(undefined);"></fa-icon>
+                            On
+                        </ng-container>
+                            {{counter}}
+                        </div>
+                    </li>
+                </ul>
+            </div-->
+            <div class="col-md-6 text-right" *ngIf="vcutFactorySummary && vcutFactorySummary.vcutFactoryAccesses">
+                <aside>
+                    <ul class="nav nav-tabs buttonwrapper">
+                        <ng-container *ngFor="let vcutFactoryAccess of vcutFactorySummary.vcutFactoryAccesses">
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-padding" [class.active]="vcutFactorySummary.activeFactory === vcutFactoryAccess.id.factoryCode" (click)="changeFactory(vcutFactoryAccess.id.factoryCode);">
+                                    {{vcutFactoryAccess.id.factoryCode}}
+                                </a>
+                            </li>
+                        </ng-container>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+
+        <div class="row gutters-2 card-margin-bottom-2">
+            <div class="col-md-4">
+                <div class="chart-card">
+                    <div class="chart-title">Work Centers <ng-container *ngIf="previousLine"> - <span class="font-weight-bold">{{previousLine}}</span></ng-container><span class="float-right"><fa-icon [icon]="'expand-arrows-alt'" style="color: red; cursor: pointer;" title="Zoom" (click)="zoomPieChart()"></fa-icon></span></div>
+                    <div class="chart" style="height: 300px;">
+                        <ng-container *ngIf="dataSource">
+                            <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource" (initialized)="initialized($event)">
+                            </fusioncharts>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="chart-card">
+                    <div class="chart-title">Achieved Efficiency<span class="float-right"><fa-icon [icon]="'expand-arrows-alt'" style="color: red; cursor: pointer;" title="Zoom" (click)="zoomGaugeChart();"></fa-icon></span></div>
+                    <div class="chart" style="height: 300px;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ng-container *ngIf="dataSourceGauge">
+                                    <fusioncharts [width]="widthGauge" [height]="heightGauge" [type]="typeGauge" [dataFormat]="dataFormatGauge" [dataSource]="dataSourceGauge">
+                                    </fusioncharts>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="row" style="height: 15px;">
+                            <div class="col-md-8"></div>
+                        </div>
+                        <div class="row" *ngIf="dataSourceGauge">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-8">
+                                <svg>
+                                    <g class="raphael-group-48-item" transform="matrix(1,0,0,1,0,0)">
+                                        <text fill-opacity="1" fill="#7c7c7c" font-family="Source Sans Pro" font-size="15px" text-anchor="start" font-weight="normal" x="28" stroke="none" y="20" style="font-family: &quot;Source Sans Pro&quot;; cursor: inherit; font-size: 15px; text-anchor: start; font-weight: normal;">LOW</text>
+                                        <path opacity="1" d="M7,15A8,8,0,0,0,23,15A8,8,0,0,0,7,15Z" stroke="#F2726F" stroke-opacity="1" fill-opacity="1" fill="#F2726F" stroke-width="0" stroke-linecap="round" style="cursor: pointer;"></path>
+                                        <rect opacity="1" x="4" y="4" width="60" height="22" ry="0" rx="0" fill-opacity="0.000001" fill="#c0c0c0" stroke-width="1" stroke="none" style="cursor: pointer;"></rect>
+                                        <text fill-opacity="1" fill="#7c7c7c" font-family="Source Sans Pro" font-size="15px" text-anchor="start" font-weight="normal" x="99.1" stroke="none" y="20" style="font-family: &quot;Source Sans Pro&quot;; cursor: pointer; font-size: 15px; text-anchor: start; font-weight: normal;">AVG</text>
+                                        <path opacity="1" d="M78.1,15A8,8,0,0,0,94.1,15A8,8,0,0,0,78.1,15Z" stroke="#FFC533" stroke-opacity="1" fill-opacity="1" fill="#FFC533" stroke-width="0" stroke-linecap="round" style="cursor: pointer;"></path>
+                                        <rect opacity="1" x="75.1" y="4" width="49" height="22" ry="0" rx="0" fill-opacity="0.000001" fill="#c0c0c0" stroke-width="1" stroke="none" style="cursor: pointer;"></rect>
+                                        <text fill-opacity="1" fill="#7c7c7c" font-family="Source Sans Pro" font-size="15px" text-anchor="start" font-weight="normal" x="159.2" stroke="none" y="20" style="font-family: &quot;Source Sans Pro&quot;; cursor: pointer; font-size: 15px; text-anchor: start; font-weight: normal;">HIGH</text>
+                                        <path opacity="1" d="M138.2,15A8,8,0,0,0,154.2,15A8,8,0,0,0,138.2,15Z" stroke="#62B58F" stroke-opacity="1" fill-opacity="1" fill="#62B58F" stroke-width="0" stroke-linecap="round" style="cursor: pointer;"></path>
+                                        <rect opacity="1" x="135.2" y="4" width="49" height="22" ry="0" rx="0" fill-opacity="0.000001" fill="#c0c0c0" stroke-width="1" stroke="none" style="cursor: pointer;"></rect>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="chart-card">
+                    <div class="chart-title">Inline QC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="font-weight-bold">DHU {{(((dataREJ + dataALT + dataREC) * 100) / (dataREJ + dataALT + dataREC + dataFTP)) | myNumber:'1.2-2'}} %</span><span class="float-right"><fa-icon [icon]="'expand-arrows-alt'" style="color: red; cursor: pointer;" title="Zoom" (click)="zoomStacksChart();"></fa-icon></span></div>
+                    <div class="chart" style="height: 300px;">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
+                                <ng-container *ngIf="dataSourceStacks">
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-10">
+                                            <fusioncharts [width]="widthStacks" [height]="heightStacks" [type]="typeStacks" [dataFormat]="dataFormatStacks" [dataSource]="dataSourceStacks">
+                                            </fusioncharts>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <svg>
+                                    <g class="raphael-group-17284-legend">
+                                        <g class="raphael-group-17347-legendGroup" transform="matrix(1,0,0,1,48,233)">
+                                            <rect x="0" y="0" width="126" height="52" ry="0" rx="0" stroke="#545454" stroke-opacity="0" stroke-width="0" fill-opacity="0" fill="#ffffff" style="cursor: default;"></rect>
+                                            <g class="raphael-group-17349-item" transform="matrix(1,0,0,1,0,0)">
+                                                <text fill-opacity="1" fill="#7c7c7c" font-family="Source Sans Pro" font-size="15px" text-anchor="start" font-weight="normal" x="28" stroke="none" y="20" style="font-family: Source Sans Pro; cursor: default; font-size: 15px; text-anchor: start; font-weight: normal;">
+                                                    FTP {{dataFTP}}
+                                                </text>
+                                                <path opacity="1" d="M20.65685424949238,9.34314575050762L9.34314575050762,9.34314575050762L9.343145750507619,20.65685424949238L20.65685424949238,20.656854249492383Z" stroke="#89c7ab" stroke-opacity="1" fill-opacity="1" fill="#89c7ab" stroke-width="0" stroke-linecap="round" style="cursor: default;"></path>
+                                                <rect opacity="1" x="4" y="4" width="51" height="22" ry="0" rx="0" fill-opacity="0.000001" fill="#c0c0c0" stroke-width="1" stroke="none" style="cursor: default;"></rect>
+                                                <text fill-opacity="1" fill="#7c7c7c" font-family="Source Sans Pro" font-size="15px" text-anchor="start" font-weight="normal" x="91.1" stroke="none" y="20" style="font-family: Source Sans Pro; cursor: default; font-size: 15px; text-anchor: start; font-weight: normal;">
+                                                    REC {{dataREC}}
+                                                </text>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row gutters-2 card-margin-bottom-2">
+            <div class="col-md-12">
+                <div class="row" *ngIf="dataSourceMultiSeries">
+                    <div class="col-md-12">
+                        <div class="chart-card">
+                            <div class="chart-title">Production (Planned vs Actual)
+                                <ng-container *ngIf="isbarCum && previousLine">- Cumulative</ng-container>
+                                <ng-container *ngIf="!isbarCum && previousLine">- Hourly</ng-container>
+                                <span class="float-right">
+                                    <fa-icon [icon]="'expand-arrows-alt'" style="color: red; cursor: pointer;" title="Zoom" (click)="zoomMultiSeriesChart();"></fa-icon>
+                                    <ng-container *ngIf="previousLine">
+                                        <div ngbDropdown style="margin-top: -24px; margin-left: -24px;">
+                                            <fa-icon [icon]="'filter'" [ngStyle]="{'color':isbarFilter ? 'green' : 'red'}" style="cursor: pointer;" title="Filter" ngbDropdownToggle></fa-icon>
+                                            <div ngbDropdownMenu class="dropdown-menu">
+                                                <div class="row" style="height: 30px;"><div class="col-md-12"><button type="button" class="btn btn-sm btn-link text-color" style="display: block; width: 100%;" [class.active]="!isbarFilter" [disabled]="!isbarFilter" (click)="styleBarFilter(undefined);" ngbDropdownItem>All</button></div></div>
+                                                <ng-container *ngFor="let style of styles">
+                                                    <div class="row" style="height: 30px;"><div class="col-md-12"><button type="button" class="btn btn-sm btn-link text-color" style="display: block; width: 100%;" [class.active]="isbarFilter===style" [disabled]="isbarFilter===style" (click)="styleBarFilter(style);" ngbDropdownItem>{{style}}</button></div></div>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                        <div style="border: 2px solid red; border-radius: 25px; padding: 0 10px 0 10px; display: inline">
+                                            H&nbsp;<fa-icon [icon]="'toggle-off'" *ngIf="!isbarCum && previousLine" style="color: red; cursor: pointer;" (click)="changeBarCum(true);"></fa-icon>
+                                            <fa-icon [icon]="'toggle-on'" *ngIf="isbarCum && previousLine" style="color: red; cursor: pointer;" (click)="changeBarCum(undefined);"></fa-icon>&nbsp;C
+                                        </div>
+                                    </ng-container>
+                            </span>
+                            </div>
+                            <div class="chart">
+                                <fusioncharts [width]="widthMultiSeries" [height]="heightMultiSeries" [type]="typeMultiSeries" [dataFormat]="dataFormatMultiSeries" [dataSource]="dataSourceMultiSeries">
+                                </fusioncharts>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row gutters-2 card-margin-bottom-2">
+            <div class="col-md-12">
+                <div class="row" *ngIf="dataSourceLine">
+                    <div class="col-md-12">
+                        <div class="chart-card">
+                            <div class="chart-title">
+                                Efficiency (Planned vs Actual)
+                                <ng-container *ngIf="isbarCum && previousLine">- Cumulative</ng-container>
+                                <ng-container *ngIf="!isbarCum && previousLine">- Hourly</ng-container>
+                                <span class="float-right">
+                                    <fa-icon [icon]="'expand-arrows-alt'" style="color: red; cursor: pointer;" title="Zoom" (click)="zoomLineChart();"></fa-icon>
+                                    <ng-container *ngIf="previousLine">
+                                        <div ngbDropdown style="margin-top: -24px; margin-left: -24px;">
+                                            <fa-icon [icon]="'filter'" [ngStyle]="{'color':isbarFilter ? 'green' : 'red'}" style="cursor: pointer;" title="Filter" ngbDropdownToggle></fa-icon>
+                                            <div ngbDropdownMenu class="dropdown-menu">
+                                                <div class="row" style="height: 30px;">
+                                                    <div class="col-md-12">
+                                                        <button type="button" class="btn btn-sm btn-link text-color" style="display: block; width: 100%;" [class.active]="!isbarFilter" [disabled]="!isbarFilter" (click)="styleBarFilter(undefined);" ngbDropdownItem>All</button>
+                                                    </div>
+                                                </div>
+                                                <ng-container *ngFor="let style of styles">
+                                                    <div class="row" style="height: 30px;">
+                                                        <div class="col-md-12">
+                                                            <button type="button" class="btn btn-sm btn-link text-color" style="display: block; width: 100%;" [class.active]="isbarFilter===style" [disabled]="isbarFilter===style" (click)="styleBarFilter(style);" ngbDropdownItem>{{style}}</button>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                        <div style="border: 2px solid red; border-radius: 25px; padding: 0 10px 0 10px; display: inline">
+                                            H&nbsp;<fa-icon [icon]="'toggle-off'" *ngIf="!isbarCum && previousLine" style="color: red; cursor: pointer;" (click)="changeBarCum(true);"></fa-icon>
+                                            <fa-icon [icon]="'toggle-on'" *ngIf="isbarCum && previousLine" style="color: red; cursor: pointer;" (click)="changeBarCum(undefined);"></fa-icon>&nbsp;C
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="!previousLine">
+                                        <div style="border: 2px solid red; border-radius: 25px; padding: 0 10px 0 10px; display: inline">
+                                            L&nbsp;<fa-icon [icon]="'toggle-off'" *ngIf="!isbarHourly" style="color: red; cursor: pointer;" (click)="changeBarHourly(true);"></fa-icon>
+                                            <fa-icon [icon]="'toggle-on'" *ngIf="isbarHourly" style="color: red; cursor: pointer;" (click)="changeBarHourly(undefined);"></fa-icon>&nbsp;H
+                                        </div>
+                                    </ng-container>
+                                </span>
+                            </div>
+                            <div class="chart">
+                                <fusioncharts [width]="widthLine" [height]="heightLine" [type]="typeLine" [dataFormat]="dataFormatLine" [dataSource]="dataSourceLine">
+                                </fusioncharts>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row gutters-2 card-margin-bottom-2">
+            <div class="col-md-12">
+                <div class="row" *ngIf="dataSourceDefects">
+                    <div class="col-md-12">
+                        <div class="chart-card">
+                            <div class="chart-title">
+                                Defects(Issue Wise)
+                                <ng-container *ngIf="isbarCum && previousLine">- Cumulative</ng-container>
+                                <ng-container *ngIf="!isbarCum && previousLine">- Hourly</ng-container>
+                                <span class="float-right">
+                                    <fa-icon [icon]="'expand-arrows-alt'" style="color: red; cursor: pointer;" title="Zoom" (click)="zoomDefectsChart()"></fa-icon>
+                                    <ng-container *ngIf="previousLine">
+                                        <div ngbDropdown style="margin-top: -24px; margin-left: -24px;">
+                                            <fa-icon [icon]="'filter'" [ngStyle]="{'color':isbarFilter ? 'green' : 'red'}" style="cursor: pointer;" title="Filter" ngbDropdownToggle></fa-icon>
+                                            <div ngbDropdownMenu class="dropdown-menu">
+                                                <div class="row" style="height: 30px;"><div class="col-md-12"><button type="button" class="btn btn-sm btn-link text-color" style="display: block; width: 100%;" [class.active]="!isbarFilter" [disabled]="!isbarFilter" (click)="styleBarFilter(undefined);" ngbDropdownItem>All</button></div></div>
+                                                <ng-container *ngFor="let style of styles">
+                                                    <div class="row" style="height: 30px;"><div class="col-md-12"><button type="button" class="btn btn-sm btn-link text-color" style="display: block; width: 100%;" [class.active]="isbarFilter===style" [disabled]="isbarFilter===style" (click)="styleBarFilter(style);" ngbDropdownItem>{{style}}</button></div></div>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                        <div style="border: 2px solid red; border-radius: 25px; padding: 0 10px 0 10px; display: inline">
+                                            H&nbsp;<fa-icon [icon]="'toggle-off'" *ngIf="!isbarCum && previousLine" style="color: red; cursor: pointer;" (click)="changeBarCum(true);"></fa-icon>
+                                            <fa-icon [icon]="'toggle-on'" *ngIf="isbarCum && previousLine" style="color: red; cursor: pointer;" (click)="changeBarCum(undefined);"></fa-icon>&nbsp;C
+                                        </div>
+                                    </ng-container>
+                            </span>
+                            </div>
+                            <div class="chart">
+                                <fusioncharts [width]="widthDefects" [height]="heightDefects" [type]="typeDefects" [dataFormat]="dataFormatDefects" [dataSource]="dataSourceDefects">
+                                </fusioncharts>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row gutters-2 card-margin-bottom-2">
+            <div class="col-md-12">
+                <div class="row" *ngIf="dataSourceDefects">
+                    <div class="col-md-12">
+                        <div class="chart-card">
+                            <div class="chart-title">
+                                Defects(OB Wise)
+                                <ng-container *ngIf="isbarCum && previousLine">- Cumulative</ng-container>
+                                <ng-container *ngIf="!isbarCum && previousLine">- Hourly</ng-container>
+                                <span class="float-right">
+                                    <fa-icon [icon]="'expand-arrows-alt'" style="color: red; cursor: pointer;" title="Zoom" (click)="zoomDefectsOBChart()"></fa-icon>
+                                    <ng-container *ngIf="previousLine">
+                                        <div ngbDropdown style="margin-top: -24px; margin-left: -24px;">
+                                            <fa-icon [icon]="'filter'" [ngStyle]="{'color':isbarFilter ? 'green' : 'red'}" style="cursor: pointer;" title="Filter" ngbDropdownToggle></fa-icon>
+                                            <div ngbDropdownMenu class="dropdown-menu">
+                                                <div class="row" style="height: 30px;"><div class="col-md-12"><button type="button" class="btn btn-sm btn-link text-color" style="display: block; width: 100%;" [class.active]="!isbarFilter" [disabled]="!isbarFilter" (click)="styleBarFilter(undefined);" ngbDropdownItem>All</button></div></div>
+                                                <ng-container *ngFor="let style of styles">
+                                                    <div class="row" style="height: 30px;"><div class="col-md-12"><button type="button" class="btn btn-sm btn-link text-color" style="display: block; width: 100%;" [class.active]="isbarFilter===style" [disabled]="isbarFilter===style" (click)="styleBarFilter(style);" ngbDropdownItem>{{style}}</button></div></div>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                        <div style="border: 2px solid red; border-radius: 25px; padding: 0 10px 0 10px; display: inline">
+                                            H&nbsp;<fa-icon [icon]="'toggle-off'" *ngIf="!isbarCum && previousLine" style="color: red; cursor: pointer;" (click)="changeBarCum(true);"></fa-icon>
+                                            <fa-icon [icon]="'toggle-on'" *ngIf="isbarCum && previousLine" style="color: red; cursor: pointer;" (click)="changeBarCum(undefined);"></fa-icon>&nbsp;C
+                                        </div>
+                                    </ng-container>
+                            </span>
+                            </div>
+                            <div class="chart">
+                                <fusioncharts [width]="widthDefectsOB" [height]="heightDefectsOB" [type]="typeDefectsOB" [dataFormat]="dataFormatDefectsOB" [dataSource]="dataSourceDefectsOB">
+                                </fusioncharts>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row gutters-2 card-margin-bottom-2">
+            <div class="col-md-12">
+                <div class="chart-card">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped" aria-describedby="page-heading">
+                            <thead>
+                            <tr style="font-size: 14px;">
+                                <th style="width: 70px;"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory</span></th>
+                                <th style="width: 70px;"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Line</span></th>
+                                <th><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Style</span></th>
+                                <th style="width: 50px;" class="text-center"><span>SMV</span></th>
+                                <th style="width: 70px;" class="text-center"><span>O/H</span></th>
+                                <th style="width: 70px;" class="text-center"><span>Target</span></th>
+                                <th style="width: 70px;" class="text-center"><span>Achieved</span></th>
+                                <th style="width: 70px;" class="text-center"><span>Balance</span></th>
+                                <th style="width: 70px;" class="text-center"><span>Plan Eff</span></th>
+                                <th style="width: 70px;" class="text-center"><span>Ach Eff</span></th>
+                                <th style="width: 60px;" class="text-center"><span>FTP</span></th>
+                                <th style="width: 60px;" class="text-center"><span>REC</span></th>
+                                <th style="width: 60px;" class="text-center"><span>ALT</span></th>
+                                <th style="width: 60px;" class="text-center"><span>REJ</span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <ng-container  *ngIf="vcutFactorySummary">
+                                <tr style="font-size: 14px;" class="bg-blush-light">
+                                    <td class="align-middle">
+                                        <fa-icon [icon]="'minus-circle'" style="color: red; cursor: pointer;"></fa-icon>
+                                        &nbsp;&nbsp;{{vcutFactorySummary.factory}}
+                                    </td>
+                                    <td class="align-middle">&nbsp;</td>
+                                    <td class="align-middle">&nbsp;</td>
+                                    <td style="width: 50px;" class="text-center align-middle"><ng-container *ngIf="vcutFactorySummary.smv">{{vcutFactorySummary.smv ? (vcutFactorySummary.smv | myNumber:'1.2-2') : (0 | myNumber:'1.2-2')}}</ng-container></td>
+                                    <td style="width: 70px;" class="text-center align-middle">{{vcutFactorySummary.operators}}/{{vcutFactorySummary.helpers}}</td>
+                                    <td style="width: 70px;" class="text-center align-middle">{{vcutFactorySummary.quantity}}</td>
+                                    <td style="width: 70px;" class="text-center align-middle">{{vcutFactorySummary.achieved}}</td>
+                                    <td style="width: 70px;" class="text-center align-middle">{{vcutFactorySummary.balance}}</td>
+                                    <td style="width: 70px;" class="text-center align-middle"><ng-container *ngIf="vcutFactorySummary.planEff">{{vcutFactorySummary.planEff | myNumber: '1.0-0'}} %</ng-container></td>
+                                    <td style="width: 70px;" class="text-center align-middle">
+                                        <ng-container *ngIf="vcutFactorySummary.achEff">{{vcutFactorySummary.achEff | myNumber: '1.0-0'}} %
+                                        <fa-icon *ngIf="vcutFactorySummary.achEff>=vcutFactorySummary.planEff" [icon]="'sort-up'" style="color: green; font-size: 20px; position: absolute; margin: -5px 0 0 5px;"></fa-icon>
+                                        <fa-icon *ngIf="vcutFactorySummary.achEff<vcutFactorySummary.planEff" [icon]="'sort-down'" style="color: red; font-size: 20px; position: absolute; margin: -5px 0 0 5px;"></fa-icon>
+                                        </ng-container>
+                                    </td>
+                                    <td style="width: 60px;" class="text-white text-center align-middle" style="background-color: rgba(40,167,69,0.4);">{{vcutFactorySummary.ftt}}</td>
+                                    <td style="width: 60px;" class="text-center align-middle" style="background-color: rgba(255,193,7,0.4);">{{vcutFactorySummary.rectified}}</td>
+                                    <td style="width: 60px;" class="text-center align-middle" style="background-color: rgba(23,162,184,0.4);">{{vcutFactorySummary.alter}}</td>
+                                    <td style="width: 60px;" class="text-white text-center align-middle" style="background-color: rgba(220,53,69,0.4);">{{vcutFactorySummary.rejected}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle" style="width: 70px;"></td>
+                                    <td colspan="13" style="padding: 0;">
+                                        <table class="table table-sm">
+                                            <tbody>
+                                            <ng-container  *ngFor="let vcutFactorySummaryLine of vcutFactorySummary.vcutFactorySummaries;">
+                                                <tr style="font-size: 13px;" class="bg-blush">
+                                                    <td class="align-middle" style="width: 70px;">
+                                                        <fa-icon [icon]="'plus-circle'" style="color: green; cursor: pointer;" *ngIf="!vcutFactorySummaryLine.extend" (click)="expendCollapse(vcutFactorySummaryLine, true)"></fa-icon>
+                                                        <fa-icon [icon]="'minus-circle'" style="color: red; cursor: pointer;" *ngIf="vcutFactorySummaryLine.extend" (click)="expendCollapse(vcutFactorySummaryLine, false)"></fa-icon>
+                                                        &nbsp;&nbsp;{{vcutFactorySummaryLine.line}}
+                                                    </td>
+                                                    <td class="align-middle"></td>
+                                                    <td style="width: 50px;" class="text-center align-middle"><ng-container *ngIf="vcutFactorySummaryLine.smv">{{vcutFactorySummaryLine.smv | myNumber:'1.2-2'}}</ng-container></td>
+                                                    <td style="width: 70px;" class="text-center align-middle">{{vcutFactorySummaryLine.operators}}/{{vcutFactorySummaryLine.helpers}}</td>
+                                                    <td style="width: 70px;" class="text-center align-middle">{{vcutFactorySummaryLine.quantity}}</td>
+                                                    <td style="width: 70px;" class="text-center align-middle">{{vcutFactorySummaryLine.achieved}}</td>
+                                                    <td style="width: 70px;" class="text-center align-middle">{{vcutFactorySummaryLine.balance}}</td>
+                                                    <td style="width: 70px;" class="text-center align-middle"><ng-container *ngIf="vcutFactorySummaryLine.planEff">{{vcutFactorySummaryLine.planEff | myNumber: '1.0-0'}} %</ng-container></td>
+                                                    <td style="width: 70px;" class="text-center align-middle">
+                                                        <ng-container *ngIf="vcutFactorySummaryLine.achEff">{{vcutFactorySummaryLine.achEff | myNumber: '1.0-0'}} %
+                                                        <fa-icon *ngIf="vcutFactorySummaryLine.achEff>=vcutFactorySummaryLine.planEff" [icon]="'sort-up'" style="color: green; font-size: 20px; position: absolute; margin: -5px 0 0 5px;"></fa-icon>
+                                                        <fa-icon *ngIf="vcutFactorySummaryLine.achEff<vcutFactorySummaryLine.planEff" [icon]="'sort-down'" style="color: red; font-size: 20px; position: absolute; margin: -5px 0 0 5px;"></fa-icon>
+                                                        </ng-container>
+                                                    </td>
+                                                    <td style="width: 60px; background-color: rgba(40,167,69, 0.4);" class="text-white text-center align-middle">{{vcutFactorySummaryLine.ftt}}</td>
+                                                    <td style="width: 60px; background-color: rgba(255,193,7,0.4);" class="text-center align-middle">{{vcutFactorySummaryLine.rectified}}</td>
+                                                    <td style="width: 60px; background-color: rgba(23,162,184,0.4);" class="text-center align-middle">{{vcutFactorySummaryLine.alter}}</td>
+                                                    <td style="width: 60px; background-color: rgba(220,53,69,0.4);" class="text-white text-center align-middle">{{vcutFactorySummaryLine.rejected}}</td>
+                                                </tr>
+                                                <tr *ngIf="vcutFactorySummaryLine.extend">
+                                                    <td style="width: 70px;" class="bg-blush"></td>
+                                                    <td colspan="12" style="padding: 0;">
+                                                        <table class="table table-sm" style="padding: 0; margin: 0px;">
+                                                            <tbody>
+                                                            <ng-container  *ngFor="let vcutFactorySummaryStyle of vcutFactorySummaryLine.vcutFactorySummaries;">
+                                                                <tr style="font-size: 13px;" class="bg-blush">
+                                                                    <td class="align-middle">
+                                                                        <fa-icon [icon]="'plus-circle'" style="color: green; cursor: pointer;" *ngIf="!vcutFactorySummaryStyle.extend" (click)="expendCollapse(vcutFactorySummaryStyle, true)"></fa-icon>
+                                                                        <fa-icon [icon]="'minus-circle'" style="color: red; cursor: pointer;" *ngIf="vcutFactorySummaryStyle.extend" (click)="expendCollapse(vcutFactorySummaryStyle, false)"></fa-icon>
+                                                                        {{vcutFactorySummaryStyle.buyer}} / {{vcutFactorySummaryStyle.style}} <fa-icon [icon]="'image'" style="color: red; cursor: pointer;" (click)="displayStyleHeat(vcutFactorySummaryStyle.id)"></fa-icon> / {{vcutFactorySummaryStyle.poNo}}
+                                                                    </td>
+                                                                    <td style="width: 50px;" class="text-center align-middle"><ng-container *ngIf="vcutFactorySummaryStyle.smv">{{vcutFactorySummaryStyle.smv | myNumber:'1.2-2'}}</ng-container></td>
+                                                                    <td style="width: 70px;" class="text-center align-middle">{{vcutFactorySummaryStyle.operators}}/{{vcutFactorySummaryStyle.helpers}}</td>
+                                                                    <td style="width: 70px;" class="text-center align-middle">{{vcutFactorySummaryStyle.quantity}}</td>
+                                                                    <td style="width: 70px;" class="text-center align-middle">{{vcutFactorySummaryStyle.achieved}}</td>
+                                                                    <td style="width: 70px;" class="text-center align-middle">{{vcutFactorySummaryStyle.balance}}</td>
+                                                                    <td style="width: 70px;" class="text-center align-middle"><ng-container *ngIf="vcutFactorySummaryStyle.planEff">{{vcutFactorySummaryStyle.planEff | myNumber: '1.0-0'}} %</ng-container></td>
+                                                                    <td style="width: 70px;" class="text-center align-middle">
+                                                                        <ng-container *ngIf="vcutFactorySummaryStyle.achEff">{{vcutFactorySummaryStyle.achEff | myNumber: '1.0-0'}} %
+                                                                        <fa-icon *ngIf="vcutFactorySummaryStyle.achEff>=vcutFactorySummaryStyle.planEff" [icon]="'sort-up'" style="color: green; font-size: 20px; position: absolute; margin: -5px 0 0 5px;"></fa-icon>
+                                                                        <fa-icon *ngIf="vcutFactorySummaryStyle.achEff<vcutFactorySummaryStyle.planEff" [icon]="'sort-down'" style="color: red; font-size: 20px; position: absolute; margin: -5px 0 0 5px;"></fa-icon>
+                                                                        </ng-container>
+                                                                    </td>
+                                                                    <td style="width: 60px; background-color: rgba(40,167,69, 0.4);" class="text-white text-center align-middle">{{vcutFactorySummaryStyle.ftt}}</td>
+                                                                    <td style="width: 60px; background-color: rgba(255,193,7,0.4);" class="text-center align-middle">{{vcutFactorySummaryStyle.rectified}}</td>
+                                                                    <td style="width: 60px; background-color: rgba(23,162,184,0.4);" class="text-center align-middle">{{vcutFactorySummaryStyle.alter}}</td>
+                                                                    <td style="width: 60px; background-color: rgba(220,53,69,0.4);" class="text-white text-center align-middle">{{vcutFactorySummaryStyle.rejected}}</td>
+                                                                </tr>
+                                                                <tr *ngIf="vcutFactorySummaryStyle.extend">
+                                                                    <td colspan="12">
+                                                                        <table class="table table-sm table-striped" style="padding: 0; margin: 0;">
+                                                                            <tbody>
+                                                                            <tr style="font-size: 12px;">
+                                                                                <th class="text-center" style="width: 15%;">Hour</th>
+                                                                                <th class="text-center" style="width: 17%;">Hourly [Pcs]<br/>Planned/Actual</th>
+                                                                                <th class="text-center" style="width: 17%;">Cum [Pcs]<br/>Planned/Actual</th>
+                                                                                <th class="text-center" style="width: 17%;">Variance [Pcs]<br/>Hourly/Cum</th>
+                                                                                <th class="text-center" style="width: 17%;">Act. Efficiency<br/>Hourly/Cum</th>
+                                                                                <th class="text-center" style="width: 17%;">FTP Rate<br/>Hourly/Cum</th>
+                                                                            </tr>
+                                                                            <ng-container  *ngFor="let vcutFactoryLineBreakup of vcutFactorySummaryStyle.vcutFactoryLineBreakups;">
+                                                                                <tr style="font-size: 12px;" [class.border-success-2]="vcutFactoryLineBreakup.activeHour === 'Y'" [class.border-danger-2]="vcutFactoryLineBreakup.activeHour !== 'Y' && vcutFactoryLineBreakup.displayFlag === 'LUNCH'">
+                                                                                    <td class="text-center">
+                                                                                        {{vcutFactoryLineBreakup.id}} ({{vcutFactoryLineBreakup.hourBreakup}})
+                                                                                    </td>
+                                                                                    <td class="text-center">{{vcutFactoryLineBreakup.hourPlan}}/{{vcutFactoryLineBreakup.hourActual}}</td>
+                                                                                    <td class="text-center"><ng-container *ngIf="vcutFactoryLineBreakup.activeHour !== 'Z'">{{vcutFactoryLineBreakup.cumPlan}}/{{vcutFactoryLineBreakup.cumActual}}</ng-container></td>
+                                                                                    <td class="text-center"><ng-container *ngIf="vcutFactoryLineBreakup.activeHour !== 'Z'">{{vcutFactoryLineBreakup.varianceHour}}/{{vcutFactoryLineBreakup.varianceCum}}</ng-container></td>
+                                                                                    <td class="text-center">
+                                                                                        <ng-container *ngIf="vcutFactoryLineBreakup.activeHour !== 'Z'">{{vcutFactoryLineBreakup.efficiencyPlan | myNumber: '1.0-0'}}/{{vcutFactoryLineBreakup.efficiencyActual | myNumber: '1.0-0'}} %</ng-container>
+                                                                                    </td>
+                                                                                    <td class="text-center">
+                                                                                        <ng-container *ngIf="vcutFactoryLineBreakup.activeHour !== 'Z'">{{vcutFactoryLineBreakup.fttRatePlan | myNumber: '1.0-0'}}/{{vcutFactoryLineBreakup.fttRateActual | myNumber: '1.0-0'}} %</ng-container>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </ng-container>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </ng-container>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <!--tr *ngIf="vcutFactorySummaryLine.extend">
+                                                    <td colspan="15">
+                                                        <table class="table table-sm table-striped">
+                                                            <tbody>
+                                                            <tr style="font-size: 12px;">
+                                                                <th class="text-center" style="width: 15%;">Hour</th>
+                                                                <th class="text-center" style="width: 17%;">Hourly [Pcs]<br/>Planned/Actual</th>
+                                                                <th class="text-center" style="width: 17%;">Cum [Pcs]<br/>Planned/Actual</th>
+                                                                <th class="text-center" style="width: 17%;">Variance [Pcs]<br/>Hourly/Cum</th>
+                                                                <th class="text-center" style="width: 17%;">Act. Efficiency<br/>Hourly/Cum</th>
+                                                                <th class="text-center" style="width: 17%;">FTP Rate<br/>Hourly/Cum</th>
+                                                            </tr>
+                                                            <ng-container  *ngFor="let vcutFactoryLineBreakup of vcutFactorySummaryLine.vcutFactoryLineBreakups;">
+                                                                <tr style="font-size: 12px;" [class.border-success-2]="vcutFactoryLineBreakup.activeHour === 'Y'" [class.border-danger-2]="vcutFactoryLineBreakup.activeHour !== 'Y' && vcutFactoryLineBreakup.displayFlag === 'LUNCH'">
+                                                                    <td class="text-center">
+                                                                        {{vcutFactoryLineBreakup.id}} ({{vcutFactoryLineBreakup.hourBreakup}})
+                                                                    </td>
+                                                                    <td class="text-center">{{vcutFactoryLineBreakup.hourPlan}}/{{vcutFactoryLineBreakup.hourActual}}</td>
+                                                                    <td class="text-center"><ng-container *ngIf="vcutFactoryLineBreakup.activeHour !== 'Z'">{{vcutFactoryLineBreakup.cumPlan}}/{{vcutFactoryLineBreakup.cumActual}}</ng-container></td>
+                                                                    <td class="text-center"><ng-container *ngIf="vcutFactoryLineBreakup.activeHour !== 'Z'">{{vcutFactoryLineBreakup.varianceHour}}/{{vcutFactoryLineBreakup.varianceCum}}</ng-container></td>
+                                                                    <td class="text-center">
+                                                                        <ng-container *ngIf="vcutFactoryLineBreakup.activeHour !== 'Z'">{{vcutFactoryLineBreakup.efficiencyPlan | myNumber: '1.0-0'}}/{{vcutFactoryLineBreakup.efficiencyActual | myNumber: '1.0-0'}} %</ng-container>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <ng-container *ngIf="vcutFactoryLineBreakup.activeHour !== 'Z'">{{vcutFactoryLineBreakup.fttRatePlan | myNumber: '1.0-0'}}/{{vcutFactoryLineBreakup.fttRateActual | myNumber: '1.0-0'}} %</ng-container>
+                                                                    </td>
+                                                                </tr>
+                                                            </ng-container>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr-->
+                                            </ng-container>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+<div>
+    <h2 id="page-heading">
+        <span>Travel Accommodation Details</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-travel-accommodation-details" [routerLink]="['/travel-accommodation-details/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create a new Travel Accommodation Details
+            </span>
+        </button>
+    </h2>
+    <div class="table-responsive">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="accommodationDate"><span>Accommodation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="accommodationType"><span>Accommodation Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="accommodationName"><span>Accommodation Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="accommodationTarif"><span>Accommodation Tarif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="daysStay"><span>Days Stay</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="earlyCheckin"><span>Early Checkin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdBy"><span>Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastUpdatedBy"><span>Last Updated By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastUpdatedDate"><span>Last Updated Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="travelApplicationMaster.id"><span>Travel Application Master</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let travelAccommodationDetails of travelAccommodationDetails ;trackBy: trackId">
+                <td><a [routerLink]="['/travel-accommodation-details', travelAccommodationDetails.id, 'view' ]">{{travelAccommodationDetails.id}}</a></td>
+                <td>{{travelAccommodationDetails.accommodationDate | date:'medium'}}</td>
+                <td>{{travelAccommodationDetails.accommodationType}}</td>
+                <td>{{travelAccommodationDetails.accommodationName}}</td>
+                <td>{{travelAccommodationDetails.accommodationTarif}}</td>
+                <td>{{travelAccommodationDetails.daysStay}}</td>
+                <td>{{travelAccommodationDetails.earlyCheckin}}</td>
+                <td>{{travelAccommodationDetails.createdBy}}</td>
+                <td>{{travelAccommodationDetails.createdDate | date:'medium'}}</td>
+                <td>{{travelAccommodationDetails.lastUpdatedBy}}</td>
+                <td>{{travelAccommodationDetails.lastUpdatedDate | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="travelAccommodationDetails.travelApplicationMaster">
+                        <a [routerLink]="['/travel-application-master', travelAccommodationDetails.travelApplicationMaster?.id, 'view' ]" >{{travelAccommodationDetails.travelApplicationMaster?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/travel-accommodation-details', travelAccommodationDetails.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/travel-accommodation-details', travelAccommodationDetails.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/travel-accommodation-details', { outlets: { popup: travelAccommodationDetails.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="travelAccommodationDetails?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

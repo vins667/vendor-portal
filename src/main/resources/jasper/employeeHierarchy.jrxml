@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HierarchyChart" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9e634c88-0608-424b-8204-6b94424f7f64">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="parentCardNo" class="java.lang.String"/>
+	<field name="parentName" class="java.lang.String"/>
+	<field name="parentDesignation" class="java.lang.String"/>
+	<field name="parentDepartment" class="java.lang.String"/>
+	<field name="parentContact" class="java.lang.String"/>
+	<field name="parentImage" class="java.lang.String"/>
+	<field name="cardNo" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="designation" class="java.lang.String"/>
+	<field name="department" class="java.lang.String"/>
+	<field name="contact" class="java.lang.String"/>
+	<field name="image" class="java.lang.String"/>
+	<field name="children" class="java.util.List"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="25">
+			<textField>
+				<reportElement x="0" y="0" width="595" height="25" uuid="4d522073-70ac-41d8-86c2-5a80b6c440ef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA["HIERARCHY CHART FOR " + $F{name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{parentCardNo} != null]]></printWhenExpression>
+			<rectangle>
+				<reportElement x="14" y="10" width="245" height="70" uuid="8c6911c4-9ab9-4b24-9631-51e0f7705064"/>
+			</rectangle>
+			<image>
+				<reportElement x="21" y="15" width="60" height="60" uuid="62f3bb5e-615f-43d8-aa5c-640cf8384254"/>
+				<imageExpression><![CDATA[$F{parentImage}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="84" y="15" width="170" height="15" forecolor="#E82825" uuid="72c76406-16b2-455d-9c15-2b792f70891d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parentName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="84" y="30" width="170" height="15" forecolor="#000000" uuid="580d1be2-968d-48a9-99e7-266336ce0986"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parentDesignation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="84" y="45" width="170" height="15" forecolor="#000000" uuid="1b5acb6a-3ee5-4587-847c-c75322afa19e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parentDepartment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="84" y="60" width="170" height="15" forecolor="#000000" uuid="90e066b2-b61e-4db8-b1b0-4b8bac1bc6e6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parentContact}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="135" y="80" width="1" height="20" uuid="089f937c-6374-485e-b019-62484790995d"/>
+			</line>
+		</band>
+		<band height="75">
+			<rectangle>
+				<reportElement x="174" y="5" width="245" height="70" uuid="248a7497-abfd-438c-99f9-bcdaf1108d1f"/>
+			</rectangle>
+			<image>
+				<reportElement x="181" y="10" width="60" height="60" uuid="9108a5f5-49bf-490b-8400-26ed8376adfc"/>
+				<imageExpression><![CDATA[$F{image}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="244" y="10" width="170" height="15" forecolor="#E82825" uuid="392edee8-9ccf-46ad-8f15-e218af335a9b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="244" y="25" width="170" height="15" forecolor="#000000" uuid="b669637c-79e2-42bc-8f4a-3af2183c999a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="244" y="40" width="170" height="15" forecolor="#000000" uuid="cf7eff4a-eb64-42be-8427-46e225300e76"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{department}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="244" y="55" width="170" height="15" forecolor="#000000" uuid="017bdeb5-4dc9-4274-ab11-c679345055c8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contact}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="135" y="0" width="1" height="40" uuid="e58b1bd4-8d00-4e0d-beab-22d4b642c06b">
+					<printWhenExpression><![CDATA[$F{parentCardNo} != null]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="135" y="40" width="39" height="1" uuid="3eabc9fe-444e-468a-b635-3876f9bcd939">
+					<printWhenExpression><![CDATA[$F{parentCardNo} != null]]></printWhenExpression>
+				</reportElement>
+			</line>
+		</band>
+		<band height="40">
+			<subreport>
+				<reportElement x="0" y="0" width="595" height="40" uuid="d08f7603-2c18-49cd-8ef9-28e508090944"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{children})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/employeeHierarchy_subreport01.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

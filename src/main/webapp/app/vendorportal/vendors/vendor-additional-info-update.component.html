@@ -1,0 +1,169 @@
+<form name="editForm" role="form" novalidate #editForm="ngForm">
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-md-6">
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_esiCode">ESI Code</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.esiCode | uppercase) != (vendorAdditionalInfo.esiCode | uppercase)) ? vendorAdditionalInfo.esiCode:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="esiCode" id="field_esiCode" [(ngModel)]="vendorAdditionalInfoCompare.esiCode" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.esiCode | uppercase) != (vendorAdditionalInfo.esiCode | uppercase))" maxlength="45" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_pfCode">PF Code</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.pfCode | uppercase) != (vendorAdditionalInfo.pfCode | uppercase)) ? vendorAdditionalInfo.pfCode:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="pfCode" id="field_pfCode" [(ngModel)]="vendorAdditionalInfoCompare.pfCode" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.pfCode | uppercase) != (vendorAdditionalInfo.pfCode | uppercase))" maxlength="45" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label">Is SSI Unit?</label></div>
+                <div class="col-md-7"><input type="checkbox" name="isSsiUnit" id="field_isSsiUnit" [(ngModel)]="vendorAdditionalInfoCompare.isSsiUnit" [class.bg-warning-light]="approved && approved === true && (vendorAdditionalInfoCompare.isSsiUnit != vendorAdditionalInfo.isSsiUnit)" placement="top" [ngbTooltip]="approved && approved === true && (vendorAdditionalInfoCompare.isSsiUnit != vendorAdditionalInfo.isSsiUnit) ? vendorAdditionalInfo.isSsiUnit : false" disabled/></div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_propPartnerDirector">Prop./Partner/Director Name</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.propPartnerDirector | uppercase) != (vendorAdditionalInfo.propPartnerDirector | uppercase)) ? vendorAdditionalInfo.propPartnerDirector:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="propPartnerDirector" id="field_propPartnerDirector" [(ngModel)]="vendorAdditionalInfoCompare.propPartnerDirector" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.propPartnerDirector | uppercase) != (vendorAdditionalInfo.propPartnerDirector | uppercase))" maxlength="100" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_propPtrnDtrTeleNo">Telephone Number</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.propPtrnDtrTeleNo | uppercase) != (vendorAdditionalInfo.propPtrnDtrTeleNo | uppercase)) ? vendorAdditionalInfo.propPtrnDtrTeleNo:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="propPtrnDtrTeleNo" id="field_propPtrnDtrTeleNo" [(ngModel)]="vendorAdditionalInfoCompare.propPtrnDtrTeleNo" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.propPtrnDtrTeleNo | uppercase) != (vendorAdditionalInfo.propPtrnDtrTeleNo | uppercase))" maxlength="45" disabled/>
+                    </div>
+                </div>
+            </div>
+            <!--div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_associateSisterConcern">Associate/Sister Concern</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.associateSisterConcern | uppercase) != (vendorAdditionalInfo.associateSisterConcern | uppercase)) ? vendorAdditionalInfo.associateSisterConcern:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="associateSisterConcern" id="field_associateSisterConcern" [(ngModel)]="vendorAdditionalInfoCompare.associateSisterConcern" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.associateSisterConcern | uppercase) != (vendorAdditionalInfo.associateSisterConcern | uppercase))" maxlength="100" disabled/>
+                    </div>
+                </div>
+            </div-->
+            <!--div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_introducedBy">Introduced By</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.introducedBy | uppercase) != (vendorAdditionalInfo.introducedBy | uppercase)) ? vendorAdditionalInfo.introducedBy:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="introducedBy" id="field_introducedBy" [(ngModel)]="vendorAdditionalInfoCompare.introducedBy" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.introducedBy | uppercase) != (vendorAdditionalInfo.introducedBy | uppercase))" maxlength="100" disabled/>
+                    </div>
+                </div>
+            </div-->
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_comp_ref">Reference Of Company Staff</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.comp_ref | uppercase) != (vendorAdditionalInfo.comp_ref | uppercase)) ? vendorAdditionalInfo.comp_ref:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="comp_ref" id="field_comp_ref" [(ngModel)]="vendorAdditionalInfoCompare.comp_ref" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.comp_ref | uppercase) != (vendorAdditionalInfo.comp_ref | uppercase))" maxlength="100" disabled/>
+                    </div>
+                </div>
+            </div>
+            <!--div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_productServiceItemsOfParty">Product/Service Items Of Party</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.productServiceItemsOfParty | uppercase) != (vendorAdditionalInfo.productServiceItemsOfParty | uppercase)) ? vendorAdditionalInfo.productServiceItemsOfParty:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="productServiceItemsOfParty" id="field_productServiceItemsOfParty" [(ngModel)]="vendorAdditionalInfoCompare.productServiceItemsOfParty" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.productServiceItemsOfParty | uppercase) != (vendorAdditionalInfo.productServiceItemsOfParty | uppercase))" maxlength="45" disabled/>
+                    </div>
+                </div>
+            </div-->
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_manufacturigUnitAddress">Manufacturig Unit Address</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.manufacturigUnitAddress | uppercase) != (vendorAdditionalInfo.manufacturigUnitAddress | uppercase)) ? vendorAdditionalInfo.manufacturigUnitAddress:''">
+                        <textarea type="text" class="form-control form-control-sm text-uppercase" name="manufacturigUnitAddress" id="field_manufacturigUnitAddress" [(ngModel)]="vendorAdditionalInfoCompare.manufacturigUnitAddress" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.manufacturigUnitAddress | uppercase) != (vendorAdditionalInfo.manufacturigUnitAddress | uppercase))" maxlength="300" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_manufacturingUnitCapicity">Manufacturing Unit Capicity</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.manufacturingUnitCapicity | uppercase) != (vendorAdditionalInfo.manufacturingUnitCapicity | uppercase)) ? vendorAdditionalInfo.manufacturingUnitCapicity:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="manufacturingUnitCapicity" id="field_manufacturingUnitCapicity" [(ngModel)]="vendorAdditionalInfoCompare.manufacturingUnitCapicity" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.manufacturingUnitCapicity | uppercase) != (vendorAdditionalInfo.manufacturingUnitCapicity | uppercase))" maxlength="45" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_numberOfMachines">Number Of Machines</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && vendorAdditionalInfoCompare.numberOfMachines != vendorAdditionalInfo.numberOfMachines ? vendorAdditionalInfo.numberOfMachines:''">
+                        <input type="number" class="form-control form-control-sm text-uppercase" name="numberOfMachines" id="field_numberOfMachines" [(ngModel)]="vendorAdditionalInfoCompare.numberOfMachines" [class.bg-warning-light]="approved && approved === true && vendorAdditionalInfoCompare.numberOfMachines != vendorAdditionalInfo.numberOfMachines" disabled />
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_numberOfEmployees">Number Of Employees</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && vendorAdditionalInfoCompare.numberOfEmployees != vendorAdditionalInfo.numberOfEmployees ? vendorAdditionalInfo.numberOfEmployees:''">
+                        <input type="number" class="form-control form-control-sm text-uppercase" name="numberOfEmployees" id="field_numberOfEmployees" [(ngModel)]="vendorAdditionalInfoCompare.numberOfEmployees" [class.bg-warning-light]="approved && approved === true && vendorAdditionalInfoCompare.numberOfEmployees != vendorAdditionalInfo.numberOfEmployees" disabled/>
+                    </div>
+                </div>
+            </div>
+            <!--div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_dealingWithOthExptParty">Dealing With Oth Expt Party</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.dealingWithOthExptParty | uppercase) != (vendorAdditionalInfo.dealingWithOthExptParty | uppercase)) ? vendorAdditionalInfo.dealingWithOthExptParty:''">
+                        <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="dealingWithOthExptParty" id="field_dealingWithOthExptParty" [(ngModel)]="vendorAdditionalInfoCompare.dealingWithOthExptParty" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.dealingWithOthExptParty | uppercase) != (vendorAdditionalInfo.dealingWithOthExptParty | uppercase))" maxlength="100" disabled>
+                            <option value="YES">YES</option>
+                            <option value="NO">NO</option>
+                        </select>
+                    </div>
+                </div>
+            </div-->
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_turnoverId">Turnover</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && vendorAdditionalInfoCompare.turnoverId != vendorAdditionalInfo.turnoverId ? vendorAdditionalInfo.turnoverId:''">
+                        <select type="number" class="form-control form-control-sm custom-select custom-select-sm" name="turnoverId" id="field_turnoverId" [(ngModel)]="vendorAdditionalInfoCompare.turnoverId" [class.bg-warning-light]="approved && approved === true && vendorAdditionalInfoCompare.turnoverId != vendorAdditionalInfo.turnoverId" disabled>
+                            <option *ngFor="let turnoverMaster of turnoverMasters" [value]="turnoverMaster.id">{{turnoverMaster.turnoverRange}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_auditor">Auditor</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.auditor | uppercase) != (vendorAdditionalInfo.auditor | uppercase)) ? vendorAdditionalInfo.auditor:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="auditor" id="field_auditor" [(ngModel)]="vendorAdditionalInfoCompare.auditor" maxlength="45" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.auditor | uppercase) != (vendorAdditionalInfo.auditor | uppercase))" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_auditorAddress">Auditor Address</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.auditorAddress | uppercase) != (vendorAdditionalInfo.auditorAddress | uppercase)) ? vendorAdditionalInfo.auditorAddress:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="auditorAddress" id="field_auditorAddress" [(ngModel)]="vendorAdditionalInfoCompare.auditorAddress" maxlength="300" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.auditorAddress | uppercase) != (vendorAdditionalInfo.auditorAddress | uppercase))" disabled/>
+                    </div>
+                </div>
+            </div>
+            <!--div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_personDealingWithCompany">Your Contact person</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.personDealingWithCompany | uppercase) != (vendorAdditionalInfo.personDealingWithCompany | uppercase)) ? vendorAdditionalInfo.personDealingWithCompany:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="personDealingWithCompany" id="field_personDealingWithCompany" [(ngModel)]="vendorAdditionalInfoCompare.personDealingWithCompany" maxlength="100" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.personDealingWithCompany | uppercase) != (vendorAdditionalInfo.personDealingWithCompany | uppercase))" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_department">Department</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.department | uppercase) != (vendorAdditionalInfo.department | uppercase)) ? vendorAdditionalInfo.department:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="department" id="field_department" [(ngModel)]="vendorAdditionalInfoCompare.department" maxlength="45" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.department | uppercase) != (vendorAdditionalInfo.department | uppercase))" disabled/>
+                    </div>
+                </div>
+            </div-->
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_remarks">Remarks</label></div>
+                <div class="col-md-7">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorAdditionalInfoCompare.remarks | uppercase) != (vendorAdditionalInfo.remarks | uppercase)) ? vendorAdditionalInfo.remarks:''">
+                        <textarea type="text" class="form-control form-control-sm text-uppercase" name="remarks" id="field_remarks" [(ngModel)]="vendorAdditionalInfoCompare.remarks" maxlength="500" [class.bg-warning-light]="approved && approved === true && ((vendorAdditionalInfoCompare.remarks | uppercase) != (vendorAdditionalInfo.remarks | uppercase))" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,104 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "vVchno",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "15"
+        },
+        {
+            "fieldName": "vVchdate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "vGstin",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
+            "fieldName": "vSupplierCode",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
+            "fieldName": "vSupplierName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "200"
+        },
+        {
+            "fieldName": "vInvoiceno",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "25"
+        },
+        {
+            "fieldName": "vInvoicedate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "vInvamt",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "vInvnet",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "vCgst",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "vSgst",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "vIgst",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "uploadDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "confirmDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "2"
+        }
+    ],
+    "changelogDate": "20200320104920",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "gst_vopl_upload",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

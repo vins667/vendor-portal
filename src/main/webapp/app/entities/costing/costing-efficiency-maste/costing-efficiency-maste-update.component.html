@@ -1,0 +1,75 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-country-heading">Create or edit a Costing Efficiency Master</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!editForm.get('id').value">
+                            <div class="col-md-3">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-9">
+                                 <input type="text"class="form-control form-control-sm" id="id" name="id" formControlName="id" readonly />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                                <div class="col-md-3">
+                                    <label class="form-control-label" for="field_fromQuantity">From Quantity</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="number" class="form-control form-control-sm" name="fromQuantity" id="field_fromQuantity" formControlName="fromQuantity"/>
+                                    <div *ngIf="editForm.get('fromQuantity').invalid && (editForm.get('fromQuantity').dirty || editForm.get('fromQuantity').touched)">
+                                        <small class="form-text text-danger"
+                                               *ngIf="editForm.get('fromQuantity').errors.required">
+                                        This field is required.
+                                        </small>
+                                        <small class="form-text text-danger"
+                                            [hidden]="!editForm.get('fromQuantity')?.errors?.number">
+                                            This field should be a number.
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-control-label" for="field_toQuantity">To Quantity</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="number" class="form-control form-control-sm" name="toQuantity" id="field_toQuantity" formControlName="toQuantity"/>
+                                    <div *ngIf="editForm.get('toQuantity').invalid && (editForm.get('toQuantity').dirty || editForm.get('toQuantity').touched)">
+                                        <small class="form-text text-danger"
+                                            *ngIf="editForm.get('toQuantity').errors.required">
+                                        This field is required.
+                                        </small>
+                                        <small class="form-text text-danger"
+                                            [hidden]="!editForm.get('toQuantity')?.errors?.number">
+                                            This field should be a number.
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-control-label" for="field_efficiencyPerc">Efficiency %</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control form-control-sm" name="efficiencyPerc" id="field_efficiencyPerc" formControlName="efficiencyPerc"/>
+                                    <div *ngIf="editForm.get('efficiencyPerc').invalid && (editForm.get('efficiencyPerc').dirty || editForm.get('efficiencyPerc').touched)">
+                                        <small class="form-text text-danger"  *ngIf="editForm.get('efficiencyPerc').errors.required">
+                                             This field is required.
+                                        </small>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

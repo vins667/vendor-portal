@@ -1,0 +1,61 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Previous Employer Detail</span>
+            </h5>
+            <div class="row">
+                <div class="col-md-2">
+                    <select class="form-control form-control-sm custom-select custom-select-sm" name="year" id="field_year" [(ngModel)]="tdsDeclarationSearch.year" required>
+                        <option *ngFor="let tdsYearMasterOption of tdsyearmasters;" [value]="tdsYearMasterOption.code">{{tdsYearMasterOption.financeYear}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3"><input type="text" name="empCode" class="form-control form-control-sm text-uppercase" placeholder="Enter Emp Code" [(ngModel)]="tdsDeclarationSearch.cardNo"/></div>
+                <div class="col-md-7 text-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-round btn-blush" style="margin-top: 0;" (click)="search();"><fa-icon [icon]="'search'"></fa-icon> <span>Search</span></button>&nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" *ngIf="previousEmploymentQries">
+                <table class="table table-sm table-striped">
+                    <thead>
+                      <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th><span>ID</span></th>
+                        <th><span>Card No</span></th>
+                        <th><span>Name</span></th>
+                        <th><span>Employer Name</span></th>
+                        <th><span>From Date</span></th>
+                        <th><span>To Date</span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let previousEmploymentQry of previousEmploymentQries ;trackBy: trackId">
+                        <td><a [routerLink]="['/previous-employment-qry', previousEmploymentQry.id, 'view' ]">{{previousEmploymentQry.id}}</a></td>
+                        <td>{{previousEmploymentQry.cardNo}}</td>
+                        <td>{{previousEmploymentQry.name}}</td>
+                        <td>{{previousEmploymentQry.previousEmployer}}</td>
+                        <td>{{previousEmploymentQry.dateFrom | date : 'dd/MM/yyyy'}}</td>
+                        <td>{{previousEmploymentQry.dateTo | date : 'dd/MM/yyyy'}}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit" [routerLink]="['/previous-employment-qry', previousEmploymentQry.id, 'view' ]" class="btn btn-info btn-sm"> <fa-icon [icon]="'eye'"></fa-icon><span class="d-none d-md-inline">View</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="previousEmploymentQries && previousEmploymentQries.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

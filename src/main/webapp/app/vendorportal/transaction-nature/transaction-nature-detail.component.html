@@ -1,0 +1,48 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Transaction Nature</span> {{transactionNature.id}}</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="transactionNature">
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Code</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{transactionNature.code}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Description</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{transactionNature.description}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Status</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span *ngIf="transactionNature.status=='Y'">Active</span>
+                                <span *ngIf="transactionNature.status=='N'">Inactive</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/transaction-nature', transactionNature.id, 'edit']"
+                            class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

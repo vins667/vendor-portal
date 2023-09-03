@@ -1,0 +1,81 @@
+<div align="center" class="centered" *ngIf="isSaving">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<form name="editForm" role="form" (ngSubmit)="save()" #editForm="ngForm">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 id="jhi-asset-master-heading">Cutting User Plant Mapping </h6>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-right">
+                        <button type="button" id="cancel-entity" (click)="previousState();" class="btn btn-sm btn-xs btn-second btn-round m-0">
+                            <fa-icon [icon]="'sync-alt'"></fa-icon>&nbsp;<span>Clear</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="isSaving" class="btn btn-sm btn-xs btn-blush btn-round m-0">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white">
+            <div class="col-8">
+                <div class="row mb-2">
+                    <div class="col-md-1">
+                        <label class="form-control-label" for="field_login">Login</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control form-control-xs text-uppercase" name="login"
+                            id="field_login" [(ngModel)]="userPlantNew.login" (blur)="getLoginDetail();" required />
+                    </div>
+                    <div class="col-md-7">
+                        <input type="text" class="form-control form-control-xs text-uppercase" name="name"
+                            id="field_name" [(ngModel)]="name" readonly required />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-sm table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th><span>Plant Code</span></th>
+                                    <th><span>Plant Description</span></th>
+                                    <th class="button-column text-right">
+                                        <fa-icon [icon]="'plus-circle'" (click)="addRow()" style="cursor: pointer">
+                                        </fa-icon>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let userPlantDetails of this.userPlantNew.userPlantDetailsNew; let index = index;">
+                                    <td>
+                                         <select class="form-control form-control-xs custom-select custom-select-xs"
+                                                name="plantCode_{{index}}" id="field_plantCode_{{index}}" [(ngModel)]="userPlantDetails.plantCode" required
+                                                (change)="selectPlantDesc(userPlantDetails);">
+                                                <option [value]="undefined">Select</option>
+                                                <option *ngFor="let userPlant of userPlantDetailsNews" [value]="userPlant.plantCode">
+                                                    {{userPlant.plantCode}}</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-xs text-uppercase"
+                                            name="plantDescription_{{index}}" id="field_plantDescription_{{index}}"
+                                            [(ngModel)]="userPlantDetails.plantDescription"  readonly/>
+                                    </td>
+                                    <td class="button-column text-right">
+                                        <fa-icon [icon]="'trash-alt'" style="cursor: pointer; font-size: 15px;"
+                                            (click)="removeRow(index)" class="text-danger"></fa-icon>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>

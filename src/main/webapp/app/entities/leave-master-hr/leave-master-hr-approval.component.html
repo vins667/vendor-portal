@@ -1,0 +1,171 @@
+<div class="card">
+    <div class="card-header">
+        <h6 id="page-heading">
+            <span>Leave Approval - HR</span>
+        </h6>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-1">
+                <label class="form-control-label">Status</label>
+            </div>
+            <div class="col-md-2">
+                <select name="leaveStatus" id="leaveStatus" class="form-control form-control-xs custom-select custom-select-xs" [(ngModel)]="leavesearch.leaveStatus">
+                    <option value="P">Pending</option>
+                    <option value="A">Approved</option>
+                    <option value="R">Reject</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="dateType" id="dateType" class="form-control form-control-xs custom-select custom-select-xs" [(ngModel)]="leavesearch.dateType">
+                    <option value="E">LEAVE DATE</option>
+                    <option value="O">HOD APPROVED DATE</option>
+                    <option value="H" *ngIf="leavesearch.leaveStatus && leavesearch.leaveStatus==='A'">HR APPROVED DATE</option>
+                    <option value="R" *ngIf="leavesearch.leaveStatus && leavesearch.leaveStatus==='R'">HR REJECTED DATE</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <div class="input-group">
+                    <input [owlDateTime]="leaveFrom" name="leaveDateFrom" id="field_leaveDateFrom" placeholder="Date From" class="form-control form-control-xs" required [(ngModel)]="leaveDateFrom">
+                    <div class="input-group-append input-group-append-top">
+                        <div class="btn btn-blush btn-xs" [owlDateTimeTrigger]="leaveFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #leaveFrom></owl-date-time>
+            </div>
+            <div class="col-md-2">
+                <div class="input-group">
+                    <input [owlDateTime]="leaveTo" name="leaveDateTo" id="field_leaveDateTo" placeholder="Date To" class="form-control form-control-xs" required [(ngModel)]="leaveDateTo">
+                    <div class="input-group-append input-group-append-top">
+                        <div class="btn btn-xs btn-blush" [owlDateTimeTrigger]="leaveTo"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #leaveTo></owl-date-time>
+            </div>
+            <div class="col-md-3 text-right">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-xs btn-round btn-blush" style="margin-top: 0;" (click)="search()"><fa-icon [icon]="'search'"></fa-icon><span> Search</span></button>
+                    &nbsp;&nbsp;
+                    <button id="jh-create-entity" class="btn btn-xs btn-round btn-success" (click)="save()" [disabled]="!leaveSaveMasters" style="margin-top: 0;">
+                        <fa-icon [icon]="'save'"></fa-icon><span> Save</span>
+                    </button>
+                    &nbsp;&nbsp;
+                    <button id="jh-generate-entity" class="btn btn-xs btn-round btn-warning" (click)="generateReport()" [disabled]="isDownload" style="margin-top: 0;">
+                        <fa-icon [icon]="'download'"></fa-icon> <span>Export Report</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <label class="form-control-label">Employee&nbsp;<sup class="text-primary font-weight-bold" title="BY CODE AND NAME">?</sup></label>
+            </div>
+            <div class="col-md-4"><input type="text" name="empCode" class="form-control form-control-xs" placeholder="Enter Employee / Name" [(ngModel)]="leavesearch.empCode"/></div>
+            <div class="col-md-2 text-right">
+                <label class="form-control-label">HOD&nbsp;<sup class="text-primary font-weight-bold" title="BY CODE AND NAME">?</sup></label>
+            </div>
+            <div class="col-md-4"><input type="text" name="hodCode" class="form-control form-control-xs" placeholder="Enter HOD ? Name" [(ngModel)]="leavesearch.hodCode"/></div>
+        </div>
+    </div>
+    <div class="card-body body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th><span>ID</span></th>
+                    <th><span>Card&nbsp;No</span></th>
+                    <th><span>Name</span></th>
+                    <th><span>Leave Type</span></th>
+                    <th><span>Full/Half&nbsp;Day</span></th>
+                    <th><span>From&nbsp;Date</span></th>
+                    <th><span>To&nbsp;Date</span></th>
+                    <th><span>Approved&nbsp;Date</span></th>
+                    <th><span>Reason</span></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngIf="leaveMasters">
+                    <tr *ngFor="let leaveMaster of leaveMasters ;trackBy: trackId; let index = index;">
+                        <td>{{leaveMaster.id}}</td>
+                        <td>
+                            <div *ngIf="leaveMaster.userCode">{{leaveMaster.userCode?.login}}</div>
+                        </td>
+                        <td>
+                            <div *ngIf="leaveMaster.userCode">{{leaveMaster.userCode?.firstName}} {{leaveMaster.userCode?.lastName}}</div>
+                        </td>
+                        <td>
+                            <div *ngIf="leaveMaster.leaveTypeMaster">{{leaveMaster.leaveTypeMaster?.leaveName}}
+                                <ng-container *ngFor="let mobileAttendance of leaveMaster.mobileAttendances">
+                                    <fa-icon [icon]="'map-marker-alt'" (click)="maps(mobileAttendance);" style="cursor: pointer;"></fa-icon> &nbsp;
+                                </ng-container>
+                            </div>
+                        </td>
+                        <td>
+                            <div *ngIf="leaveMaster.leaveSubTypeMaster && leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode !== 'SP'">{{leaveMaster.leaveSubTypeMaster?.subTypeName}}</div>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode === 'SP'">
+                                <span [class.text-danger]="leaveMaster.missPunchType && (leaveMaster.missPunchType ==='F' || leaveMaster.missPunchType ==='A')" [class.font-weight-bold]="leaveMaster.missPunchType && (leaveMaster.missPunchType ==='F' || leaveMaster.missPunchType ==='A')">{{leaveMaster.leaveDateFrom | date:'dd-MM-yyyy'}} {{leaveMaster.leaveTimeFrom | date:'HH:mm'}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode !== 'SP'">{{leaveMaster.leaveDateFrom | date:'dd-MM-yyyy'}} {{leaveMaster.leaveTimeFrom | date:'HH:mm'}}</ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode === 'SP'">
+                                <span [class.text-danger]="leaveMaster.missPunchType && (leaveMaster.missPunchType ==='S' || leaveMaster.missPunchType ==='A')" [class.font-weight-bold]="leaveMaster.missPunchType && (leaveMaster.missPunchType ==='S' || leaveMaster.missPunchType ==='A')">{{leaveMaster.leaveDateTo | date:'dd-MM-yyyy'}} {{leaveMaster.leaveTimeTo | date:'HH:mm'}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode !== 'SP'">
+                                {{leaveMaster.leaveDateTo | date:'dd-MM-yyyy'}} {{leaveMaster.leaveTimeTo | date:'HH:mm'}}
+                            </ng-container>
+                        </td>
+                        <td>
+                            {{leaveMaster.hodApprovedDate | date:'dd-MM-yyyy'}}
+                        </td>
+                        <td>{{leaveMaster.reason}}</td>
+                        <td class="align-right button-column">
+                            <select name="leaveApprove" id="leaveApprove" style="width: 60px;" class="form-control form-control-xs custom-select custom-select-xs" [(ngModel)]="leaveMaster.flag" [disabled]="(leaveMaster.flag=='C' || leaveMaster.flag=='R') && leaveMaster.hrApprovedDate" (change)="pushValue(leaveMaster);">
+                                <option value="A">Select</option>
+                                <option value="C">Approve</option>
+                                <option value="R">Reject</option>
+                            </select>
+                        </td>
+                        <td class="button-column">
+                            <button type="button" class="btn btn-sm btn-blush" name="button_remarks{{index}}" *ngIf="leaveMaster.flag=='C' || leaveMaster.flag=='R'" (click)="open(content);"><fa-icon [icon]="'comment-alt'" title="Click to enter remarks"></fa-icon></button>
+
+                            <ng-template #content let-modal>
+                                <div class="modal-header bg-blush" style="padding: 10px;">
+                                    <h4 class="modal-title" id="modal-basic-title" style="margin-top: 0px;">Remarks #{{leaveMaster.id}} ({{leaveMaster.userCode?.firstName}} {{leaveMaster.userCode?.lastName}})</h4>
+                                    <button style="top: 10px;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" style="width: 980px; height: 380px; position: relative;">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <textarea name="hrRemarks{{index}}" id="hrRemarks{{index}}" [(ngModel)]="leaveMaster.hrRemarks" maxlength="500" class="form-control" style="height: 300px;"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="button" class="btn btn-blush btn-sm btn-round" [disabled]="(leaveMaster.flag=='C' || leaveMaster.flag=='R') && leaveMaster.hrApprovedDate" (click)="pushValue(leaveMaster);"><fa-icon [icon]="'save'"></fa-icon> OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="leaveMasters && leaveMasters.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

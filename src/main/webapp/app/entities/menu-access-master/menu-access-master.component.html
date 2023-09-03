@@ -1,0 +1,27 @@
+<div class="card">
+    <div class="body">
+        <h5 id="page-heading">
+            <span>Menu Access</span>
+            <button id="jh-create-entity" class="btn btn-sm btn-primary btn-blush btn-round float-right jh-create-entity" (click)="save();" [disabled]="isSaving">
+                <fa-icon [icon]="'save'"></fa-icon>
+                <span >Save</span>
+            </button>
+        </h5>
+        <hr/>
+        <div class="row">
+            <div class="col-md-1"><label>Card&nbsp;No</label></div>
+            <div class="col-md-3"><input type="text" class="form-control form-control-sm" [(ngModel)]="cardNo" (blur)="clearDetails();"/></div>
+            <div class="col-md-1"><label>Name</label></div>
+            <div class="col-md-5"><input type="text" class="form-control form-control-sm" [(ngModel)]="name" readonly/></div>
+            <div class="col-md-2"><button type="button" class="btn btn-sm btn-round btn-blush" style="margin-top: 0;" (click)="getDetails();" [disabled]="isSaving"><fa-icon [icon]="'search'"></fa-icon> <span>Search</span></button></div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-md-12">
+                <ngx-treeview [config]="config" [items]="items" (selectedChange)="values = $event" (filterChange)="onFilterChange($event)">
+                </ngx-treeview>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

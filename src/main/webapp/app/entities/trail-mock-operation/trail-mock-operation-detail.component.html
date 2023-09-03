@@ -1,0 +1,93 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="trailMockOperation">
+            <h2><span>Trail Mock Operation</span> {{trailMockOperation.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Spl Machine Knowledge</span></dt>
+                <dd>
+                    <span>{{trailMockOperation.splMachineKnowledge}}</span>
+                </dd>
+                <dt><span>Snls</span></dt>
+                <dd>
+                    <span>{{trailMockOperation.snls}}</span>
+                </dd>
+                <dt><span>Dnls</span></dt>
+                <dd>
+                    <span>{{trailMockOperation.dnls}}</span>
+                </dd>
+                <dt><span>Ol</span></dt>
+                <dd>
+                    <span>{{trailMockOperation.ol}}</span>
+                </dd>
+                <dt><span>Achive Rating</span></dt>
+                <dd>
+                    <span>{{trailMockOperation.achiveRating}}</span>
+                </dd>
+                <dt><span>Result</span></dt>
+                <dd>
+                    <span>{{trailMockOperation.result}}</span>
+                </dd>
+                <dt><span>Time Taken</span></dt>
+                <dd>
+                    <span>{{trailMockOperation.timeTaken}}</span>
+                </dd>
+                <dt><span>Grade</span></dt>
+                <dd>
+                    <span>{{trailMockOperation.grade}}</span>
+                </dd>
+                <dt><span>Remarks</span></dt>
+                <dd>
+                    <span>{{trailMockOperation.remarks}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{trailMockOperation.createdBy}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{trailMockOperation.createdDate}}</span>
+                </dd>
+                <dt><span>Last Updated By</span></dt>
+                <dd>
+                    <span>{{trailMockOperation.lastUpdatedBy}}</span>
+                </dd>
+                <dt><span>Last Updated Date</span></dt>
+                <dd>
+                    <span>{{trailMockOperation.lastUpdatedDate}}</span>
+                </dd>
+                <dt><span>Worker Recruitment</span></dt>
+                <dd>
+                    <div *ngIf="trailMockOperation.workerRecruitment">
+                        <a [routerLink]="['/worker-recruitment', trailMockOperation.workerRecruitment?.id, 'view']">{{trailMockOperation.workerRecruitment?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Operation Master</span></dt>
+                <dd>
+                    <span *ngFor="let operationMaster of trailMockOperation.operationMasters; let last = last">
+                        <a [routerLink]="['/operation-master', operationMaster?.id, 'view' ]">{{operationMaster.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span>Machine Master</span></dt>
+                <dd>
+                    <span *ngFor="let machineMaster of trailMockOperation.machineMasters; let last = last">
+                        <a [routerLink]="['/machine-master', machineMaster?.id, 'view' ]">{{machineMaster.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/trail-mock-operation', trailMockOperation.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,164 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="input-group input-group-sm">
+                            <input type="localdate" name="dateFrom" class="form-control form-control-sm" placeholder="Date From" ngbDatepicker #dateFrom="ngbDatepicker">
+                            <div class="input-group-append input-group-append-top">
+                                <button class="btn btn-blush btn-sm" (click)="dateFrom.toggle()" type="button">
+                                    <fa-icon [icon]="'calendar'"></fa-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group input-group-sm">
+                            <input style="" type="localdate" name="dateTo" class="form-control form-control-sm" placeholder="Date To" ngbDatepicker #dateTo="ngbDatepicker">
+                            <div class="input-group-append input-group-append-top">
+                                <button class="btn btn-blush" (click)="dateTo.toggle()" type="button">
+                                    <fa-icon [icon]="'calendar'"></fa-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control form-control-sm" name="searchTitle" id="searchTitle" placeholder="Project Title"/>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control form-control-sm" name="searchId" id="searchId" placeholder="Project#"/>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-secondary btn-sm" style="margin-top: 0;">
+                            <fa-icon [icon]="'search'"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" id="searchrnscatgCode" name="searchrnscatgCode">
+                            <option [ngValue]="undefined" selected>Select Category</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" id="quote_type" name="quote_type" title="First select Category to use filter by Project Region">
+                            <option [ngValue]="undefined" selected>Select Project Region</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" id="" name="source_team">
+                            <option [ngValue]="undefined" selected>Select Source Team</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="btn-group mr-3">
+                            <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                            </div>
+                            <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="body">
+                <div class="row">
+                    <div class="col-md-12 text-right" style="padding-bottom: 8px;">
+                        <label class="form-control-label" style="font-weight: 700">Last Refresh Time:</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" id="categoryMasterId" name="categoryMasterId" required>
+                            <option [ngValue]="undefined" hidden selected>Select Category</option>
+                            <option [value]="categoryMaster.id" *ngFor="let categoryMaster of categoryMasters; ">
+                                {{categoryMaster.code}} &nbsp;&nbsp;-&nbsp;{{categoryMaster.description}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-blush btn-sm btn-round" style="margin-top: 0;"> <fa-icon [icon]="'plus'"></fa-icon> New
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="body">
+                <div class="table-responsive" *ngIf="quotationMasters">
+                    <table class="table table-sm table-striped">
+                        <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="eventType"><span>Event Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="rfq"><span>Rfq</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="bidding"><span>Bidding</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="projectTitle"><span>Project Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="category"><span>Category</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="sourcingTeam"><span>Sourcing Team</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="projectRegion"><span>Project Region</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="remarks"><span>Remarks</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="template"><span>Template</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let quotationMaster of quotationMasters ;trackBy: trackId">
+                            <td><a [routerLink]="['/quotation-master', quotationMaster.id, 'view' ]">{{quotationMaster.id}}</a></td>
+                            <td>{{quotationMaster.eventType}}</td>
+                            <td>{{quotationMaster.rfq}}</td>
+                            <td>{{quotationMaster.bidding}}</td>
+                            <td>{{quotationMaster.projectTitle}}</td>
+                            <td>{{quotationMaster.category}}</td>
+                            <td>{{quotationMaster.sourcingTeam}}</td>
+                            <td>{{quotationMaster.projectRegion}}</td>
+                            <td>{{quotationMaster.remarks}}</td>
+                            <td>{{quotationMaster.template}}</td>
+                            <td class="text-right">
+                                <div class="btn-group button-column">
+                                    <button type="submit"
+                                            [routerLink]="['/quotation-master', quotationMaster.id, 'view' ]"
+                                            class="btn btn-info btn-sm">
+                                        <fa-icon [icon]="'eye'"></fa-icon>
+                                        <span class="d-none d-md-inline">View</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/quotation-master', quotationMaster.id, 'edit']"
+                                            class="btn btn-blush btn-sm">
+                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                        <span class="d-none d-md-inline">Edit</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/', { outlets: { popup: 'quotation-master/'+ quotationMaster.id + '/delete'} }]"
+                                            replaceUrl="true"
+                                            queryParamsHandling="merge"
+                                            class="btn btn-danger btn-sm">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                        <span class="d-none d-md-inline">Delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="quotationMasters && quotationMasters.length">
+                    <div class="row justify-content-center">
+                        <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                    </div>
+                    <div class="row justify-content-center">
+                        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

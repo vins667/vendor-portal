@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity VcutUserDeviceMaster.
+    -->
+    <changeSet id="20190930115512-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="vcut_device_line_master_id"
+                                 baseTableName="vcut_user_device_master"
+                                 constraintName="fk_vcut_user_device_master_vcut_device_line_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vcut_device_line_master"/>
+
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,87 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading"><span>GST Upload (VOPL)</span></h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="col-md-4 text-right">
+                        <button id="jh-excel-entity"
+                            class="btn btn-sm btn-blush btn-round jh-create-entity create-vcut-style-plan-upload"
+                            style="margin-top:0;" [routerLink]="['/gst-vopl-upload/upload']">
+                            <fa-icon [icon]="'upload'"></fa-icon>
+                            <span>Upload Excel</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse"
+                            [callback]="transition.bind(this)">
+                            <th jhiSortBy="vVchno"><span>Vch. No</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="vVchdate"><span>Vch. Date</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="vGstin"><span>GSTIN</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="vSupplierCode"><span>Supp. Code</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="vSupplierName"><span>Supp. Name</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="vInvoiceno"><span>Inv. No</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="vInvoicedate"><span>Inv. Date</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="vInvamt"><span>Inv. Amount</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+
+                            <th jhiSortBy="vCgst"><span>CGST</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="vSgst"><span>SGST</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="vIgst"><span>IGST</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let gstVoplUpload of gstVoplUploads ;trackBy: trackId">
+                            <td>{{gstVoplUpload.vVchno}}</td>
+                            <td>{{gstVoplUpload.vVchdate | date:'medium'}}</td>
+                            <td>{{gstVoplUpload.vGstin}}</td>
+                            <td>{{gstVoplUpload.vSupplierCode}}</td>
+                            <td>{{gstVoplUpload.vSupplierName}}</td>
+                            <td>{{gstVoplUpload.vInvoiceno}}</td>
+                            <td>{{gstVoplUpload.vInvoicedate | date:'medium'}}</td>
+                            <td>{{gstVoplUpload.vInvamt}}</td>
+                            <td>{{gstVoplUpload.vCgst}}</td>
+                            <td>{{gstVoplUpload.vSgst}}</td>
+                            <td>{{gstVoplUpload.vIgst}}</td>
+                            <td class="text-right button-column">
+                                <div class="btn-group">
+                                    <button type="submit" [routerLink]="['/gst-vopl-upload', gstVoplUpload.id, 'edit']"
+                                        class="btn btn-primary btn-sm">
+                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                        <span class="d-none d-md-inline">Edit</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

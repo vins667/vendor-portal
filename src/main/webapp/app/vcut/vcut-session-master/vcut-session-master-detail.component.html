@@ -1,0 +1,53 @@
+<div class="card">
+        <div class="body">
+                <h5><span>Vcut Session Master</span> {{vcutSessionMaster.id}}</h5>
+            <hr>
+            <div class="row">
+                <div class="col-8">
+                    <div *ngIf="vcutSessionMaster">
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Plan Name</span></dt></div>
+                            <div class="col-md-9">
+                                <dd> <span>{{vcutSessionMaster.planName}}</span></dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"> <dt><span>Day Start Time</span></dt></div>
+                            <div class="col-md-9">
+                                <span>{{vcutSessionMaster.dayStartTime | date:'HH:mm'}}</span>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-md-3"> <dt><span>Hours</span></dt></div>
+                            <div class="col-md-9">
+                                <span>{{vcutSessionMaster.hours}}</span>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-md-3"><dt><span>Minutes</span></dt></div>
+                            <div class="col-md-9">
+                                <span>{{vcutSessionMaster.minutes}}</span>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-md-3"><dt><span>Total Mins Per Day</span></dt></div>
+                            <div class="col-md-9">
+                                <span>{{vcutSessionMaster.totalMinsPerDay}}</span>
+                            </div>
+                        </div>
+                        <button type="submit"
+                                (click)="previousState()"
+                                class="btn btn-sm btn-info btn-round">
+                            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                        </button>
+    
+                        <button type="button"
+                               [routerLink]="['/vcut-session-master', vcutSessionMaster.id, 'edit']"
+                                class="btn btn-sm btn-blush btn-round">
+                              <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

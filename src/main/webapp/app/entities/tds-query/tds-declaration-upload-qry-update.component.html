@@ -1,0 +1,66 @@
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5 class="modal-title" id="modal-basic-title" style="margin-top: 0px;">TDS Declaration Upload</h5>
+    <button style="top: 10px;" type="button" class="close" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <span *ngIf="tdsYearMaster" class="float-right font-weight-bold">Financial Year - {{tdsYearMaster.financeYear}}</span>
+        </div>
+    </div>
+    <ng-container *ngIf="tdsDeclarationUpload">
+        <div class="row">
+            <div class="col-md-2 font-weight-bold"><label class="form-control-label">Name</label> </div>
+            <div class="col-md-4 font-weight-bold">{{tdsDeclarationUpload.name}}</div>
+            <div class="col-md-2 font-weight-bold"><label class="form-control-label">Designation</label> </div>
+            <div class="col-md-4 font-weight-bold">{{tdsDeclarationUpload.designation}}</div>
+        </div>
+        <hr/>
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-12">
+                <table class="table table-sm">
+                    <tbody>
+                    <ng-container *ngFor="let groupMaster of tdsDeclarationUpload.tdsGroupMasterbean;let index = index;">
+                        <tr>
+                            <td style="font-weight: bold; border:0;">
+                                <div class="row buttonwrapper bg-background" style="padding: 0; width: 100%; background-color: #42a8d7 !important;">
+                                    <div class="col-md-6"><h6 style="margin-top: 10px;">{{groupMaster.groupCode}}</h6></div>
+                                    <div class="col-md-6 text-right">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <div class="col-md-12 font-weight-bold">Attachments</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-sm table-bordered" style="width:100%; background-color: rgba(111, 189, 225, 0.5);">
+                                            <tr>
+                                                <td style="padding-left: 10px;font-weight: bold;">File Name</td>
+                                                <td style="padding-left: 10px;font-weight: bold;">Download</td>
+                                            </tr>
+                                            <tr *ngFor="let tdsDeclarationUploadDetail of groupMaster.tdsDeclarationUploadDetailBean;let i = index;">
+                                                <td style="padding-left:10px;" class="font-weight-bold">
+                                                    {{i + 1}}. {{tdsDeclarationUploadDetail.originalFileName}}
+                                                </td>
+                                                <td class="button-column">
+                                                    <fa-icon [icon]="'download'" style="color: #00FF00;cursor: pointer;padding-left: 10px;" (click)="download(tdsDeclarationUploadDetail);"></fa-icon>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </ng-container>
+</div>

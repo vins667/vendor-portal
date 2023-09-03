@@ -1,0 +1,47 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [{
+        "relationshipName": "bodyNewsDetails",
+        "otherEntityName": "newsDetails",
+        "relationshipType": "many-to-one",
+        "relationshipValidateRules": [
+            "required"
+        ],
+        "otherEntityField": "id"
+    }],
+    "fields": [
+        {
+            "fieldName": "newsBody",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "2000"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20181229065953",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "news_details_body",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

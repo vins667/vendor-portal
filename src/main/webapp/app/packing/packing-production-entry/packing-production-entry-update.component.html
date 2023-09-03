@@ -1,0 +1,189 @@
+<div align="center" class="centered" *ngIf="isProcess">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+    <h2>Please wait ....</h2>
+</div>
+<form name="editForm" role="form" novalidate [formGroup]="editForm">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 id="jhi-asset-master-heading">Packing Progress# <span *ngIf="editForm.controls['id'].value">{{editForm.controls['id'].value}}</span> <span class="text-danger font-weight-bold" *ngIf="editForm.controls['progressPostedDate'].value">(Posted)</span></h6>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-right">
+                        <button type="button" id="cancel-entity" class="btn btn-sm btn-xs btn-second btn-round m-0" (click)="previousState();">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white pt-1 pb-1">
+            <div class="row">
+                <div class="col-md-1"><label class="form-control-label" for="field_productionordercode">PO#</label></div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-xs" name="productionordercode" id="field_productionordercode" formControlName="productionordercode" readonly/>
+                        <ng-container *ngIf="!editForm.get('id').value">
+                            <div class="input-group-append">
+                                <button class="btn btn-blush btn-xs m-0" type="button" (click)="callDetails();" style="cursor: pointer;">
+                                    <fa-icon [icon]="'search'"></fa-icon>
+                                </button>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_plantCode">Plant</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs mb-0" name="plantCode" id="field_plantCode" formControlName="plantCode" (change)="fetchLines();" required *ngIf="!editForm.get('id').value">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let userPlant of userPlants" [value]="userPlant.id.plantCode">{{userPlant.plantDescription}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="plantDescription" id="field_plantDescription" formControlName="plantDesc" readonly *ngIf="editForm.get('id').value"/>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_projectcode">Project</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="projectcode" id="field_projectcode" formControlName="projectcode" readonly required />
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-1"><label class="form-control-label" for="field_style">Style</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="style" id="field_style" formControlName="style" readonly required />
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_color">Color</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="color" id="field_color" formControlName="color" (change)="fetchReservationItem();" required *ngIf="!editForm.get('id').value">
+                        <option [value]="'undefined'">Select Color</option>
+                        <option [value]="colorOption.name" *ngFor="let colorOption of colors;">
+                            {{colorOption.desc}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="colorDisplay" id="field_colorDisplay" formControlName="colorDesc" readonly *ngIf="editForm.get('id').value">
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_color">Destination</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="destination" id="destination" formControlName="destination" *ngIf="!editForm.get('id').value" required (change)="selectDestination(); fetchDetails();">
+                        <option [value]="undefined">Select</option>
+                        <option [value]="destinationOption.name" *ngFor="let destinationOption of destinations;">{{destinationOption.desc}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="destinationDesc" id="field_destinationDesc" formControlName="destinationDesc" readonly *ngIf="editForm.get('id').value">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"><label class="form-control-label" for="field_orderQty">PO&nbsp;Qty</label></div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="orderQty" id="field_orderQty" formControlName="orderQty" readonly />
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_tolerance">Tolerance</label></div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="tolerance" id="field_tolerance" formControlName="tolerance" readonly />
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_netOrderQty">Net&nbsp;Qty</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="netOrderQty" id="field_netOrderQty" formControlName="netOrderQty" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white pt-1 pb-1" *ngIf="packingProgressEntries">
+            <div class="row">
+                <div class="col-md-12">
+                    <ngb-tabset [activeId]="activeTab">
+                        <ng-container *ngFor="let packingProgressEntry of packingProgressEntries; let index = index">
+                            <ngb-tab [disabled]="index > 0 && !packingProgressEntries[index-1].progressPostedBy ? 'true' : null" [id]="packingProgressEntry.operationCode">
+                                <ng-template ngbTabTitle>
+                                    {{packingProgressEntry.operationDescription}}
+                                </ng-template>
+                                <ng-template ngbTabContent>
+                                    <fieldset class="scheduler-border-margin">
+                                        <legend class="scheduler-border">{{packingProgressEntry.operationDescription}}</legend>
+                                        <div class="row">
+                                            <div class="col-md-1"><label class="form-control-label" for="field_noCutters{{index}}">Operators#</label></div>
+                                            <div class="col-md-3">
+                                                <input type="number" class="form-control form-control-xs" name="noCutters{{index}}" id="field_noCutters{{index}}" [(ngModel)]="packingProgressEntry.noCutters" [ngModelOptions]="{standalone: true}" required/>
+                                            </div>
+                                            <div class="col-md-1"><label class="form-control-label" for="field_scannedBy0{{index}}">Scanned</label></div>
+                                            <div class="col-md-3">
+                                                <input type="radio" class="custom-radio" name="scannedBy{{index}}" [disabled]="index !==0 " id="field_scannedBy0{{index}}" [(ngModel)]="packingProgressEntry.scannedBy" value="PCS" [ngModelOptions]="{standalone: true}"/>&nbsp;PCS&nbsp;
+                                                <input type="radio" class="custom-radio" name="scannedBy{{index}}" [disabled]="index !==0 " id="field_scannedBy1{{index}}" [(ngModel)]="packingProgressEntry.scannedBy" value="BNDL" [ngModelOptions]="{standalone: true}"/>&nbsp;BUNDLE&nbsp;
+                                                <button type="button" name="btn-scanned" id="btn-scanned" [disabled]="index !==0 " (click)="scanData(packingProgressEntry);" [hidden]="!editForm.controls['style'].value || !editForm.controls['color'].value || !editForm.controls['destination'].value"><fa-icon [icon]="'search'"></fa-icon>&nbsp;Scan</button>
+                                            </div>
+                                            <div class="col-md-4 text-right">
+                                                <button type="button" id="save-entity{{index}}" class="btn btn-sm btn-xs btn-blush btn-round m-0" (click)="save(packingProgressEntry)" [disabled]="isSaving || editForm.invalid || packingProgressEntry.progressPostedDate">
+                                                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                                                </button>
+                                                <button type="button" id="post-entity{{index}}" class="btn btn-sm btn-xs btn-warning btn-round m-0" (click)="postCall(packingProgressEntry)" [disabled]="packingProgressEntry.progressPostedDate || !packingProgressEntry.progressEntryDate">
+                                                    <fa-icon [icon]="'paper-plane'"></fa-icon>&nbsp;<span>Post</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row pt-2">
+                                            <div class="col-md-1"><label class="form-control-label" for="field_startDate{{index}}">Start&nbsp;Time</label></div>
+                                            <div class="col-md-3">
+                                                <div class="input-group mb-0">
+                                                    <input [owlDateTime]="startDate" name="startDateFrom{{index}}" id="field_startDate{{index}}" placeholder="Start Time" class="form-control form-control-xs" required [(ngModel)]="packingProgressEntry.startDate" [ngModelOptions]="{standalone: true}" (dateTimeInput)="changeDate(packingProgressEntry);">
+                                                    <div class="input-group-append input-group-append-top">
+                                                        <div class="btn btn-blush btn-xs" [owlDateTimeTrigger]="startDate"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                                    </div>
+                                                </div>
+                                                <owl-date-time #startDate></owl-date-time>
+                                            </div>
+                                            <div class="col-md-1"><label class="form-control-label" for="field_endDate{{index}}">End&nbsp;Time</label></div>
+                                            <div class="col-md-3">
+                                                <div class="input-group mb-0">
+                                                    <input [owlDateTime]="endDate" name="endDateFrom{{index}}" id="field_endDate{{index}}" placeholder="End Time" class="form-control form-control-xs" required [(ngModel)]="packingProgressEntry.endDate" [ngModelOptions]="{standalone: true}" (dateTimeInput)="changeDate(packingProgressEntry);">
+                                                    <div class="input-group-append input-group-append-top">
+                                                        <div class="btn btn-blush btn-xs" [owlDateTimeTrigger]="endDate"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                                    </div>
+                                                </div>
+                                                <owl-date-time #endDate></owl-date-time>
+                                                <input type="hidden" name="lastProgress{{index}}" id="lastProgress{{index}}" [(ngModel)]="packingProgressEntry.lastProgress" [ngModelOptions]="{standalone: true}"/>
+                                            </div>
+                                            <div class="col-md-1"><label class="form-control-label" for="field_totalHour{{index}}">Total&nbsp;Hour</label></div>
+                                            <div class="col-md-3"><input type="number" class="form-control form-control-xs" name="totalHour{{index}}" id="field_totalHour{{index}}" [(ngModel)]="packingProgressEntry.totalHour" [ngModelOptions]="{standalone: true}" readonly required/></div>
+                                        </div>
+                                    </fieldset>
+                                    <div class="col-12 p-0">
+                                        <div class="table-responsive scroll-popup-table-4" id="entities">
+                                            <table class="table table-sm table-bordered mb-1" aria-describedby="page-heading">
+                                                <thead>
+                                                <tr class="bg-white">
+                                                    <th>SlNo#</th>
+                                                    <th>Bundle&nbsp;Id</th>
+                                                    <th>Color</th>
+                                                    <th>Size</th>
+                                                    <th>Product#</th>
+                                                    <th>Product&nbsp;Id</th>
+                                                    <th>UOM</th>
+                                                    <th>Pieces</th>
+                                                    <th style="width: 40px;"></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <ng-container *ngFor="let stitchIssuePackDetail of packingProgressEntry.stitchIssuePackDetails; let index = index;">
+                                                    <tr>
+                                                        <td>{{index+1}}</td>
+                                                        <td>{{stitchIssuePackDetail.cutPlanBundleId}}</td>
+                                                        <td>{{stitchIssuePackDetail.decosubcode06}}</td>
+                                                        <td>{{stitchIssuePackDetail.decosubcode07}}</td>
+                                                        <td>{{stitchIssuePackDetail.productCode}}</td>
+                                                        <td>{{stitchIssuePackDetail.cutPlanBundleDetailsId}}</td>
+                                                        <td>{{stitchIssuePackDetail.baseprimaryunitcode}}</td>
+                                                        <td>{{stitchIssuePackDetail.baseprimaryquantityunit}}</td>
+                                                        <td><fa-icon *ngIf="!packingProgressEntry.progressPostedDate" [icon]="'trash'" class="text-danger" style="cursor: pointer;" (click)="deleteRow(index, packingProgressEntry.stitchIssuePackDetails, stitchIssuePackDetail);"></fa-icon></td>
+                                                    </tr>
+                                                </ng-container>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                        </ng-container>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

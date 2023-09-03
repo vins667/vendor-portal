@@ -1,0 +1,53 @@
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5 class="modal-title" id="myWorkerWorkFlowLabel">Choose Mobile Attendances <small></small>
+        <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </h5>
+</div>
+<div class="modal-body" style="min-height: 550px;">
+    <div>
+        <div class="table-responsive" *ngIf="mobileAttendances">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Attendance Date</span></th>
+                    <th><span>Latitude</span></th>
+                    <th><span>Longitude</span></th>
+                    <th><span>Factory</span></th>
+                    <th><span>Remarks</span></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let mobileAttendance of mobileAttendances ;">
+                    <td><a [routerLink]="['/mobile-attendance', mobileAttendance.id, 'view' ]">{{mobileAttendance.id}}</a></td>
+                    <td>{{mobileAttendance.attendanceDate | date:'dd-MM-yyyy H:mm a'}}</td>
+                    <td>{{mobileAttendance.latitude}}</td>
+                    <td>{{mobileAttendance.longitude}}</td>
+                    <td>{{mobileAttendance.factoryCode}}</td>
+                    <td>{{mobileAttendance.remarks}}</td>
+                    <td class="text-right button-column">
+                        <div class="btn-group">
+                            <popover-content #myPopover title="Location" [closeOnClickOutside]="true">
+                                <agm-map [latitude]="lat" [longitude]="lng" #agmMap>
+                                    <agm-marker [latitude]="mobileAttendance.latitude" [longitude]="mobileAttendance.longitude" iconUrl="../../../content/images/men.png" (mouseOver)="onMouseOver(infoWindow, agmMap)">
+                                        <agm-info-window [disableAutoPan]="false" #infoWindow>
+                                            <img [src]="mobileAttendance.fileName" width="250" height="250"/>
+                                        </agm-info-window>
+                                    </agm-marker>
+                                </agm-map>
+                            </popover-content>
+                            <button type="button" class="btn btn-blush btn-sm" (click)="maps(mobileAttendance);" popoverPlacement="left">
+                                <fa-icon [icon]="'map-marker-alt'"></fa-icon><span class="d-none d-md-inline"> Map</span>
+                            </button>
+                            <button type="button" class="btn btn-success btn-sm" (click)="addData(mobileAttendance);">
+                                <fa-icon [icon]="'plus'"></fa-icon><span class="d-none d-md-inline"> Add</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

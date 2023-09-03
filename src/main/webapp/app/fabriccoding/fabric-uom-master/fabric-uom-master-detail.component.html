@@ -1,0 +1,46 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Fabric Uom Master</span> {{fabricUomMaster.id}}</h5>
+        <hr>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="fabricUomMaster">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <dt><span>Code</span></dt>
+                        </div>
+                        <div class="col-md-9">
+                            <dd> <span>{{fabricUomMaster.code}}</span></dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <dt><span>Description</span></dt>
+                        </div>
+                        <div class="col-md-9">
+                            <dd> <span>{{fabricUomMaster.description}}</span></dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <dt><span>Flag</span></dt>
+                        </div>
+                        <div class="col-md-9">
+                            <dd><span>
+                                    <ng-container *ngIf="fabricUomMaster.flag=='Y'">Active</ng-container>
+                                    <ng-container *ngIf="fabricUomMaster.flag=='N'">Inactive</ng-container>
+                                </span></dd>
+                        </div>
+                    </div>
+                    <button type="submit" (click)="previousState()" class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+                    <button type="button" [routerLink]="['/fabric-uom-master', fabricUomMaster.id, 'edit']"
+                        class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

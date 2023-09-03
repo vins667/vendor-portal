@@ -1,0 +1,167 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-leave-master-heading">Leave Entry</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-10">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div class="row card-margin-bottom-10" [hidden]="!leaveMaster.id">
+                        <div class="col-md-2"><label for="id">ID</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="id" name="id" [(ngModel)]="leaveMaster.id" readonly/></div>
+                    </div>
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-2"><label class="form-control-label" for="field_leaveTypeMaster">Leave Type</label></div>
+                        <div class="col-md-10">
+                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_leaveTypeMaster" name="leaveTypeMaster" [(ngModel)]="leaveMaster.leaveTypeMaster" required (change)="loadTypes();">
+                                <option [value]="selectUndefinedOptionValue">SELECT TYPE</option>
+                                <option [ngValue]="leaveTypeMasterOption.id === leaveMaster.leaveTypeMaster?.id ? leaveMaster.leaveTypeMaster : leaveTypeMasterOption" *ngFor="let leaveTypeMasterOption of leavetypemasters; trackBy: trackLeaveTypeMasterById">{{leaveTypeMasterOption.leaveName}}-{{leaveTypeMasterOption.leaveCode}}</option>
+                            </select>
+                            <div [hidden]="!(editForm.controls.leaveTypeMaster?.dirty && editForm.controls.leaveTypeMaster?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.leaveTypeMaster?.errors?.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row card-margin-bottom-10" *ngIf="leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode === 'CO'">
+                        <div class="col-md-2"><label class="form-control-label" for="field_compOffLeave">Comp Off</label></div>
+                        <div class="col-md-10">
+                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_compOffLeave" name="compOffLeave" [(ngModel)]="leaveMaster.compOffMasterId" required (change)="compOff();">
+                                <option [ngValue]="undefined">SELECT DATE</option>
+                                <option *ngFor="let compOffLeaveOption of compOffLeaves;" [value]="compOffLeaveOption.id">{{compOffLeaveOption.compOffDateView}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-2"><label class="form-control-label" for="field_leaveSubTypeMaster">Full Day/ Half Day</label></div>
+                        <div class="col-md-4">
+                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_leaveSubTypeMaster" name="leaveSubTypeMaster" [(ngModel)]="leaveMaster.leaveSubTypeMaster" required (change)="changeDateSetting(leaveMaster.leaveSubTypeMaster);" [disabled]="isSubTypeDisabled">
+                                <option *ngIf="!editForm.value.leaveSubTypeMaster" [ngValue]="null" selected></option>
+                                <option [ngValue]="leaveSubTypeMasterOption.id === leaveMaster.leaveSubTypeMaster?.id ? leaveMaster.leaveSubTypeMaster : leaveSubTypeMasterOption"
+                                        *ngFor="let leaveSubTypeMasterOption of leavesubtypemasters; trackBy: trackLeaveSubTypeMasterById">{{leaveSubTypeMasterOption.subTypeName}}</option>
+                            </select>
+                            <div [hidden]="!(editForm.controls.leaveSubTypeMaster?.dirty && editForm.controls.leaveSubTypeMaster?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.leaveSubTypeMaster?.errors?.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="leaveMaster.leaveTypeMaster && (leaveMaster.leaveTypeMaster.leaveCode=='CL' || leaveMaster.leaveTypeMaster.leaveCode=='SL' || leaveMaster.leaveTypeMaster.leaveCode=='EL' || leaveMaster.leaveTypeMaster.leaveCode=='CO')">
+                            <div class="col-md-2"><label class="form-control-label" for="balance">Balance</label></div>
+                            <div class="col-md-4"><input type="text" class="form-control form-control-sm" name="balance" id="balance" readonly value="{{balance}}"></div>
+                        </ng-container>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"><label class="form-control-label" for="field_leaveDateFrom">Date From</label></div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm">
+                                        <input [owlDateTime]="leaveFrom" name="leaveDateFrom" id="field_leaveDateFrom" placeholder="Date From" class="form-control form-control-sm" required [(ngModel)]="leaveDateFrom" (dateTimeInput)="changeDate(leaveMaster.leaveSubTypeMaster);">
+                                        <div class="input-group-append input-group-append-top">
+                                            <div class="btn btn-blush" [owlDateTimeTrigger]="leaveFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                        </div>
+                                    </div>
+                                    <owl-date-time [pickerType]="'calendar'" #leaveFrom></owl-date-time>
+                                    <div [hidden]="!(editForm.controls.leaveDateFrom?.dirty && editForm.controls.leaveDateFrom?.invalid)">
+                                        <small class="form-text text-danger" [hidden]="!editForm.controls.leaveDateFrom?.errors?.required">
+                                            This field is required.
+                                        </small>
+                                        <small class="form-text text-danger" [hidden]="!editForm.controls.leaveDateFrom?.errors?.ZonedDateTimelocal">
+                                            This field should be a date and time.
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <input [owlDateTime]="timeFrom" [owlDateTimeTrigger]="timeFrom"  name="leaveTimeFrom" id="field_leaveTimeFrom" class="form-control form-control-sm" maxlength="5" [(ngModel)]="leaveTimeFrom" [disabled]="isTimeDisabled && inTimeDisabled">
+                                    <owl-date-time #timeFrom [pickerType]="'timer'"></owl-date-time>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2"><label class="form-control-label" for="field_leaveDateTo">Date To</label></div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm">
+                                        <input [owlDateTime]="leaveTo" name="leaveDateTo" id="field_leaveDateTo" placeholder="Date To" class="form-control form-control-sm" required [(ngModel)]="leaveDateTo" [disabled]="isLeaveDateTo">
+                                        <div class="input-group-append input-group-append-top">
+                                            <div class="btn btn-blush" [owlDateTimeTrigger]="leaveTo"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                        </div>
+                                    </div>
+                                    <owl-date-time [pickerType]="'calendar'" #leaveTo></owl-date-time>
+                                    <div [hidden]="!(editForm.controls.leaveDateTo?.dirty && editForm.controls.leaveDateTo?.invalid)">
+                                        <small class="form-text text-danger" [hidden]="!editForm.controls.leaveDateTo?.errors?.required">
+                                            This field is required.
+                                        </small>
+                                        <small class="form-text text-danger" [hidden]="!editForm.controls.leaveDateTo?.errors?.ZonedDateTimelocal">
+                                            This field should be a date and time.
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <input [owlDateTime]="timeTo" [owlDateTimeTrigger]="timeTo"  name="leaveTimeTo" id="field_leaveTimeTo" class="form-control form-control-sm" maxlength="5" [(ngModel)]="leaveTimeTo" [disabled]="isTimeDisabled && outTimeDisabled">
+                                    <owl-date-time #timeTo [pickerType]="'timer'"></owl-date-time>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-2"><label class="form-control-label" for="field_reason">Reason</label></div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control form-control-sm" name="reason" id="field_reason" [(ngModel)]="leaveMaster.reason" required maxlength="500" [readonly]="leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode === 'CO'"/>
+                        </div>
+                    </div>
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-2"><label class="form-control-label" for="field_hodApprovedBy">Approved By</label></div>
+                        <div class="col-md-10">
+                            <select class="form-control form-control-sm custom-select custom-select-sm" name="hodApprovedBy" id="field_hodApprovedBy" [(ngModel)]="leaveMaster.hodApprovedBy" required>
+                                <option *ngIf="hodEmployeeView" [value]="hodEmployeeView.login | lowercase">{{hodEmployeeView.name}}</option>
+                            </select>
+                            <div [hidden]="!(editForm.controls.hodApprovedBy?.dirty && editForm.controls.hodApprovedBy?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.hodApprovedBy?.errors?.maxlength">
+                                    This field cannot be longer than 50 characters.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row card-margin-bottom-10" *ngIf="leaveMaster.mobileAttendances">
+                        <div class="col-md-2"><label class="form-control-label" for="field_reason">Locations</label></div>
+                        <div class="col-md-10">
+                            <div class="row">
+                                <ng-container *ngFor="let mobileAttendance of leaveMaster.mobileAttendances">
+                                    <div class="col-md-1">
+                                        <fa-icon [icon]="'map-marker-alt'" (click)="maps(mobileAttendance);" style="cursor: pointer;"></fa-icon>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round" (click)="previousState()">
+                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                            </button>
+                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
+                                    class="btn btn-sm btn-blush btn-round">
+                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                            </button>
+                        </div>
+                        <div class="col-md-6 text-right" *ngIf="leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode === 'OD'">
+                            <button type="button" id="attach-save" class="btn btn-sm btn-info btn-round" (click)="openAttach()">
+                                <fa-icon [icon]="'paperclip'"></fa-icon>&nbsp;<span>Attach</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

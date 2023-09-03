@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Recruitment State Master</span> {{recruitmentStateMaster.id}}</h5>
+        <hr>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="recruitmentStateMaster">
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Code</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{recruitmentStateMaster.code}}</span></dd>
+                        </div>
+                        <div class="col-md-3"><dt><span>Description</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{recruitmentStateMaster.description}}</span></dd>
+                        </div>
+                        <div class="col-md-3"><dt><span>Country</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{recruitmentStateMaster.recruitmentCountryMaster?.description}}</span></dd>
+                        </div>
+                        <div class="col-md-3"><dt><span>status</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span *ngIf="recruitmentStateMaster.status=='Y'">Active</span>
+                                <span *ngIf="recruitmentStateMaster.status=='N'">Inactive</span>
+                            </dd>
+                        </div>
+                        <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-sm btn-info btn-round">
+                            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                        </button>
+                        <button type="button"
+                            [routerLink]="['/recruitment-state-master', recruitmentStateMaster.id, 'edit']"
+                            class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

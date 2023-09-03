@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity PollMaster.
+    -->
+    <changeSet id="20190104041318-1" author="jhipster">
+        <createTable tableName="poll_master">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="poll_text" type="varchar(2000)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="end_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="flag" type="varchar(1)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="mail_flag" type="boolean">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="notification_flag" type="boolean">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_date" type="datetime">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="approved_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="approved_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="poll_master_seq" incrementBy="1" cycle="false"/>
+        <createProcedure dbms="postgresql" relativeToChangelogFile="true" procedureName="poll_master_procedure1" encoding="utf8" catalogName="poll_master_catalog1"> CREATE OR REPLACE FUNCTION poll_master_function() RETURNS "trigger" AS $BODY$ BEGIN New.id:=nextval('poll_master_seq'); Return NEW; END; $BODY$ LANGUAGE 'plpgsql' VOLATILE; </createProcedure>
+        <createProcedure dbms="postgresql" relativeToChangelogFile="true" procedureName="poll_master_procedure2" encoding="utf8" catalogName="poll_master_catalog2"> CREATE TRIGGER poll_master_trigger BEFORE INSERT ON poll_master FOR EACH ROW EXECUTE PROCEDURE poll_master_function(); </createProcedure>
+
+        <dropDefaultValue tableName="poll_master" columnName="end_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="poll_master" columnName="created_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="poll_master" columnName="approved_date" columnDataType="datetime"/>
+        
+        <createTable tableName="poll_master_factory_master">
+            <column name="factory_masters_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="poll_masters_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="poll_masters_id, factory_masters_id" tableName="poll_master_factory_master"/>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

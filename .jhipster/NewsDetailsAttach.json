@@ -1,0 +1,56 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [{
+        "relationshipName": "attachNewsDetails",
+        "otherEntityName": "newsDetails",
+        "relationshipType": "many-to-one",
+        "relationshipValidateRules": [
+            "required"
+        ],
+        "otherEntityField": "id"
+    }],
+    "fields": [
+        {
+            "fieldName": "attachFile",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "100"
+        },
+        {
+            "fieldName": "attachDisplayFile",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "100"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20181229070203",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "news_details_attach",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

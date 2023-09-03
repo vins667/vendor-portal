@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-header">
+        <h5 id="page-heading">
+            <span>Form 16</span>
+        </h5>
+    </div>
+    <div class="card-body">
+        <br/>
+        <button class="btn btn-sm btn-info btn-round w-100" type="button" (click)="generateReport(2223)" [disabled]="isDownloading">
+            <fa-icon [icon]="'download'"></fa-icon>
+            <span> Download Form 16 <br>Assessment year 2022-23</span>
+        </button>
+        <br/>
+        <br/>
+        <button class="btn btn-sm btn-info btn-round w-100" type="button" (click)="generateReport(2324)" [disabled]="isDownloading">
+            <fa-icon [icon]="'download'"></fa-icon>
+            <span> Download Form 16 <br>Assessment year 2023-24</span>
+        </button>
+        <br/>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

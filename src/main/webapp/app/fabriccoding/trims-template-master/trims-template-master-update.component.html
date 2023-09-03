@@ -1,0 +1,137 @@
+<div class="card">
+    <div class="body">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h5 id="jhi-trims-template-master-heading">Create or edit a Trims Template Master</h5>
+            <hr />
+            <div class="row">
+                <div class="col-10">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!trimsTemplateMaster.id">
+                            <div class="col-md-1">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-11">
+                                <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="trimsTemplateMaster.id" readonly />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-1">
+                                <label class="form-control-label form-control-sm" for="field_accessoriesCode">Code</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control form-control-sm" name="accessoriesCode" id="field_accessoriesCode" [(ngModel)]="trimsTemplateMaster.accessoriesCode" required />
+                                <div
+                                    [hidden]="!(editForm.controls.accessoriesCode?.dirty && editForm.controls.accessoriesCode?.invalid)">
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.accessoriesCode?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.accessoriesCode?.errors?.maxlength">
+                                        This field cannot be longer than 5 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="form-control-label" for="field_description">Description</label>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control form-control-sm" name="description" id="field_description" [(ngModel)]="trimsTemplateMaster.description" required />
+                                <div
+                                    [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.description?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.description?.errors?.maxlength">
+                                        This field cannot be longer than 100 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-12">
+                                <table class="table table-sm table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="align-middle"><span>Specification</span></th>
+                                            <th class="align-center align-middle"><span>Required</span></th>
+                                            <th class="align-center align-middle"><span>Display</span></th>
+                                            <th class="align-middle"><span>Field Type</span></th>
+                                            <th class="align-middle"><span>Values</span><span class="font-italic" style="font-size: 10px;">(Seperate by comma)</span></th>
+                                            <th class="button-column">
+                                                <fa-icon [icon]="'plus-circle'" style="cursor: pointer" (click)="addRow();"></fa-icon>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container
+                                            *ngFor="let trimsTemplateDetail of trimsTemplateMaster.trimsTemplateDetails; let index = index;">
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm text-uppercase" name="specificationCode_{{index}}" id="field_specificationCode_{{index}}"
+                                                        [(ngModel)]="trimsTemplateDetail.specification" [required]="(trimsTemplateMaster.id ? 'true' : 'false')" /></td>
+                                                <td class="align-center align-middle">
+                                                    <input type="checkbox" style="width: 15px; height: 15px;" name="required_{{index}}" id="field_required_{{index}}" [(ngModel)]="trimsTemplateDetail.required" />
+                                                </td>
+                                                <td class="align-center align-middle">
+                                                    <input type="checkbox" style="width: 15px; height: 15px;" name="display_{{index}}" id="field_display_{{index}}" [(ngModel)]="trimsTemplateDetail.display" />
+                                                </td>
+                                                <td>
+                                                    <select class="form-control form-control-sm custom-select custom-select-sm" name="fieldType_{{index}}" id="field_fieldType_{{index}}"
+                                                        [(ngModel)]="trimsTemplateDetail.fieldType" (change)="selected(index)" [required]="(trimsTemplateDetail.id || trimsTemplateDetail.specification ? 'true' : 'false')">
+                                                        <option value="T">TEXTFIELD</option>
+                                                        <option value="D">DROPDOWN</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm" name="fieldValue_{{index}}" id="field_fieldValue_{{index}}" [(ngModel)]="trimsTemplateDetail.fieldValue"
+                                                        [readOnly]="'true'" [required]="(trimsTemplateDetail.fieldType && trimsTemplateDetail.fieldType==='D'? 'true' : 'false')" />
+                                                </td>
+                                                <td class="button-column">
+                                                    <!--fa-icon *ngIf="templateMasterDetail.fieldType && templateMasterDetail.fieldType==='D'" (click)="viewRow(index)" [icon]="'eye'" style="cursor: pointer;" class="text-info"></fa-icon-->
+                                                    <fa-icon [icon]="'plus-circle'" *ngIf="!trimsTemplateDetail.expend && trimsTemplateDetail.fieldType && trimsTemplateDetail.fieldType==='D'" class="text-success"
+                                                        style="font-size: 15px; cursor: pointer;" (click)="expand(trimsTemplateDetail, true , index);">
+                                                    </fa-icon>
+                                                    <fa-icon [icon]="'minus-circle'"
+                                                             *ngIf="trimsTemplateDetail.expend && trimsTemplateDetail.fieldType && trimsTemplateDetail.fieldType==='D'" class="text-danger" style="font-size: 15px; cursor: pointer;" (click)="expand(trimsTemplateDetail, false, index);"></fa-icon>
+                                                    <fa-icon (click)="removeRow(index)" [icon]="'trash-alt'"
+                                                        style="cursor: pointer;" class="text-danger"></fa-icon>
+                                                </td>
+                                            </tr>
+                                            <tr class="bg-white" *ngIf="trimsTemplateDetail.expend">
+                                                <td colspan="3" class="text-black font-bold text-right">
+                                                    DROPDOWN Values&nbsp;
+                                                </td>
+                                                <td colspan="4">
+                                                    <div class="row">
+                                                        <div class="col-md-4" *ngFor="let trimtemplateMasterBreakup of trimsTemplateDetail.trimTemplateDetailsBreakup; let index1 = index;">
+                                                            <div class="input-group input-group-sm">
+                                                                <input type="text" class="form-control form-control-sm text-uppercase" [(ngModel)]="trimtemplateMasterBreakup.description" name="description_{{index}}_{{index1}}" id="field_testDescription_{{index}}_{{index1}}" (keyup)="getTotalDetails(trimsTemplateDetail);" />
+                                                                <div class="input-group-append input-group-append-top">
+                                                                    <button type="button" class="btn btn-sm btn-blush" (click)="removeText(index, index1);"><fa-icon [icon]="'times'"></fa-icon></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2"><fa-icon [icon]="'plus-circle'" class="text-success" style="font-size: 15px; cursor: pointer;" (click)="addColumn(index);"></fa-icon></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"
+                    (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
+                    class="btn btn-sm btn-blush btn-round">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

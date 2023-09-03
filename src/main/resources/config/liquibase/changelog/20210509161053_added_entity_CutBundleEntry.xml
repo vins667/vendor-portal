@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <!--
+        Added the entity CutBundleEntry.
+    -->
+    <changeSet id="20210509161053-1" author="jhipster">
+        <createTable tableName="cut_bundle_entry">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="porduction_counter_code" type="varchar(10)">
+                <constraints nullable="false" />
+            </column>
+            <column name="production_code" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            <column name="plant_code" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            <column name="style" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            <column name="color" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            <column name="size" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            <column name="bundle_size" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="bundle_pcs" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="save_flag" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="createdby" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="createddate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="lastupdatedby" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="lastupdateddate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="cut_bundle_entry_seq" incrementBy="1" cycle="false"/>
+        <dropDefaultValue tableName="cut_bundle_entry" columnName="createddate" columnDataType="datetime"/>
+        <dropDefaultValue tableName="cut_bundle_entry" columnName="lastupdateddate" columnDataType="datetime"/>
+    </changeSet>
+</databaseChangeLog>

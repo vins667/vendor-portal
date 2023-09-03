@@ -1,0 +1,46 @@
+<div align="center" class="centered" *ngIf="isWait">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm"
+      enctype="multipart/form-data">
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6"><h5 id="jhi-gst-reconciliation-upload-heading">GST Reconciliation Upload</h5></div>
+            <div class="col-md-6 text-right">
+                <button type="button" class="btn btn-sm btn-secondary btn-round float-right" (click)="download();">
+                    <fa-icon [icon]="'download'"></fa-icon>
+                    Download Sample
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="isSaving"
+                        class="btn btn-sm btn-blush btn-round">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body">
+            <div class="uploadfilecontainer" (click)="fileInput.click()" jhiAppDragDropBankReco
+                 (onFileDropped)="uploadFile($event)">
+                <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+            </div>
+            <div class="row" style="margin-top: -80px; position: relative;">
+                <div class="col-md-12 text-center">
+                    <h1>Drop File to upload or click</h1>
+                </div>
+            </div>
+            <div class="files-list" *ngFor="let file of files;let i=index">
+                <p>{{ file }}</p>
+                <button class="delete-file" (click)="deleteAttachment(i)">
+                    <fa-icon [icon]="'trash-alt'"></fa-icon>
+                </button>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+            </div>
+    </div>
+</div>
+</form>
+<ng-snotify></ng-snotify>

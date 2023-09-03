@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity WorkerJoinFlowMaster.
+    -->
+    <changeSet id="20190319054334-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="worker_forward_type_master_id"
+                                 baseTableName="worker_join_flow_master"
+                                 constraintName="fk_worker_join_flow_master_worker_forward_type_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="worker_forward_type_master"/>
+
+    </changeSet>
+</databaseChangeLog>

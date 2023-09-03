@@ -1,0 +1,136 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Leave Hr Entry</span>
+                <button id="jh-create-entity" class="btn btn-sm btn-round btn-blush float-right jh-create-entity create-leave-entry-hr" [routerLink]="['/leave-entry-hr/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span >New</span>
+                </button>
+            </h5>
+            <div class="row">
+                <div class="col-md-12">&nbsp;</div>
+            </div>
+            <div class="row">
+                <div class="col-md-11">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label class="form-control-label">Applied Date From</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="input-group input-group-sm">
+                                        <input [owlDateTime]="leaveFrom" name="leaveDateFrom" id="field_leaveDateFrom" placeholder="Date From" class="form-control form-control-sm" required [(ngModel)]="leaveDateFrom">
+                                        <div class="input-group-append input-group-append-top">
+                                            <div class="btn btn-blush" [owlDateTimeTrigger]="leaveFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                        </div>
+                                    </div>
+                                    <owl-date-time [pickerType]="'calendar'" #leaveFrom></owl-date-time>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label class="form-control-label">Applied Date To</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="input-group input-group-sm">
+                                        <input [owlDateTime]="leaveTo" name="leaveDateTo" id="field_leaveDateTo" placeholder="Date To" class="form-control form-control-sm" required [(ngModel)]="leaveDateTo">
+                                        <div class="input-group-append input-group-append-top">
+                                            <div class="btn btn-blush" [owlDateTimeTrigger]="leaveTo"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                        </div>
+                                    </div>
+                                    <owl-date-time [pickerType]="'calendar'" #leaveTo></owl-date-time>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label class="form-control-label">Employee Code</label>
+                                </div>
+                                <div class="col-md-7"><input type="text" name="empCode" class="form-control form-control-sm" placeholder="Enter Employee Code" [(ngModel)]="leavesearch.empCode"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1 text-right" style="margin-left: -20px;">
+                    <button type="button" class="btn btn-sm btn-round btn-blush" style="margin-top: 0;" (click)="search()"><fa-icon [icon]="'search'"></fa-icon><span> Search</span></button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="leaveTypeMaster.id"><span>Leave Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="leaveSubTypeMaster.id"><span>Full/Half Day</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="leaveDateFrom"><span>Date From</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="leaveDateTo"><span>Date To</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="reason"><span>Reason</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="flag"><span>Flag</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ng-container *ngIf="leaveEntryHrs">
+                        <tr *ngFor="let leaveMaster of leaveEntryHrs ;trackBy: trackId">
+                            <td>{{leaveMaster.id}}</td>
+                            <td>
+                                <div *ngIf="leaveMaster.leaveTypeMaster">{{leaveMaster.leaveTypeMaster?.leaveName}}</div>
+                            </td>
+                            <td>
+                                <div *ngIf="leaveMaster.leaveSubTypeMaster && leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode !== 'SP'">{{leaveMaster.leaveSubTypeMaster?.subTypeName}}</div>
+                            </td>
+                            <td>
+                                <ng-container *ngIf="leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode === 'SP'">
+                                    <span [class.text-danger]="leaveMaster.missPunchType && (leaveMaster.missPunchType ==='F' || leaveMaster.missPunchType ==='A')" [class.font-weight-bold]="leaveMaster.missPunchType && (leaveMaster.missPunchType ==='F' || leaveMaster.missPunchType ==='A')">{{leaveMaster.leaveDateFrom | date:'dd-MM-yyyy'}} {{leaveMaster.leaveTimeFrom | date:'HH:mm'}}</span>
+                                </ng-container>
+                                <ng-container *ngIf="leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode !== 'SP'">{{leaveMaster.leaveDateFrom | date:'dd-MM-yyyy'}} {{leaveMaster.leaveTimeFrom | date:'HH:mm'}}</ng-container>
+                            </td>
+                            <td>
+                                <ng-container *ngIf="leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode === 'SP'">
+                                    <span [class.text-danger]="leaveMaster.missPunchType && (leaveMaster.missPunchType ==='S' || leaveMaster.missPunchType ==='A')" [class.font-weight-bold]="leaveMaster.missPunchType && (leaveMaster.missPunchType ==='S' || leaveMaster.missPunchType ==='A')">{{leaveMaster.leaveDateTo | date:'dd-MM-yyyy'}} {{leaveMaster.leaveTimeTo | date:'HH:mm'}}</span>
+                                </ng-container>
+                                <ng-container *ngIf="leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode !== 'SP'">
+                                    {{leaveMaster.leaveDateTo | date:'dd-MM-yyyy'}} {{leaveMaster.leaveTimeTo | date:'HH:mm'}}
+                                </ng-container>
+                            </td>
+                            <td>{{leaveMaster.reason}}</td>
+                            <td><ng-container *ngIf="leaveMaster.flag=='E'">Pending</ng-container><ng-container *ngIf="leaveMaster.flag=='A'">Approved By HOD</ng-container><ng-container *ngIf="leaveMaster.flag=='C'">Approved By HR</ng-container><ng-container *ngIf="leaveMaster.flag=='R'">Rejected</ng-container></td>
+                            <td class="text-right button-column">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit"
+                                            [routerLink]="['/leave-entry-hr', leaveMaster.id, 'view' ]"
+                                            class="btn btn-info btn-sm">
+                                        <fa-icon [icon]="'eye'"></fa-icon>
+                                        <span class="d-none d-md-inline">View</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/', 'leave-entry-hr', { outlets: { popup: leaveMaster.id + '/delete'} }]"
+                                            replaceUrl="true"
+                                            queryParamsHandling="merge"
+                                            class="btn btn-danger btn-sm">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                        <span class="d-none d-md-inline">Delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="leaveEntryHrs && leaveEntryHrs.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

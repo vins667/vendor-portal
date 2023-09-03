@@ -1,0 +1,167 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-conveyance-master-heading">Conveyance Master</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-12">
+               <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm" enctype="multipart/form-data">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!conveyanceMasters.id">
+                            <div class="col-md-2">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="conveyanceMasters.id"  readonly />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_conveyanceDate">Conveyance Date</label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-group input-group-sm">
+                                    <input [owlDateTime]="leaveFrom" name="conveyanceDate" id="field_conveyanceDate" placeholder="Date From" class="form-control form-control-sm" [(ngModel)]="conveyanceDate" required [max]="conveyanceMasters.id === null ? maxDate:maxDate" [disabled]="conveyanceMasters.id">
+                                    <div class="input-group-append input-group-append-top">
+                                        <div class="btn btn-blush" [owlDateTimeTrigger]="leaveFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                    </div>
+                                </div>
+                                <owl-date-time [pickerType]="'calendar'" #leaveFrom></owl-date-time>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_conveyanceType">Conveyance Type</label>
+                            </div>
+                            <div class="col-md-2">
+                                <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="conveyanceType" id="field_conveyanceType" [(ngModel)]="conveyanceMasters.conveyanceType" required>
+                                    <option value="O">Owned</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_conveyanceType">Vehicle Type</label>
+                            </div>
+                            <div class="col-md-2">
+                                <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="vehicleType" id="field_vehicleType" [(ngModel)]="conveyanceMasters.vehicleType" required [disabled]="conveyanceMasters.flag && conveyanceMasters.flag!=='E'" (change)="changeRateMaster();">
+                                    <option value="T">Two Wheeler</option>
+                                    <option value="F">Four Wheeler</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <fieldset class="scheduler-border-margin">
+                                    <legend class="scheduler-border">Vehicle Details:</legend>
+                                    <div class="row gutters-2">
+                                        <div class="col-md-3">
+                                            <label class="form-control-label" for="field_vehicleNo">Vehicle No</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-control-label" for="field_totalDistance">Total Distance</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-control-label" for="field_rate">Rate</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-control-label" for="field_totalAmount">Total Amount</label>
+                                        </div>
+                                    </div>
+                                    <div class="row gutters-2">
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control form-control-sm text-uppercase" name="vehicleNo" id="field_vehicleNo" [(ngModel)]="conveyanceMasters.vehicleNo"  required/>
+                                        </div>
+                                          <div class="col-md-3">
+                                                <input type="number" class="form-control form-control-sm" name="totalDistance" id="field_totalDistance"  [(ngModel)]="conveyanceMasters.totalDistance" readonly/>
+                                            </div>
+
+                                        <div class="col-md-3">
+                                             <input type="number" class="form-control form-control-sm" name="rate" id="field_rate"  [(ngModel)]="conveyanceMasters.rate"  readonly/>
+                                        </div>
+
+                                           <div class="col-md-3">
+                                                <input type="number" class="form-control form-control-sm" name="totalAmount" id="field_totalAmount"  [(ngModel)]="conveyanceMasters.totalAmount" readonly/>
+                                            </div>
+                                    </div>
+                                    <div class="row gutters-2">
+                                        <div class="col-md-4">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-control-label"></label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset class="scheduler-border-margin">
+                                    <legend class="scheduler-border">Trips</legend>
+                                    <div class="row gutters-2">
+                                        <div class="col-md-12">
+                                            <table class="table table-sm table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th><span>From Location</span></th>
+                                                    <th><span>To Location</span></th>
+                                                    <th style="width: 100px;"><span>Trip Start</span></th>
+                                                    <th style="width: 100px;"><span>Trip End</span></th>
+                                                    <th style="width: 100px;"><span>Misc Amount<span style="color: red; font-weight: bold; cursor: pointer;" title="Tolls etc..">*</span></span></th>
+                                                    <th style="width: 200px;"><span>Reason</span></th>
+                                                    <th style="width: 130px;"><span>Attachment</span></th>
+                                                    <th class="button-column" *ngIf="!conveyanceMasters.approvedDate"><fa-icon [icon]="'plus-circle'" style="color: #00FF00; cursor: pointer;" (click)="addRow();"></fa-icon></th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let conveyanceMasterDetail of conveyanceMasters.conveyanceMasterDetails; let index = index;">
+                                                        <td><input type="text" class="form-control form-control-sm text-uppercase" name="fromLocation_{{index}}" id="field_fromLocation_{{index}}"  [(ngModel)]="conveyanceMasterDetail.fromLocation" [required]="index===0" maxlength="500"/></td>
+                                                        <td><input type="text" class="form-control form-control-sm text-uppercase" name="toLocation_{{index}}" id="field_toLocation_{{index}}"  [(ngModel)]="conveyanceMasterDetail.toLocation" [required]="conveyanceMasterDetail.fromLocation" maxlength="500"/></td>
+                                                        <td><input type="number" class="form-control form-control-sm" name="tripStart_{{index}}" id="field_tripStart"  [(ngModel)]="conveyanceMasterDetail.tripStart" [required]="conveyanceMasterDetail.fromLocation" min="1" oninput="this.value = Math.abs(Number(this.value))"/></td>
+                                                        <td><input type="number" class="form-control form-control-sm" name="tripEnd_{{index}}" id="field_tripEnd_{{index}}"  [(ngModel)]="conveyanceMasterDetail.tripEnd" (change)= "getTotalDistance(index);" [required]="conveyanceMasterDetail.fromLocation" min="1" oninput="this.value = Math.abs(this.value)"/></td>
+                                                        <td><input type="number" class="form-control form-control-sm" name="miscAmount_{{index}}" id="field_miscAmount_{{index}}"  [(ngModel)]="conveyanceMasterDetail.miscAmount" oninput="this.value = Math.abs(this.value)" (change)= "getTotalDistance(index);"/></td>
+                                                        <td><input type="text" class="form-control form-control-sm text-uppercase" name="reason_{{index}}" id="field_reason_{{index}}"  [(ngModel)]="conveyanceMasterDetail.reason" [required]="conveyanceMasterDetail.fromLocation" maxlength="1000"/></td>
+                                                        <td><input type="file" class="form-control-file" id="field_file_{{index}}" style="padding-top: 5px;" (change)="selectFile($event,index)" accept="application/pdf"/></td>
+                                                        <td *ngIf="conveyanceMasterDetail.attachDisplayFile" class="button-column"><fa-icon [icon]="'download'" style="color: #00FF00;cursor: pointer;" (click)="download(conveyanceMasterDetail);"></fa-icon></td>
+                                                        <td class="button-column" *ngIf="!conveyanceMasters.approvedDate"><fa-icon (click)="removeRow(index)" [icon]="'trash-alt'" style="cursor: pointer;" class="text-danger"></fa-icon></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10" *ngIf="!conveyanceMasters.approvedDate">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_approvedBy">Approved By</label>
+                            </div>
+                            <div class="col-md-10">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" name="approvedBy" id="field_approvedBy" [(ngModel)]="conveyanceMasters.approvedBy" required>
+                                    <option *ngIf="hodEmployeeView" [value]="hodEmployeeView.login | lowercase">{{hodEmployeeView.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10" *ngIf="conveyanceMasters.approvedDate">
+                            <div class="col-md-12">
+                                <span  style="font-size:20px;font-weight: bold">Status : </span>
+                                <span *ngIf="conveyanceMasters.flag==='A'" style="color:green; font-size:20px; font-weight: bold;">Approved By HOD</span>
+                                <span *ngIf="conveyanceMasters.flag==='C'" style="color:green; font-size:20px; font-weight: bold;">Approved By HR</span>
+                                <span *ngIf="conveyanceMasters.flag==='R' &&  !conveyanceMasters.hrApproved" style="color: red; font-size:20px; font-weight: bold;">Rejected By HOD</span>
+                                <span *ngIf="conveyanceMasters.flag=='P'" style="color:green; font-size:20px; font-weight: bold;">Processed For Payment</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" id="cancel-save" class="btn btn-sm btn-round btn-secondary"  (click)="previousState()">
+                                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                                </button>
+                                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving || conveyanceMasters.approvedDate" class="btn btn-sm btn-round btn-blush">
+                                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

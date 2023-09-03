@@ -1,0 +1,53 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Buyer Master</span> {{buyerMaster.id}}</h5>
+        <hr>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="buyerMaster">
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Buyer Code</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{buyerMaster.buyerCode}}</span></dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Buyer Name</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{buyerMaster.buyerName}}</span></dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Contact No</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{buyerMaster.contactNo}}</span></dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Email Id</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{buyerMaster.emailId}}</span></dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Address</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{buyerMaster.address}}</span></dd>
+                        </div>
+                    </div>
+                    <button type="submit"
+                        (click)="previousState()"
+                         class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                         [routerLink]="['/buyer-master', buyerMaster.id, 'edit']"
+                         class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,447 @@
+<div align="center" class="centered" *ngIf="isSaving">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm" xmlns:trackBy="http://www.w3.org/1999/xhtml">
+    <div class="card">
+        <div class="card-header body pb-1">
+            <div class="row">
+                <div class="col-md-7">
+                    <h6 id="jhi-payment-request-form-heading" data-cy="PaymentRequestFormUpdateHeading">Create or edit a Payment Request Form</h6>
+                </div>
+                <div class="col-md-5">
+                    <div class="text-right">
+                        <button type="button" id="cancel-save" class="m-0 btn btn-xs btn-secondary btn-round" (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" *ngIf="currentAccount && paymentRequestFormDetail && currentAccount.login === paymentRequestFormDetail.empCode" [disabled]="editForm.invalid || isSaving" class="btn btn-xs btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body body">
+            <div class="row mb-1">
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_company">Company</label>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="company"
+                            id="field_company" formControlName="company"
+                            (change)="fetchDivision(); fetchBusinessUnit();"
+                            [attr.disabled]="this.editForm && this.editForm.controls['id'].value ? true : null">
+                        <option [value]="'undefined'">Select Company</option>
+                        <option [value]="companyOption.code"
+                                *ngFor="let companyOption of companies;">{{companyOption.code + '-' + companyOption.longdescription}}</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_division">Division</label>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="division"
+                            id="field_division" formControlName="division" (change)="fetchBusinessUnit()"
+                            [attr.disabled]="this.editForm && this.editForm.controls['id'].value ? true : null">
+                        <option [value]="'undefined'">Select Division</option>
+                        <option [value]="divisionOption.id.code"
+                                *ngFor="let divisionOption of divisions;">{{divisionOption.id.code + '-' + divisionOption.longdescription}}</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_businessunitcode">Business&nbsp;Units</label>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="businessunitcode"
+                            id="field_businessunitcode" formControlName="businessunitcode"
+                            [attr.disabled]="this.editForm && this.editForm.controls['id'].value ? true : null">
+                        <option [value]="'undefined'">Select Business Unit</option>
+                        <option [value]="finbusinessunitOption.id.code"
+                                *ngFor="let finbusinessunitOption of finbusinessunits;">{{finbusinessunitOption.id.code + '-' + finbusinessunitOption.longdescription}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1">
+                    <label class="form-control-label">Payment&nbsp;Request</label>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="paymentType" id="field_paymentType" formControlName="paymentType"
+                            [attr.disabled]="this.editForm && this.editForm.controls['id'].value ? true : null">
+                        <option value="PO">Payment Request For PO</option>
+                        <option value="PI">Payment Request For PI</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_requestNo">Request&nbsp;No</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs text-uppercase" name="id" id="field_requestNo" formControlName="id" readonly/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_requestDate">Request&nbsp;Date</label>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group input-group-sm m-0">
+                        <input [owlDateTime]="requestDateFrom" name="requestDate" id="field_requestDate" formControlName="requestDate" placeholder="Date" class="form-control form-control-xs" required readonly>
+                        <div class="input-group-append input-group-append-top m-0">
+                            <button class="btn btn-blush form-control-xs my-0" [owlDateTimeTrigger]="requestDateFrom" disabled>
+                                <span><fa-icon [icon]="'calendar'"></fa-icon></span>
+                            </button>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #requestDateFrom></owl-date-time>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1">
+                    <label class="form-control-label">Supplier</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs text-uppercase" name="supplierGstName" id="supplierGstName" formControlName="supplierGstName" readonly/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_supplierCode">Supplier&nbsp;Code</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs text-uppercase" name="supplierCode" id="field_supplierCode" formControlName="supplierCode" readonly/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_gstin">GSTN</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs text-uppercase" name="gstin" id="field_gstin" formControlName="gstin" readonly/>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_gstrFillingMonth">GSTR 1B </label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs text-uppercase" name="gstrFillingMonth" id="field_gstrFillingMonth" formControlName="gstrFillingMonth"/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_gstrBFilling">GSTR 3B </label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs text-uppercase" name="gstrBFilling" id="field_gstrBFilling" formControlName="gstrBFilling"/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_msmeNo">MSME No </label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs text-uppercase" name="msmeNo"
+                           id="field_msmeNo" formControlName="msmeNo" readonly/>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <ng-container *ngIf="editForm.controls['paymentType'].value === 'PO' || editForm.controls['paymentType'].value === 'PI'">
+                    <div class="col-md-1">
+                        <label class="form-control-label">PO No</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group m-0">
+                            <input type="text" name="poNo" id="poNo" formControlName="poNo" class="form-control form-control-xs" readonly>
+                            <div class="input-group-append">
+                                <select class="form-control form-control-xs custom-select custom-select-xs" name="requestType" id="field_requestType" formControlName="requestType" (change)="changeJobwork();" disabled>
+                                    <option value="P">PO</option>
+                                    <option value="J">JOBWORK</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-control-label" for="field_poDate">PO Date</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group input-group-sm m-0">
+                            <input [owlDateTime]="poDateFrom" name="poDate" id="field_poDate" formControlName="poDate"
+                                   placeholder="PO Date" class="form-control form-control-xs" readonly>
+                            <div class="input-group-append input-group-append-top m-0">
+                                <button class="btn btn-blush form-control-xs my-0" [owlDateTimeTrigger]="poDateFrom"
+                                        disabled><span><fa-icon [icon]="'calendar'"></fa-icon></span></button>
+                            </div>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #poDateFrom></owl-date-time>
+                    </div>
+                </ng-container>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_Paymenttermdesc">Payment&nbsp;Term</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="hidden" name="paymenttermdesc" class="form-control form-control-xs text-uppercase" id="field_paymenttermdesc" formControlName="paymenttermdesc"/>
+                    <select name="paymenttermcode" id="paymenttermcode" formControlName="paymenttermcode" class="form-control form-control-xs custom-select custom-select-xs">
+                        <option [value]="'undefined'">Select</option>
+                        <option *ngFor="let paymentmethod of paymentmethods" [value]="paymentmethod.id.code">{{paymentmethod.longdescription}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <ng-container *ngIf="editForm.controls['paymentType'].value === 'PI'">
+                    <div class="col-md-1">
+                        <label class="form-control-label" for="field_piNo">PI No</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" name="piNo" class="form-control form-control-xs text-uppercase"
+                               id="field_piNo"
+                               formControlName="piNo"/>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-control-label" for="field_piDate">PI Date</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group mb-0">
+                            <input type="text" class="form-control form-control-xs" [owlDateTime]="piDateFrom" formControlName="piDate"
+                                   name="piDate" id="field_piDate" placeholder="PI Date"/>
+                            <div class="input-group-append input-group-append-top">
+                                <button type="button" class="btn btn-xs btn-blush">
+                                    <fa-icon [icon]="'calendar'" [owlDateTimeTrigger]="piDateFrom"></fa-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #piDateFrom></owl-date-time>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-control-label" for="field_piBasic">PI Basic</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control form-control-xs text-uppercase text-right" name="piBasic" id="field_piBasic" formControlName="piBasic" [attr.disabled]="editForm.controls['countrycode'].value !== 'IND' ? true : null"/>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="row mb-1">
+                <ng-container *ngIf="editForm.controls['paymentType'].value === 'PI' && editForm.controls['countrycode'].value && editForm.controls['countrycode'].value !== 'IND'">
+                    <div class="col-md-1">
+                        <label class="form-control-label" for="field_piNo">Currency</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="currencycode" class="form-control form-control-xs custom-select custom-select-xs text-uppercase" id="field_currencycode" formControlName="currencycode" [required]="editForm.controls['countrycode'].value !== 'IND' ? true : null" (change)="fetchExchangeRate();">
+                            <option [value]="'undefined'">Select</option>
+                            <option value="EUR">Euro</option>
+                            <option value="GBP">GB Pound</option>
+                            <option value="USD">US Dollars</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-control-label" for="field_conversionRate">Conversion</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" name="conversionRate" class="form-control form-control-xs text-right" id="field_conversionRate" formControlName="conversionRate" readonly/>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-control-label" for="field_piAmount">PI&nbsp;Basic(Fore.)</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control form-control-xs text-uppercase text-right" name="piAmount" id="field_piAmount" formControlName="piAmount" (blur)="gstValueCalculation()"/>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="row mb-1">
+                <ng-container *ngIf="editForm.controls['paymentType'].value === 'PO'">
+                    <div class="col-md-1">
+                        <label class="form-control-label" for="field_poBasic">PO Basic</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control form-control-xs text-uppercase text-right" name="poBasic" id="field_poBasic" formControlName="poBasic" readonly/>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-control-label" for="field_poGst">PO GST</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control form-control-xs text-uppercase text-right" name="poGst" id="field_poGst" formControlName="poGst" readonly/>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-control-label" for="field_totalPoValue">Total&nbsp;PO&nbsp;Value</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control form-control-xs text-uppercase text-right" name="totalPoValue" id="field_totalPoValue" formControlName="totalPoValue" readonly/>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="editForm.controls['paymentType'].value === 'PI'">
+                    <div class="col-md-1">
+                        <label class="form-control-label" for="field_piGstPerc">PI GST Perc</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control form-control-xs custom-select text-uppercase" name="piGstPerc" id="field_piGstPerc" formControlName="piGstPerc" (change)="gstValueCalculation()" [attr.disabled]="editForm.controls['countrycode'].value !== 'IND' ? true : null">
+                            <option [value]="'undefined'">Select</option>
+                            <option value="5">5%</option>
+                            <option value="12">12%</option>
+                            <option value="18">18%</option>
+                            <option value="28">28%</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-control-label" for="field_piGst">PI GST</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control form-control-xs text-uppercase text-right" name="piGst" id="field_piGst" formControlName="piGst" readonly/>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-control-label" for="field_totalPiValue">Total&nbsp;PI&nbsp;Value</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control form-control-xs text-uppercase text-right" name="totalPiValue" id="field_totalPiValue" formControlName="totalPiValue" readonly/>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_paymentRelease">Payment&nbsp;Release</label>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs"
+                            name="paymentRelease"
+                            id="field_paymentRelease" formControlName="paymentRelease"
+                            (change)="calculateResultForm()">
+                        <option [value]="undefined">Select</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="60">60</option>
+                        <option value="70">70</option>
+                        <option value="80">80</option>
+                        <option value="90">90</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_freightRequired">Freight&nbsp;Required</label>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="freightRequired" id="field_freightRequired" formControlName="freightRequired">
+                        <option value="Y">Yes</option>
+                        <option value="N">No</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_freightValue">Freight&nbsp;Value</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs text-uppercase text-right" name="freightValue" id="field_freightValue" formControlName="freightValue" [required]="editForm.controls['freightRequired'].value === 'Y' ? true : null" [attr.disabled]="editForm.controls['freightRequired'].value === 'N' ? true : null"/>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_tdsType">TDS Type </label>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="tdsType" id="field_tdsType" formControlName="tdsType" (change)="calculateTdsValue()">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let tdsDetail of tdsDetails" [value]="tdsDetail.tdsiTexCode">
+                            {{ tdsDetail.tdsCode + ' (' + tdsDetail.value + ')' }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_tdsValue">TDS.Amount </label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs text-uppercase text-right" name="tdsValue" id="field_tdsValue" formControlName="tdsValue" readonly/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_outstandingAmount">Outstanding</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs text-right" name="outstandingAmount" id="field_outstandingAmount" formControlName="outstandingAmount" readonly/>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_requestAmount">Release&nbsp;Amt</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs text-right" name="requestAmount" id="field_requestAmount" formControlName="requestAmount" readonly/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_requestGst">Release&nbsp;GST&nbsp;Amt</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs text-right" name="requestGst" id="field_requestGst" formControlName="requestGst" readonly/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_totalReleaseAmount">Total&nbsp;Amount</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs text-right" name="totalReleaseAmount" id="field_totalReleaseAmount" formControlName="totalReleaseAmount" readonly/>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_gstr2a">GSTR 2A</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="gstr2a" id="field_gstr2a" formControlName="gstr2a">
+                        <option [value]="'undefined'">Select</option>
+                        <option value="N">NO</option>
+                        <option value="Y">YES</option>
+                    </select>
+                </div>
+                <div class="col-md-4" *ngIf="!editForm.controls['poNo'].value">&nbsp;</div>
+                <div class="col-md-1" *ngIf="editForm.controls['poNo'].value"><label class="form-control-label">PO Print</label></div>
+                <div class="col-md-3" *ngIf="editForm.controls['poNo'].value">
+                    <div class="input-group input-group-sm m-0">
+                        <select name="poType" id="poType" formControlName="potype" class="form-control form-control-xs custom-select custom-select-xs">
+                            <option value="PO_GENERAL">Purchase Order (General Item)</option>
+                            <option value="PO_FABRIC_ACC">Purchase Order (Fabric & Accessories)</option>
+                            <option value="PO_IMPORT">Purchase Order (Import)</option>
+                            <option value="PO_JOBWORK">Purchase Order (JOBWORK)</option>
+                        </select>
+                        <div class="input-group-append input-group-append-top m-0"><button type="button" name="downloadPO" id="downloadPO" class="btn btn-blush form-control-xs my-0" (click)="downloadReport()"><fa-icon [icon]="'download'"></fa-icon></button></div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_remarks">Remarks</label>
+                </div>
+                <div class="col-md-3">
+                    <textarea rows="2" type="text" class="form-control text-uppercase" name="remarks" id="field_remarks" formControlName="remarks">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="frame">
+                        <div class="content">
+                            <div class="messages">
+                                <ul>
+                                    <ng-container *ngFor="let paymentRequestFormDetail of paymentRequestFormDetails; let index = index;">
+                                        <li [class]="index%2 === 0 ? 'sent' : 'replies'">
+                                            <p *ngIf="paymentRequestFormDetail.forwardCode"><b>{{paymentRequestFormDetail.empName}}[{{paymentRequestFormDetail.createdDate | date:'dd-MM-yy'}}]: </b>{{paymentRequestFormDetail.remarks}}<br/> <span>{{paymentRequestFormDetail.flag === 'A' ? 'APPROVED' : paymentRequestFormDetail.flag === 'R' ? 'REJECTED' : 'FORWARD'}}</span></p>
+                                            <p *ngIf="!paymentRequestFormDetail.forwardCode" style="color: red;"><b>Pending with {{paymentRequestFormDetail.empName}}</b></p>
+                                        </li>
+                                    </ng-container>
+                                    <li [class]="'replies'" *ngIf="currentAccount && paymentRequestFormDetail && currentAccount.login !== paymentRequestFormDetail.empCode">
+                                        <p style="color: red;"><b>Pending with {{paymentRequestFormDetail.empName}}</b></p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="message-input" style="position: relative;height: 45px !important; background-color: #fff;" *ngIf="currentAccount && paymentRequestFormDetail && currentAccount.login === paymentRequestFormDetail.empCode">
+                                <div class="row pt-1 pl-1">
+                                    <div class="col-md-3">
+                                        <select name="forwardType" id="forwardType" class="form-control custom-select" [(ngModel)]="forwardType" [ngModelOptions]="{standalone: true}" (change)="queryByType();">
+                                            <option [value]="undefined">Select Type</option>
+                                            <option *ngFor="let forward of forwards" [value]="forward.code">{{forward.description}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select name="forwardCode" id="forwardCode" class="form-control custom-select" [(ngModel)]="forwardCode" [ngModelOptions]="{standalone : true}" (change)="chooseForward();">
+                                            <option [value]="undefined">Select Forward</option>
+                                            <option *ngFor="let paymentRequestForward of paymentRequestForwards" [value]="paymentRequestForward.forwardCode">{{paymentRequestForward.forwardName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="message-input" *ngIf="currentAccount && paymentRequestFormDetail && currentAccount.login === paymentRequestFormDetail.empCode">
+                                <div class="wrap">
+                                    <input type="text" name="remarks" id="remarks" [(ngModel)]="remarks" [ngModelOptions]="{standalone : true}" placeholder="Write your message..." />
+                                    <button type="button" class="submit" [disabled]="isSaving" (click)="forwardMessage()"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

@@ -1,0 +1,135 @@
+<div class="card">
+        <div class="body">
+                <h5><span>Asset Master</span> {{assetMaster.id}}</h5>
+            <hr>
+            <div class="row">
+                <div class="col-8">
+                    <div *ngIf="assetMaster">
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Asset Code</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{assetMaster.assetCode}}</span></dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Model</span></dt></div>
+                            <div class="col-md-9">
+                                 <dd><span>{{assetMaster.model}}</span></dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Asset Tag</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{assetMaster.assetTag}}</span></dd>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-md-3"><dt><span>Warranty Date</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{assetMaster.warrantyDate}}</span></dd>
+                            </div>
+                         </div>
+
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Po Number</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{assetMaster.poNumber}}</span></dd>
+                            </div>
+                        </div>]
+
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Invoice Number</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{assetMaster.invoiceNumber}}</span></dd>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Invoice Date</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{assetMaster.invoiceDate}}</span></dd>
+                            </div>
+                        </div>
+                        <!--div class="row">
+                            <div class="col-md-3"><dt><span>Location Name</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{assetMaster.locationName}}</span></dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Linked User</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{assetMaster.linkedUser}}</span></dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Uu Id</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{assetMaster.uuId}}</span></dd>
+                            </div>
+                        </div-->
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Asset Ownership</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{assetMaster.assetOwnershipMaster?.description}}</span></dd>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Asset Type</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{assetMaster.assetTypeMaster?.description}}</span></dd>
+                            </div>
+                        </div>
+                        <!--div class="row">
+                            <div class="col-md-3"><dt><span>Asset Sub Type</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{assetMaster.assetSubTypeMaster?.description}}</span></dd>
+                            </div>
+                        </div-->
+                        <div class="row">
+                                <div class="col-md-3"><dt><span>Asset Sub Type Detail</span></dt></div>
+                                <div class="col-md-9">
+                                    <dd><span>{{assetMaster.assetSubTypeDetailMaster?.description}}</span></dd>
+                                </div>
+                         </div>
+                         <!--div class="row">
+                                <div class="col-md-3"><dt><span>Asset Soft Type</span></dt></div>
+                                <div class="col-md-9">
+                                    <dd><span>{{assetMaster.assetSoftTypeMaster?.description}}</span></dd>
+                                </div>
+                         </div-->
+                         <div class="row">
+                                <div class="col-md-3"><dt><span>Asset Company</span></dt></div>
+                                <div class="col-md-9">
+                                    <dd><span>{{assetMaster.assetCompanyMaster?.description}}</span></dd>
+                                </div>
+                         </div>
+                         <!--div class="row">
+                                <div class="col-md-3"><dt><span>Asset Warranty Type</span></dt></div>
+                                <div class="col-md-9">
+                                    <dd><span>{{assetMaster.assetWarrantyTypeMaster?.description}}</span></dd>
+                                </div>
+                         </div-->
+                         <div class="row">
+                                <div class="col-md-3"><dt><span>Asset Supplier</span></dt></div>
+                                <div class="col-md-9">
+                                    <dd><span>{{assetMaster.assetSupplierMaster?.description}}</span></dd>
+                                </div>
+                         </div>
+                            <button type="submit"
+                                    (click)="previousState()"
+                                    class="btn btn-sm btn-info btn-round">
+                                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                            </button>
+    
+                            <button type="button"
+                                    [routerLink]="['/asset-master', assetMaster.id, 'edit']"
+                                    class="btn btn-sm btn-blush btn-round">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                            </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

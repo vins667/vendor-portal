@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HierarchyChart_SubReport" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6cbc5688-6e88-457d-9ab1-602afe685d34">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="cardNo" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="designation" class="java.lang.String"/>
+	<field name="department" class="java.lang.String"/>
+	<field name="contact" class="java.lang.String"/>
+	<field name="image" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="95" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="299" y="60" width="40" height="1" uuid="21c26db7-bc49-483d-b358-390143584635"/>
+			</line>
+			<rectangle>
+				<reportElement x="339" y="25" width="245" height="70" uuid="6cbae865-f5de-4493-99ed-fc91661e9ce5"/>
+			</rectangle>
+			<image>
+				<reportElement x="346" y="30" width="60" height="60" uuid="052abb32-94da-4c3c-9383-be6696e321d1"/>
+				<imageExpression><![CDATA[$F{image}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="409" y="30" width="170" height="15" forecolor="#E82825" uuid="4812607b-7fb5-419e-a8b1-d95e5c8d69d8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="409" y="45" width="170" height="15" forecolor="#000000" uuid="a51548e0-fab3-455f-ac16-ad2c9c65526b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="409" y="60" width="170" height="15" forecolor="#000000" uuid="4fcd50c9-e135-44ce-a323-1d19607fe776"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{department}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="409" y="75" width="170" height="15" forecolor="#000000" uuid="fd5d428a-4d62-486b-9c62-b122d6207c74"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contact}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="299" y="0" width="1" height="95" uuid="cfeffcb5-3bd9-4a91-a219-5d668671275f"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

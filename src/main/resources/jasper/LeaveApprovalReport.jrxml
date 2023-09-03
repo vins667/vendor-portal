@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LeaveApprovalReport" pageWidth="795" pageHeight="892" orientation="Landscape" columnWidth="775" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="db21831b-fc39-4863-b438-fa0b5ea0b61c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="firstName" class="java.lang.String"/>
+	<field name="lastName" class="java.lang.String"/>
+	<field name="cardNo" class="java.lang.String"/>
+	<field name="leaveType" class="java.lang.String"/>
+	<field name="leaveTypeDesc" class="java.lang.String"/>
+	<field name="subTypeCode" class="java.lang.String"/>
+	<field name="subTypeDesc" class="java.lang.String"/>
+	<field name="leaveDateFrom" class="java.sql.Timestamp"/>
+	<field name="leaveTimeFrom" class="java.sql.Timestamp"/>
+	<field name="leaveDateTo" class="java.sql.Timestamp"/>
+	<field name="leaveTimeTo" class="java.sql.Timestamp"/>
+	<field name="hodApprovedDate" class="java.sql.Timestamp"/>
+	<field name="flag" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement key="" x="0" y="0" width="775" height="25" uuid="e0938475-2a02-4735-ad28-c2f62dd476ab">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Leave HR Approval Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="40" height="14" forecolor="#FFFFFF" backcolor="#F05C2B" uuid="c64ec28e-2afb-4c23-b4ef-e03628338823">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="01cd874f-7829-454e-b935-26adf9e3516b"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="40" y="0" width="150" height="14" forecolor="#FFFFFF" backcolor="#F05C2B" uuid="04df083e-8607-4c8f-a16d-2eeb139075b6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0abcc247-04e4-409f-86ab-16988b61d5e7"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="190" y="0" width="70" height="14" forecolor="#FFFFFF" backcolor="#F05C2B" uuid="161eca15-b23a-4c54-b549-3d9e919f6c4f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f15fcfcc-dea0-4c3c-901a-cea6aeb744ef"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Emp Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="260" y="0" width="100" height="14" forecolor="#FFFFFF" backcolor="#F05C2B" uuid="8427cbe7-62cb-48f1-b709-e64b11d9017f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="64d11115-f04b-453b-b0fe-417dc4d09838"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Leave Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="360" y="0" width="100" height="14" forecolor="#FFFFFF" backcolor="#F05C2B" uuid="29d2db48-ef1b-4ffa-b033-22a4f356cd54">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="51787108-f37c-45e9-a3c0-207ecdbc2d4e"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Leave Sub Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="460" y="0" width="50" height="14" forecolor="#FFFFFF" backcolor="#F05C2B" uuid="d79ecc7e-7048-4d4a-a226-8ffcf9caae93">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="05f67add-a9c0-4779-9eb1-faf34fc0d74c"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date From]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="510" y="0" width="55" height="14" forecolor="#FFFFFF" backcolor="#F05C2B" uuid="4a21220a-0663-4027-ac95-ae1dbf4d372c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="53f608b4-a715-46b1-bbf6-24e723b211a1"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Time From]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="565" y="0" width="50" height="14" forecolor="#FFFFFF" backcolor="#F05C2B" uuid="a42acd37-4cb0-4348-a7a3-26db0fbfffd5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ed5954b1-5faa-4e12-a0f7-22bcb15d289b"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date To]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="615" y="0" width="50" height="14" forecolor="#FFFFFF" backcolor="#F05C2B" uuid="720ab482-7d98-4879-9d25-5359acc4d84b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="34ab3b21-214f-4dd9-b159-01ba2da79188"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Time To]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="715" y="0" width="60" height="14" forecolor="#FFFFFF" backcolor="#F05C2B" uuid="91294bae-b144-4a8c-8375-d6aa88e72485">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="144dc261-b289-44dc-a269-85c0ebaa561d"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="665" y="0" width="50" height="14" forecolor="#FFFFFF" backcolor="#F05C2B" uuid="9accf807-9233-447f-919b-73b5f1c9b9bf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ed5954b1-5faa-4e12-a0f7-22bcb15d289b"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HOD DT]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement stretchType="ContainerHeight" x="0" y="0" width="40" height="15" uuid="26f1364e-e230-46d4-9763-657569bb05e3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="01cd874f-7829-454e-b935-26adf9e3516b"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" pdfEncoding="" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ContainerHeight" x="40" y="0" width="150" height="15" uuid="2ab5af90-4786-4b19-a4e8-d7a1a4bd6d38">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0abcc247-04e4-409f-86ab-16988b61d5e7"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" pdfEncoding="" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{firstName}+" "+$F{lastName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ContainerHeight" x="190" y="0" width="70" height="15" uuid="66da26d2-1f61-4178-8c87-51257ea5d1fe">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f15fcfcc-dea0-4c3c-901a-cea6aeb744ef"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" pdfEncoding="" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cardNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ContainerHeight" x="260" y="0" width="100" height="15" uuid="9ae2b5de-797a-44f8-b71e-88381950d4dd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="64d11115-f04b-453b-b0fe-417dc4d09838"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" pdfEncoding="" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{leaveTypeDesc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ContainerHeight" x="360" y="0" width="100" height="15" uuid="c66dafa8-05f0-4795-93be-c0e6a931612e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="51787108-f37c-45e9-a3c0-207ecdbc2d4e"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" pdfEncoding="" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subTypeDesc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement stretchType="ContainerHeight" x="460" y="0" width="50" height="15" uuid="30e4bf3e-f70f-40b0-ae96-551c74ad8c77">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="05f67add-a9c0-4779-9eb1-faf34fc0d74c"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" pdfEncoding="" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{leaveDateFrom}]]></textFieldExpression>
+			</textField>
+			<textField pattern="hh:mm a">
+				<reportElement stretchType="ContainerHeight" x="510" y="0" width="55" height="15" uuid="1658b487-6e2f-4d41-81ae-9fa3dd419504">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="53f608b4-a715-46b1-bbf6-24e723b211a1"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" pdfEncoding="" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{leaveTimeFrom}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement stretchType="ContainerHeight" x="565" y="0" width="50" height="15" uuid="1a413589-1a85-4ff6-801d-7f524714c6f4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ed5954b1-5faa-4e12-a0f7-22bcb15d289b"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" pdfEncoding="" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{leaveDateTo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="hh:mm a">
+				<reportElement stretchType="ContainerHeight" x="615" y="0" width="50" height="15" uuid="33e20d13-e56b-4cfe-89d6-25800155d6a6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="34ab3b21-214f-4dd9-b159-01ba2da79188"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" pdfEncoding="" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{leaveTimeTo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ContainerHeight" x="715" y="0" width="60" height="15" uuid="d127bc26-01f4-4985-944d-fb43e8ed557c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="144dc261-b289-44dc-a269-85c0ebaa561d"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" pdfEncoding="" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{flag}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement stretchType="ContainerHeight" x="665" y="0" width="50" height="15" uuid="3ce3234f-a5d0-4414-a782-b7139a303b28">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ed5954b1-5faa-4e12-a0f7-22bcb15d289b"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5" lineColor="#240C0B"/>
+					<leftPen lineWidth="0.5" lineColor="#240C0B"/>
+					<bottomPen lineWidth="0.5" lineColor="#240C0B"/>
+					<rightPen lineWidth="0.5" lineColor="#240C0B"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" pdfEncoding="" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hodApprovedDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity CostingGroupDetails.
+    -->
+    <changeSet id="20200827110718-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="costing_group_master_id"
+                                 baseTableName="costing_group_details"
+                                 constraintName="fk_costing_group_details_costing_group_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="costing_group_master"/>
+
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,85 @@
+<div class="card">
+    <div class="body">
+            <div>
+                <h5 id="page-heading">
+                    <span>Costing Value Master</span></h5>
+                 <jhi-alert></jhi-alert>
+                 <div class="row">
+                    <div class="col-md-2">
+                        <input class="form-control form-control-sm text-uppercase ng-valid ng-dirty ng-touched" name="processdesc" id="field_processdesc" placeholder="Process Name" type="text" [(ngModel)]="search.processcode" [ngModelOptions]="{standalone: true}"/>
+                    </div>
+                    <div class="col-md-2">
+                        <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="flag" id="field_flag" [(ngModel)]="search.processdesc" [ngModelOptions]="{standalone: true}">
+                            <option [ngValue]="null">Select</option>
+                            <option value="PM">Per Minute</option>
+                            <option value="PC">Per Pc</option>
+                        </select>                    
+                   </div>
+                    <div class="col-md-8 text-right">
+                        <button id="jh-search-entity" class="btn btn-sm btn-info btn-round" type="button" style="margin: 0;" (click)="filter()">
+                            <fa-icon [icon]="'search'"></fa-icon>
+                            <span >Search</span>
+                        </button>
+                        <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round jh-create-entity create-costing-value-master" [routerLink]="['/costing-value-master/new']">
+                            <fa-icon [icon]="'plus'"></fa-icon>
+                            <span>new</span>
+                        </button>
+                    </div>
+                </div>
+                 <div class="table-responsive" *ngIf="costingValueMasters">
+                        <table class="table table-sm table-striped">
+                            <thead>
+                                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                                        <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                                        <th jhiSortBy="processname"><span>Process Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                                        <th jhiSortBy="valuetype"><span>Value Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                                        <th jhiSortBy="value"><span>Value</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                            <tbody>
+                                <tr *ngFor="let costingValueMaster of costingValueMasters ;trackBy: trackId">
+                                    <td><a [routerLink]="['/costing-value-master', costingValueMaster.id, 'view' ]">{{costingValueMaster.id}}</a></td>
+                                    <td>{{costingValueMaster.processname}}</td>
+                                    <td><ng-container *ngIf="costingValueMaster.valuetype=='PM'">Per Minute</ng-container><ng-container *ngIf="costingValueMaster.valuetype=='PC'">Per Pc</ng-container></td>
+                                    <td>{{costingValueMaster.value}}</td>
+                                   <td class="text-right button-column">
+                                    <div class="btn-group">
+                                        <button type="submit"
+                                               [routerLink]="['/costing-value-master', costingValueMaster.id, 'view' ]"
+                                               class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['/costing-value-master', costingValueMaster.id, 'edit']"
+                                                class="btn btn-blush btn-sm">
+                                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                            <span class="d-none d-md-inline">Edit</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['/', 'costing-value-master', { outlets: { popup: costingValueMaster.id + '/delete'} }]"
+                                                replaceUrl="true"
+                                                queryParamsHandling="merge"
+                                                class="btn btn-danger btn-sm">
+                                            <fa-icon [icon]="'times'"></fa-icon>
+                                            <span class="d-none d-md-inline">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div [hidden]="costingValueMasters?.length === 0">
+                        <div class="row justify-content-center">
+                            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                        </div>
+                        <div class="row justify-content-center">
+                            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                        </div>
+                    </div>
+            </div>
+    </div>
+</div>

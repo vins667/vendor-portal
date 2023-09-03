@@ -1,0 +1,50 @@
+<div class="card">
+    <div class="body">
+        <div align="center" class="centered" *ngIf="isDownload">
+            <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+        </div>
+        <div>
+            <h5 id="page-heading">
+                <span>Employee Salary</span>
+            </h5>
+            <hr/>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-2"><label class="form-control-label" for="field_dateFrom">Joining&nbsp;Date&nbsp;From</label></div>
+            <div class="col-md-4">
+                <div class="input-group mb-0">
+                    <input [owlDateTime]="date" name="dateFrom" id="field_dateFrom" placeholder="Date From" class="form-control form-control-xs" required [(ngModel)]="search.dateFrom">
+                    <div class="input-group-append input-group-append-top">
+                        <div class="btn btn-xs btn-blush" [owlDateTimeTrigger]="date"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #date></owl-date-time>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-2"><label class="form-control-label" for="field_dateFrom">Joining&nbsp;Date&nbsp;To</label></div>
+            <div class="col-md-4">
+                <div class="input-group mb-0">
+                    <input [owlDateTime]="dateTemp" name="dateTo" id="field_dateTo" placeholder="Date To" class="form-control form-control-xs" required  [(ngModel)]="search.dateTo">
+                    <div class="input-group-append input-group-append-top">
+                        <div class="btn btn-xs btn-blush" [owlDateTimeTrigger]="dateTemp"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #dateTemp></owl-date-time>
+            </div>
+        </div>
+        <div class="row mb-1">
+            <div class="col-md-2">Salary</div>
+            <div class="col-md-4">
+                <input type="text" name="cardNo" id="field_cardNo" [(ngModel)]="search.salary" class="form-control form-control-sm"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-sm btn-blush btn-round" style="margin-top: 0;" [disabled]="isDownload" (click)="generateReport();"><fa-icon [icon]="'download'"></fa-icon> <span>Generate</span></button>&nbsp;&nbsp;
+                <button type="reset" class="btn btn-sm btn-secondary btn-round" style="margin-top: 0;" [disabled]="isDownload"><fa-icon [icon]="'times'"></fa-icon> <span>Reset</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+

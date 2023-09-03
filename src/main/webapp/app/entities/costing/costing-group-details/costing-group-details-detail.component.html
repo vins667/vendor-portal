@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Costing Group Details</span> {{costingGroupDetails.id}}</h5>
+        <hr>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="costingGroupDetails">
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Code</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{costingGroupDetails.code}}</span>
+                            </dd>
+                        </div>
+                        <div class="col-md-3"><dt><span>Description</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{costingGroupDetails.description}}</span>
+                            </dd>
+                        </div>
+                        <div class="col-md-3"><dt><span>Costing Group</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{costingGroupDetails.costingGroupMaster.description}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                           [routerLink]="['/costing-group-details', costingGroupDetails.id, 'edit']"
+                            class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="pollMaster">
+            <h2><span>Poll Master</span> {{pollMaster.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Poll Text</span></dt>
+                <dd>
+                    <span>{{pollMaster.pollText}}</span>
+                </dd>
+                <dt><span>End Date</span></dt>
+                <dd>
+                    <span>{{pollMaster.endDate}}</span>
+                </dd>
+                <dt><span>Flag</span></dt>
+                <dd>
+                    <span>{{pollMaster.flag}}</span>
+                </dd>
+                <dt><span>Mail Flag</span></dt>
+                <dd>
+                    <span>{{pollMaster.mailFlag}}</span>
+                </dd>
+                <dt><span>Notification Flag</span></dt>
+                <dd>
+                    <span>{{pollMaster.notificationFlag}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{pollMaster.createdBy}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{pollMaster.createdDate}}</span>
+                </dd>
+                <dt><span>Approved By</span></dt>
+                <dd>
+                    <span>{{pollMaster.approvedBy}}</span>
+                </dd>
+                <dt><span>Approved Date</span></dt>
+                <dd>
+                    <span>{{pollMaster.approvedDate}}</span>
+                </dd>
+                <dt><span>Factory Master</span></dt>
+                <dd>
+                    <span *ngFor="let factoryMaster of pollMaster.factoryMasters; let last = last">
+                        <a [routerLink]="['/factory-master', factoryMaster?.id, 'view' ]">{{factoryMaster.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/poll-master', pollMaster.id, 'edit']"
+                    class="btn btn-blush">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

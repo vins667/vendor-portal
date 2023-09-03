@@ -1,0 +1,498 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm"
+      xmlns:trackBy="http://www.w3.org/1999/xhtml">
+    <div class="card">
+        <div class="card-header body pb-1">
+            <div class="row">
+                <div class="col-md-7">
+                    <h6 id="jhi-job-work-followup-heading" data-cy="JobWorkFollowupCreateUpdateHeading">Create or edit a Schedular</h6>
+                </div>
+                <div class="col-md-5">
+                    <div class="text-right">
+                        <button type="button" id="cancel-save" class="m-0 btn btn-xs btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-xs btn-blush btn-round" >
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body body">
+            <div class="row"  [hidden]="!editForm.get('id').value">
+                <div class="col-md-1">
+                    <label for="id">ID</label>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" class="form-control form-control-xs" id="id"  name="id"
+                           formControlName="id" readonly />
+                </div>
+
+
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-md-1">
+                    <label class="form-label" >Job code</label>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" class="form-control form-control-xs text-uppercase" name="jobworkcode" id="field_jobworkcode" formControlName="jobworkcode"  />
+
+                    <div *ngIf="editForm.get('jobworkcode').invalid && (editForm.get('jobworkcode').dirty || editForm.get('jobworkcode').touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('jobworkcode').errors.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('jobworkcode').errors.maxlength">
+                            This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-md-1">
+                    <label class="form-label" >Job Name</label>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" class="form-control form-control-xs text-uppercase" name="jobworkname" id="field_jobworkname" formControlName="jobworkname" />
+                    <div *ngIf="editForm.get('jobworkname').invalid && (editForm.get('jobworkname').dirty || editForm.get('jobworkname').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('jobworkname').errors.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('jobworkname').errors.maxlength">
+                            This field cannot be longer than 200 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" style="margin-top: 10px;">
+                <div class="col-md-1">
+                    <label class="form-label" for="field_buyercode">Buyer</label>
+                </div>
+                <div class="col-md-5">
+                    <select class="form-control form-control-sm custom-select custom-select-xs" id="field_buyercode" name="buyercode" formControlName="buyercode" (change)="buyerSelect()" required>
+                        <option [value]="undefined">Select Buyer</option>
+                        <option [value]="jobWorkFollowpBuyersOption.buyercode" *ngFor="let jobWorkFollowpBuyersOption of followpBuyers;">{{jobWorkFollowpBuyersOption.buyername}}-{{jobWorkFollowpBuyersOption.buyercode}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.buyercode?.dirty && editForm.controls.buyercode?.invalid)">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.buyercode?.errors?.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row gutters-2" style="margin-top: 10px;">
+                <div class="col-md-8">
+                    <fieldset class="scheduler-border-margin fieldset-auto-width">
+                        <legend class="scheduler-border">Responsible</legend>
+                        <div class="row gutters-2">
+                            <div class="col-md-2">
+                                <label class="form-label">Contact&nbsp;Person&nbsp;1</label>
+                            </div>
+                            <div class="col-md-3" style="margin-left: 10px;">
+                                <div class="input-group input-group-sm mb-0">
+                                    <input type="text" class="form-control form-control-xs" name="responsiblepersoncode01" id="field_responsiblepersoncode01"
+                                           formControlName="responsiblepersoncode01"readonly/>
+                                    <div class="input-group-append" style="margin-top: -5px;">
+                                        <button type="button" name="btnSearchresponsiblepersoncode01" id="btnSearchresponsiblepersoncode01" class="btn btn-sm float-right btn-blush  form-control-xs"(click)="searchEmployee('responsiblepersoncode01');">
+                                            <fa-icon [icon]="'search'"></fa-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div *ngIf="editForm.get('responsiblepersoncode01').invalid && (editForm.get('responsiblepersoncode01').dirty || editForm.get('responsiblepersoncode01').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('responsiblepersoncode01').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('responsiblepersoncode01').errors.maxlength">
+                                        This field cannot be longer than 50 characters.
+                                    </small>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-5" style="margin-left: 10px;">
+                                <input type="text" class="form-control form-control-xs" name="responsiblepersonname01" id="field_responsiblepersonname01"
+                                       formControlName="responsiblepersonname01"readonly/>
+                                <div *ngIf="editForm.get('responsiblepersonname01').invalid && (editForm.get('responsiblepersonname01').dirty || editForm.get('responsiblepersonname01').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('responsiblepersonname01').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('responsiblepersonname01').errors.maxlength">
+                                        This field cannot be longer than 200 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-1" style="margin-left: 10px;">
+                                <fa-icon [icon]="'envelope'" style="font-size: 15px;" [title]="editForm.get('responsiblepersonmail01')!.value ? editForm.get('responsiblepersonmail01')!.value : ''"></fa-icon>
+                            </div>
+                        </div>
+
+                        <div class="row gutters-2" style="margin-top: 10px;">
+                            <div class="col-md-2">
+                                <label class="form-label">Contact&nbsp;Person&nbsp;2</label>
+                            </div>
+                            <div class="col-md-3" style="margin-left: 10px;">
+                                <div class="input-group input-group-sm mb-0">
+                                    <input type="text" class="form-control form-control-xs" name="responsiblepersoncode02" id="field_responsiblepersoncode02"
+                                           formControlName="responsiblepersoncode02"readonly />
+                                    <div class="input-group-append" style="margin-top: -5px;">
+                                        <button type="button" name="btnSearchresponsiblepersoncode02" id="btnSearchresponsiblepersoncode02" class="btn btn-sm float-right btn-blush  form-control-xs"(click)="searchEmployee('responsiblepersoncode02');" >
+                                            <fa-icon [icon]="'search'"></fa-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div *ngIf="editForm.get('responsiblepersoncode02').invalid && (editForm.get('responsiblepersoncode02').dirty || editForm.get('responsiblepersoncode02').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('responsiblepersoncode02').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('responsiblepersoncode02').errors.maxlength">
+                                        This field cannot be longer than 50 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-5" style="margin-left: 10px;">
+                                <input type="text" class="form-control form-control-xs" name="responsiblepersonname02" id="field_responsiblepersonname02"
+                                       formControlName="responsiblepersonname02"readonly/>
+                                <div *ngIf="editForm.get('responsiblepersonname02').invalid && (editForm.get('responsiblepersonname02').dirty || editForm.get('responsiblepersonname02').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('responsiblepersonname02').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('responsiblepersonname02').errors.maxlength">
+                                        This field cannot be longer than 200 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-1" style="margin-left: 10px;">
+                                <fa-icon [icon]="'envelope'" style="font-size: 15px;" [title]="editForm.get('responsiblepersonmail02')!.value ? editForm.get('responsiblepersonmail02')!.value : ''"></fa-icon>
+                            </div>
+                        </div>
+                        <div class="row gutters-2" style="margin-top: 10px;">
+                            <div class="col-md-2">
+                                <label class="form-label">Contact&nbsp;Person&nbsp;3</label>
+                            </div>
+                            <div class="col-md-3" style="margin-left: 10px;">
+                                <div class="input-group input-group-sm mb-0">
+                                    <input type="text" class="form-control form-control-xs" name="responsiblepersoncode03" id="field_responsiblepersoncode03"
+                                           formControlName="responsiblepersoncode03" readonly/>
+                                    <div class="input-group-append" style="margin-top: -5px;">
+                                        <button type="button" name="btnSearchresponsiblepersoncode03" id="btnSearchresponsiblepersoncode03" class="btn btn-sm float-right btn-blush  form-control-xs" (click)="searchEmployee('responsiblepersoncode03')" >
+                                            <fa-icon [icon]="'search'"></fa-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div *ngIf="editForm.get('responsiblepersoncode03').invalid && (editForm.get('responsiblepersoncode03').dirty || editForm.get('responsiblepersoncode03').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('responsiblepersoncode03').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('responsiblepersoncode03').errors.maxlength">
+                                        This field cannot be longer than 50 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-5" style="margin-left: 10px;">
+                                <input type="text" class="form-control form-control-xs" name="responsiblepersonname03" id="field_responsiblepersonname03"
+                                       formControlName="responsiblepersonname03"readonly/>
+                                <div *ngIf="editForm.get('responsiblepersonname03').invalid && (editForm.get('responsiblepersonname03').dirty || editForm.get('responsiblepersonname03').touched)">
+                                    <small class="form-text text-danger" *ngIf="editForm.get('responsiblepersonname03').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('responsiblepersonname03').errors.maxlength">
+                                        This field cannot be longer than 200 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-1" style="margin-left: 10px;">
+                                <fa-icon [icon]="'envelope'" style="font-size: 15px;" [title]="editForm.get('responsiblepersonmail03')!.value ? editForm.get('responsiblepersonmail03')!.value : ''"></fa-icon>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row gutters-2">
+                <div class="col-md-6">
+                    <fieldset class="scheduler-border-margin">
+                        <legend class="scheduler-border">Level 1 Reminder</legend>
+                        <div class="row gutters-2">
+                            <div class="col-md-2">
+                                <label class="form-label">Contact&nbsp;Person&nbsp;1</label>
+                            </div>
+                            <div class="col-md-3" style="margin-left: 20px;">
+                                <div class="input-group input-group-sm mb-0">
+                                    <input type="text" class="form-control form-control-xs" name="level01reminderpersoncode01" id="field_level01reminderpersoncode01"
+                                           formControlName="level01reminderpersoncode01" readonly/>
+                                    <div class="input-group-append" style="margin-top: -5px;">
+                                        <button type="button" name="btnSearchLevel01ReminderPersonCode01" id="btnSearchLevel01ReminderPersonCode01" class="btn btn-sm float-right btn-blush  form-control-xs" (click)="searchEmployee('level01reminderpersoncode01');">
+                                            <fa-icon [icon]="'search'"></fa-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div *ngIf="editForm.get('level01reminderpersoncode01').invalid && (editForm.get('level01reminderpersoncode01').dirty || editForm.get('level01reminderpersoncode01').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level01reminderpersoncode01').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level01reminderpersoncode01').errors.maxlength">
+                                        This field cannot be longer than 50 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-5" style="margin-left: 10px;">
+                                <input type="text" class="form-control form-control-xs" name="level01reminderpersonname01" id="field_level01reminderpersonname01"
+                                       formControlName="level01reminderpersonname01"readonly/>
+                                <div *ngIf="editForm.get('level01reminderpersonname01').invalid && (editForm.get('level01reminderpersonname01').dirty || editForm.get('level01reminderpersonname01').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level01reminderpersonname01').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level01reminderpersonname01').errors.maxlength">
+                                        This field cannot be longer than 200 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-1" style="margin-left: 10px;">
+                                <fa-icon [icon]="'envelope'" style="font-size: 15px;" [title]="editForm.get('level01reminderpersonmail01')!.value ? editForm.get('level01reminderpersonmail01')!.value : ''"></fa-icon>
+                            </div>
+                        </div>
+                        <div class="row gutters-2" style="margin-top: 10px;">
+                            <div class="col-md-2">
+                                <label class="form-label">Contact&nbsp;Person&nbsp;2</label>
+                            </div>
+                            <div class="col-md-3" style="margin-left: 20px;">
+                                <div class="input-group input-group-sm mb-0">
+                                    <input type="text" class="form-control form-control-xs" name="level01reminderpersoncode02" id="field_level01reminderpersoncode02"
+                                           formControlName="level01reminderpersoncode02"readonly/>
+                                    <div class="input-group-append" style="margin-top: -5px;">
+                                        <button type="button" name="btnSearchLevel01ReminderPersonCode02" id="btnSearchLevel01ReminderPersonCode02" class="btn btn-sm float-right btn-blush  form-control-xs" (click)="searchEmployee('level01reminderpersoncode02');">
+                                            <fa-icon [icon]="'search'"></fa-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div *ngIf="editForm.get('level01reminderpersoncode02').invalid && (editForm.get('level01reminderpersoncode02').dirty || editForm.get('level01reminderpersoncode02').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level01reminderpersoncode02').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level01reminderpersoncode02').errors.maxlength">
+                                        This field cannot be longer than 50 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-5" style="margin-left: 10px;">
+                                <input type="text" class="form-control form-control-xs" name="level01reminderpersonname02" id="field_level01reminderpersonname02"
+                                       formControlName="level01reminderpersonname02"readonly/>
+                                <div *ngIf="editForm.get('level01reminderpersonname02').invalid && (editForm.get('level01reminderpersonname02').dirty || editForm.get('level01reminderpersonname02').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level01reminderpersonname02').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level01reminderpersonname02').errors.maxlength">
+                                        This field cannot be longer than 200 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-1" style="margin-left: 10px;">
+                                <fa-icon [icon]="'envelope'" style="font-size: 15px;" [title]="editForm.get('level01reminderpersonmail02')!.value ? editForm.get('level01reminderpersonmail02')!.value : ''"></fa-icon>
+                            </div>
+                        </div>
+                        <div class="row gutters-2" style="margin-top: 10px;">
+                            <div class="col-md-2">
+                                <label class="form-label">Contact&nbsp;Person&nbsp;3 </label>
+                            </div>
+                            <div class="col-md-3" style="margin-left: 20px;">
+                                <div class="input-group input-group-sm mb-0">
+                                    <input type="text" class="form-control form-control-xs" name="level01reminderpersoncode03" id="field_level01reminderpersoncode03"
+                                           formControlName="level01reminderpersoncode03" readonly/>
+                                    <div class="input-group-append" style="margin-top: -5px;">
+                                        <button type="button" name="btnSearchlevel01reminderpersoncode03" id="btnSearchlevel01reminderpersoncode03" class="btn btn-sm float-right btn-blush  form-control-xs" (click)="searchEmployee('level01reminderpersoncode03');">
+                                            <fa-icon [icon]="'search'"></fa-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div *ngIf="editForm.get('level01reminderpersoncode03').invalid && (editForm.get('level01reminderpersoncode03').dirty || editForm.get('level01reminderpersoncode03').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level01reminderpersoncode03').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level01reminderpersoncode03').errors.maxlength">
+                                        This field cannot be longer than 50 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-5" style="margin-left: 10px;">
+                                <input type="text" class="form-control form-control-xs" name="level01reminderpersonname03" id="field_level01reminderpersonname03"
+                                       formControlName="level01reminderpersonname03"readonly/>
+                                <div *ngIf="editForm.get('level01reminderpersonname03').invalid && (editForm.get('level01reminderpersonname03').dirty || editForm.get('level01reminderpersonname03').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level01reminderpersonname03').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level01reminderpersonname03').errors.maxlength">
+                                        This field cannot be longer than 200 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-1" style="margin-left: 10px;">
+                                <fa-icon [icon]="'envelope'" style="font-size: 15px;" [title]="editForm.get('level01reminderpersonmail03')!.value ? editForm.get('level01reminderpersonmail03')!.value : ''"></fa-icon>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-6">
+                    <fieldset class="scheduler-border-margin">
+                        <legend class="scheduler-border">Level 2 Reminder</legend>
+                        <div class="row gutters-2">
+                            <div class="col-md-2">
+                                <label class="form-label">Contact&nbsp;Person&nbsp;1</label>
+                            </div>
+                            <div class="col-md-3" style="margin-left: 20px;">
+                                <div class="input-group input-group-sm mb-0">
+                                    <input type="text" class="form-control form-control-xs" name="level02reminderpersoncode01" id="field_level02reminderpersoncode01"
+                                           formControlName="level02reminderpersoncode01" readonly />
+                                    <div class="input-group-append" style="margin-top: -5px;">
+                                        <button type="button" name="btnSearchlevel02reminderpersoncode01" id="btnSearchlevel02reminderpersoncode01" class="btn btn-sm float-right btn-blush  form-control-xs"(click)="searchEmployee('level02reminderpersoncode01');" >
+                                            <fa-icon [icon]="'search'"></fa-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div *ngIf="editForm.get('level02reminderpersoncode01').invalid && (editForm.get('level02reminderpersoncode01').dirty || editForm.get('level02reminderpersoncode01').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level02reminderpersoncode01').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level02reminderpersoncode01').errors.maxlength">
+                                        This field cannot be longer than 50 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-5" style="margin-left: 10px;">
+                                <input type="text" class="form-control form-control-xs" name="level02reminderpersonname01" id="field_level02reminderpersonname01"
+                                       formControlName="level02reminderpersonname01" readonly/>
+                                <div *ngIf="editForm.get('level02reminderpersonname01').invalid && (editForm.get('level02reminderpersonname01').dirty || editForm.get('level02reminderpersonname01').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level02reminderpersonname01').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level02reminderpersonname01').errors.maxlength">
+                                        This field cannot be longer than 200 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-1" style="margin-left: 10px;">
+                                <fa-icon [icon]="'envelope'" style="font-size: 15px;" [title]="editForm.get('level02reminderpersonmail01')!.value ? editForm.get('level02reminderpersonmail01')!.value : ''"></fa-icon>
+                            </div>
+                        </div>
+                        <div class="row gutters-2" style="margin-top: 10px;">
+                            <div class="col-md-2">
+                                <label class="form-label"> Contact&nbsp;Person&nbsp;2</label>
+                            </div>
+                            <div class="col-md-3" style="margin-left: 20px;">
+                                <div class="input-group input-group-sm mb-0">
+                                    <input type="text" class="form-control form-control-xs" name="level02reminderpersoncode02" id="field_level02reminderpersoncode02"
+                                           formControlName="level02reminderpersoncode02" readonly/>
+                                    <div class="input-group-append" style="margin-top: -5px;">
+                                        <button type="button" name="btnSearchlevel02reminderpersoncode02" id="btnSearchlevel02reminderpersoncode02" class="btn btn-sm float-right btn-blush  form-control-xs" (click)="searchEmployee('level02reminderpersoncode02');" >
+                                            <fa-icon [icon]="'search'"></fa-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div *ngIf="editForm.get('level02reminderpersoncode02').invalid && (editForm.get('level02reminderpersoncode02').dirty || editForm.get('level02reminderpersoncode02').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level02reminderpersoncode02').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level02reminderpersoncode02').errors.maxlength">
+                                        This field cannot be longer than 50 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-5" style="margin-left: 10px;">
+                                <input type="text" class="form-control form-control-xs" name="level02reminderpersonname02" id="field_level02reminderpersonname02"
+                                       formControlName="level02reminderpersonname02" readonly/>
+                                <div *ngIf="editForm.get('level02reminderpersonname02').invalid && (editForm.get('level02reminderpersonname02').dirty || editForm.get('level02reminderpersonname02').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level02reminderpersonname02').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level02reminderpersonname02').errors.maxlength">
+                                        This field cannot be longer than 200 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-1" style="margin-left: 10px;">
+                                <fa-icon [icon]="'envelope'" style="font-size: 15px;" [title]="editForm.get('level02reminderpersonmail02')!.value ? editForm.get('level02reminderpersonmail02')!.value : ''"></fa-icon>
+                            </div>
+                        </div>
+                        <div class="row gutters-2" style="margin-top: 10px;">
+                            <div class="col-md-2">
+                                <label class="form-label">Contact&nbsp;Person&nbsp;3</label>
+                            </div>
+                            <div class="col-md-3" style="margin-left: 20px;">
+                                <div class="input-group input-group-sm mb-0">
+                                    <input type="text" class="form-control form-control-xs" name="level02reminderpersoncode03" id="field_level02reminderpersoncode03"
+                                           formControlName="level02reminderpersoncode03" readonly />
+                                    <div class="input-group-append" style="margin-top: -5px;">
+                                        <button type="button" name="btnSearchlevel02reminderpersoncode03" id="btnSearchlevel02reminderpersoncode03" class="btn btn-sm float-right btn-blush  form-control-xs"(click)="searchEmployee('level02reminderpersoncode03');" >
+                                            <fa-icon [icon]="'search'"></fa-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div *ngIf="editForm.get('level02reminderpersoncode03').invalid && (editForm.get('level02reminderpersoncode03').dirty || editForm.get('level02reminderpersoncode03').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level02reminderpersoncode03').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level02reminderpersoncode03').errors.maxlength">
+                                        This field cannot be longer than 50 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-5" style="margin-left: 10px;">
+                                <input type="text" class="form-control form-control-xs" name="level02reminderpersonname03" id="field_level02reminderpersonname03"
+                                       formControlName="level02reminderpersonname03" readonly/>
+                                <div *ngIf="editForm.get('level02reminderpersonname03').invalid && (editForm.get('level02reminderpersonname03').dirty || editForm.get('level02reminderpersonname03').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level02reminderpersonname03').errors.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('level02reminderpersonname03').errors.maxlength">
+                                        This field cannot be longer than 200 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-1" style="margin-left: 10px;">
+                                <fa-icon [icon]="'envelope'" style="font-size: 15px;" [title]="editForm.get('level02reminderpersonmail03')!.value ? editForm.get('level02reminderpersonmail03')!.value : ''"></fa-icon>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

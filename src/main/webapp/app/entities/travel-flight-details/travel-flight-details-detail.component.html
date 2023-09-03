@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="travelFlightDetails">
+            <h2><span>Travel Flight Details</span> {{travelFlightDetails.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Travel Date</span></dt>
+                <dd>
+                    <span>{{travelFlightDetails.travelDate}}</span>
+                </dd>
+                <dt><span>Ticket Type</span></dt>
+                <dd>
+                    <span>{{travelFlightDetails.ticketType}}</span>
+                </dd>
+                <dt><span>Ticket No</span></dt>
+                <dd>
+                    <span>{{travelFlightDetails.ticketNo}}</span>
+                </dd>
+                <dt><span>Departure Date</span></dt>
+                <dd>
+                    <span>{{travelFlightDetails.departureDate}}</span>
+                </dd>
+                <dt><span>Arrival Date</span></dt>
+                <dd>
+                    <span>{{travelFlightDetails.arrivalDate}}</span>
+                </dd>
+                <dt><span>Fare Price</span></dt>
+                <dd>
+                    <span>{{travelFlightDetails.farePrice}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{travelFlightDetails.createdBy}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{travelFlightDetails.createdDate}}</span>
+                </dd>
+                <dt><span>Last Updated By</span></dt>
+                <dd>
+                    <span>{{travelFlightDetails.lastUpdatedBy}}</span>
+                </dd>
+                <dt><span>Last Updated Date</span></dt>
+                <dd>
+                    <span>{{travelFlightDetails.lastUpdatedDate}}</span>
+                </dd>
+                <dt><span>Travel Application Master</span></dt>
+                <dd>
+                    <div *ngIf="travelFlightDetails.travelApplicationMaster">
+                        <a [routerLink]="['/travel-application-master', travelFlightDetails.travelApplicationMaster?.id, 'view']">{{travelFlightDetails.travelApplicationMaster?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/travel-flight-details', travelFlightDetails.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

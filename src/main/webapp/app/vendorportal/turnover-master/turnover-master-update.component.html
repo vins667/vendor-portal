@@ -1,0 +1,51 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-turnover-master-heading">Create or edit a Turnover Master</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!turnoverMaster.id">
+                            <div class="col-md-3">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="turnoverMaster.id" readonly />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_turnoverRange">Turnover Range</label></div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="turnoverRange" id="field_turnoverRange" [(ngModel)]="turnoverMaster.turnoverRange" maxlength="30" required/>
+                                <div [hidden]="!(editForm.controls.turnoverRange?.dirty && editForm.controls.turnoverRange?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.turnoverRange?.errors?.maxlength">
+                                        This field cannot be longer than 30 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_status">Status</label></div>
+                            <div class="col-md-9">
+                                <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="status" id="field_status" [(ngModel)]="turnoverMaster.status" required maxlength="1">
+                                    <option value="Y">Active</option>
+                                    <option value="N">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

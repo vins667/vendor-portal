@@ -1,0 +1,164 @@
+<div class="card">
+    <div class="body">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h5 id="jhi-country-heading">
+                TDS Declaration
+                <button type="button" class="btn btn-sm btn-info btn-round float-right" [routerLink]="['/tds-declaration-upload']">
+                    <fa-icon [icon]="'paperclip'"></fa-icon> <span>Document Upload</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving || (tdsDeclaration && tdsDeclaration.tempLock && tdsDeclaration.tempLock==='Y')" class="btn btn-sm btn-blush btn-round float-right">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </h5>
+            <hr class="mb-0"/>
+            <div class="row" *ngIf="tdsDeclaration">
+                <div class="col-12">
+                    <div>
+                        <div class="row" *ngIf="tdsDeclaration && tdsDeclaration.tempLock && tdsDeclaration.tempLock==='Y'">
+                            <div class="col-md-12 text-center">
+                                <span style="font-weight: bold; font-size: 20px; color: red; font-style: italic;">Locked By Finance Team.</span>
+                            </div>
+                        </div>
+                        <hr *ngIf="tdsDeclaration && tdsDeclaration.tempLock && tdsDeclaration.tempLock==='Y'"/>
+                        <div class="row">
+                            <div class="col-md-9"></div>
+                            <div class="col-md-3 text-right">
+                                <div class="input-group input-group-sm">
+                                    <div class="input-group-prepend mt-2 font-weight-bold">New Scheme&nbsp;&nbsp;</div>
+                                    <ui-switch class="toggle-switch-primary mt-1" size="small" id="field_regime" name="regime" [(ngModel)]="tdsDeclaration.regime" (click)="regimeCalculation();"></ui-switch>
+                                    <div class="input-group-append mt-2 font-weight-bold">&nbsp;&nbsp;Old Scheme</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><label class="form-control-label">Name</label> </div>
+                            <div class="col-md-4">{{tdsDeclaration.name}}</div>
+                            <div class="col-md-2"><label class="form-control-label">Designation</label> </div>
+                            <div class="col-md-4">{{tdsDeclaration.designation}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><label class="form-control-label">Pan No</label></div>
+                            <div class="col-md-4">{{tdsDeclaration.panNo}}</div>
+                            <div class="col-md-2"><label class="form-control-label">Date Of Birth</label> </div>
+                            <div class="col-md-4">{{tdsDeclaration.dateOfBirth | date: 'dd-MMM-yyyy'}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><label class="form-control-label">Email Id</label></div>
+                            <div class="col-md-4">{{tdsDeclaration.emailId}}</div>
+                            <div class="col-md-2"><label class="form-control-label">Contact No</label></div>
+                            <div class="col-md-4">{{tdsDeclaration.contactNumber}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><label class="form-control-label">Address</label></div>
+                            <div class="col-md-10">{{tdsDeclaration.address}}</div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2"><label class="form-control-label">Monthly Rent</label></div>
+                            <div class="col-md-4">
+                                <input type="number" class="form-control form-control-sm" name="monthRent" id="field_monthRent" [(ngModel)]="tdsDeclaration.monthRent" maxlength="15" (blur)="isMonthlyRent()" [attr.disabled]="!tdsDeclaration.regime ? 'true' : null"/>
+                            </div>
+                            <div class="col-md-2"><label class="form-control-label" for="field_landLoardName">Land Lord Name</label></div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" name="landLoardName" id="field_landLoardName" [(ngModel)]="tdsDeclaration.landLoardName" [required]="isRequired ? true : null" maxlength="100" [attr.disabled]="!tdsDeclaration.regime ? 'true' : null"/>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2"><label class="form-control-label">Land Lord PanNo</label></div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" name="landLoardPanNo" id="field_landLoardPanNo" [(ngModel)]="tdsDeclaration.landLoardPanNo" [required]="isRequired ? true : null" maxlength="15" [attr.disabled]="!tdsDeclaration.regime ? 'true' : null"/>
+                            </div>
+                            <div class="col-md-2"><label class="form-control-label">Rent Address</label></div>
+                            <div class="col-md-4">
+                                <textarea class="form-control form-control-sm" name="landLoardAddress" id="field_landLoardAddress" [(ngModel)]="tdsDeclaration.landLoardAddress" [required]="isRequired ? true : null" maxlength="500" rows="2" [attr.disabled]="!tdsDeclaration.regime ? 'true' : null"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="color: red; font-style: italic; font-weight: bold; font-size: 12px;">
+                                1. Rent receipt is quartely basis along with owner proof,Pan No and Rent Agreement.<br/>
+                                2. Payment should be account payee cheque.
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-12">
+                                <table class="table table-sm">
+                                    <tbody>
+                                    <tr>
+                                        <td style="font-weight: bold; border: 0;">
+                                            <span>OTHER SALARIES</span><br/>
+                                            <table class="table table-sm table-bordered" style="background-color: transparent;">
+                                                <tr>
+                                                    <td style="padding-left: 10px;font-weight: normal;">1. Previous Employer Salary</td>
+                                                    <td style="width: 150px; max-width: 150px; min-width: 150px;"><input type="number" class="form-control form-control-sm" id="fieldPreviousEmployer" name="previousEmployer" [(ngModel)]="tdsDeclaration.previousEmployerAmount"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-left: 10px;font-weight: normal;">2. Previous Employer TDS Deduction</td>
+                                                    <td style="width: 150px; max-width: 150px; min-width: 150px;"><input type="number" class="form-control form-control-sm" id="field_previousEmployerTdsDeduction" name="previousEmployerTdsDeduction" [(ngModel)]="tdsDeclaration.previousEmployerTdsDeduction"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-left: 10px;font-weight: normal;">3. Incentive Amount</td>
+                                                    <td style="width: 150px; max-width: 150px; min-width: 150px;"><input type="number" class="form-control form-control-sm" id="fieldIncentiveAmount" name="incentiveAmount" [(ngModel)]="tdsDeclaration.incentiveAmount"/></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr *ngFor="let groupMasterBean of tdsDeclaration.groupMasterBeans; let h = index;">
+                                        <td style="font-weight: bold; border: 0;">
+                                            <ng-container *ngIf="groupMasterBean.groupDescription && groupMasterBean.groupDescription !== 'NA' && groupMasterBean.groupDescription !== groupMasterBean.groupCode">
+                                                <span>{{groupMasterBean.groupDescription}}</span><br/>
+                                            </ng-container>
+                                            <span style="margin-left: 10px;">{{groupMasterBean.groupCode}} <ng-container *ngIf="groupMasterBean.groupLimit"><span style="color: red; font-style: italic; font-weight: normal">**Maximum Saving possible (Rs {{groupMasterBean.groupLimit}}).</span></ng-container></span>
+                                            <table class="table table-sm table-bordered" style="background-color: transparent;">
+                                                <tr>
+                                                    <td style="padding-left: 10px;font-weight: bold;">Title</td>
+                                                    <td style="padding-left: 10px;font-weight: bold;" *ngFor="let previousEmployee of groupMasterBean.previousEmploymentDetailBeans">
+                                                        {{previousEmployee.employerName.substring(0, 6)}}
+                                                    </td>
+                                                    <td style="width: 150px; max-width: 150px; min-width: 150px;font-weight: bold;">Total</td>
+                                                </tr>
+                                                    <ng-container *ngIf="groupMasterBean && groupMasterBean.tdsGroupDetailsBean">
+                                                            <tr *ngFor="let tdsGroupDetail of groupMasterBean.tdsGroupDetailsBean; let i = index;" [hidden]="tdsGroupDetail.displayFlag && tdsGroupDetail.displayFlag==='Y'">
+                                                                <td style="padding-left: 10px;font-weight: normal;">
+                                                                    {{i + 1}}. {{tdsGroupDetail.perkDescription}}<ng-container *ngIf="tdsGroupDetail.remarks"><br/><span style="color: red; font-weight: bold; font-style: italic; font-size: 12px;" [innerHTML]="'**'+tdsGroupDetail.remarks"></span></ng-container>
+                                                                </td>
+                                                                <ng-container *ngFor="let previousEmployee of groupMasterBean.previousEmploymentDetailBeans">
+                                                                    <ng-container *ngFor="let breakupBean of tdsGroupDetail.tdsDeclarationBreakupBeans">
+                                                                        <ng-container *ngIf="breakupBean.employerId === previousEmployee.id">
+                                                                            <td style="width: 150px; max-width: 150px; min-width: 150px;"><input type="number" id="fieldAmount_{{h}}_{{i}}_{{breakupBean.employerId}}" name="amount_{{h}}_{{i}}_{{breakupBean.employerId}}" class="form-control form-control-sm" [(ngModel)]="breakupBean.amount" (keyup)="amountCalculate();" [attr.disabled]="!tdsDeclaration.regime || tdsGroupDetail.perkCode ==='80C-PF' || tdsGroupDetail.perkCode ==='80C-VPF' ? 'true' : null"/></td>
+                                                                        </ng-container>
+                                                                    </ng-container>
+                                                                </ng-container>
+                                                                <td style="width: 150px; max-width: 150px; min-width: 150px;"><input type="number" id="fieldAmount_gp_{{h}}_{{i}}" name="amount_gp_{{h}}_{{i}}" class="form-control form-control-sm" [(ngModel)]="tdsGroupDetail.amount" readonly/></td>
+                                                            </tr>
+                                                            <tr class="bg-background">
+                                                                <td style="padding-left: 10px;font-weight: bold;">Total</td>
+                                                                <td *ngFor="let previousEmployee of groupMasterBean.previousEmploymentDetailBeans">
+                                                                    <input type="text" class="form-control form-control-sm" id="fieldTotalAmount{{h}}_{{previousEmployee.id}}" name="totalAmount{{h}}_{{previousEmployee.id}}" [(ngModel)]="previousEmployee.amount" readonly/>
+                                                                </td>
+                                                                <td style="width: 150px; max-width: 150px; min-width: 150px;"><input type="text" class="form-control form-control-sm" id="fieldTotalAmount_gp_{{h}}" name="totalAmount_gp_{{h}}" [(ngModel)]="groupMasterBean.totalAmount" readonly/></td>
+                                                            </tr>
+                                                    </ng-container>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-12">
+                                <h5>DECLARATION</h5>
+                                <p>1. All the above information are true and correct. I will produce photocopy of all the investment documents viz. Copies of investment documents, certificates, receipts, etc. made by me as and when invested, failing which you may consider the declaration as canceled and project my tax liability accordingly.</p>
+                                <p>2. I hereby agree that in case, I fail to invest the amount as disclosed above, the PENAL INTEREST U/S 201 (A) of Income Tax Act and all other penalties leviable under Income Tax Act on the short deduction of Tax arising out of such non-compliance be recovered from my salary.</p>
+                                <p>3. Any rebate on the above investments and deductions under chapter VI-A of the Income Tax act 1961 for the above mentioned financial year has been claimed by me only and has not been claimed by any other person.</p>
+                                <p>4. I confirm that the PAN number as given above is true as per the PAN card issued by the Income Tax Department.</p>
+                                <p>5. If you have not PAN No. then Tax will be deducted @ 30%.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

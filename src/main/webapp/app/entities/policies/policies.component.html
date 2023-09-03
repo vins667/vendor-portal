@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="body">
+        <div style="margin-top: -20px;">
+            <ngb-tabset *ngIf="policyGroup">
+                <ngb-tab *ngFor="let policyGp of policyGroup;">
+                    <ng-template ngbTabTitle>
+                        <span>{{policyGp.policyGroup}}</span>
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <ngb-tabset *ngIf="policyGp.policies" class="tabs-left" [orientation]="'vertical'">
+                            <ngb-tab [attr.id]="policies.id" *ngFor="let policies of policyGp.policies ;trackBy: trackId" class="">
+                                <ng-template ngbTabTitle>
+                                    <span (click)="changePage();">{{policies.policyName}}</span>
+                                </ng-template>
+                                <ng-template ngbTabContent>
+                                    <pdf-viewer [src]="policies.policyFile" [render-text]="true" style="display: block;" [show-all]="false"
+                                                [page]="page"
+                                                (after-load-complete)="afterLoadComplete($event)"
+                                                [zoom]="0.85"></pdf-viewer>
+                                    <div *ngIf="isLoaded" style="text-align: center;">
+                                        <button class="btn btn-round bg-blush" (click)="prevPage()" [disabled]="page === 1">Prev</button>
+                                        <span>{{ page }} / {{ totalPages }}</span>
+                                        <button class="btn btn-round bg-blush" (click)="nextPage()" [disabled]="page === totalPages">Next</button>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                        </ngb-tabset>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+</div>

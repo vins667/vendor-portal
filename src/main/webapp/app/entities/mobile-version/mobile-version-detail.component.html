@@ -1,0 +1,49 @@
+<div class="card">
+    <div class="body">
+            <h5><span>Mobile Version</span> {{mobileVersion.id}}</h5>
+            <hr>
+            <div class="row">
+                    <div class="col-8">
+                            <div *ngIf="mobileVersion">
+                                    <div class="row">
+                                        <div class="col-md-3"><dt><span>Version</span></dt></div>
+                                        <div class="col-md-9">
+                                            <dd><span>{{mobileVersion.version}}</span></dd>
+                                        </div>
+                                     </div>
+                                      <div class="row">
+                                        <div class="col-md-3"><dt><span>Mobile Type</span></dt></div>
+                                        <div class="col-md-9">
+                                            <dd>
+                                                <span *ngIf="mobileVersion.mobileType=='ANDROID'">Android</span>
+                                                <span *ngIf="mobileVersion.mobileType=='IPHONE'">Iphone</span>
+                                            </dd>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3"><dt><span>Created Date</span></dt></div>
+                                        <div class="col-md-9">
+                                            <dd><span>{{mobileVersion.closedDate | date:'medium'}}</span></dd>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3"><dt><span>Closed Date</span></dt></div>
+                                        <div class="col-md-9">
+                                            <dd><span>{{mobileVersion.closedDate | date:'medium'}}</span></dd>
+                                        </div>
+                                    </div>
+                                     <button type="submit"
+                                           (click)="previousState()"
+                                          class="btn btn-sm btn-info btn-round">
+                                         <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                                     </button>
+                                    <button type="button"
+                                         [routerLink]="['/mobile-version', mobileVersion.id, 'edit']"
+                                         class="btn btn-sm btn-blush btn-round">
+                                         <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                                    </button>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>

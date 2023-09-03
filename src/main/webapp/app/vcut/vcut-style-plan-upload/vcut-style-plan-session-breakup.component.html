@@ -1,0 +1,81 @@
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5 class="modal-title">Session Planning</h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+</div>
+<div class="modal-body" *ngIf="vcutStylePlanUpload">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <div class="row card-margin-bottom-10">
+            <div class="col-3">
+                <span style="font-weight: 700">Plan: </span>{{vcutStylePlanUpload.id}}
+            </div>
+            <div class="col-3">
+                <span style="font-weight: 700">Style: </span>{{vcutStylePlanUpload.style}}
+            </div>
+            <div class="col-3">
+                <span style="font-weight: 700">Buyer: </span>{{vcutStylePlanUpload.buyerName}}
+            </div>
+            <div class="col-3">
+                <span style="font-weight: 700">Plan Quantity: </span>{{vcutStylePlanUpload.quantity}}
+            </div>
+        </div>
+        <hr style="margin: 0; padding: 0; margin-bottom: 5px;"/>
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-1">
+                <span style="font-weight: 700">Session: </span>
+            </div>
+            <div class="col-md-5">
+                <select class="form-control form-control-sm custom-select custom-select-sm" name="sessionMaster" id="sessionMaster" [(ngModel)]="vcutStylePlanUpload.vcutSessionMasterId" required (change)="changeSession();" [disabled]="vcutStylePlanUpload.vcutSessionMasterId && saveSession">
+                    <option *ngFor="let vcutSessionMasterCustom of vcutSessionMasters" [value]="vcutSessionMasterCustom.id">{{vcutSessionMasterCustom.planName}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 text-right">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
+                        class="btn btn-sm btn-blush btn-round">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </div>
+        <div class="row card-margin-bottom-10" *ngIf="selectVcutSessionMaster">
+            <div class="col-md-12">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th><span>Plan Quantity</span></th>
+                        <th><span>Start Time</span></th>
+                        <th><span>End Time</span></th>
+                        <th style="width: 100px;"><span>Type</span></th>
+                        <th><span>Duration</span></th>
+                        <th><span>Order</span></th>
+                        <th><span>cumulative Mins</span></th>
+                    </tr>
+                    </thead>
+                    <tbody *ngIf="selectVcutSessionMaster.vcutSessionDetails">
+                    <tr *ngFor="let vcutSessionDetail of selectVcutSessionMaster.vcutSessionDetails;let index = index;">
+                        <td class="button-column"><fa-icon (click)="removeRow(index)" [icon]="'trash-alt'" style="cursor: pointer;" class="text-danger"></fa-icon></td>
+                        <td class="button-column"><fa-icon [icon]="'plus-circle'" style="color: #00FF00; cursor: pointer;" (click)="addRow(index);"></fa-icon></td>
+                        <td><input type="number" class="form-control form-control-sm" name="planQuantity_{{index}}" id="field_planQuantity_{{index}}" [(ngModel)]="vcutSessionDetail.planQuantity" maxlength="10" required/></td>
+                        <td><input type="text" [textMask]="{mask: mask}" class="form-control form-control-sm " placeholder="HH:mm" name="startTime_{{index}}" id="field_startTime_{{index}}" [(ngModel)]="vcutSessionDetail.startTime" maxlength="10" (blur)="calTimeDifference(vcutSessionDetail)" required/></td>
+                        <td><input type="text" [textMask]="{mask: mask}" class="form-control form-control-sm " placeholder="HH:mm" name="endTime_{{index}}" id="field_endTime_{{index}}" [(ngModel)]="vcutSessionDetail.endTime" maxlength="10" (blur)="calTimeDifference(vcutSessionDetail)" [required]="vcutSessionDetail.startTime" required/></td>
+                        <td>
+                            <select class="form-control form-control-sm custom-select custom-select-sm"  name="type_{{index}}" id="field_type_{{index}}" [(ngModel)]="vcutSessionDetail.type" maxlength="20" [required]="vcutSessionDetail.startTime" required>
+                                <option [ngValue]="undefined">Select</option>
+                                <option value="WORK">Work</option>
+                                <option value="LUNCH">Lunch</option>
+                                <option value="TEA">Tea</option>
+                                <option value="NOWORK">No Work</option>
+                                <option value="OT">Overtime</option>
+                            </select>
+                        </td>
+                        <td><input type="number" class="form-control form-control-sm" name="duration_{{index}}" id="field_duration_{{index}}" [(ngModel)]="vcutSessionDetail.duration"  readonly/></td>
+                        <td><input type="number" class="form-control form-control-sm" name="order_{{index}}" id="field_order_{{index}}" [(ngModel)]="vcutSessionDetail.order" readonly/></td>
+                        <td><input type="number" class="form-control form-control-sm" name="cumulativeMins_{{index}}" id="field_cumulativeMins_{{index}}" [(ngModel)]="vcutSessionDetail.cumulativeMins"  readonly/></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+<ng-snotify></ng-snotify>

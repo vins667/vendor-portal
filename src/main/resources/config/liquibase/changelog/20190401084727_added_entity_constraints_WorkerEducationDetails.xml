@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity WorkerEducationDetails.
+    -->
+    <changeSet id="20190401084727-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="education_master_id"
+                                 baseTableName="worker_education_details"
+                                 constraintName="fk_worker_education_details_education_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="education_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="education_type_master_id"
+                                 baseTableName="worker_education_details"
+                                 constraintName="fk_worker_education_details_education_type_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="education_type_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="institute_master_id"
+                                 baseTableName="worker_education_details"
+                                 constraintName="fk_worker_education_details_institute_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="institute_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="recruitment_country_master_id"
+                                 baseTableName="worker_education_details"
+                                 constraintName="fk_worker_education_details_recruitment_country_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="recruitment_country_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="recruitment_state_master_id"
+                                 baseTableName="worker_education_details"
+                                 constraintName="fk_worker_education_details_recruitment_state_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="recruitment_state_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="recruitment_district_id"
+                                 baseTableName="worker_education_details"
+                                 constraintName="fk_worker_education_details_recruitment_district_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="recruitment_district"/>
+
+        <addForeignKeyConstraint baseColumnNames="recruitment_city_master_id"
+                                 baseTableName="worker_education_details"
+                                 constraintName="fk_worker_education_details_recruitment_city_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="recruitment_city_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="worker_joining_id"
+                                 baseTableName="worker_education_details"
+                                 constraintName="fk_worker_education_details_worker_joining_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="worker_joining"/>
+
+    </changeSet>
+</databaseChangeLog>

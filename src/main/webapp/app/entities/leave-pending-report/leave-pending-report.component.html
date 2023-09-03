@@ -1,0 +1,65 @@
+<div class="card">
+    <div class="card-header">
+        <h5 id="jhi-leave-pending-report-heading">Leave Pending Report</h5>
+    </div>
+    <div class="card-body">
+        <div align="center" class="centered" *ngIf="isDownload">
+            <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="row mb-1">
+                    <div class="col-md-2">
+                        <label class="form-control-label" for="field_status">Status</label>
+                    </div>
+                    <div class="col-md-10">
+                        <select type="text" class="form-control form-control-xs custom-select custom-select-xs" name="status" id="field_status" [(ngModel)]="search.leaveStatus" required>
+                            <option value="E">Pending with HOD</option>
+                            <option value="A">Pending with HR</option>
+                            <option value="C">Approved By HR</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-md-2">
+                        <label class="form-control-label">Factory</label>
+                    </div>
+                    <div class="col-md-10">
+                        <select name="factory" id="factory" class="form-control form-control-xs custom-select custom-select-xs" [(ngModel)]="search.factory" required>
+                            <option *ngFor="let factoryMaster of factoryMasters" [value]="factoryMaster.factoryCode">{{factoryMaster.factoryName}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-2" *ngIf="search.leaveStatus && search.leaveStatus === 'C'">
+                    <div class="col-md-2">
+                        <label class="form-control-label" for="field_status">Leave Date</label>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <input [owlDateTime]="leaveFrom" name="leaveDateFrom" id="field_leaveDateFrom" placeholder="Date From" class="form-control form-control-xs" required [(ngModel)]="search.leaveDateFrom">
+                            <div class="input-group-append input-group-append-top">
+                                <div class="btn btn-blush btn-xs" [owlDateTimeTrigger]="leaveFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                            </div>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #leaveFrom></owl-date-time>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <input [owlDateTime]="leaveTo" name="leaveDateTo" id="field_leaveDateTo" placeholder="Date To" class="form-control form-control-xs" required [(ngModel)]="search.leaveDateTo">
+                            <div class="input-group-append input-group-append-top">
+                                <div class="btn btn-xs btn-blush" [owlDateTimeTrigger]="leaveTo"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                            </div>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #leaveTo></owl-date-time>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn btn-sm btn-blush btn-round" style="margin-top: 0;" [disabled]="isDownload" (click)="generateReport();"><fa-icon [icon]="'download'"></fa-icon> <span>Generate</span></button>&nbsp;&nbsp;
+                        <button type="reset" class="btn btn-sm btn-secondary btn-round" style="margin-top: 0;" [disabled]="isDownload"><fa-icon [icon]="'times'"></fa-icon> <span>Reset</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

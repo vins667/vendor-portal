@@ -1,0 +1,39 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Bank Master</span> {{bankMaster.id}}</h5>
+        <hr>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="bankMaster">
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Bank Code</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{bankMaster.bankCode}}</span></dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Bank Name</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{bankMaster.bankName}}</span></dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Status</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span *ngIf="bankMaster.status=='Y'">Active</span>
+                                <span *ngIf="bankMaster.status=='N'">Inactive</span>
+                            </dd>
+                        </div>
+                  </div>
+                   <button type="submit"  (click)="previousState()"  class="btn btn-sm btn-info btn-round">
+                    <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                  </button>
+                   <button type="button" [routerLink]="['/bank-master', bankMaster.id, 'edit']" class="btn btn-sm btn-blush btn-round">
+                    <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                  </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

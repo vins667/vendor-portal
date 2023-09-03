@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="jobworkOrderDelvSch" pageWidth="360" pageHeight="250" columnWidth="360" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9d16f1d0-9083-4cb4-8286-43ac4f3c93e8">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db2"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="code" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select  nvl(TRIM(kd.SUMMARIZEDDESCRIPTION),'')FULLITEMDESC, 
+TO_CHAR(ex1.REQUIREDDUEDATE,'dd/mm/yyyy')duedate, 
+NVL(sum(ex1.userprimaryquantity),0)LINEQTY 
+from extopline ex1, EXTOPLINEIE IE, fullitemkeydecoder kd 
+where nvl(trim(ex1.ENTRYSUBCODE01),'') = nvl(trim(kd.SUBCODE01),'') and nvl(trim(ex1.ENTRYSUBCODE02),'') = nvl(trim(kd.SUBCODE02),'')  
+and nvl(trim(ex1.ENTRYSUBCODE03),'') = nvl(trim(kd.SUBCODE03),'') and nvl(trim(ex1.ENTRYSUBCODE04),'') = nvl(trim(kd.SUBCODE04),'') 
+and nvl(trim(ex1.ENTRYSUBCODE05),'') = nvl(trim(kd.SUBCODE05),'') and nvl(trim(ex1.ENTRYSUBCODE06),'') = nvl(trim(kd.SUBCODE06),'') 
+and nvl(trim(ex1.ENTRYSUBCODE07),'') = nvl(trim(kd.SUBCODE07),'') and nvl(trim(ex1.ENTRYSUBCODE08),'') = nvl(trim(kd.SUBCODE08),'') 
+and nvl(trim(ex1.ENTRYSUBCODE09),'') = nvl(trim(kd.SUBCODE09),'') and nvl(trim(ex1.ENTRYSUBCODE10),'') = nvl(trim(kd.SUBCODE10),'')  
+AND EX1.COUNTERCODE=IE.COUNTERCODE AND EX1.CODE=IE.CODE 
+AND  EX1.ORDERLINE=IE.ORDERLINE and ex1.CODE=  $P{code}
+group by nvl(TRIM(kd.SUMMARIZEDDESCRIPTION),''), 
+TO_CHAR(ex1.REQUIREDDUEDATE,'dd/mm/yyyy')]]>
+	</queryString>
+	<field name="FULLITEMDESC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FULLITEMDESC"/>
+	</field>
+	<field name="DUEDATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DUEDATE"/>
+	</field>
+	<field name="LINEQTY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="LINEQTY"/>
+	</field>
+	<group name="delvGrp">
+		<groupHeader>
+			<band height="24">
+				<staticText>
+					<reportElement x="0" y="0" width="360" height="12" uuid="046e77f1-b05d-4dd5-b200-00387f8366fd"/>
+					<box leftPadding="5">
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Delivery Schedule ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="12" width="230" height="12" uuid="e1a252fb-109c-41ef-827c-90321f6ff941">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box leftPadding="5">
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Item Description]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="230" y="12" width="65" height="12" uuid="35e698fa-613f-4413-bca4-ae65eb12553a">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box leftPadding="0" rightPadding="5">
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Delivery Date]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="295" y="12" width="65" height="12" uuid="013ff07c-a26b-4bab-bead-8a46dfe88f4b">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box leftPadding="0" rightPadding="5">
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Qty.]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="230" height="12" uuid="b11831dc-74fe-4188-b18e-fec495f8b825">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FULLITEMDESC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="230" y="0" width="65" height="12" uuid="b7106aca-e29e-4cad-a3be-436fba87383f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DUEDATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00#;(#,##0.00#-)" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="295" y="0" width="65" height="12" uuid="ba74674d-8a5c-42bb-9d4f-e93c051f53b3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LINEQTY}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

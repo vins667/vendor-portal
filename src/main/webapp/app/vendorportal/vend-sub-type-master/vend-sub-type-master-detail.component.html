@@ -1,0 +1,58 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Vend Sub Type Master</span> {{vendSubTypeMaster.id}}</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="vendSubTypeMaster">
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Description</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{vendSubTypeMaster.description}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>M 3 Code</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{vendSubTypeMaster.m3Code}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Vendor Type</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <div *ngIf="vendSubTypeMaster.vendTypeMaster">
+                                    <a [routerLink]="['/vend-type-master', vendSubTypeMaster.vendTypeMaster?.id, 'view']">{{vendSubTypeMaster.vendTypeMaster?.description}}</a>
+                                </div>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Status</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span *ngIf="vendSubTypeMaster.status=='Y'">Active</span>
+                                <span *ngIf="vendSubTypeMaster.status=='N'">Inactive</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/vend-sub-type-master', vendSubTypeMaster.id, 'edit']"
+                            class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

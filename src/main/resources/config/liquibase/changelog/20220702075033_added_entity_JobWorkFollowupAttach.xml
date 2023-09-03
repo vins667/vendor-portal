@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <!--
+        Added the entity JobWorkFollowup.
+    -->
+    <changeSet id="20220702075033-5" author="jhipster">
+        <createTable tableName="job_work_followup_attach">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="true"/>
+            </column>
+
+            <column name="attachment_filename" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="original_filename" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="submit_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="submit_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="job_work_followup_details_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+		<createSequence startValue="1"  sequenceName="job_work_followup_attach_seq" incrementBy = "1" cycle = "false"/>
+
+    </changeSet>
+
+
+
+</databaseChangeLog>

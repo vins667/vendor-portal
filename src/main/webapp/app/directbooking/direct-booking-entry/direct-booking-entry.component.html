@@ -1,0 +1,191 @@
+<div align="center" class="centered" *ngIf="isDownload">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6">
+                <h6 id="page-heading">
+                    <span>Direct Booking System</span>
+                </h6>
+            </div>
+            <div class="col-md-6 text-right">
+                <button type="button" class="btn btn-xs btn-success btn-round" style="margin-top: 0;" [disabled]="isDownload" (click)="generateXLS();"><fa-icon [icon]="'download'"></fa-icon> <span>Excel</span></button>&nbsp;
+                <button id="jh-create-entity" class="btn btn-xs btn-blush btn-round float-right jh-create-entity create-direct-booking-entry m-0" [routerLink]="['/direct-booking-entry/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span>New&nbsp;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-2">
+                <select name="flag" id="field_flag" [(ngModel)]="search.flag" class="form-control form-control-xs custom-select custom-select-xs">
+                    <option [value]="'E'">Pending</option>
+                    <option [value]="'F'">Forwarded</option>
+                    <option [value]="'P'">Posted</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control form-control-xs" name="entryId" id="field_entryId" placeholder="Enter ID#" [(ngModel)]="search.id"/>
+            </div>
+            <div class="col-md-2">
+                <div class="input-group mb-0">
+                    <input type="text" class="form-control form-control-xs" [owlDateTime]="bookingdate" name="bookingdate" id="field_bookingdate" placeholder="Posting From Date" [(ngModel)]="search.bookingDateFrom" readonly/>
+                    <div class="input-group-append input-group-append-top">
+                        <button type="button" class="btn btn-xs btn-blush"><fa-icon [icon]="'calendar'" [owlDateTimeTrigger]="bookingdate"></fa-icon></button>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #bookingdate></owl-date-time>
+            </div>
+            <div class="col-md-2">
+                <div class="input-group mb-0">
+                    <input type="text" class="form-control form-control-xs" [owlDateTime]="bookingdateTo" name="bookingdateTo" id="field_bookingdateTo" placeholder="Posting To Date" [(ngModel)]="search.bookingDateTo" readonly/>
+                    <div class="input-group-append input-group-append-top">
+                        <button type="button" class="btn btn-xs btn-blush"><fa-icon [icon]="'calendar'" [owlDateTimeTrigger]="bookingdateTo"></fa-icon></button>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #bookingdateTo></owl-date-time>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control form-control-xs" name="customersuppliercode" id="field_customersuppliercode" placeholder="Enter Supplier Code" [(ngModel)]="search.customersuppliercode"/>
+            </div>
+            <div class="col-md-1 text-right">
+                <button class="btn btn-xs btn-round btn-success m-0" type="button" (click)="loadPage();">
+                    <fa-icon [icon]="'search'"></fa-icon> <span>Search</span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <input type="text" class="form-control form-control-xs" name="billno" id="field_billno" placeholder="Enter Bill#" [(ngModel)]="search.billNo"/>
+            </div>
+            <div class="col-md-2">
+                <div class="input-group mb-0">
+                    <input type="text" class="form-control form-control-xs" [owlDateTime]="billDate" name="billdateTo" id="field_billdateTo" placeholder="Bill Date" [(ngModel)]="search.billDate" readonly/>
+                    <div class="input-group-append input-group-append-top">
+                        <button type="button" class="btn btn-xs btn-blush"><fa-icon [icon]="'calendar'" [owlDateTimeTrigger]="billDate"></fa-icon></button>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #billDate></owl-date-time>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control form-control-xs custom-select custom-select-xs" name="company" id="field_company" [(ngModel)]="search.company" (change)="fetchDivision(); fetchBusinessUnit();">
+                    <option [value]="'undefined'">Select Company</option>
+                    <option [value]="companyOption.code" *ngFor="let companyOption of companies;">{{companyOption.code + '-' + companyOption.longdescription}}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control form-control-xs custom-select custom-select-xs" name="division" id="field_division" [(ngModel)]="search.division" >
+                    <option [value]="'undefined'">Select Division</option>
+                    <option [value]="divisionOption.id.code" *ngFor="let divisionOption of divisions;">{{divisionOption.id.code + '-' + divisionOption.longdescription}}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control form-control-xs custom-select custom-select-xs" name="businessunit" id="field_businessunit" [(ngModel)]="search.businessunit" >
+                    <option [value]="'undefined'">Select Business Unit</option>
+                    <option [value]="businessunitOption.id.code" *ngFor="let businessunitOption of finbusinessunits;">{{businessunitOption.id.code + '-' + businessunitOption.longdescription}}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control form-control-xs" name="findocumentcode" id="field_findocumentcode" placeholder="Enter Posting Code" [(ngModel)]="search.findocumentcode"/>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col" jhiSortBy="id"><span>ID</span>
+                        <fa-icon icon="sort"></fa-icon>
+                    </th>
+                    <th scope="col" jhiSortBy="company"><span>Company</span>
+                        <fa-icon icon="sort"></fa-icon>
+                    </th>
+                    <th scope="col" jhiSortBy="division"><span>Division</span>
+                        <fa-icon icon="sort"></fa-icon>
+                    </th>
+                    <th scope="col" jhiSortBy="businessunitcode"><span>Businessunit</span>
+                        <fa-icon icon="sort"></fa-icon>
+                    </th>
+                    <th scope="col" jhiSortBy="factorycode"><span>Factory</span>
+                        <fa-icon icon="sort"></fa-icon>
+                    </th>
+                    <th scope="col" jhiSortBy="bookingdate"><span>Posting&nbsp;Date</span>
+                        <fa-icon icon="sort"></fa-icon>
+                    </th>
+                    <th scope="col" jhiSortBy="bookingtype"><span>Bookingtype</span>
+                        <fa-icon icon="sort"></fa-icon>
+                    </th>
+                    <th scope="col" jhiSortBy="suppliercustomerdesc"><span>Supplier</span>
+                        <fa-icon icon="sort"></fa-icon>
+                    </th>
+                    <th scope="col" jhiSortBy="billno"><span>Bill#</span>
+                        <fa-icon icon="sort"></fa-icon>
+                    </th>
+                    <th scope="col" jhiSortBy="billdate"><span>Billdate</span>
+                        <fa-icon icon="sort"></fa-icon>
+                    </th>
+                    <th scope="col" jhiSortBy="findocumentcode"><span>FIN DOC#</span>
+                        <fa-icon icon="sort"></fa-icon>
+                    </th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngIf="directBookingEntries">
+                    <tr *ngFor="let directBookingEntry of directBookingEntries ;trackBy: trackId">
+                        <td>{{ directBookingEntry.id }}</td>
+                        <td>{{ directBookingEntry.company }}</td>
+                        <td>{{ directBookingEntry.division }}</td>
+                        <td>{{ directBookingEntry.businessunitcode }}</td>
+                        <td>{{ directBookingEntry.factorycode }}</td>
+                        <td>{{ directBookingEntry.bookingdate | date:'dd-MM-yyyy' }}</td>
+                        <td>{{ directBookingEntry.bookingtype === 'P' ? 'Purchase' : directBookingEntry.bookingtype === 'S' ? 'Sales' : 'Service' }}</td>
+                        <td>{{ directBookingEntry.suppliercustomerdesc }}</td>
+                        <td>{{ directBookingEntry.billno }}</td>
+                        <td>{{ directBookingEntry.billdate | date:'dd-MM-yyyy' }}</td>
+                        <td>{{ directBookingEntry.findocumentcode }}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/direct-booking-entry', directBookingEntry.id, 'edit']"
+                                        class="btn btn-blush btn-xs">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/direct-booking-entry', directBookingEntry.id, 'copy']"
+                                        class="btn btn-secondary btn-xs">
+                                    <fa-icon [icon]="'copy'"></fa-icon>
+                                    <span class="d-none d-md-inline">Copy</span>
+                                </button>
+                                <button type="submit" (click)="delete(directBookingEntry)" class="btn btn-danger btn-xs" [disabled]="directBookingEntry.flag !== 'E'">
+                                    <fa-icon icon="times"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" id="no-result" *ngIf="directBookingEntries?.length === 0">
+            <span>No data found</span>
+        </div>
+        <div *ngIf="directBookingEntries?.length > 0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                                [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                                (pageChange)="loadPage($event)"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+<div class="card">
+    <div class="body">
+        <h5><span>State</span> {{state.id}}</h5>
+        <hr/>
+<div class="row">
+    <div class="col-8">
+        <div *ngIf="state">
+            <div class="row">
+                <div class="col-md-3"><dt><span>State Code</span></dt></div>
+                <div class="col-md-9">
+                    <dd>
+                        <span>{{state.stateCode}}</span>
+                    </dd>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><dt><span>State Name</span></dt></div>
+                <div class="col-md-9">
+                    <dd>
+                        <span>{{state.stateName}}</span>
+                    </dd>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><dt><span>Geo Code</span></dt></div>
+                <div class="col-md-9">
+                    <dd>
+                        <span>{{state.geoCode}}</span>
+                    </dd>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><dt><span>Gst State Code</span></dt></div>
+                <div class="col-md-9">
+                    <dd>
+                        <span>{{state.gstStateCode}}</span>
+                    </dd>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><dt><span>Status</span></dt></div>
+                <div class="col-md-9">
+                    <dd>
+                        <span *ngIf="state.status=='Y'">Active</span>
+                        <span *ngIf="state.status=='N'">Inactive</span>
+                    </dd>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><dt><span>Country</span></dt></div>
+                <div class="col-md-9">
+                    <dd>
+                        <div *ngIf="state.country">
+                            <a [routerLink]="['/country', state.country?.id, 'view']">{{state.country?.id}}</a>
+                        </div>
+                    </dd>
+                </div>
+            </div>
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-sm btn-info btn-round">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/state', state.id, 'edit']"
+                    class="btn btn-sm btn-blush btn-round">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="card">
+        <div class="card-body">
+            <h5><span>Vcut Style Image</span> {{vcutStyleImage.id}}</h5>
+            <hr>
+            <div class="row">
+                <div class="col-8">
+                    <div *ngIf="vcutStyleImage">
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Style</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span>{{vcutStyleImage.style}}</span></dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Front Image</span></dt></div>
+                            <div class="col-md-9">
+                                <dd>
+                                    <span>{{vcutStyleImage.frontImage}}</span>
+                                </dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><dt><span>Back Image</span></dt></div>
+                            <div class="col-md-9">
+                                <dd>
+                                    <span>{{vcutStyleImage.backImage}}</span>
+                                </dd>
+                            </div>
+                        </div>
+                        <button type="submit"
+                                (click)="previousState()"
+                                class="btn btn-sm btn-info btn-round">
+                            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                        </button>
+    
+                        <button type="button"
+                                [routerLink]="['/vcut-style-image', vcutStyleImage.id, 'edit']"
+                                class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    

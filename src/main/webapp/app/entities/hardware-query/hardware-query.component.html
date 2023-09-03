@@ -1,0 +1,58 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading"> <span>Hardware Query</span></h5>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm  ng-valid ng-dirty ng-touched" name="storageMin" id="field_storageMin" placeholder="Storage Min" type="number" [(ngModel)]="hardwareSearch.storageMin"/>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm  ng-valid ng-dirty ng-touched" name="storageMax" id="field_storageMax" placeholder="Storage Max" type="number" [(ngModel)]="hardwareSearch.storageMax" [required]="hardwareSearch.storageMin"/>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm  ng-valid ng-dirty ng-touched" name="memoryMin" id="field_memoryMin" placeholder="Memory Min" type="number" [(ngModel)]="hardwareSearch.memoryMin"/>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm ng-valid ng-dirty ng-touched" name="memoryMax" id="field_memoryMax" placeholder="Memory Max" type="number" [(ngModel)]="hardwareSearch.memoryMax" [required]="hardwareSearch.memoryMin"/>
+                </div>
+                <div class="col-md-4 text-right">
+                    <button class="btn btn-sm btn-round btn-blush" style="margin-top:0;" type="button" [disabled]="hardwareSearch.storageMin && !hardwareSearch.storageMax || hardwareSearch.memoryMin && !hardwareSearch.memoryMax" (click)="search();">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                        <span >Search</span>
+                    </button>
+                </div>
+           </div>
+            <div class="table-responsive" *ngIf="hardwareQueries">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr>
+                    <th><span>Asset Code</span></th>
+                    <th><span>Name</span></th>
+                    <th class="text-center"><span>Hard Disk(GB)</span></th>
+                    <th class="text-center"><span>Memory(GB)</span></th>
+                    <th><span>Os Name</span></th>
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let hardwareQuery of hardwareQueries ;trackBy: trackId">
+                        <td>{{hardwareQuery.assetCode}}</td>
+                        <td>{{hardwareQuery.ipAddress}}</td>
+                        <td class="text-center">{{hardwareQuery.hardDisk/1024 | number: '1.0-0'}}</td>
+                        <td class="text-center">{{hardwareQuery.memory/1048576 | number: '1.0-0'}}</td>
+                        <td>{{hardwareQuery.osName}}</td>
+                     </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="hardwareQueries && hardwareQueries.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+<div class="card">
+    <div class="body" *ngIf="leaveMaster">
+        <h5 id="jhi-leave-master-heading">Leave Entry</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-10">
+                <div class="row card-margin-bottom-10">
+                    <div class="col-md-2"><label class="form-control-label" for="field_leaveTypeMasterId">Id</label></div>
+                    <div class="col-md-10">
+                        <input class="form-control form-control-sm" id="field_leaveTypeMasterId" name="leaveTypeMasterId" [value]="leaveMaster.id" readonly>
+                    </div>
+                </div>
+                <div class="row card-margin-bottom-10">
+                    <div class="col-md-2"><label class="form-control-label" for="field_leaveTypeMaster">Leave Type</label></div>
+                    <div class="col-md-10">
+                        <input class="form-control form-control-sm custom-select custom-select-sm" id="field_leaveTypeMaster" name="leaveTypeMaster" [value]="leaveMaster.leaveTypeMaster.leaveName" readonly>
+                    </div>
+                </div>
+
+                <div class="row card-margin-bottom-10">
+                    <div class="col-md-2"><label class="form-control-label" for="field_leaveSubTypeMaster">Full Day/ Half Day</label></div>
+                    <div class="col-md-10">
+                        <input class="form-control form-control-sm custom-select custom-select-sm" id="field_leaveSubTypeMaster" name="leaveSubTypeMaster" [value]="leaveMaster.leaveSubTypeMaster.subTypeName" readonly>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2"><label class="form-control-label" for="field_leaveDateFrom">Date From</label></div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="input-group input-group-sm">
+                                    <input name="leaveDateFrom" id="field_leaveDateFrom" placeholder="Date From" class="form-control form-control-sm" [value]="leaveMaster.leaveDateFrom | date:'dd-MM-yyyy'" disabled>
+                                    <div class="input-group-append input-group-append-top">
+                                        <button type="button" disabled class="btn btn-blush"><span><fa-icon [icon]="'calendar'"></fa-icon></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4"><input name="leaveTimeFrom" id="field_leaveTimeFrom" class="form-control form-control-sm" maxlength="5" [value]="leaveMaster.leaveTimeFrom | date:'HH:mm'" disabled></div>
+                        </div>
+                    </div>
+                    <div class="col-md-2"><label class="form-control-label" for="field_leaveDateTo">Date To</label></div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="input-group input-group-sm">
+                                    <input name="leaveDateTo" id="field_leaveDateTo" placeholder="Date To" class="form-control form-control-sm" required [value]="leaveMaster.leaveDateTo | date:'dd-MM-yyyy'" disabled>
+                                    <div class="input-group-append input-group-append-top">
+                                        <button type="button" disabled class="btn btn-blush"><span><fa-icon [icon]="'calendar'"></fa-icon></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4"><input name="leaveTimeTo" id="field_leaveTimeTo" class="form-control form-control-sm" maxlength="5" [value]="leaveMaster.leaveTimeTo | date:'HH:mm'" disabled></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row card-margin-bottom-10">
+                    <div class="col-md-2"><label class="form-control-label" for="field_reason">Reason</label></div>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control form-control-sm" name="reason" id="field_reason" [(ngModel)]="leaveMaster.reason" maxlength="500" readonly/>
+                    </div>
+                </div>
+                <div class="row card-margin-bottom-10">
+                    <div class="col-md-2"><label class="form-control-label" for="field_hodApprovedBy">Approved By</label></div>
+                    <div class="col-md-10">
+                        <input *ngIf="hodEmployeeView" class="form-control form-control-sm custom-select-sm" name="hodApprovedBy" id="field_hodApprovedBy" [value]="hodEmployeeView.name" readonly>
+                    </div>
+                </div>
+                <div class="row card-margin-bottom-10" *ngIf="leaveMaster.mobileAttendances">
+                    <div class="col-md-2"><label class="form-control-label" for="field_reason">Locations</label></div>
+                    <div class="col-md-10">
+                        <div class="row">
+                            <ng-container *ngFor="let mobileAttendance of leaveMaster.mobileAttendances">
+                                <div class="col-md-1">
+                                    <fa-icon [icon]="'map-marker-alt'" (click)="maps(mobileAttendance);" style="cursor: pointer;"></fa-icon>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                <!--div class="row card-margin-bottom-10">
+                    <div class="col-md-2"><label class="form-control-label" for="field_hodApprovedBy">HOD Remarks</label></div>
+                    <div class="col-md-10">
+                        <textarea class="form-control form-control-sm" name="hodRemarks" id="field_hodRemarks" [value]="leaveMaster.hodRemarks" readonly style="height:60px;"></textarea>
+                    </div>
+                </div-->
+                <div class="row card-margin-bottom-10">
+                    <div class="col-md-2"><label class="form-control-label" for="field_hodApprovedBy">HR Remarks</label></div>
+                    <div class="col-md-10">
+                        <textarea class="form-control form-control-sm" name="hrRemarks" id="field_htRemarks" [value]="leaveMaster.hrRemarks" readonly style="height:60px;"></textarea>
+                    </div>
+                </div>
+                <div class="row card-margin-bottom-10">
+                    <div class="col-md-2"><label class="form-control-label" for="field_hodApprovedBy">Status</label></div>
+                    <div class="col-md-10" style="font-weight: bold; font-size: 15px;">
+                        <ng-container *ngIf="leaveMaster.flag=='E'">Pending</ng-container>
+                        <ng-container *ngIf="leaveMaster.flag=='A'"><span style="color: green">Approved by HOD</span></ng-container>
+                        <ng-container *ngIf="leaveMaster.flag=='C'"><span style="color: green">Approved by HR</span></ng-container>
+                        <ng-container *ngIf="leaveMaster.flag=='R'"><span style="color: red">Rejected</span></ng-container>
+                        <ng-container *ngIf="leaveMaster.flag=='Q'"><span style="color: red">Query By HOD</span></ng-container>
+                    </div>
+                </div>
+                <div class="row card-margin-bottom-10">
+                    <div class="col-md-12">
+                        <button type="submit"
+                                (click)="previousState()"
+                                class="btn btn-sm btn-secondary btn-round">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span> Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

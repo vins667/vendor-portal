@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity PollMaster.
+    -->
+    <changeSet id="20190104041318-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="poll_masters_id"
+                                 baseTableName="poll_master_factory_master"
+                                 constraintName="fk_poll_master_factory_master_poll_masters_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="poll_master"/>
+        <addForeignKeyConstraint baseColumnNames="factory_masters_id"
+                                 baseTableName="poll_master_factory_master"
+                                 constraintName="fk_poll_master_factory_master_factory_masters_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="factory_master"/>
+        
+    </changeSet>
+</databaseChangeLog>

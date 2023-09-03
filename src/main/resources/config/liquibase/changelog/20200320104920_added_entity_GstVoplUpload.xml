@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    
+    <!--
+        Added the entity GstVoplUpload.
+    -->
+    <changeSet id="20200320104920-1" author="jhipster">
+        <createTable tableName="gst_vopl_upload">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="v_vchno" type="varchar(15)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="v_vchdate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="v_gstin" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="v_supplier_code" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="v_supplier_name" type="varchar(200)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="v_invoiceno" type="varchar(25)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="v_invoicedate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="v_invamt" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="v_invnet" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="v_cgst" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="v_sgst" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="v_igst" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="upload_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="confirm_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="status" type="varchar(2)">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+		<createSequence startValue="1" sequenceName="gst_vopl_upload_seq" incrementBy="1" cycle="false"/>
+        <dropDefaultValue tableName="gst_vopl_upload" columnName="v_vchdate" columnDataType="datetime"/>
+        <dropDefaultValue tableName="gst_vopl_upload" columnName="v_invoicedate" columnDataType="datetime"/>
+        <dropDefaultValue tableName="gst_vopl_upload" columnName="upload_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="gst_vopl_upload" columnName="confirm_date" columnDataType="datetime"/>
+    </changeSet>
+
+    <changeSet id="20200320104920-1-relations" author="jhipster">
+
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+
+   
+
+</databaseChangeLog>

@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="quotationMaster">
+            <h2><span>Quotation Master</span> {{quotationMaster.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Event Type</span></dt>
+                <dd>
+                    <span>{{quotationMaster.eventType}}</span>
+                </dd>
+                <dt><span>Rfq</span></dt>
+                <dd>
+                    <span>{{quotationMaster.rfq}}</span>
+                </dd>
+                <dt><span>Bidding</span></dt>
+                <dd>
+                    <span>{{quotationMaster.bidding}}</span>
+                </dd>
+                <dt><span>Project Title</span></dt>
+                <dd>
+                    <span>{{quotationMaster.projectTitle}}</span>
+                </dd>
+                <dt><span>Category</span></dt>
+                <dd>
+                    <span>{{quotationMaster.category}}</span>
+                </dd>
+                <dt><span>Sourcing Team</span></dt>
+                <dd>
+                    <span>{{quotationMaster.sourcingTeam}}</span>
+                </dd>
+                <dt><span>Project Region</span></dt>
+                <dd>
+                    <span>{{quotationMaster.projectRegion}}</span>
+                </dd>
+                <dt><span>Remarks</span></dt>
+                <dd>
+                    <span>{{quotationMaster.remarks}}</span>
+                </dd>
+                <dt><span>Template</span></dt>
+                <dd>
+                    <span>{{quotationMaster.template}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/quotation-master', quotationMaster.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+<div align="center" class="centered" *ngIf="isProcess">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 id="jhi-asset-master-heading">Manpower Budgeting</h6>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-right">
+                        <button type="button" id="cancel-entity" class="btn btn-sm btn-xs btn-second btn-round m-0" (click)="clear();">
+                            <fa-icon [icon]="'sync'"></fa-icon>&nbsp;<span>clear</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
+                                class="btn btn-sm btn-xs btn-blush btn-round m-0">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white p-2">
+            <div class="row">
+                <div class="col-md-1"><label class="form-control-label" for="field_factoryCode">Factory</label></div>
+                <div class="col-md-2">
+                    <select type="text" class="form-control form-control-xs" name="factoryCode" id="field_factoryCode" formControlName="factoryCode" required (change)="setFactoryDetail();">
+                        <option [value]="null">Select</option>
+                        <option [value]="factoryOption.factoryCode" *ngFor="let factoryOption of factories;">{{factoryOption.factoryName}}</option>
+                    </select>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_factoryCode">Department</label></div>
+                <div class="col-md-2">
+                    <select type="text" class="form-control form-control-xs" name="departmentCode" id="field_departmentCode" formControlName="departmentCode" required (change)="setDepartmentDetail();">
+                        <option [value]="null">Select</option>
+                        <option [value]="departmentOption.code" *ngFor="let departmentOption of departments;">{{departmentOption.description}}</option>
+                    </select>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_dateFrom">Date</label></div>
+                <div class="col-md-2">
+                    <div class="input-group mb-0">
+                        <input [owlDateTime]="date" name="dateFrom" id="field_dateFrom" placeholder="Date From" class="form-control form-control-xs" required formControlName="dateFrom" (dateTimeInput)="fetchDetails();">
+                        <div class="input-group-append input-group-append-top">
+                            <div class="btn btn-xs btn-blush" [owlDateTimeTrigger]="date"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #date></owl-date-time>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_type">Type</label></div>
+                <div class="col-md-2">
+                    <select type="text" class="form-control form-control-xs" name="type" id="field_type" formControlName="type" required (change)="fetchDetails()">
+                        <option value="REGULAR">REGULAR</option>
+                        <option value="OVERTIME">OVERTIME</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white p-0">
+            <div class="row mb-1 pl-1 pr-1">
+                <div class="col-md-12">
+                    <div class="table-responsive scroll-popup-table-2">
+                        <table class="table table-sm table-xs">
+                            <thead>
+                                <tr>
+                                    <th style="min-width: 150px;">Sub-Department</th>
+                                    <th style="min-width: 120px;">Designation</th>
+                                    <th style="min-width: 120px;">Type</th>
+                                    <th style="min-width: 100px;" class="text-center">Presents</th>
+                                    <th style="min-width: 100px;" class="text-center">Balance</th>
+                                    <ng-container *ngFor="let resource of resources;"><th style="min-width: 100px;" class="text-center">{{resource.code}}</th></ng-container>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngFor="let manpowerBean of manpowerBeans; let index = index;">
+                                    <tr>
+                                        <td>{{manpowerBean.subDeptDesc}}</td>
+                                        <td>{{manpowerBean.desCodeDesc}}</td>
+                                        <td>{{manpowerBean.catName}}</td>
+                                        <td><input type="text" class="form-control form-control-xs text-center" name="employeeCount{{index}}" id="employeeCount{{index}}" [(ngModel)]="manpowerBean.employeeCount" [readonly]="this.editForm.get(['type'])!.value === 'REGULAR' ? true : null" (keyup)="totalRefresh(manpowerBean);" [ngModelOptions]="{standalone: true}"/></td>
+                                        <td><input type="text" class="form-control form-control-xs text-center" name="employeeBalance{{index}}" id="employeeBalance{{index}}" [(ngModel)]="manpowerBean.balanceCount" readonly [ngModelOptions]="{standalone: true}"/></td>
+                                        <ng-container *ngFor="let resource of manpowerBean.resources;let subIndex = index">
+                                            <td style="min-width: 100px;" class="text-center">
+                                            <input type="text" class="form-control form-control-xs text-center" name="resourceAllocate{{index}}_dt{{subIndex}}" id="resourceAllocate{{index}}_dt{{subIndex}}" [(ngModel)]="resource.resourceAllocate" [ngModelOptions]="{standalone: true}" (keyup)="allocateResource(manpowerBean, subIndex);"/>
+                                            </td>
+                                        </ng-container>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                            <tfoot>
+                                <tr class="bg-light">
+                                    <td colspan="3" class="font-weight-bold">Total</td>
+                                    <td><input type="text" class="form-control form-control-xs text-center" name="employeeCountTotal" id="employeeCountTotal" [(ngModel)]="employeeCountTotal" readonly [ngModelOptions]="{standalone: true}"/></td>
+                                    <td><input type="text" class="form-control form-control-xs text-center" name="employeeBalanceTotal" id="employeeBalanceTotal" [(ngModel)]="balanceCountTotal" readonly [ngModelOptions]="{standalone: true}"/></td>
+                                    <ng-container *ngFor="let resource of resources;let subIndex = index">
+                                        <td style="min-width: 100px;" class="text-center">
+                                            <input type="text" class="form-control form-control-xs text-center" name="resourceAllocateTotal_dt{{subIndex}}" id="resourceAllocateTotal_dt{{subIndex}}" [(ngModel)]="resource.resourceAllocate" [ngModelOptions]="{standalone: true}" readonly/>
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

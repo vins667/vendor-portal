@@ -1,0 +1,79 @@
+<div class="page-header block-background">
+    <div class="page-header-image"></div>
+    <div class="container">
+        <div class="col-md-12 content-center">
+            <div class="card-plain">
+                    <div class="header">
+                        <!--div class="logo-container">
+                            <img src="../../content/images/logo_cdass.png" alt="" style="width:150px;">
+                        </div-->
+                        <h2><img src="../../../content/images/pulse_transparent.png" width="275" height="70" style="border-radius: 20px;"/></h2>
+                        <h5>Registration</h5>
+                        <div class="alert alert-success" *ngIf="success">
+                            <strong>Registration saved!</strong> Please check your email for confirmation.
+                        </div>
+
+                        <div class="alert alert-danger" *ngIf="error">
+                            <strong>Registration failed!</strong> Please try again later.
+                        </div>
+
+                        <div class="alert alert-danger" *ngIf="errorUserExists">
+                            <strong>Login name already registered!</strong> Please choose another one.
+                        </div>
+
+                        <div class="alert alert-danger" *ngIf="errorEmailExists">
+                            <strong>Email is already in use!</strong> Please choose another one.
+                        </div>
+
+                        <div class="alert alert-danger" *ngIf="doNotMatch">
+                            The password and its confirmation do not match!
+                        </div>
+                    </div>
+                    <div class="content register">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-lg text-white" placeholder="Enter Employee Code" name="empCode" id="empCode" [(ngModel)]="cardNo" (blur)="callDetails();" (keyup.enter)="callDetails();">
+                            <span class="input-group-addon" style="border-bottom-left-radius: 0; border-top-left-radius: 0; padding: 14px 18px 0 0;">
+                                    <i class="zmdi zmdi-account-circle"></i>
+                                </span>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" placeholder="Name" class="form-control form-control-lg text-white" name="name" id="name" [(ngModel)]="name" readonly/>
+                            <span class="input-group-addon" style="border-bottom-left-radius: 0; border-top-left-radius: 0; padding: 14px 18px 0 0;">
+                                <i class="zmdi zmdi-face"></i>
+                            </span>
+                        </div>
+                        <div class="input-group" *ngIf="mobileNumber1">
+                            <input type="text" class="form-control form-control-lg text-white" name="mobileNumber1" id="mobileNumber1" [(ngModel)]="mobileNumber1" readonly/>
+                            <input type="text" class="form-control form-control-lg text-white" name="mobileNumber2" id="mobileNumber2" [(ngModel)]="mobileNumber2" [textMask]="{mask: maskMobile, guide: true, modelClean: false}" style="width:50px;" placeholder="last 3 digits"/>
+                            <span class="input-group-addon" style="border-bottom-left-radius: 0; border-top-left-radius: 0; padding: 14px 18px 0 0;">
+                                <i class="zmdi zmdi-account-box-phone"></i>
+                            </span>
+                        </div>
+                        <div class="input-group" *ngIf="isOtp">
+                            <input [textMask]="{mask: mask, guide: true, modelClean: false}" [(ngModel)]="otp" type="text" class="form-control form-control-lg text-white" [readOnly]="!isSubmitBtn"/>
+                            <span class="input-group-addon" style="border-bottom-left-radius: 0; border-top-left-radius: 0; padding: 14px 18px 0 0;">
+                                OTP
+                            </span>
+                        </div>
+                        <div class="col-md-12 align-center" style="font-size: 30px; color: #d92419 !important; font-weight: bold;" *ngIf="isOtp">
+                            <countdown [config]="leftTime" (finished)="onFinished()">$!m!:$!s!</countdown>
+                        </div>
+                    </div>
+                    <div class="login-footer text-center">
+                        <button type="button" class="btn btn-transparent btn-round btn-deep-orange btn-lg btn-block" *ngIf="!isSubmitBtn" [disabled]="!mobileNumber1 || !mobileNumber2 || (mobileNumber2 && mobileNumber2.replace('_', '').length<5)  || isSaving" (click)="generateOtp();">{{btnLabel}}</button>
+                        <button type="button" class="btn btn-transparent btn-round btn-deep-orange btn-lg btn-block" *ngIf="isSubmitBtn" [disabled]="!otp || isSaving" (click)="validateOtp();">Submit</button>
+                        <h5><a routerLink="/account/reset/request" class="link">Forgot Password?</a>&nbsp;|&nbsp;<a routerLink="/" class="link">Already Registered</a></h5>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-body">
+        <div class="row">
+            <div class="col-md-12">
+                <img src="../../../content/images/logo.png" alt="" width="40" height="40"/>&nbsp;&nbsp;&nbsp;
+                <span class="text">Copyright@2019 Vamani Overseas Pvt Ltd</span>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

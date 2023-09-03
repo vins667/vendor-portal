@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-10">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <div class="row" style="padding-top: 10px;">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="row" style="margin-right:15px;">
+                            <div class="col-md-12 table-bordered" style="margin-left: 15px;">
+                                <div class="row" [formGroup]="listBoxForm">
+                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                        <label class="text-center form-control-label vertical-spacing-5">{{availableText}}</label>
+                                        <input type="text" class="form-control form-control-sm vertical-spacing-5" placeholder="{{availableFilterPlaceholder}}" formControlName="availableSearchInput"/>
+                                        <select class="form-control form-control-sm list-box" formControlName="availableListBox" multiple style="height: 150px;">
+                                            <option *ngFor="let item of availableItems | arrayFilter:['buyerName', searchTermAvailable] | arraySort:['buyerName', 'ASC']; trackBy:trackByValue"
+                                                [value]="item?.buyerCode" (dblclick)="moveAvailableItemToSelected(item)">{{item?.buyerCode + ' - ' + item?.buyerName}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 center-block text-center">
+                                        <button type="button" class="btn btn-sm btn-blush col-md-8 col-md-offset-2 atr top80 sm-spacing" *ngIf="moveAllButton" (click)="moveAllItemsToSelected()" disabled>
+                                            <fa-icon [icon]="'angle-double-right'"></fa-icon>
+                                        </button>
+                                        <button type="button"
+                                            class="btn btn-sm btn-blush col-md-8 col-md-offset-2 str vertical-spacing-5 sm-spacing"
+                                            disabled
+                                            (click)="moveMarkedAvailableItemsToSelected()">
+                                            <fa-icon [icon]="'chevron-right'"></fa-icon>
+                                        </button>
+                                        <button type="button"
+                                            class="btn btn-sm btn-blush col-md-8 col-md-offset-2 stl vertical-spacing-5 sm-spacing"
+                                            disabled
+                                            (click)="moveMarkedSelectedItemsToAvailable()">
+                                            <fa-icon [icon]="'chevron-left'"></fa-icon>
+                                        </button>
+                                        <button type="button"
+                                            class="btn btn-sm btn-blush col-md-8 col-md-offset-2 atl bottom10 sm-spacing"
+                                            *ngIf="moveAllButton" (click)="moveAllItemsToAvailable()" disabled>
+                                            <fa-icon [icon]="'angle-double-left'"></fa-icon>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                        <label class="text-center form-control-label vertical-spacing-5">{{selectedText}}</label>
+                                        <input type="text" class="form-control form-control-sm vertical-spacing-5"
+                                            placeholder="{{selectedFilterPlaceholder}}"
+                                            formControlName="selectedSearchInput" />
+                                            <ng-template #htmlContent>
+                                                <table>
+                                                    <tr *ngFor="let item of vendorNomination.buyerMasters">
+                                                        <td>{{item?.buyerCode + ' - ' + item?.buyerName}}</td>
+                                                    </tr>
+                                                </table>
+                                            </ng-template>
+                                        <select class="form-control form-control-sm list-box" multiple style="height: 150px;" formControlName="selectedListBox" [class.bg-warning-light]="vendorNominationTransaction && vendorNominationTransaction.id" [ngbTooltip]="htmlContent">
+                                            <option *ngFor="let item of selectedItems | arrayFilter:['buyerName', searchTermSelected] | arraySort:['buyerName', 'ASC'];trackBy:trackByValue"
+                                                [value]="item?.id" (dblclick)="moveSelectedItemToAvailable(item)">{{item?.buyerCode + ' - ' + item?.buyerName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

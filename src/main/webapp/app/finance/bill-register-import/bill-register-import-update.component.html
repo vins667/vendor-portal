@@ -1,0 +1,337 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <div class="card">
+        <div class="card-header body pb-1">
+            <div class="row">
+                <div class="col-md-7">
+                    <h6 id="jhi-asset-master-heading" data-cy="BillRegisterImportMasterCreateUpdateHeading">Create or edit a Bill Register Import</h6>
+                </div>
+                <div class="col-md-5">
+                    <div class="text-right">
+                        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="m-0 btn btn-xs btn-secondary btn-round" (click)="previousState()">
+                            <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class=" btn btn-xs btn-blush btn-round">
+                            <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body body">
+            <jhi-alert-error></jhi-alert-error>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="form-label">Type</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="radio" checked="true" class="custom-radio" name="billtype" id="field_billtype_supplier" value="SUPPLIER" formControlName="billtype" [attr.disabled]="this.editForm.controls['id'].value ? true : null" (change)="changeCurrency()">&nbsp; SUPPLIER
+                            <input type="radio" checked="true" class="custom-radio" name="billtype" id="field_billtype_cha" value="CHA" formControlName="billtype" [attr.disabled]="this.editForm.controls['id'].value ? true : null" (change)="changeCurrency()">&nbsp; CHA
+                            <input type="radio" class="custom-radio" name="billtype" id="field_billtype_forwarder" value="FORWARDER" formControlName="billtype" [attr.disabled]="this.editForm.controls['id'].value ? true : null" (change)="changeCurrency()">&nbsp; FORWARDER
+                            <input type="radio" class="custom-radio" name="billtype" id="field_billtype_transporter" value="TRANSPORTER" formControlName="billtype" [attr.disabled]="this.editForm.controls['id'].value ? true : null" (change)="changeCurrency()">&nbsp; TRANSPORTER
+                            <input type="radio" class="custom-radio" name="billtype" id="field_billtype_other" value="OTHER" formControlName="billtype" [attr.disabled]="this.editForm.controls['id'].value ? true : null" (change)="changeCurrency()">&nbsp; OTHER
+                            <div *ngIf="editForm.get('billtype').invalid && (editForm.get('billtype').dirty || editForm.get('billtype').touched)">
+                                <small class="form-text text-danger" *ngIf="editForm.get('billtype').errors.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger"
+                                       *ngIf="editForm.get('billtype').errors.maxlength">
+                                    This field cannot be longer than 20 characters.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3"><label class="form-control-label" for="field_company">Company</label></div>
+                        <div class="col-md-9">
+                            <select class="form-control form-control-xs custom-select custom-select-xs" name="company" id="field_company" formControlName="company" (change)="fetchDivision(); fetchBusinessUnit();" [attr.disabled]="this.editForm.controls['id'].value ? true : null">
+                                <option [value]="'undefined'">Select Company</option>
+                                <option [value]="companyOption.code" *ngFor="let companyOption of companies;">{{companyOption.code + '-' + companyOption.longdescription}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3"><label class="form-control-label" for="field_division">Division</label></div>
+                        <div class="col-md-9">
+                            <select class="form-control form-control-xs custom-select custom-select-xs" name="division" id="field_division" formControlName="division" [attr.disabled]="this.editForm.controls['id'].value ? true : null">
+                                <option [value]="'undefined'">Select Division</option>
+                                <option [value]="divisionOption.id.code" *ngFor="let divisionOption of divisions;">{{divisionOption.id.code + '-' + divisionOption.longdescription}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3"><label class="form-control-label" for="field_businessunitcode">Business&nbsp;unit</label></div>
+                        <div class="col-md-9">
+                            <select class="form-control form-control-xs custom-select custom-select-xs" name="businessunitcode" id="field_businessunitcode" formControlName="businessunitcode" [attr.disabled]="this.editForm.controls['id'].value ? true : null">
+                                <option [value]="'undefined'">Select Business Unit</option>
+                                <option [value]="finbusinessunitOption.id.code" *ngFor="let finbusinessunitOption of finbusinessunits;">{{finbusinessunitOption.id.code + '-' + finbusinessunitOption.longdescription}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3">
+                            <label class="form-control-label" for="field_billnumber"><ng-container *ngIf="editForm.controls['billtype'].value === 'SUPPLIER'">Commercial Invoice#</ng-container><ng-container *ngIf="editForm.controls['billtype'].value !== 'SUPPLIER'">Bill&nbsp;Number</ng-container></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control form-control-xs" name="billnumber" id="field_billnumber" formControlName="billnumber"/>
+                            <div *ngIf="editForm.get('billnumber').invalid && (editForm.get('billnumber').dirty || editForm.get('billnumber').touched)">
+                                <small class="form-text text-danger"
+                                       *ngIf="editForm.get('billnumber').errors.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger"
+                                       *ngIf="editForm.get('billnumber').errors.maxlength">
+                                    This field cannot be longer than 50 characters.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3">
+                            <label class="form-control-label" for="field_billdate"><ng-container *ngIf="editForm.controls['billtype'].value === 'SUPPLIER'">Commercial Invoice&nbsp;Date</ng-container><ng-container *ngIf="editForm.controls['billtype'].value !== 'SUPPLIER'">Bill&nbsp;Date</ng-container></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="input-group mb-0">
+                                <input type="text"  name="billdate" class="form-control form-control-xs" id="field_billdate" formControlName="billdate" [owlDateTime]="tempbilldate"  readonly/>
+                                <div class="input-group-append input-group-append-top">
+                                    <button type="button" class="btn btn-xs btn-blush mb-0" [owlDateTimeTrigger]="tempbilldate">
+                                        <fa-icon icon="calendar-alt"></fa-icon>
+                                    </button>
+                                </div>
+                                <owl-date-time [pickerType]="'calendar'" #tempbilldate></owl-date-time>
+                            </div>
+                            <div *ngIf="editForm.get('billdate').invalid && (editForm.get('billdate').dirty || editForm.get('billdate').touched)">
+                                <small class="form-text text-danger"
+                                       *ngIf="editForm.get('billdate').errors.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3">Supplier/Customer</div>
+                        <div class="col-md-9">
+                            <input type="radio" class="custom-radio" checked="true"name="customersuppliertype" id="field_customersuppliertype_supplier" checked="true" value="2" formControlName="customersuppliertype" [attr.disabled]="this.editForm.controls['id'].value ? true : null" (change)="resetURL(2);">&nbsp; SUPPLIER
+                            <input type="radio" class="custom-radio" name="customersuppliertype" id="field_customersuppliertype_customer" value="1" formControlName="customersuppliertype" [attr.disabled]="this.editForm.controls['id'].value ? true : null" (change)="resetURL(1);">&nbsp; CUSTOMER
+                            <div *ngIf="editForm.get('customersuppliertype').invalid && (editForm.get('customersuppliertype').dirty || editForm.get('customersuppliertype').touched)">
+                                <small class="form-text text-danger" *ngIf="editForm.get('customersuppliertype').errors.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger" *ngIf="editForm.get('customersuppliertype').errors.maxlength">
+                                    This field cannot be longer than 1 characters.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3">
+                            <label class="form-control-label">Name</label>
+                        </div>
+                        <div class="col-md-9">
+                            <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteSupplier"  [minSearchLength]="3" [placeholder]="editForm.controls['customersuppliertype'].value && editForm.controls['customersuppliertype'].value === '2' ? 'Search Supplier' : 'Search Customer'" [textSearching]="'Please wait...'"  [inputClass]="!this.editForm.controls['customersuppliercode'].value || this.editForm.controls['customersuppliercode'].value.length ===0 ? 'form-control form-control-xs d-inline input-required' : 'form-control form-control-xs d-inline'" class="ng2-completer-fixed" (selected)="onSupplierSelected($event)" formControlName="customersuppliername">
+                            </ng2-completer>
+                            <div *ngIf="editForm.get('customersuppliercode').invalid && (editForm.get('customersuppliercode').dirty || editForm.get('customersuppliercode').touched)">
+                                <small class="form-text text-danger" *ngIf="editForm.get('customersuppliercode').errors.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger" *ngIf="editForm.get('customersuppliercode').errors.maxlength">
+                                    This field cannot be longer than 1 characters.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row mb-1">
+                        <div class="col-md-3">
+                            <label class="form-control-label" for="field_submitDate">Submit&nbsp;date</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="input-group mb-0">
+                                <input type="text"  name="submitDate" class="form-control form-control-xs" id="field_submitDate" formControlName="submitDate" [owlDateTime]="tempsubmitDate" (dateTimeInput)="selectAllSubmitDate()"  readonly/>
+                                <div class="input-group-append input-group-append-top">
+                                    <button type="button" class="btn btn-xs btn-blush mb-0" [owlDateTimeTrigger]="tempsubmitDate">
+                                        <fa-icon icon="calendar-alt"></fa-icon>
+                                    </button>
+                                </div>
+                                <owl-date-time [pickerType]="'calendar'" #tempsubmitDate></owl-date-time>
+                            </div>
+                            <div *ngIf="editForm.get('submitDate').invalid && (editForm.get('submitDate').dirty || editForm.get('submitDate').touched)">
+                                <small class="form-text text-danger"
+                                       *ngIf="editForm.get('submitDate').errors.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3">
+                            <label class="form-control-label" for="field_receiveDate">Received&nbsp;date</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="input-group mb-0">
+                                <input type="text"  name="receiveDate" class="form-control form-control-xs" id="field_receiveDate" formControlName="receiveDate" [owlDateTime]="tempreceiveDate" (dateTimeInput)="selectAllReceiveDate()"  readonly/>
+                                <div class="input-group-append input-group-append-top">
+                                    <button type="button" class="btn btn-xs btn-blush mb-0" [owlDateTimeTrigger]="tempreceiveDate">
+                                        <fa-icon icon="calendar-alt"></fa-icon>
+                                    </button>
+                                </div>
+                                <owl-date-time [pickerType]="'calendar'" #tempreceiveDate></owl-date-time>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3"><label class="form-control-label">Total Quantity</label></div>
+                        <div class="col-md-9">
+                            <input type="number" class="form-control form-control-xs" name="totalQuantity" id="field_totalQuantity" formControlName="totalQuantity" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3"><label class="form-control-label">Total Amount</label></div>
+                        <div class="col-md-9">
+                            <input type="number" class="form-control form-control-xs" name="totalValue" id="field_totalValue" formControlName="totalValue" (blur)="calculateValue();"/>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3"><label class="form-control-label">Currency</label></div>
+                        <div class="col-md-9">
+                            <select class="form-control form-control-xs custom-select" name="currency" id="field_currency" formControlName="currencycode">
+                                <option [value]="'undefined'">Select Company</option>
+                                <option [value]="currencyOption.code" *ngFor="let currencyOption of currencies;">{{currencyOption.code + '-' + currencyOption.longdescription}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3"><label class="form-control-label">Currency Rate</label></div>
+                        <div class="col-md-9">
+                            <input type="number" class="form-control form-control-xs" name="currencyrate" id="field_currencyrate" formControlName="currencyrate">
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3">
+                            <label class="form-label">Remarks</label>
+                        </div>
+                        <div class="col-md-9">
+                            <textarea type="text" class="form-control" name="remarks" id="field_remarks" rows="2" formControlName="remarks" style="font-size: 0.75rem !important;"></textarea>
+                            <div *ngIf="editForm.get('remarks').invalid && (editForm.get('remarks').dirty || editForm.get('remarks').touched)">
+                                <small class="form-text text-danger"
+                                       *ngIf="editForm.get('remarks').errors.maxlength">
+                                    This field cannot be longer than 2000 characters.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-1">
+        <div class="body p-1">
+            <div class="row">
+                <div class="col-md-7">
+                    <h6>Details</h6>
+                </div>
+                <div class="col-md-5">
+                    <div class="text-right">
+                        <button type="button" id="add-cha-entity" data-cy="entityCreateSaveButton" class="m-0 btn btn-xs btn-dark btn-round" (click)="addDetails()">
+                            <fa-icon icon="plus"></fa-icon>&nbsp;<span> ADD</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" id="entities_cha">
+                <table class="table table-sm table-bordered mb-1" aria-describedby="page-heading">
+                    <thead>
+                    <tr>
+                        <th style="width: 120px;" *ngIf="editForm.controls['billtype'].value !== 'SUPPLIER' && editForm.controls['billtype'].value !== 'OTHER' "><span>Commercial Invoice#</span></th>
+                        <th style="width: 100px;" *ngIf="editForm.controls['billtype'].value !== 'SUPPLIER' && editForm.controls['billtype'].value !== 'OTHER' "><span>Commercial Invoice Date</span></th>
+                        <th style="width: 100px;"><span>Style</span></th>
+                        <th><span>Item</span></th>
+                        <th style="width: 100px;" class="text-right"><span>Quantity</span></th>
+                        <th style="width: 100px;" class="text-right"><span>Rate Per Unit</span></th>
+                        <th style="width: 100px;" class="text-right"><span>Amount</span></th>
+                        <th style="width: 100px;"><span>Submit Date</span></th>
+                        <th style="width: 100px;"><span>Shipment&nbsp;Mode</span></th>
+                        <th style="width: 50px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let billRegisterCHA of billRegisterDetails;let index = index" data-cy="entityTable">
+                        <td *ngIf="editForm.controls['billtype'].value !== 'SUPPLIER' && editForm.controls['billtype'].value !== 'OTHER' ">
+                            <div class="input-group mb-0">
+                                <input type="text" [placeholder]="'Search Commercial Invoice'" class="form-control form-control-xs" [(ngModel)]="billRegisterCHA.code" readonly [ngModelOptions]="{standalone: true}"/>
+                                <div class="input-group-append input-group-append-top">
+                                    <button type="button" name="btnSearch" id="btnSearch" class="btn btn-xs btn-blush" (click)="searchInvoices(billRegisterCHA)" [disabled]="billRegisterCHA.id ? true : false"><fa-icon [icon]="'search'"></fa-icon></button>
+                                </div>
+                            </div>
+                        </td>
+                        <td *ngIf="editForm.controls['billtype'].value !== 'SUPPLIER' && editForm.controls['billtype'].value !== 'OTHER' "s>
+                            <div class="input-group mb-0">
+                                <input
+                                    id="field_invoicedate{{index}}"
+                                    data-cy="invoicedate"
+                                    type="text"
+                                    class="form-control form-control-xs"
+                                    name="invoicedate{{index}}" [owlDateTime]="invoicedateDp"
+                                    [(ngModel)]="billRegisterCHA.orderdate" [ngModelOptions]="{standalone: true}"
+                                    readonly disabled
+                                />
+                                <div class="input-group-append input-group-append-top">
+                                    <button type="button" class="btn btn-xs btn-blush"  [owlDateTimeTrigger]="invoicedateDp"  disabled >
+                                        <fa-icon icon="calendar-alt"></fa-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <owl-date-time [pickerType]="'calendar'" #invoicedateDp></owl-date-time>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-xs" name="CHA_style{{index}}" id="field_CHA_style{{index}}" data-cy="field_CHA_style" [(ngModel)]="billRegisterCHA.projectcode" [ngModelOptions]="{standalone: true}"/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-xs text-uppercase" name="CHA_customername{{index}}" id="field_CHA_customername{{index}}" data-cy="field_CHA_customername" [(ngModel)]="billRegisterCHA.summarizeddescription" [ngModelOptions]="{standalone: true}" [attr.readonly]="editForm.controls['billtype'].value !== 'SUPPLIER' && editForm.controls['billtype'].value !== 'OTHER' ? true : null"/>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-xs text-right" name="CHA_quantity{{index}}" id="field_CHA_quantity{{index}}" data-cy="field_CHA_quantity" [(ngModel)]="billRegisterCHA.quantity" [ngModelOptions]="{standalone: true}" (blur)="calculateValue();"/>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-xs text-right" name="CHA_price{{index}}" id="field_CHA_price{{index}}" data-cy="field_CHA_price" [(ngModel)]="billRegisterCHA.price" [ngModelOptions]="{standalone: true}" readonly/>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-xs text-right" name="CHA_grossvalue{{index}}" id="field_CHA_grossvalue{{index}}" (keyup)="changeValue()" data-cy="field_CHA_grossvalue" readonly [(ngModel)]="billRegisterCHA.grossvalue" [ngModelOptions]="{standalone: true}" readonly/>
+                        </td>
+
+                        <td>
+                            <div class="input-group mb-0">
+                                <input type="text" class="form-control form-control-xs" name="CHA_submitdate{{index}}" id="field_CHA_submitdate{{index}}" [owlDateTime]="CHA_submitdate" [(ngModel)]="billRegisterCHA.submitdate"  [ngModelOptions]="{standalone: true}" readonly/>
+                                <div class="input-group-append input-group-append-top">
+                                    <button type="button" class="btn btn-xs btn-blush mb-0"  [owlDateTimeTrigger]="CHA_submitdate"  >
+                                        <fa-icon icon="calendar-alt"></fa-icon>
+                                    </button>
+                                </div>
+                                <owl-date-time [pickerType]="'calendar'" #CHA_submitdate></owl-date-time>
+                            </div>
+                        </td>
+                        <td>
+                            <select name="CHA_shipmentMode{{index}}" class="custom-select custom-select-xs" id="field_CHA_shipmentMode{{index}}" [(ngModel)]="billRegisterCHA.shipmentMode" [ngModelOptions]="{standalone: true}">
+                                <option value="AIR">AIR</option>
+                                <option value="SEA">SEA</option>
+                                <option value="OTHEXP">OTHER EXP</option>
+                                <option value="ROAD">ROAD</option>
+                                <option value="TRAIN">TRAIN</option>
+                                <option value="DTOMUM">DELHI TO MUMBAI</option>
+                                <option value="DTOMUN">DELHI TO MUNDRA</option>
+                            </select>
+                        </td>
+                        <td>
+                            <fa-icon [icon]="'trash-alt'" class="font-14 text-danger" style="cursor: pointer" (click)="removeDetals(index, billRegisterCHA);" *ngIf="!billRegisterCHA.receiveDate && !billRegisterCHA.submitdate"></fa-icon>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>
+

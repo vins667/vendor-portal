@@ -1,0 +1,45 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Mobile Version</span>
+                <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-mobile-version" [routerLink]="['/mobile-version/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span>new</span>
+                </button>
+            </h5>
+            <jhi-alert></jhi-alert>
+            <br/>
+            <div class="table-responsive" *ngIf="mobileVersions">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="version"><span>Version</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="mobileType"><span>Mobile Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="closedDate"><span>Closed Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let mobileVersion of mobileVersions ;trackBy: trackId">
+                        <td>{{mobileVersion.id}}</td>
+                        <td>{{mobileVersion.version}}</td>
+                        <td><ng-container *ngIf="mobileVersion.mobileType=='A'">Android</ng-container><ng-container *ngIf="mobileVersion.mobileType=='I'">IOS</ng-container></td>
+                        <td>{{mobileVersion.closedDate | date:'dd-MM-yyyy HH:mm'}}</td>
+                        <td>{{mobileVersion.createdDate | date:'dd-MM-yyyy HH:mm'}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="mobileVersions && mobileVersions.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

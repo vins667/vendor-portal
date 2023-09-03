@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity VendorBuyerAuditLinking.
+    -->
+    <changeSet id="20190912094519-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="vendor_master_code"
+                                 baseTableName="vendor_buyer_audit_linking"
+                                 constraintName="fk_vendor_buyer_audit_linking_vendor_master_id"
+                                 referencedColumnNames="code"
+                                 referencedTableName="vendor_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="vendor_buyer_audit_linkings_id"
+                                 baseTableName="vendor_buyer_audit_linking_buyer_master"
+                                 constraintName="vendor_buyer_audit_linking_buy_vendor_buyer_audit_linkings_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vendor_buyer_audit_linking"/>
+        <!--addForeignKeyConstraint baseColumnNames="buyer_masters_code"
+                                 baseTableName="vendor_buyer_audit_linking_buyer_master"
+                                 constraintName="fk_vendor_buyer_audit_linking_buyer_master_buyer_masters_id"
+                                 referencedColumnNames="buyer_code"
+                                 referencedTableName="buyer_master"/-->
+        
+    </changeSet>
+</databaseChangeLog>

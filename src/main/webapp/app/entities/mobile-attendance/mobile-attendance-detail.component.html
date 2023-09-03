@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="mobileAttendance">
+            <h2><span>Mobile Attendance</span> {{mobileAttendance.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Card No</span></dt>
+                <dd>
+                    <span>{{mobileAttendance.cardNo}}</span>
+                </dd>
+                <dt><span>Attendance Date</span></dt>
+                <dd>
+                    <span>{{mobileAttendance.attendanceDate}}</span>
+                </dd>
+                <dt><span>Latitude</span></dt>
+                <dd>
+                    <span>{{mobileAttendance.latitude}}</span>
+                </dd>
+                <dt><span>Longitude</span></dt>
+                <dd>
+                    <span>{{mobileAttendance.longitude}}</span>
+                </dd>
+                <dt><span>File Name</span></dt>
+                <dd>
+                    <span>{{mobileAttendance.fileName}}</span>
+                </dd>
+                <dt><span>Attendance Type</span></dt>
+                <dd>
+                    <span>{{mobileAttendance.attendanceType}}</span>
+                </dd>
+                <dt><span>Factory Code</span></dt>
+                <dd>
+                    <span>{{mobileAttendance.factoryCode}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{mobileAttendance.createdBy}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{mobileAttendance.createdDate}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/mobile-attendance', mobileAttendance.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

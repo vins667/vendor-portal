@@ -1,0 +1,99 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="gstGovtUpload">
+            <h2><span>Gst Govt Upload</span> {{gstGovtUpload.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>G Gstin</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gGstin}}</span>
+                </dd>
+                <dt><span>G Supplier</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gSupplier}}</span>
+                </dd>
+                <dt><span>G Invno</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gInvno}}</span>
+                </dd>
+                <dt><span>G Invdate</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gInvdate}}</span>
+                </dd>
+                <dt><span>G Invtype</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gInvtype}}</span>
+                </dd>
+                <dt><span>G State</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gState}}</span>
+                </dd>
+                <dt><span>G Reverse</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gReverse}}</span>
+                </dd>
+                <dt><span>G Invamt</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gInvamt}}</span>
+                </dd>
+                <dt><span>G Invnet</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gInvnet}}</span>
+                </dd>
+                <dt><span>G Rate</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gRate}}</span>
+                </dd>
+                <dt><span>G Cgst</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gCgst}}</span>
+                </dd>
+                <dt><span>G Sgst</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gSgst}}</span>
+                </dd>
+                <dt><span>G Igst</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gIgst}}</span>
+                </dd>
+                <dt><span>G Cess</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gCess}}</span>
+                </dd>
+                <dt><span>G Month</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gMonth}}</span>
+                </dd>
+                <dt><span>G Location</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gLocation}}</span>
+                </dd>
+                <dt><span>G Srlno</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gSrlno}}</span>
+                </dd>
+                <dt><span>G Status</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gStatus}}</span>
+                </dd>
+                <dt><span>G Confirmdate</span></dt>
+                <dd>
+                    <span>{{gstGovtUpload.gConfirmdate}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/gst-govt-upload', gstGovtUpload.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

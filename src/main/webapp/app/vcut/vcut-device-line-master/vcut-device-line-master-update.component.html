@@ -1,0 +1,104 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-vcut-device-line-master-heading">Create or edit a Device User Link</h5>
+        <hr />
+        <div class="row">
+            <div class="col-8">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!vcutDeviceLineMaster.id">
+                            <div class="col-md-3">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" id="id" name="id"
+                                    [(ngModel)]="vcutDeviceLineMaster.id" readonly />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_line">Line</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="line" id="field_line" [(ngModel)]="vcutDeviceLineMaster.line" required [readOnly]="vcutDeviceLineMaster.id"/>
+                                <div [hidden]="!(editForm.controls.line?.dirty && editForm.controls.line?.invalid)">
+                                    <small class="form-text text-danger"
+                                        [hidden]="!editForm.controls.line?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                        [hidden]="!editForm.controls.line?.errors?.maxlength">
+                                        This field cannot be longer than 50 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label">Device Id</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="deviceId"
+                                    id="field_deviceId" [(ngModel)]="vcutDeviceLineMaster.deviceId" required />
+                                <div
+                                    [hidden]="!(editForm.controls.deviceId?.dirty && editForm.controls.deviceId?.invalid)">
+                                    <small class="form-text text-danger"
+                                        [hidden]="!editForm.controls.deviceId?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                        [hidden]="!editForm.controls.deviceId?.errors?.maxlength">
+                                        This field cannot be longer than 50 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div style="font-size: medium;">
+                            <label>User Attach</label>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-12">
+                                <table class="table table-sm table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th><span>Employee Code</span></th>
+                                            <th><span>Employee Name</span></th>
+                                            <th class="button-column">
+                                                <fa-icon [icon]="'plus-circle'" style="cursor: pointer"
+                                                    (click)="searchEmp();"></fa-icon>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container
+                                            *ngFor="let list of vcutDeviceLineMaster.vcutUserDeviceMaster; let index = index;">
+                                            <tr>
+                                                <td><span *ngIf="list.user">{{list.user.login}}</span></td>
+                                                <td><span *ngIf="list.user">{{list.user.firstName + ' '+ list.user.lastName }}</span></td>
+                                                <td>
+                                                    <fa-icon [icon]="'trash-alt'" style="cursor: pointer; font-size: 16px;" class="text-danger" (click)="removeRow(index);"></fa-icon>
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"
+                            (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
+                            class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

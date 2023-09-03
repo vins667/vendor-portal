@@ -1,0 +1,143 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="vendorBranchDetails">
+            <h2><span>Vendor Branch Details</span> {{vendorBranchDetails.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Vendor Id</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.vendorId}}</span>
+                </dd>
+                <dt><span>Address Line 1</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.addressLine1}}</span>
+                </dd>
+                <dt><span>Address Line 2</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.addressLine2}}</span>
+                </dd>
+                <dt><span>Address Line 3</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.addressLine3}}</span>
+                </dd>
+                <dt><span>Address Line 4</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.addressLine4}}</span>
+                </dd>
+                <dt><span>Country Id</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.countryId}}</span>
+                </dd>
+                <dt><span>State Id</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.stateId}}</span>
+                </dd>
+                <dt><span>Pincode</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.pincode}}</span>
+                </dd>
+                <dt><span>Address For Tax</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.addressForTax}}</span>
+                </dd>
+                <dt><span>Registered For Sale Tax</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.registeredForSaleTax}}</span>
+                </dd>
+                <dt><span>Sales Tax Vat Tin Number</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.salesTaxVatTinNumber}}</span>
+                </dd>
+                <dt><span>Registered Service Tax</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.registeredServiceTax}}</span>
+                </dd>
+                <dt><span>Service Tax Number</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.serviceTaxNumber}}</span>
+                </dd>
+                <dt><span>Excise Applicable</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.exciseApplicable}}</span>
+                </dd>
+                <dt><span>Excise Registration Number</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.exciseRegistrationNumber}}</span>
+                </dd>
+                <dt><span>Excise Range</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.exciseRange}}</span>
+                </dd>
+                <dt><span>Excise Division</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.exciseDivision}}</span>
+                </dd>
+                <dt><span>Excise Address Line 1</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.exciseAddressLine1}}</span>
+                </dd>
+                <dt><span>Excise Address Line 2</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.exciseAddressLine2}}</span>
+                </dd>
+                <dt><span>Division Address Line 1</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.divisionAddressLine1}}</span>
+                </dd>
+                <dt><span>Division Address Line 2</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.divisionAddressLine2}}</span>
+                </dd>
+                <dt><span>Gst Number</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.gstNumber}}</span>
+                </dd>
+                <dt><span>Gst Applicable</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.gstApplicable}}</span>
+                </dd>
+                <dt><span>Vend Type Master Id</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.vendTypeMasterId}}</span>
+                </dd>
+                <dt><span>Vend Sub Type Master Id</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.vendSubTypeMasterId}}</span>
+                </dd>
+                <dt><span>Address Id</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.addressId}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.createdBy}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.createdDate}}</span>
+                </dd>
+                <dt><span>Last Updated By</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.lastUpdatedBy}}</span>
+                </dd>
+                <dt><span>Last Updated Date</span></dt>
+                <dd>
+                    <span>{{vendorBranchDetails.lastUpdatedDate}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/vendor-branch-details', vendorBranchDetails.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

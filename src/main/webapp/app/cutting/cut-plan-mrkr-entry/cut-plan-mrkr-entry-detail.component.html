@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="cutPlanEntry">
+            <h2><span>Cut Plan Entry</span> {{cutPlanEntry.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Porduction Counter Code</span></dt>
+                <dd>
+                    <span>{{cutPlanEntry.porductionCounterCode}}</span>
+                </dd>
+                <dt><span>Production Code</span></dt>
+                <dd>
+                    <span>{{cutPlanEntry.productionCode}}</span>
+                </dd>
+                <dt><span>Style</span></dt>
+                <dd>
+                    <span>{{cutPlanEntry.style}}</span>
+                </dd>
+                <dt><span>Color</span></dt>
+                <dd>
+                    <span>{{cutPlanEntry.color}}</span>
+                </dd>
+                <dt><span>Order Qty</span></dt>
+                <dd>
+                    <span>{{cutPlanEntry.orderQty}}</span>
+                </dd>
+                <dt><span>Tolerance</span></dt>
+                <dd>
+                    <span>{{cutPlanEntry.tolerance}}</span>
+                </dd>
+                <dt><span>Net Order Qty</span></dt>
+                <dd>
+                    <span>{{cutPlanEntry.netOrderQty}}</span>
+                </dd>
+                <dt><span>Status</span></dt>
+                <dd>
+                    <span>{{cutPlanEntry.status}}</span>
+                </dd>
+                <dt><span>Createdby</span></dt>
+                <dd>
+                    <span>{{cutPlanEntry.createdby}}</span>
+                </dd>
+                <dt><span>Createddate</span></dt>
+                <dd>
+                    <span>{{cutPlanEntry.createddate}}</span>
+                </dd>
+                <dt><span>Lastupdatedby</span></dt>
+                <dd>
+                    <span>{{cutPlanEntry.lastupdatedby}}</span>
+                </dd>
+                <dt><span>Lastupdateddate</span></dt>
+                <dd>
+                    <span>{{cutPlanEntry.lastupdateddate}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/cut-plan-entry', cutPlanEntry.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

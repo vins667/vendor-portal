@@ -1,0 +1,49 @@
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5 id="page-heading">
+        <span>Select Users</span>
+        <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="close()">&times;</button>
+    </h5>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-4"><input type="text" name="name" class="form-control form-control-sm text-uppercase" placeholder="Enter Name" [(ngModel)]="employeesearch.name"/></div>
+        <div class="col-md-2"><input type="text" name="empCode" class="form-control form-control-sm" placeholder="Enter Emp Code" [(ngModel)]="employeesearch.empCode"/></div>
+        <div class="col-md-2"><button type="button" class="btn btn-sm btn-round btn-blush" style="margin-top: 0;" (click)="search();"><fa-icon [icon]="'search'"></fa-icon> <span>Search</span></button></div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th><span>Name</span></th>
+                <th><span>Emp&nbsp;Code</span></th>
+                <th><span>Department</span></th>
+                <th><span>Designation</span></th>
+                <th><span>Email</span></th>
+                <th><span>Phone</span></th>
+                <th><span></span></th>
+            </tr>
+            </thead>
+            <tbody *ngIf="employeeViews">
+            <ng-container *ngFor="let employeeView of employeeViews ;trackBy: trackId">
+                <tr>
+                    <td>{{employeeView.name}}</td>
+                    <td>{{employeeView.cardNo}}</td>
+                    <td>{{employeeView.depCodeDesc}}</td>
+                    <td>{{employeeView.desCodeDesc}}</td>
+                    <td>{{employeeView.email}}</td>
+                    <td>{{employeeView.phone}}</td>
+                    <td class="text-right button-column"><button type="button" class="btn btn-blush btn-sm" (click)="addData(employeeView);"><fa-icon [icon]="'plus'" style="cursor: pointer;"></fa-icon></button></td>
+                </tr>
+            </ng-container>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="employeeViews && employeeViews.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <!--
+        Added the constraints for entity CutPlanProgress.
+    -->
+    <changeSet id="20210322073553-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="cut_plan_entry_id"
+                                 baseTableName="cut_plan_progress"
+                                 constraintName="fk_cut_plan_progress_cut_plan_entry_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cut_plan_entry"/>
+
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,28 @@
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5 id="jhi-asset-master-heading">Preview News</h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="close()">&times;</button>
+</div>
+<div class="modal-body">
+    <div class="row no-gutters clearfix">
+        <div class="col-md-12" style="padding-right: 10px;">
+            <div class="card card-margin-bottom-10" style="height:310px;">
+                <ng-container *ngIf="ckeditorContent && ckeditorContent.length>0">
+                    <ngb-carousel #carousel>
+                        <ng-template ngbSlide>
+                            <img src="../../../content/images/transparent.png" alt="Random first slide"
+                                 style="height:310px; width:100%;">
+                            <div class="carousel-caption">
+                                <h3>{{newsTitle}}</h3>
+                                <div style="height: 220px;overflow-y: auto; overflow-x: hidden;">
+                                    <ng-container *ngIf="ckeditorContent">
+                                        <span style="text-align: justify !important;" [innerHTML]="ckeditorContent"></span>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-carousel>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

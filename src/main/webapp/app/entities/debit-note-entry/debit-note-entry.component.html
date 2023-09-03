@@ -1,0 +1,163 @@
+<div align="center" class="centered" *ngIf="isSaving">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+    <h2>Please wait ....</h2>
+</div>
+<form name="editForm" role="form" (ngSubmit)="save()" novalidate [formGroup]="editForm">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 id="jhi-asset-master-heading">Debit Note Entry</h6>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-right">
+                        <button type="button" id="clear-entity" class="btn btn-sm btn-xs btn-warning btn-round m-0" (click)="clear();">
+                            <fa-icon [icon]="'sync'"></fa-icon>&nbsp;<span>Clear</span>
+                        </button>
+                        <button type="submit" id="save-entity" class="btn btn-sm btn-xs btn-blush btn-round m-0" [disabled]="debitNoteEntries && debitNoteEntries.length >0  && debitNoteEntries[0].lockedby">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                        <button type="button" id="lock-entity" class="btn btn-sm btn-xs btn-blush btn-round m-0" (click)="lock()" [disabled]="debitNoteEntries && debitNoteEntries.length >0  && debitNoteEntries[0].lockedby">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Lock</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white pt-1 pb-1">
+            <div class="row mb-1">
+                <div class="col-md-1"><label for="companycode">Company</label></div>
+                <div class="col-md-3">
+                    <input typonProjectSelectede="text" class="form-control form-control-xs" id="companycode" name="companycode" formControlName="companycode" readonly disabled />
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_financialyearcode">Fin&nbsp;Year</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" id="field_financialyearcode" name="financialyearcode" formControlName="financialyearcode" readonly disabled />
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_businessunitcode">B.Unit</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" id="field_businessunitcode" name="businessunitcode" formControlName="businessunitcode" readonly disabled />
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label>Document#</label></div>
+                <div class="col-md-3">
+                    <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteFindocument" [minSearchLength]="3" [placeholder]="'Search Findocument'" [textSearching]="'Please wait...'" [inputClass]="'form-control form-control-xs d-inline'" formControlName="code" (selected)="onProjectSelected($event)">
+                    </ng2-completer>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_postingdate">Post&nbsp;Date</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" id="field_postingdate" name="postingdate" [value]="(editForm.controls['postingdate'].value ? (editForm.controls['postingdate'].value) : null) | date: 'dd/MM/yyyy'" readonly disabled />
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_documenttemplatecode">Template</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" id="field_documenttemplatecode" name="documenttemplatecode" formControlName="documenttemplatecode" readonly disabled />
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label for="suppliercode">Supplier</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" id="suppliercode" name="suppliercode" formControlName="suppliercode" readonly disabled />
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_documentamount">Amount</label></div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" id="field_documentamount" name="documentamount" formControlName="documentamount" readonly disabled />
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_exchangerate">Exchange</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" id="field_exchangerate" name="exchangerate" formControlName="exchangerate" readonly disabled />
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white p-1" *ngIf="viewfindocuments && viewfindocuments.length>0">
+            <div class="table-responsive" id="entities">
+                <table class="table table-sm table-xs table-bordered table-striped mb-1" aria-describedby="page-heading">
+                    <thead>
+                    <tr>
+                        <th colspan="2"><span></span></th>
+                        <th colspan="2" class="text-center"><span>Document Amount</span></th>
+                        <th><span></span></th>
+                        <th colspan="2" class="text-center"><span>Company Amount</span></th>
+                        <th colspan="3"><span></span></th>
+                    </tr>
+                    <tr>
+                        <th style="width: 80px;"><span>GL Code</span></th>
+                        <th><span>GL Description</span></th>
+                        <th style="width: 80px;" class="text-right"><span>Debit</span></th>
+                        <th style="width: 80px;" class="text-right"><span>Credit</span></th>
+                        <th style="width: 100px;" class="text-center"><span>Doc.Curr</span></th>
+                        <th style="width: 80px;" class="text-right"><span>Debit</span></th>
+                        <th style="width: 80px;" class="text-right"><span>Credit</span></th>
+                        <th style="width: 100px;" class="text-center"><span>Comp.Curr</span></th>
+                        <th style="width: 100px;"><span>Costcenter</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let viewfindocument of viewfindocuments ;let index = index">
+                        <td>{{viewfindocument.glcode}}</td>
+                        <td>{{viewfindocument.gldescription}}</td>
+                        <td class="text-right"><ng-container *ngIf="viewfindocument.amountincc > 0">{{viewfindocument.amountincc}}</ng-container></td>
+                        <td class="text-right"><ng-container *ngIf="viewfindocument.amountincc < 0">{{viewfindocument.amountincc}}</ng-container></td>
+                        <td class="text-center">{{viewfindocument.documentcurrencycode}}</td>
+                        <td class="text-right"><ng-container *ngIf="viewfindocument.amountindc > 0">{{viewfindocument.amountindc}}</ng-container></td>
+                        <td class="text-right"><ng-container *ngIf="viewfindocument.amountindc < 0">{{viewfindocument.amountindc}}</ng-container></td>
+                        <td class="text-center">{{viewfindocument.companycurrencycode}}</td>
+                        <td>{{viewfindocument.costcentercode}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer body bg-white p-1" *ngIf="debitNoteEntries && debitNoteEntries.length>0">
+            <div class="table-responsive" id="entities1">
+                <table class="table table-sm table-xs table-bordered table-striped mb-1" aria-describedby="page-heading">
+                    <thead>
+                    <tr>
+                        <th style="width: 20px;">&nbsp;</th>
+                        <th style="width: 60px;"><span>HSN Code</span></th>
+                        <th style="width: 50px;"><span>ItemType</span></th>
+                        <th style="width: 200px;"><span>Description</span></th>
+                        <th style="width: 80px;" class="text-center"><span>UOM</span></th>
+                        <th style="width: 80px;" class="text-right"><span>Qty</span></th>
+                        <th style="width: 80px;" class="text-right"><span>Rate</span></th>
+                        <th style="width: 80px;" class="text-right"><span>Basic</span></th>
+                        <th style="width: 80px;" class="text-right"><span>GST Rate</span></th>
+                        <th style="width: 80px;" class="text-right" *ngIf="gsttypes==='CGST'"><span>CGST Value</span></th>
+                        <th style="width: 80px;" class="text-right" *ngIf="gsttypes==='CGST'"><span>SGST Value</span></th>
+                        <th style="width: 80px;" class="text-right" *ngIf="gsttypes==='IGST'"><span>IGST Value</span></th>
+                        <th style="width: 80px;" class="text-right"><span>Others</span></th>
+                        <th style="width: 80px;" class="text-right"><span>Total</span></th>
+                        <th><span>Remark</span></th>
+                        <th class="button-column" style="width: 20px;">
+                            <fa-icon [icon]="'plus-circle'" style="cursor: pointer" (click)="addRow();"></fa-icon>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let debitNoteEntry of debitNoteEntries; let index = index;">
+                        <td><fa-icon [icon]="'search'" style="cursor: pointer" (click)="callDetails(debitNoteEntry);"></fa-icon></td>
+                        <td><input type="text" class="form-control form-control-xs text-uppercase" id="hsncode{{index}}" name="hsncode{{index}}" [(ngModel)]="debitNoteEntry.hsncode" [ngModelOptions]="{standalone: true}"/></td>
+                        <td><input type="text" class="form-control form-control-xs text-uppercase" id="itemtype{{index}}" name="itemtype{{index}}" [(ngModel)]="debitNoteEntry.itemtype" [ngModelOptions]="{standalone: true}"/></td>
+                        <td><input type="text" class="form-control form-control-xs text-uppercase" id="description{{index}}" name="description{{index}}" [(ngModel)]="debitNoteEntry.description" [ngModelOptions]="{standalone: true}"/></td>
+                        <td><input type="text" class="form-control form-control-xs text-uppercase text-center" id="uom{{index}}" name="uom{{index}}" [(ngModel)]="debitNoteEntry.uom" [ngModelOptions]="{standalone: true}"/></td>
+                        <td><input type="number" class="form-control form-control-xs text-right" id="qty{{index}}" name="qty{{index}}" [(ngModel)]="debitNoteEntry.qty" [ngModelOptions]="{standalone: true}" (keyup)="calculateTotal(debitNoteEntry)"/></td>
+                        <td><input type="number" class="form-control form-control-xs text-right" id="rate{{index}}" name="rate{{index}}" [(ngModel)]="debitNoteEntry.rate" [ngModelOptions]="{standalone: true}" (keyup)="calculateTotal(debitNoteEntry)"/></td>
+                        <td><input type="number" class="form-control form-control-xs text-right" id="basicvalue{{index}}" name="basicvalue{{index}}" [(ngModel)]="debitNoteEntry.basicvalue" readonly [ngModelOptions]="{standalone: true}"/></td>
+                        <td><input type="number" class="form-control form-control-xs text-right" id="gstrate{{index}}" name="gstrate{{index}}" [(ngModel)]="debitNoteEntry.gstrate" [ngModelOptions]="{standalone: true}" (keyup)="calculateTotal(debitNoteEntry)"/></td>
+                        <td *ngIf="gsttypes==='CGST'"><input type="text" class="form-control form-control-xs text-right" id="cgstvalue{{index}}" name="cgstvalue{{index}}" [(ngModel)]="debitNoteEntry.cgstvalue" readonly [ngModelOptions]="{standalone: true}"/></td>
+                        <td *ngIf="gsttypes==='CGST'"><input type="text" class="form-control form-control-xs text-right" id="sgstvalue{{index}}" name="sgstvalue{{index}}" [(ngModel)]="debitNoteEntry.sgstvalue" readonly [ngModelOptions]="{standalone: true}"/></td>
+                        <td *ngIf="gsttypes==='IGST'"><input type="text" class="form-control form-control-xs text-right" id="igstvalue{{index}}" name="igstvalue{{index}}" [(ngModel)]="debitNoteEntry.igstvalue" readonly [ngModelOptions]="{standalone: true}"/></td>
+                        <td><input type="number" class="form-control form-control-xs text-right" id="othercharges{{index}}" name="othercharges{{index}}" [(ngModel)]="debitNoteEntry.othercharges" [ngModelOptions]="{standalone: true}" (keyup)="calculateTotal(debitNoteEntry)"/></td>
+                        <td><input type="text" class="form-control form-control-xs text-right" id="totalValue{{index}}" name="totalValue{{index}}" [(ngModel)]="debitNoteEntry.totalValue" readonly [ngModelOptions]="{standalone: true}"/></td>
+                        <td><input type="text" class="form-control form-control-xs text-uppercase" id="remarks{{index}}" name="remarks{{index}}" [(ngModel)]="debitNoteEntry.remarks" [ngModelOptions]="{standalone: true}"/></td>
+                        <td>
+                            <fa-icon (click)="removeRow(index)" *ngIf="!debitNoteEntry.lockedby" [icon]="'trash-alt'" style="cursor: pointer;" class="text-danger"></fa-icon>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

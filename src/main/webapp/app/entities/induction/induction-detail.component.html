@@ -1,0 +1,17 @@
+<div class="card">
+    <div class="body" *ngIf="jobProfiles">
+        <div class="policy" style="margin-top: -20px;">
+            <ng-container *ngFor="let jobProfile of jobProfiles;">
+                <pdf-viewer [src]="jobProfile.fileName" [render-text]="true" style="display: block;" [show-all]="false"
+                            [page]="page"
+                            (after-load-complete)="afterLoadComplete($event)"
+                            [zoom]="0.70"></pdf-viewer>
+                <div *ngIf="isLoaded" style="text-align: center;">
+                    <button class="btn btn-round bg-blush-light text-color" (click)="prevPage()" [disabled]="page === 1">Prev</button>
+                    <span>{{ page }} / {{ totalPages }}</span>
+                    <button class="btn btn-round bg-blush-light text-color" (click)="nextPage()" [disabled]="page === totalPages">Next</button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="card">
+    <div class="body">
+        <div align="center" class="centered" *ngIf="isDownload">
+            <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+        </div>
+        <div>
+            <h5 id="page-heading">
+                <span>Payment Request Report Details</span>
+            </h5>
+            <hr/>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-2">Company</div>
+            <div class="col-md-4">
+                <select class="form-control form-control-xs custom-select custom-select-xs" name="company" id="field_company" [(ngModel)]="search.company" (change)="fetchDivision(); fetchBusinessUnit();">
+                    <option [value]="'undefined'">Select Company</option>
+                    <option [value]="companyOption.code" *ngFor="let companyOption of companies;">{{companyOption.code + '-' + companyOption.longdescription}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-2">Division</div>
+            <div class="col-md-4">
+                <select class="form-control form-control-xs custom-select custom-select-xs" name="division" id="field_division" [(ngModel)]="search.division" >
+                    <option [value]="'undefined'">Select Division</option>
+                    <option [value]="divisionOption.id.code" *ngFor="let divisionOption of divisions;">{{divisionOption.id.code + '-' + divisionOption.longdescription}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-2">Business Unit</div>
+            <div class="col-md-4">
+                <select class="form-control form-control-xs custom-select custom-select-xs" name="businessunit" id="field_businessunit" [(ngModel)]="search.businessunit" >
+                    <option [value]="'undefined'">Select Business Unit</option>
+                    <option [value]="businessunitOption.id.code" *ngFor="let businessunitOption of finbusinessunits;">{{businessunitOption.id.code + '-' + businessunitOption.longdescription}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-2">Request Date From</div>
+            <div class="col-md-4">
+                <div class="input-group input-group-sm mb-0">
+                    <input [owlDateTime]="poDateFrom"
+                           placeholder="Request Date From" class="form-control form-control-xs" [(ngModel)]="search.bookingDateFrom">
+                    <div class="input-group-append input-group-append-top m-0">
+                        <button class="btn btn-blush form-control-xs my-0" [owlDateTimeTrigger]="poDateFrom"
+                        ><span><fa-icon [icon]="'calendar'"></fa-icon></span></button>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #poDateFrom></owl-date-time>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-2">Request Date To</div>
+            <div class="col-md-4">
+                <div class="input-group input-group-sm">
+                    <input [owlDateTime]="poDateTo"
+                           placeholder="Request Date To" class="form-control form-control-xs" [(ngModel)]="search.bookingDateTo" >
+                    <div class="input-group-append input-group-append-top m-0">
+                        <button class="btn btn-blush form-control-xs my-0" [owlDateTimeTrigger]="poDateTo"
+                                ><span><fa-icon [icon]="'calendar'"></fa-icon></span></button>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #poDateTo></owl-date-time>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-sm btn-blush btn-round" style="margin-top: 0;" [disabled]="isDownload" (click)="generateReport();"><fa-icon [icon]="'download'"></fa-icon> <span>Generate</span></button>&nbsp;&nbsp;
+                <button type="reset" class="btn btn-sm btn-secondary btn-round" style="margin-top: 0;" [disabled]="isDownload"><fa-icon [icon]="'times'"></fa-icon> <span>Reset</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

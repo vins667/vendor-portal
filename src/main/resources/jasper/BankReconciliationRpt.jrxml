@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BankReconciliation" pageWidth="630" pageHeight="842" columnWidth="610" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="ad5f87bb-af67-4d27-acd8-f075e4e4c23e">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db2"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[SELECT NVL(BR.ID,0)IDS, TO_CHAR(BR.RECONCILIATIONDATE,'dd/mm/yyyy')RECONCILIATIONDATE, to_char(BR.DOCUMENTDATE,'dd/mm/yyyy')DOCUMENTDATE, 
+BR.DOCUMENTNO, NVL(TRIM(BR.BANKCODE),'')BANKCODE,
+NVL((SELECT 'Bank Reconcilliation ' || MAX(LONGDESCRIPTION) FROM GLMASTER WHERE CHARTOFACCOUNTCODE='18' AND CODE=BR.BANKCODE),'')BANKNAME,
+BR.BALANCE, BRL.FINDOCUMENTCODE,
+NVL(BRL.DEBITAMIT,0)DEBITAMIT, NVL(BRL.CREDITAMT,0)CREDITAMT, NVL(BRL.CHEQUENO,'')CHEQUENO, NVL(BRL.CHEQUEDATE,'')CHEQUEDATE,
+NVL(BRL.GLNAME,'')PERTICULERS,
+NVL(BRL.NARRATION,'')NARRATION,
+nvl(br.LEDGERBALANCE,0)LEDGERBALANCE, nvl(br.CHECKDEPOSITNOTCLEAR,0)CHECKDEPOSITNOTCLEAR, nvl(br.CHECKISSUENOTCLEAR,0)CHECKISSUENOTCLEAR, 
+nvl(br.BANKBALANCE,0)BANKBALANCE, nvl(br.BALANCEDIFFERENCE,0)BALANCEDIFFERENCE
+FROM DI_BANKRECONCILATION BR, DI_BANKRECONCILATIONDETAILS BRL
+WHERE BR.ID = BRL.BANKRECONCILATIONID AND BR.ID='1']]>
+	</queryString>
+	<field name="IDS" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="IDS"/>
+	</field>
+	<field name="RECONCILIATIONDATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="RECONCILIATIONDATE"/>
+	</field>
+	<field name="DOCUMENTDATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DOCUMENTDATE"/>
+	</field>
+	<field name="DOCUMENTNO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DOCUMENTNO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="DI_BANKRECONCILATION"/>
+	</field>
+	<field name="BANKCODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="BANKCODE"/>
+	</field>
+	<field name="BANKNAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="BANKNAME"/>
+	</field>
+	<field name="BALANCE" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="BALANCE"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="DI_BANKRECONCILATION"/>
+	</field>
+	<field name="FINDOCUMENTCODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FINDOCUMENTCODE"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="DI_BANKRECONCILATIONDETAILS"/>
+	</field>
+	<field name="DEBITAMIT" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="DEBITAMIT"/>
+	</field>
+	<field name="CREDITAMT" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="CREDITAMT"/>
+	</field>
+	<field name="CHEQUENO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CHEQUENO"/>
+	</field>
+	<field name="CHEQUEDATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CHEQUEDATE"/>
+	</field>
+	<field name="PERTICULERS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PERTICULERS"/>
+	</field>
+	<field name="NARRATION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NARRATION"/>
+	</field>
+	<field name="LEDGERBALANCE" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="LEDGERBALANCE"/>
+	</field>
+	<field name="CHECKDEPOSITNOTCLEAR" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="CHECKDEPOSITNOTCLEAR"/>
+	</field>
+	<field name="CHECKISSUENOTCLEAR" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="CHECKISSUENOTCLEAR"/>
+	</field>
+	<field name="BANKBALANCE" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="BANKBALANCE"/>
+	</field>
+	<field name="BALANCEDIFFERENCE" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="BALANCEDIFFERENCE"/>
+	</field>
+	<variable name="DEBITAMIT1" class="java.lang.Double" resetType="Group" resetGroup="mainGrp" calculation="Sum">
+		<variableExpression><![CDATA[$F{DEBITAMIT}]]></variableExpression>
+	</variable>
+	<variable name="CREDITAMT1" class="java.lang.Double" resetType="Group" resetGroup="mainGrp" calculation="Sum">
+		<variableExpression><![CDATA[$F{CREDITAMT}]]></variableExpression>
+	</variable>
+	<group name="mainGrp" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{IDS}]]></groupExpression>
+		<groupHeader>
+			<band height="87">
+				<staticText>
+					<reportElement x="0" y="57" width="75" height="30" uuid="86e2d5b9-d093-4f01-90ee-05d74e25e67b">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Vch No.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="75" y="57" width="60" height="30" uuid="33ade903-7e78-4343-a107-b03110cd96c1">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[ Voucher Dt]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="135" y="57" width="60" height="30" uuid="23fb1782-f420-46ce-9ffc-146acc9fd122">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[ Cheque No]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="195" y="57" width="65" height="30" uuid="79ac8451-09dd-43e3-afc5-d3219efef0dd">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box rightPadding="5">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Debit Ex. Cheques
+deposited, 
+not yet cleared]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="260" y="57" width="65" height="30" uuid="ad0abebe-0b5f-47fd-96ba-9671ff291baa">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box rightPadding="5">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Credit Ex. Cheques issued
+not yet presented 
+in bank]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="325" y="57" width="135" height="30" uuid="69c445bf-d43b-4252-bc16-7a5ff7035183">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Particulars Pertains to which Vendor/Customer
+/ ledger account ?]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="460" y="57" width="75" height="30" uuid="7a53d039-8d0e-4114-b5db-f92f8fb8654d">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Bank Dt.
+Cleared in bank
+ on which date ?]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="535" y="57" width="75" height="30" uuid="48ce146a-7304-486d-a9c5-7dca447cedbe">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Chq Dt.
+Date put on 
+Cheque
+]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="0" y="0" width="610" height="54" uuid="508c7431-e4a9-4146-89e9-f2e532f9a7f6"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="90" y="0" width="430" height="15" uuid="738d7dc7-b2dc-4f20-85dd-677e903cefb1">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[VAMANI OVERSEAS PVT. LTD. ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="15" width="610" height="15" uuid="a3e11ada-2de3-4c6f-b1f6-90ee0f5c1281">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[VAMANI OVERSEAS PVT. LTD. ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="0" y="30" width="610" height="12" uuid="071408bb-5fc4-4f87-acc5-2dd32543da4b">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{BANKNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="42" width="610" height="12" uuid="a10c0b98-57a9-40b0-b0fa-bd05904e9c8d">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DOCUMENTDATE}]]></textFieldExpression>
+				</textField>
+				<textField pattern="MMMMM dd, yyyy">
+					<reportElement x="520" y="0" width="90" height="15" uuid="2aa6b8ef-17ac-451e-8b80-d27760e3f2a2"/>
+					<textElement>
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="80">
+				<textField pattern="#0.00">
+					<reportElement x="195" y="0" width="65" height="12" uuid="d6b4442e-b681-4274-abff-df165b4292e1">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box rightPadding="5">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DEBITAMIT1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#0.00">
+					<reportElement x="260" y="0" width="65" height="12" uuid="972f1cfb-a888-4f4e-8fe9-e9abd805e9a7">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box rightPadding="5">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CREDITAMT1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="135" y="0" width="60" height="12" uuid="eb9ae649-7629-41b1-975a-1e32647f8700">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="75" y="0" width="60" height="12" uuid="7f413bec-fb74-4993-9aba-7b26c01c907e">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="0" width="75" height="12" uuid="746f5c81-a9fe-4e66-b9eb-70fa3fbb5520">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="325" y="0" width="135" height="12" uuid="8ac9245a-e282-4efa-8d93-803b3fc66f47">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="460" y="0" width="75" height="12" uuid="c302f2f5-f63a-449a-835e-0d2d6c6b684a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="535" y="0" width="75" height="12" uuid="ee54f691-9c2b-44f4-8653-8ae9fcabb336">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="12" width="135" height="12" uuid="306cdfd2-964c-4f1d-b14f-e51c80c960f7">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Balance As Per Our Books :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="24" width="135" height="12" uuid="b3fdff1b-db3d-451d-aae7-e18d1e291167">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Chq Issued not Cleared]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="36" width="135" height="12" uuid="d091fe02-7539-4ed8-9487-955a70db6439">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Chq Deposit Not Cleared.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="48" width="135" height="12" uuid="26137f98-6ff0-405c-81e9-a533d0b444d9">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Balance As Per Bank :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="60" width="610" height="20" uuid="165ee30f-ed13-48e5-b33a-0b9715a49fe0">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Times New Roman" size="6" isBold="false" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Notes : This Bank Reconciliation shows the list of all pending cheques issued / cheques deposited and other entries in our books, that are not yet reflected in the bank. Usually, if the Bank Reco is done properly , there will be Difference=NIL. However if there is a difference, then the bank reco must be done by the accountant again.  The Difference could be the "Bank Charges debited by the bank, some wrong entry by the bank, or some cheque deposited directly by customer & not known to us etc".]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="135" y="12" width="60" height="12" uuid="66a2ec7b-1aff-4fda-8ff4-e3f3b221b94c">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box rightPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{LEDGERBALANCE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="135" y="24" width="60" height="12" uuid="669a826d-8bc7-4830-9146-658282036286">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box rightPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CHECKISSUENOTCLEAR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="135" y="36" width="60" height="12" uuid="61dc647c-a1e9-4f22-9bb0-86dc0075127a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box rightPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CHECKDEPOSITNOTCLEAR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="135" y="48" width="60" height="12" uuid="aa263034-e4ae-4218-a477-0cb919b80cf4">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box rightPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{BANKBALANCE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="195" y="12" width="65" height="12" uuid="a40f4858-cf0a-4efa-86a3-0b2dbd33cbcc">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Difference :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="260" y="12" width="65" height="12" uuid="314f1855-7c2c-41bd-8e49-6eaec4d8ad89">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box rightPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{BALANCEDIFFERENCE}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="75" height="12" uuid="ed281352-dd4f-439e-aea4-c228c860bdee">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FINDOCUMENTCODE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="0" width="60" height="12" uuid="8ab1f970-67d4-4730-8129-570969076b19">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOCUMENTDATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="135" y="0" width="60" height="12" uuid="c8cdb8e7-0342-4696-aa6e-f2d285d303d9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CHEQUENO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="0" width="65" height="12" uuid="941791a8-b0e3-4548-aafa-181b59e2f97b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box rightPadding="5">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEBITAMIT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="0" width="65" height="12" uuid="9c632c05-c77e-40ca-971f-afc57e03c36d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box rightPadding="5">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CREDITAMT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="325" y="0" width="135" height="12" uuid="83ba0a04-2464-447c-8147-7c7dcaa181c4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PERTICULERS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="535" y="0" width="75" height="12" uuid="e9420ace-96db-464a-8510-87f4cb0b4b3e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CHEQUEDATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="75" height="12" uuid="24eddbb0-f3e5-4bd6-8f6a-64af0a8f5ef6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PERTICULERS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

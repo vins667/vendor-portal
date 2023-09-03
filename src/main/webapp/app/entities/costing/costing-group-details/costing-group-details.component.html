@@ -1,0 +1,85 @@
+<div class="card">
+    <div class="body">
+            <div>
+                <h5 id="page-heading"><span>Costing Group Details</span></h5>
+                 <div class="row">
+                    <div class="col-md-2">
+                        <input class="form-control form-control-sm text-uppercase ng-valid ng-dirty ng-touched" name="processcode" id="field_processcode" placeholder="Code" type="text" [(ngModel)]="search.processcode" [ngModelOptions]="{standalone: true}"/>
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control form-control-sm text-uppercase ng-valid ng-dirty ng-touched" name="processdesc" id="field_processdesc" placeholder="Decription" type="text" [(ngModel)]="search.processdesc" [ngModelOptions]="{standalone: true}"/>
+                    </div>
+                    <div class="col-md-8 text-right">
+                        <button id="jh-search-entity" class="btn btn-sm btn-info btn-round" type="button" style="margin: 0;" (click)="filter()">
+                            <fa-icon [icon]="'search'"></fa-icon>
+                            <span >Search</span>
+                        </button>
+                        <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round jh-create-entity create-costing-group-details" [routerLink]="['/costing-group-details/new']">
+                            <fa-icon [icon]="'plus'"></fa-icon>
+                            <span>new</span>
+                        </button>
+                    </div>
+                </div>
+                 <jhi-alert></jhi-alert>
+                 <div class="table-responsive">
+                        <table class="table table-sm table-striped">
+                            <thead>
+                                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                                    <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                                    <th jhiSortBy="code"><span>Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                                    <th jhiSortBy="descrption"><span>Descrption</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                                    <th jhiSortBy="valueType"><span>Value Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                                    <th jhiSortBy="masterType"><span>Master Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                                    <th jhiSortBy="ugcType"><span>Ugc Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                                    <th jhiSortBy="costingGroupMaster.id"><span>Costing Group</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                                    <th></th>
+                                  </tr>
+                                </thead>
+                            <tbody>
+                                <tr *ngFor="let costingGroupDetails of costingGroupDetails ;trackBy: trackId">
+                                    <td><a [routerLink]="['/costing-group-details', costingGroupDetails.id, 'view' ]">{{costingGroupDetails.id}}</a></td>
+                                    <td>{{costingGroupDetails.code}}</td>
+                                    <td>{{costingGroupDetails.description}}</td>
+                                    <td><ng-container *ngIf="costingGroupDetails.valueType=='MA'">Master</ng-container><ng-container *ngIf="costingGroupDetails.valueType=='TP'">Typed</ng-container></td>
+                                    <td>{{costingGroupDetails.masterType}}</td>
+                                    <td>{{costingGroupDetails.ugcType}}</td>
+                                    <td>{{costingGroupDetails.costingGroupMaster?.description}}</td>
+                                   <td class="text-right button-column">
+                                    <div class="btn-group">
+                                        <button type="submit"
+                                                [routerLink]="['/costing-group-details', costingGroupDetails.id, 'view' ]"
+                                                class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['/costing-group-details', costingGroupDetails.id, 'edit']"
+                                                class="btn btn-blush btn-sm">
+                                               <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                            <span class="d-none d-md-inline">Edit</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['/costing-group-details', { outlets: { popup: costingGroupDetails.id + '/delete'} }]"
+                                                replaceUrl="true"
+                                                queryParamsHandling="merge"
+                                                class="btn btn-danger btn-sm">
+                                            <fa-icon [icon]="'times'"></fa-icon>
+                                            <span class="d-none d-md-inline">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div [hidden]="costingGroupDetails?.length === 0">
+                        <div class="row justify-content-center">
+                            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                        </div>
+                        <div class="row justify-content-center">
+                            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                        </div>
+                    </div>
+            </div>
+    </div>
+</div>

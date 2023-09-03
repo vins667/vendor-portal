@@ -1,0 +1,12 @@
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5 id="page-heading">
+        <span>Defects(OB Wise)</span>
+    </h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="close()">&times;</button>
+</div>
+<div class="modal-body">
+    <ng-container *ngIf="dataSourceDefectsOB">
+        <fusioncharts [width]="widthDefectsOB" [height]="heightDefectsOB" [type]="typeDefectsOB" [dataFormat]="dataFormatDefectsOB" [dataSource]="dataSourceDefectsOB">
+        </fusioncharts>
+    </ng-container>
+</div>

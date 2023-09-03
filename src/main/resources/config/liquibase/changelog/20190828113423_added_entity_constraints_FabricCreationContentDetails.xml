@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity FabricCreationContentDetails.
+    -->
+    <changeSet id="20190828113423-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="fabric_content_master_id"
+                                 baseTableName="fabric_creation_content_dtls"
+                                 constraintName="fk_fabric_creation_content_details_fabric_content_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fabric_content_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="fabric_creation_master_id"
+                                 baseTableName="fabric_creation_content_dtls"
+                                 constraintName="fk_fabric_creation_content_details_fabric_creation_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fabric_creation_master"/>
+
+    </changeSet>
+</databaseChangeLog>

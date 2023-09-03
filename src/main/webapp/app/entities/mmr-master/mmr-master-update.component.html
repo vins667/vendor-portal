@@ -1,0 +1,120 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-mmr-master-heading">MMR Master</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-md-12">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_dateFrom">Month Year</label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group input-group-sm">
+                                        <input [owlDateTime]="mmrDate" name="dateFrom" id="field_dateFrom" placeholder="Date" class="form-control form-control-sm" required [(ngModel)]="dateFrom">
+                                        <div class="input-group-append input-group-append-top">
+                                            <div class="btn btn-blush" [owlDateTimeTrigger]="mmrDate"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                        </div>
+                                    </div>
+                                    <owl-date-time [pickerType]="'calendar'" #mmrDate></owl-date-time>
+                                 <div [hidden]="!(editForm.controls.monthYear?.dirty && editForm.controls.monthYear?.invalid)">
+                                        <small class="form-text text-danger"
+                                          [hidden]="!editForm.controls.monthYear?.errors?.required">
+                                          This field is required.
+                                        </small>
+                                        <small class="form-text text-danger"
+                                            [hidden]="!editForm.controls.monthYear?.errors?.ZonedDateTimelocal">
+                                            This field should be a date and time.
+                                        </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                                <div class="col-md-2">
+                                    <label class="form-control-label" for="field_factory">Factory</label>
+                                </div>
+                                <div class="col-md-4">
+                                        <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="flag" id="field_factory" (change)="getFactory()"
+                                                [(ngModel)]="mMRMaster.factory" required maxlength="10">
+                                                <option value="101">137 Faridabad</option>
+                                                <option value="102">169 Faridabad</option>
+                                       </select>
+                                </div>
+                         </div>
+                        <div class="row" style="padding-left: 15px; padding-right: 15px; font-weight: 600">
+                            <div class="col-md-6" style="padding-top: 5px; padding-bottom: 5px; border: 1px solid #f2f2f2;">
+                            </div>
+                            <div class="col-md-3" style="padding-top: 5px; padding-bottom: 5px; border: 1px solid #f2f2f2; text-align: center;">
+                                Total On Roll
+                            </div>
+                            <div class="col-md-3" style="padding-top: 5px; padding-bottom: 5px; border: 1px solid #f2f2f2; text-align: center;">
+                                Total Pcs Rate
+                            </div>
+                        </div>
+                        <div class="row" style="padding-left: 15px; padding-right: 15px; font-weight: 600">
+                            <div class="col-md-6" style="padding-top: 5px; padding-bottom: 5px; border: 1px solid #f2f2f2;">
+                                Department
+                            </div>
+                            <div class="col-md-3" style="padding-top: 5px; padding-bottom: 5px; border: 1px solid #f2f2f2; text-align: center;">
+                                <span style="color: #FF0000;">{{totalSal}}</span>
+                            </div>
+                            <div class="col-md-3" style="padding-top: 5px; padding-bottom: 5px; border: 1px solid #f2f2f2; text-align: center;">
+                                <span style="color: #FF0000;">{{totalPcs}}</span>
+                            </div>
+                        </div>
+                        <ng-container *ngFor="let mmrDepartment of mMRMaster.mmrDepartmentBean;let h = index;">
+                            <div class="row" style="padding-left: 15px; padding-right: 15px;">
+                                <div class="col-md-6" style="padding-top: 5px; padding-bottom: 5px; border: 1px solid #f2f2f2;" [ngStyle]="{'background-color':h%2 === 0 ? 'rgba(242, 243, 174, 0.65)' : 'white' }">
+                                    <fa-icon [icon]="'plus-circle'" style="color: #00FF00; cursor: pointer;" (click)="changeExpend(mmrDepartment);" *ngIf="!mmrDepartment.expend || mmrDepartment.expend === false"></fa-icon>
+                                    <fa-icon [icon]="'minus-circle'" style="color: #FF0000; cursor: pointer;"  (click)="changeExpend(mmrDepartment);" *ngIf="mmrDepartment.expend || mmrDepartment.expend === true"></fa-icon>
+                                    <span>{{mmrDepartment.departmentDesc}} ({{mmrDepartment.department}})</span>
+                                </div>
+                                <div class="col-md-3" style="padding-top: 5px; padding-bottom: 5px; border: 1px solid #f2f2f2; text-align: center;" [ngStyle]="{'background-color':h%2 === 0 ? 'rgba(242, 243, 174, 0.65)' : 'white' }">
+                                    <span style="color: #FF0000;">{{mmrDepartment.totalSal}}</span>
+                                </div>
+                                <div class="col-md-3" style="padding-top: 5px; padding-bottom: 5px; border: 1px solid #f2f2f2; text-align: center;" [ngStyle]="{'background-color':h%2 === 0 ? 'rgba(242, 243, 174, 0.65)' : 'white' }">
+                                   <span style="color: #FF0000;">{{mmrDepartment.totalPcs}}</span>
+                                </div>
+                            </div>
+                            <ng-container *ngIf="mmrDepartment.expend || mmrDepartment.expend === true">
+                                <ng-container *ngIf="mmrDepartment && mmrDepartment.mmrDesignationBean">
+                                    <div class="row" style="padding-left: 15px; padding-right: 15px;" *ngFor="let mmrDesignation of mmrDepartment.mmrDesignationBean; let i = index;">
+                                        <div class="col-md-3" style="padding-top: 5px; padding-bottom: 5px; border: 1px solid #f2f2f2; padding-left: 50px;">
+                                            {{i + 1}}. {{mmrDesignation.designationDesc}} ({{mmrDesignation.designation}})
+                                        </div>
+                                        <div class="col-md-3" style="padding-top: 5px; padding-bottom: 5px; border: 1px solid #f2f2f2;">
+                                            <ng-container *ngIf="mmrDesignation.swCode == 2">&nbsp;
+                                                <span style="color: #00FF00;">Staff</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="mmrDesignation.swCode == 3">&nbsp;
+                                                <span style="color: rgb(0, 47, 255);">Worker</span>
+                                            </ng-container>
+                                        </div>
+                                        <div class="col-md-3" style="border: 1px solid #f2f2f2;">
+                                            <input type="number" class="form-control form-control-sm text-center" name="salary_{{h}}_{{i}}" id="field_salary_{{h}}_{{i}}" (keyup)="getTotalDeatils();" [(ngModel)]="mmrDesignation.salary"/>
+                                        </div>
+                                        <div class="col-md-3" style="border: 1px solid #f2f2f2;">
+                                            <input type="number" class="form-control form-control-sm text-center" name="pcsRate_{{h}}_{{i}}" id="field_pcsRate_{{h}}_{{i}}" (keyup)="getTotalDeatils();" [(ngModel)]="mmrDesignation.pcsRate">
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"
+                                (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
+                                class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

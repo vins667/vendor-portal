@@ -1,0 +1,88 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-vcut-operation-master-heading">Create or edit a Style Operation Bulletin</h5>
+        <hr />
+        <div class="row">
+            <div class="col-12">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()">
+                    <div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_itemName">Item</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control form-control-sm text-uppercase" name="itemName" id="field_itemName" [(ngModel)]="vcutOperationMaster.itemName" required/>
+                            </div>
+                            <div class="col-md-5 text-right button-column">
+                                <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                                </button>
+                                <button type="submit" id="save-entity" [disabled]="isSaving" class="btn btn-sm btn-blush btn-round">
+                                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_style">Style</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control form-control-sm text-uppercase" name="style" id="field_style" [(ngModel)]="vcutOperationMaster.style" required/>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row card-margin-bottom-10">
+                                <div class="col-md-12">
+                                    <table class="table table-sm table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="align-center align-middle"><span>Operation</span></th>
+                                                <th class="align-center align-middle"><span>Operation Local</span></th>
+                                                <th class="align-center align-middle"><span>Machine</span></th>
+                                                <th class="align-center align-middle"><span>SMV</span></th>
+                                                <th class="align-center align-middle"><span>Inspection</span></th>
+                                                <th class="button-column">
+                                                    <fa-icon [icon]="'plus-circle'" style="cursor: pointer" (click)="addRow();">
+                                                    </fa-icon>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ng-container
+                                                *ngFor="let cutOperationMaster of vcutOperationMaster.vcutOperationMasters; let index = index;">
+                                                <tr>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm text-uppercase" name="description_{{index}}" id="field_description_{{index}}" [(ngModel)]="cutOperationMaster.description" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm text-uppercase" name="descriptionLocal_{{index}}" id="field_descriptionLocal_{{index}}" [(ngModel)]="cutOperationMaster.descriptionLocal" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm text-uppercase" name="machine_{{index}}" id="field_machine_{{index}}" [(ngModel)]="cutOperationMaster.machine" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control form-control-sm" name="smv_{{index}}" id="field_smv_{{index}}" [(ngModel)]="cutOperationMaster.smv"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" class="custom-checkbox" name="inspection_{{index}}" id="field_inspection_{{index}}" [(ngModel)]="cutOperationMaster.inspection"/>
+                                                    </td>
+                                                    <td>
+                                                        <fa-icon [icon]="'trash-alt'" style="cursor: pointer; font-size: 18px;" class="text-danger" (click)="removeRow(index);"></fa-icon>
+                                                    </td>
+                                                </tr>
+                                            </ng-container>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

@@ -1,0 +1,46 @@
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5 id="page-heading">
+        <span>Knit Creation Search</span>
+    </h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="close()">&times;</button>
+</div>
+<div class="modal-body">
+    <div class="row card-margin-bottom-10">
+        <div class="col-md-2"><input type="text" name="code" id="fieldcode" class="form-control form-control-sm" [(ngModel)]="knitCreationSearchMaster.code"  placeholder="Code"/></div>
+        <div class="col-md-2"><input type="text" name="name" id="fieldname" class="form-control form-control-sm" [(ngModel)]="knitCreationSearchMaster.name"  placeholder="Name"/></div>
+        <div class="col-md-2"><button type="button" class="btn btn-sm btn-round btn-blush" style="margin-top: 0;" (click)="search()"><fa-icon [icon]="'search'"></fa-icon><span> Search</span></button></div>
+    </div>
+    <div class="table-responsive" *ngIf="knitCreationMasters">
+        <table class="table table-sm table-striped">
+            <thead>
+            <tr>
+                <th><span>Code</span></th>
+                <th><span>Description</span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let knitCreationMasters of knitCreationMasters ;trackBy: trackId">
+                <td>{{knitCreationMasters.code}}</td>
+                <td>{{knitCreationMasters.description}}</td>
+                <td class="text-right button-column">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="button" class="btn btn-blush btn-sm" (click)="addData(knitCreationMasters);">
+                            <fa-icon [icon]="'plus'"></fa-icon>
+                            <span class="d-none d-md-inline">Add</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="knitCreationMasters && knitCreationMasters.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

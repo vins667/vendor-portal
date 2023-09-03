@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity VendorBuyerAuditLinking.
+    -->
+    <changeSet id="20190912094519-1" author="jhipster">
+        <createTable tableName="vendor_buyer_audit_linking">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="last_updated_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="last_updated_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="vendor_master_code" type="varchar(15)">
+                <constraints nullable="false" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <dropDefaultValue tableName="vendor_buyer_audit_linking" columnName="created_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="vendor_buyer_audit_linking" columnName="last_updated_date" columnDataType="datetime"/>
+        
+        <createTable tableName="vendor_buyer_audit_linking_buyer_master">
+            <column name="buyer_masters_code" type="varchar(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vendor_buyer_audit_linkings_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="vendor_buyer_audit_linkings_id, buyer_masters_code" tableName="vendor_buyer_audit_linking_buyer_master"/>
+
+        <createSequence startValue="1" sequenceName="vendor_buyer_audit_linking_seq" incrementBy="1" cycle="false"/>
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

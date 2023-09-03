@@ -1,0 +1,81 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-country-heading">Create or edit a Costing Value Master</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!editForm.get('id').value">
+                            <div class="col-md-3">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-9">
+                                 <input type="text" class="form-control form-control-sm" id="id" name="id" formControlName="id" readonly />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                                <div class="col-md-3">
+                                    <label class="form-control-label" for="field_processname">Process Name</label> 
+                                </div>
+                                <div class="col-md-9">
+                                    <select class="form-control form-control-sm custom-select custom-select-sm" id="field_processname" name="processname" formControlName="processname">
+                                        <option [ngValue]="null">Select</option>
+                                        <option *ngFor="let costingProcessMaster of costingProcessMasters;" [ngValue]="costingProcessMaster.processcode">{{costingProcessMaster.processdesc}}</option>
+                                    </select>
+                                    <div *ngIf="editForm.get('processname').invalid && (editForm.get('processname').dirty || editForm.get('processname').touched)">
+                                        <small class="form-text text-danger" *ngIf="editForm.get('processname').errors.required">
+                                        This field is required.
+                                        </small>
+                                        <small class="form-text text-danger" *ngIf="editForm.get('processname').errors.maxlength">
+                                           This field cannot be longer than 20 characters.
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-control-label" for="field_valuetype">Value Type</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="flag" id="field_flag" formControlName="valuetype">
+                                        <option [ngValue]="null">Select</option>
+                                        <option value="PM">Per Minute</option>
+                                        <option value="PC">Per Pc</option>
+                                    </select>
+                                    <div *ngIf="editForm.get('valuetype').invalid && (editForm.get('valuetype').dirty || editForm.get('valuetype').touched)">
+                                        <small class="form-text text-danger"  *ngIf="editForm.get('valuetype').errors.required">
+                                        This field is required.
+                                        </small>
+                                        <small class="form-text text-danger" *ngIf="editForm.get('valuetype').errors.maxlength">
+                                             This field cannot be longer than 10 characters.
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-control-label" for="field_value">Value</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="value" id="field_value" formControlName="value"/>
+                                    <div *ngIf="editForm.get('value').invalid && (editForm.get('value').dirty || editForm.get('value').touched)">
+                                        <small class="form-text text-danger" *ngIf="editForm.get('value').errors.required">
+                                             This field is required.
+                                        </small>
+                                        <small class="form-text text-danger" *ngIf="editForm.get('value').errors.maxlength">
+                                        This field cannot be longer than 100 characters.
+                                        </small>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

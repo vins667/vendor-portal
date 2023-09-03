@@ -1,0 +1,98 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-employee-information-update-heading">Employee Information Update</h5>
+        <div class="row">
+            <div class="col-12">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-6" style="border: 1px solid #FC9E4F;">
+                                <div class="row card-margin-bottom-10" style="margin-top: 20px;">
+                                    <div class="col-md-4">
+                                        <label class="form-control-label" for="field_correspondenceAddress">Old Address</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <textarea class="form-control form-control-sm" name="oldCorrespondenceAddress" id="field_oldCorrespondenceAddress" [(ngModel)]="employeeInformationUpdate.oldCorrespondenceAddress" maxlength="500" rows="4" cols="50" readonly></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row card-margin-bottom-10">
+                                    <div class="col-md-4">
+                                        <label class="form-control-label" for="field_oldMobileNumber">Old Mobile No</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control form-control-sm" name="oldMobileNumber" id="field_oldMobileNumber" [(ngModel)]="employeeInformationUpdate.oldMobileNumber" maxlength="15" readonly/>
+                                    </div>
+                                </div>
+
+                                <div class="row crad-margin-bottom-10 card-margin-bottom-10">
+                                    <div class="col-md-4">
+                                        <label class="form-control-label">Old Image</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="image"><img src="{{employeeInformationUpdate.oldImagePath}}" onerror="this.src='content/images/boy.png'" style="width:250px;height:250px" class="rounded-circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="border: 1px solid #FC9E4F; border-left: 0;">
+                                <div class="row card-margin-bottom-10" style="margin-top: 20px;">
+                                    <div class="col-md-4">
+                                        <label class="form-control-label" for="field_correspondenceAddress">New Address</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <textarea class="form-control form-control-sm" name="correspondenceAddress" id="field_correspondenceAddress" [(ngModel)]="employeeInformationUpdate.correspondenceAddress" maxlength="500" rows="4" cols="50" style="text-transform: uppercase;"></textarea>
+                                        <div [hidden]="!(editForm.controls.correspondenceAddress?.dirty && editForm.controls.correspondenceAddress?.invalid)">
+                                            <small class="form-text text-danger"
+                                                   [hidden]="!editForm.controls.correspondenceAddress?.errors?.maxlength">
+                                                This field cannot be longer than 500 characters.
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row card-margin-bottom-10">
+                                    <div class="col-md-4">
+                                        <label class="form-control-label" for="field_mobileNumber">New Mobile No</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="number" class="form-control form-control-sm" name="mobileNumber" id="field_mobileNumber" [(ngModel)]="employeeInformationUpdate.mobileNumber" maxlength="10"/>
+                                        <div [hidden]="!(editForm.controls.mobileNumber?.dirty && editForm.controls.mobileNumber?.invalid)">
+                                            <small class="form-text text-danger"
+                                                   [hidden]="!editForm.controls.mobileNumber?.errors?.maxlength">
+                                                This field cannot be longer than 15 characters.
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row crad-margin-bottom-10" style="margin-bottom: 20px;">
+                                    <div class="col-md-4">
+                                        <label class="form-control-label">New Image</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="image"><img src="{{employeeInformationUpdate.imagePath}}" onerror="this.src='content/images/boy.png'" style="width:250px;height:250px" class="rounded-circle"></div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 20px;">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-8 text-center">
+                                        <input type="file" id="imageUrl" name="imageUrl" class="form-control form-control-sm" style="padding-top:1px; width: 250px;" accept="image" (change)="uploadImage($event)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>
