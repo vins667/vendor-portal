@@ -1,0 +1,142 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Template Master</span>
+                <button id="jh-create-entity"
+                    class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-template-master"
+                    [routerLink]="['/template-master/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span>new</span>
+                </button>
+            </h5>
+            <jhi-alert></jhi-alert>
+            <br />
+            <div class="table-responsive" *ngIf="templateMasters">
+                <table class="table table-sm table-striped">
+                    <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse"
+                            [callback]="transition.bind(this)">
+                            <th></th>
+                            <th jhiSortBy="id"><span>ID</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="templateName"><span>Template Name</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="categoryMasterId"><span>Category</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="createdBy"><span>Created By</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="createdDate"><span>Created Date</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let templateMaster of templateMasters ;trackBy: trackId">
+                            <tr>
+                                <td>
+                                    <fa-icon [icon]="'plus-circle'" *ngIf="!templateMaster.expend" class="text-success"
+                                        style="font-size: 15px; cursor: pointer;"
+                                        (click)="expand(templateMaster, true);"></fa-icon>
+                                    <fa-icon [icon]="'minus-circle'" *ngIf="templateMaster.expend" class="text-danger"
+                                        style="font-size: 15px; cursor: pointer;"
+                                        (click)="expand(templateMaster, false);"></fa-icon>
+                                </td>
+                                <td>{{templateMaster.id}}</td>
+                                <td>{{templateMaster.templateName}}</td>
+                                <td>{{templateMaster.categoryMaster.description}}</td>
+                                <td>{{templateMaster.createdBy}}</td>
+                                <td>{{templateMaster.createdDate | date:'dd-MM-yyyy HH:mm'}}</td>
+                                <td class="text-right button-column">
+                                    <div class="btn-group">
+                                        <button title="In-active {{templateMaster.id}}" class="btn btn-danger btn-sm"
+                                            (click)="setActive(templateMaster, 'Y')"
+                                            *ngIf="templateMaster.flag==='N'">In-Active
+                                        </button>
+                                        <button title="Activated {{templateMaster.id}}" class="btn btn-success btn-sm"
+                                            (click)="setActive(templateMaster, 'N')"
+                                            *ngIf="templateMaster.flag==='Y'">Activated
+                                        </button>
+                                        <button type="submit"
+                                            [routerLink]="['/template-master', templateMaster.id, 'view' ]"
+                                            class="btn btn-info btn-sm">
+                                            <fa-icon [icon]="'eye'"></fa-icon>
+                                            <span class="d-none d-md-inline">View</span>
+                                        </button>
+                                        <button type="submit"
+                                            [routerLink]="['/template-master', templateMaster.id, 'edit']"
+                                            class="btn btn-blush btn-sm">
+                                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                            <span class="d-none d-md-inline">Edit</span>
+                                        </button>
+                                        <button type="submit"
+                                            [routerLink]="['/template-master', templateMaster.id, 'copy']"
+                                            class="btn btn-secondary btn-sm">
+                                            <fa-icon [icon]="'copy'"></fa-icon>
+                                            <span class="d-none d-md-inline">Copy</span>
+                                        </button>
+                                        <button type="submit"
+                                            [routerLink]="['/', 'template-master', { outlets: { popup:  templateMaster.id + '/delete'} }]"
+                                            replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                            <fa-icon [icon]="'times'"></fa-icon>
+                                            <span class="d-none d-md-inline">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="bg-white" *ngIf="templateMaster.expend">
+                                <td colspan="7">
+                                    <table class="table table-sm table-bordered">
+                                        <tr *ngFor="let templateDetail of templateMaster.templateDetails; let i = index;"
+                                            class="bg-white text-black">
+                                            <td><span class="font-bold">Specification {{i+1}}<sup
+                                                        *ngIf="templateDetail.required" class="text-danger"
+                                                        style="font-size: 15px;">*</sup></span></td>
+                                            <td>
+                                                <span class="font-bold">{{templateDetail.specification}}</span><br />
+                                                <span class="font-italic">
+                                                    <ng-container *ngIf="templateDetail.fieldType==='T'">TEXTFIELD
+                                                    </ng-container>
+                                                    <ng-container *ngIf="templateDetail.fieldType==='D'">DROPDOWN
+                                                    </ng-container>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <ng-conatiner *ngIf="templateDetail.templateDetailsBreakups">
+                                                    <ng-container
+                                                        *ngFor="let breakUp of templateDetail.templateDetailsBreakups; let index = index;">
+                                                        <ng-container *ngIf="index===0">{{breakUp.description}}
+                                                        </ng-container>
+                                                        <ng-container *ngIf="index!==0">{{', ' + breakUp.description}}
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </ng-conatiner>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="templateMasters && templateMasters.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage">
+                    </jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage"
+                        [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)">
+                    </ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

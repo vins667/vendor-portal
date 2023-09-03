@@ -1,0 +1,125 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-menu-master-heading">Create or edit a Menu Master</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!menuMaster.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="menuMaster.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_menuLabel">Menu Label</label>
+                    <input type="text" class="form-control" name="menuLabel" id="field_menuLabel"
+                        [(ngModel)]="menuMaster.menuLabel" required maxlength="100"/>
+                    <div [hidden]="!(editForm.controls.menuLabel?.dirty && editForm.controls.menuLabel?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.menuLabel?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.menuLabel?.errors?.maxlength">
+                        This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_menuIcon">Menu Icon</label>
+                    <input type="text" class="form-control" name="menuIcon" id="field_menuIcon"
+                        [(ngModel)]="menuMaster.menuIcon" required maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.menuIcon?.dirty && editForm.controls.menuIcon?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.menuIcon?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.menuIcon?.errors?.maxlength">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_menuLink">Menu Link</label>
+                    <input type="text" class="form-control" name="menuLink" id="field_menuLink"
+                        [(ngModel)]="menuMaster.menuLink" required maxlength="100"/>
+                    <div [hidden]="!(editForm.controls.menuLink?.dirty && editForm.controls.menuLink?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.menuLink?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.menuLink?.errors?.maxlength">
+                        This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_folder">Folder</label>
+                    <input type="checkbox" class="form-control" name="folder" id="field_folder"
+                        [(ngModel)]="menuMaster.folder" />
+                    <div [hidden]="!(editForm.controls.folder?.dirty && editForm.controls.folder?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.folder?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_collapsed">Collapsed</label>
+                    <input type="checkbox" class="form-control" name="collapsed" id="field_collapsed"
+                        [(ngModel)]="menuMaster.collapsed" />
+                    <div [hidden]="!(editForm.controls.collapsed?.dirty && editForm.controls.collapsed?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.collapsed?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_folderId">Folder Id</label>
+                    <input type="number" class="form-control" name="folderId" id="field_folderId"
+                        [(ngModel)]="menuMaster.folderId" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_parent">Parent</label>
+                    <input type="checkbox" class="form-control" name="parent" id="field_parent"
+                        [(ngModel)]="menuMaster.parent" />
+                    <div [hidden]="!(editForm.controls.parent?.dirty && editForm.controls.parent?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.parent?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdBy">Created By</label>
+                    <input type="text" class="form-control" name="createdBy" id="field_createdBy"
+                        [(ngModel)]="menuMaster.createdBy" maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.createdBy?.errors?.maxlength">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdDate">Created Date</label>
+                    <div class="d-flex">
+                        <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" [(ngModel)]="createdDate"
+                        />
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

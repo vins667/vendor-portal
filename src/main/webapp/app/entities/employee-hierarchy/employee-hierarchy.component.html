@@ -1,0 +1,70 @@
+<div class="card">
+    <div class="body">
+        <div id="full-container">
+            <!--button class="btn-action btn-show-pdf" (click)="exportImage();"> Export <span class='icon'> <i class="fa fa-file-pdf-o" aria-hidden="true"></i></span></button-->
+            <button class="btn-action btn-show-my-self" (click)="params.funcs.showMySelf()"> Show myself <span class='icon'> <i class="fa fa-user" aria-hidden="true"></i></span></button>
+            <button class=" btn-action btn-search" (click)="params.funcs.search()"> Search <span class='icon'> <i class="fa fa-search" aria-hidden="true"></i></span></button>
+
+            <div class="department-information">
+                <div class="dept-name">
+                    dept name
+                </div>
+                <div class="dept-emp-count">
+                    dept description test, this is department description
+                </div>
+                <div class="dept-description">
+                    dept description test, this is department description
+                </div>
+            </div>
+
+            <div class="user-search-box">
+                <div class="input-box">
+                    <div class="row">
+                        <div class="col-md-12 bg-background">
+                            <div class="close-button-wrapper"><i (click)="params.funcs.closeSearchBox()" class="fa fa-times" aria-hidden="true"></i></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-wrapper">
+                                <input type="text" class="search-input" placeholder="Search"/>
+                                <div class="input-bottom-placeholder">By Firstname, Lastname, Tags</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="result-box">
+                    <div class="result-header"> RESULTS</div>
+                    <div class="result-list">
+                        <ng-container *ngIf="params.searchData">
+                            <div class="list-item" *ngFor="let result of params.searchData">
+                                <a>
+                                    <div class="image-wrapper">
+                                        <img class="image" src="{{result.imageUrl}}"/>
+                                    </div>
+                                    <div class="description">
+                                        <p class="name">{{result.name}}</p>
+                                        <p class="position-name">{{result.positionName}}</p>
+                                        <p class="area">{{result.area}}</p>
+                                    </div>
+                                    <div class="buttons">
+                                        <div class="btn-group">
+                                            <button class="btn btn-blush btn-sm btn-round"  (click)="params.funcs.locate(result.uniqueIdentifier);">Locate</button>&nbsp;
+                                            <button type='button' class='btn btn-info btn-sm btn-round' style='line-height: 1.5; padding-left:10px; padding-right: 10px;' (click)='download(result.cardNo)'>Export</button>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </ng-container>
+                        <div class="buffer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="svgChart"></div>
+            <!--
+             <button class="btn btn-expand" onclick="params.funcs.expandAll()">Expand All</button>
+          -->
+        </div>
+    </div>
+</div>

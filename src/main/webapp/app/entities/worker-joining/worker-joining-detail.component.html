@@ -1,0 +1,91 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="workerJoining">
+            <h2><span>Worker Joining</span> {{workerJoining.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{workerJoining.name}}</span>
+                </dd>
+                <dt><span>Guardian Name</span></dt>
+                <dd>
+                    <span>{{workerJoining.guardianName}}</span>
+                </dd>
+                <dt><span>Mother Name</span></dt>
+                <dd>
+                    <span>{{workerJoining.motherName}}</span>
+                </dd>
+                <dt><span>Mobile No</span></dt>
+                <dd>
+                    <span>{{workerJoining.mobileNo}}</span>
+                </dd>
+                <dt><span>Join Date</span></dt>
+                <dd>
+                    <span>{{workerJoining.joinDate}}</span>
+                </dd>
+                <dt><span>Esi No</span></dt>
+                <dd>
+                    <span>{{workerJoining.esiNo}}</span>
+                </dd>
+                <dt><span>Uan No</span></dt>
+                <dd>
+                    <span>{{workerJoining.uanNo}}</span>
+                </dd>
+                <dt><span>Permanent Address</span></dt>
+                <dd>
+                    <span>{{workerJoining.permanentAddress}}</span>
+                </dd>
+                <dt><span>Local Address</span></dt>
+                <dd>
+                    <span>{{workerJoining.localAddress}}</span>
+                </dd>
+                <dt><span>Supervisor Name</span></dt>
+                <dd>
+                    <span>{{workerJoining.supervisorName}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{workerJoining.createdBy}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{workerJoining.createdDate}}</span>
+                </dd>
+                <dt><span>Last Updated By</span></dt>
+                <dd>
+                    <span>{{workerJoining.lastUpdatedBy}}</span>
+                </dd>
+                <dt><span>Last Updated Date</span></dt>
+                <dd>
+                    <span>{{workerJoining.lastUpdatedDate}}</span>
+                </dd>
+                <dt><span>Designation Master</span></dt>
+                <dd>
+                    <div *ngIf="workerJoining.designationMaster">
+                        <a [routerLink]="['/designation-master', workerJoining.designationMaster?.id, 'view']">{{workerJoining.designationMaster?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Department Master</span></dt>
+                <dd>
+                    <div *ngIf="workerJoining.departmentMaster">
+                        <a [routerLink]="['/department-master', workerJoining.departmentMaster?.id, 'view']">{{workerJoining.departmentMaster?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/worker-joining', workerJoining.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

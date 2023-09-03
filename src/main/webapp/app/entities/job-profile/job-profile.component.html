@@ -1,0 +1,113 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Job Profiles</span>
+            </h5>
+            <div class="row">
+                <div class="col-md-2">
+                    <select name="status" id="status" class="form-control custom-select custom-select-sm" [(ngModel)]="jobSearch.status">
+                        <option value="P">Pending</option>
+                        <option value="A">Uploaded</option>
+                    </select>
+                </div>
+                <div class="col-md-2"><input type="text" name="department" class="form-control form-control-sm" placeholder="Enter Department" [(ngModel)]="jobSearch.department"/></div>
+                <div class="col-md-2"><input type="text" name="designation" class="form-control form-control-sm" placeholder="Enter Designation" [(ngModel)]="jobSearch.designation"/></div>
+                <div class="col-md-6">
+                    <div class="">
+                        <button type="button" class="btn btn-sm btn-round btn-blush" style="margin-top: 0;" (click)="search()"><fa-icon [icon]="'search'"></fa-icon><span> Search</span></button>
+                        &nbsp;&nbsp;<button type="button" class="btn btn-sm btn-round btn-warning" style="margin-top: 0;" (click)="openSort();"><fa-icon [icon]="'sort'"></fa-icon><span> Ordering</span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" *ngIf="jobProfiles">
+                <table class="table table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="department"><span>Department</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="designation"><span>Designation</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="fileName"><span>File Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="createdBy"><span>Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let jobProfile of jobProfiles ;trackBy: trackId">
+                        <td><a [routerLink]="['/job-profile', jobProfile.id, 'view' ]">{{jobProfile.id}}</a></td>
+                        <td>{{jobProfile.departmentDesc}}</td>
+                        <td>{{jobProfile.designationDesc}}</td>
+                        <td>{{jobProfile.fileName}}</td>
+                        <td>{{jobProfile.createdBy}}</td>
+                        <td>{{jobProfile.createdDate | date:'dd-MM-yyyy HH:mm'}}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="button" (click)="open(content, jobProfile);"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Upload</span>
+                                </button>
+                                <button type="button" (click)="download(jobProfile);" class="btn btn-success btn-sm">
+                                <fa-icon [icon]="'download'"></fa-icon>
+                                <span class="d-none d-md-inline">Download</span>
+                            </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="jobProfiles && jobProfiles.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>
+<form role="form">
+    <ng-template #content let-modal>
+        <div class="modal-header bg-blush" style="padding: 10px;">
+            <h5 class="modal-title" id="modal-basic-title" style="margin-top: 0px;">Job Profile (File Upload)</h5>
+            <button style="top: 10px;color: #000;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div style="font-size: 13px;">
+                <div class="">
+                    <div class="row">
+                        <label class="col-md-2"></label>
+                        <label class="col-md-3 text-left font-bold">Department:</label>
+                        <label class="col-md-7 text-left">{{selectJobProfile.departmentDesc}}</label>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-2"></label>
+                        <label class="col-md-3 text-left font-bold">Designation:</label>
+                        <label class="col-md-7 text-left">{{selectJobProfile.designationDesc}}</label>
+                    </div>
+                    <div class="row bottom10">
+                        <label class="col-md-2"></label>
+                        <label class="col-md-3 text-left font-bold">File Upload:</label>
+                        <div class="col-md-7"><input type="file" class="form-control-file" style="padding-top: 5px;" (change)="selectFile($event)"/></div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-12 font-weight-bold font-italic" style="color: #ff2222">* Please upload pdf file only</label>
+                    </div>
+                </div>
+            </div>
+            <ng-snotify></ng-snotify>
+        </div>
+        <div class="modal-footer">
+            <div class="col-12 text-right">
+                <button type="button" (click)="saveUpload()" class="btn btn-blush btn-sm btn-round float-right"><fa-icon [icon]="'save'"></fa-icon> Save</button>
+                &nbsp;<button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-sm btn-round float-right bg-secondary"><fa-icon [icon]="'ban'"></fa-icon> Cancel</button>
+            </div>
+        </div>
+    </ng-template>
+</form>

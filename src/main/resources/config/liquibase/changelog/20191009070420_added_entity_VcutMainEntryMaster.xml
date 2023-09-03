@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    
+    <!--
+        Added the entity VcutMainEntryMaster.
+    -->
+    <changeSet id="20191009070420-1" author="jhipster">
+        <createTable tableName="vcut_main_entry_master">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="entry_type" type="varchar(3)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="entry_time" type="datetime">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="entry_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="rectified_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="rectified_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="vcut_style_plan_upload_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="vcut_operation_master_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="vcut_main_entry_master_seq" incrementBy="1" cycle="false"/>
+
+        <dropDefaultValue tableName="vcut_main_entry_master" columnName="entry_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="vcut_main_entry_master" columnName="rectified_date" columnDataType="datetime"/>
+    </changeSet>
+</databaseChangeLog>

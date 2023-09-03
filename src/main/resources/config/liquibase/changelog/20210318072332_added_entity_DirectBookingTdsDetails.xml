@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <!--
+        Added the entity DirectBookingTdsDetails.
+    -->
+    <changeSet id="20210318072332-1" author="jhipster">
+        <createTable tableName="direct_booking_tds_details">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="tds_desc" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tds_type_code" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tds_code" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tds_tax_code" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tds_perc_desc" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tds_perc" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="tds_applicable" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="direct_booking_entry_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="direct_booking_tds_details_seq" incrementBy="1" cycle="false"/>
+    </changeSet>
+</databaseChangeLog>

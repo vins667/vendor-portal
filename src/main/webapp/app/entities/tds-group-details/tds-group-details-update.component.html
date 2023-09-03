@@ -1,0 +1,132 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-country-heading">Tds Group Details</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!tdsGroupDetails.id">
+                            <div class="col-md-3">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-9">
+                               <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="tdsGroupDetails.id" readonly />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_tdsGroupMaster">Tds Group Code</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" id="field_tdsGroupMaster" name="tdsGroupMaster" [(ngModel)]="tdsGroupDetails.tdsGroupMaster"  required>
+                                    <option *ngIf="!editForm.value.tdsGroupMaster" [ngValue]="null" selected></option>
+                                    <option [ngValue]="tdsGroupMasterOption.id === tdsGroupDetails.tdsGroupMaster?.id ? tdsGroupDetails.tdsGroupMaster : tdsGroupMasterOption" *ngFor="let tdsGroupMasterOption of tdsgroupmasters; trackBy: trackTdsGroupMasterById">{{tdsGroupMasterOption.year}}-{{tdsGroupMasterOption.groupCode}}</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.tdsGroupMaster?.dirty && editForm.controls.tdsGroupMaster?.invalid)">
+                                    <small class="form-text text-danger"
+                                        [hidden]="!editForm.controls.tdsGroupMaster?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_perkCode">Perk Code</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="perkCode" id="field_perkCode"  [(ngModel)]="tdsGroupDetails.perkCode" required maxlength="15"/>
+                                 <div [hidden]="!(editForm.controls.perkCode?.dirty && editForm.controls.perkCode?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.perkCode?.errors?.required">
+                                    This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.perkCode?.errors?.maxlength">
+                                    This field cannot be longer than 15 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_perkDescription">Perk Description</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="perkDescription" id="field_perkDescription" [(ngModel)]="tdsGroupDetails.perkDescription" required maxlength="500"/>
+                                <div [hidden]="!(editForm.controls.perkDescription?.dirty && editForm.controls.perkDescription?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.perkDescription?.errors?.required">
+                                      This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.perkDescription?.errors?.maxlength">
+                                      This field cannot be longer than 500 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_perkDescription">Remarks</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="remarks" id="field_remarks" [(ngModel)]="tdsGroupDetails.remarks" maxlength="200"/>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_perkLimit">Perk Limit</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="perkLimit" id="field_perkLimit" [(ngModel)]="tdsGroupDetails.perkLimit" required maxlength="100"/>
+                                <div [hidden]="!(editForm.controls.perkLimit?.dirty && editForm.controls.perkLimit?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.perkLimit?.errors?.required">
+                                    This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.perkLimit?.errors?.maxlength">
+                                    This field cannot be longer than 100 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_perkType">Perk Type</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="perkType" id="field_perkType" [(ngModel)]="tdsGroupDetails.perkType">
+                                  <option value="E">Earn</option>
+                                  <option value="D">Deducted</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_perkMode">Perk Mode</label>
+                            </div>
+                            <div class="col-md-9">
+                               <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="perkMode" id="field_perkMode" [(ngModel)]="tdsGroupDetails.perkMode">
+                                  <option value="E">Entry</option>
+                                  <option value="A">Auto</option>
+                                  <option value="C">Calculated</option>
+                              </select>
+                            </div>
+                        </div>
+                    </div>
+                     <div>
+                         <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                         <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                         </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

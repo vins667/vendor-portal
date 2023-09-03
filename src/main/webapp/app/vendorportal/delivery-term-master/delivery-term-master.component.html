@@ -1,0 +1,66 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Delivery Term Master</span>
+                <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-delivery-term-master" [routerLink]="['/delivery-term-master/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span>new </span>
+                </button>
+            </h5>
+            <jhi-alert></jhi-alert>
+            <br/>
+            <div class="table-responsive" *ngIf="deliveryTermMasters">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="code"><span>Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let deliveryTermMaster of deliveryTermMasters ;trackBy: trackId">
+                        <td>{{deliveryTermMaster.id}}</td>
+                        <td>{{deliveryTermMaster.code}}</td>
+                        <td>{{deliveryTermMaster.description}}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/delivery-term-master', deliveryTermMaster.id, 'view' ]"
+                                        class="btn btn-info btn-sm">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/delivery-term-master', deliveryTermMaster.id, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit"
+                                       [routerLink]="['/', 'delivery-term-master', { outlets: { popup:  deliveryTermMaster.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="deliveryTermMasters && deliveryTermMasters.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+		{
+            "relationshipName": "directBookingEntry",
+            "otherEntityName": "directBookingEntry",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "directBookingTdsDetails"
+        }
+	],
+    "fields": [
+        {
+            "fieldName": "tdsDesc",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "100"
+        },
+        {
+            "fieldName": "tdsCode",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
+            "fieldName": "tdsTaxCode",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
+            "fieldName": "tdsPercDesc",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "100"
+        },
+        {
+            "fieldName": "tdsPerc",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "tdsApplicable",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20210318072332",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "direct_booking_tds_details",
+    "databaseType": "sql",
+    "readOnly": false,
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

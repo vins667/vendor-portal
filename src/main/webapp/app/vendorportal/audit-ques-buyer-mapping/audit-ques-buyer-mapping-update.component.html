@@ -1,0 +1,94 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-audit-ques-buyer-mapping-heading">Create or edit a Audit Buyer Mapping</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-12">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_vendorAuditQuesMaster">Audit Name</label>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" id="field_vendorAuditQuesMaster" name="vendorAuditQuesMaster" [(ngModel)]="auditQuesBuyerMapping.vendorAuditQuesMaster"  required (change)="changeAudit();">
+                                    <option *ngIf="!editForm.value.vendorAuditQuesMaster" [ngValue]="null" selected></option>
+                                    <option [ngValue]="vendorAuditQuesMasterOption.id === auditQuesBuyerMapping.vendorAuditQuesMaster?.id ? auditQuesBuyerMapping.vendorAuditQuesMaster : vendorAuditQuesMasterOption" *ngFor="let vendorAuditQuesMasterOption of vendorauditquesmasters; trackBy: trackVendorAuditQuesMasterById">{{vendorAuditQuesMasterOption.auditName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="auditQuesBuyerMapping.vendorAuditQuesMaster && vendorAuditGroupMasterBean && vendorAuditGroupMasterBean.length>0">
+                            <div class="col-md-12 example-container">
+                                <mat-tab-group *ngIf="vendorAuditGroupMasterBean" [disableRipple]="true">
+                                    <mat-tab *ngFor="let auditGroupMasterBean of vendorAuditGroupMasterBean;">
+                                        <ng-template mat-tab-label>
+                                            <span>{{auditGroupMasterBean.groupName}}</span>
+                                        </ng-template>
+                                        <ng-template matTabContent>
+                                            <table mat-table [dataSource]="auditGroupMasterBean.vendorAuditQuesDetails" *ngIf="auditGroupMasterBean.initColumns" class="table-bordered">
+                                                <ng-container *ngFor="let displayedColumn of auditGroupMasterBean.initColumns; let index = index;" [matColumnDef]="displayedColumn.id" [sticky]="index===0 ? true: false">
+                                                    <th mat-header-cell *matHeaderCellDef [style.min-width]="index===0 ? '350px':'150px'" [style.max-width]="index===0 ? '350px':'150px'" [class.text-center]="index!==0 ? true: false">
+                                                        {{displayedColumn.desc}}
+                                                        <ng-container *ngIf="index !== 0 && displayedColumn.extract === false"><fa-icon [icon]="'plus'" style="cursor: pointer; color: green;" (click)="showDetails(displayedColumn, true)"></fa-icon></ng-container>
+                                                        <ng-container *ngIf="index !== 0 && displayedColumn.extract === true"><fa-icon [icon]="'minus'" style="cursor: pointer; color: red;" (click)="showDetails(displayedColumn, false)"></fa-icon></ng-container>
+                                                        <br/>
+                                                        <span *ngIf="index !== 0 && displayedColumn.extract === false" style="font-size: 9px; color: blue; font-style: italic;">{{displayedColumn.name}}</span>
+                                                        <input *ngIf="index !== 0 && displayedColumn.extract === true" type="text" class="form-control form-control-sm" name="auditBuyerName{{index}}" id="field_auditBuyerName{{index}}" [(ngModel)]="displayedColumn.name" placeholder="Enter Audit Name" required (keyup)="changeValueAll(displayedColumn.id, displayedColumn.name)">
+                                                    </th>
+                                                    <td mat-cell class="align-middle" *matCellDef="let element" [class.text-center]="index!==0 ? true: false">
+                                                        <ng-container *ngIf="index===0">{{element.auditQuestion}}</ng-container>
+                                                        <ng-container *ngIf="index!==0">
+                                                            <input type="checkbox" [checked]="element.buyerMastersMap.get(displayedColumn.id)" (click)="changeValue(element, displayedColumn.id);"/>
+                                                        </ng-container>
+                                                    </td>
+                                                </ng-container>
+                                                <tr mat-header-row *matHeaderRowDef="auditGroupMasterBean.displayedColumns"></tr>
+                                                <tr mat-row *matRowDef="let row; columns: auditGroupMasterBean.displayedColumns;"></tr>
+                                            </table>
+                                        </ng-template>
+                                    </mat-tab>
+                                </mat-tab-group>
+                                <!--table mat-table [dataSource]="dataSource" *ngIf="initColumns">
+                                    <ng-container *ngFor="let displayedColumn of initColumns; let index = index;" [matColumnDef]="displayedColumn.id" [sticky]="index===0 ? true: false">
+                                        <th mat-header-cell *matHeaderCellDef [style.minWidth]="index===0 ? '350px':'150px'" [style.maxWidth]="index===0 ? '350px':'150px'" [class.textCenter]="index!==0 ? true: false">
+                                            {{displayedColumn.desc}}
+                                            <ng-container *ngIf="index !== 0 && displayedColumn.extract === false"><fa-icon [icon]="'plus'" style="cursor: pointer; color: green;" (click)="showDetails(displayedColumn, true)"></fa-icon></ng-container>
+                                            <ng-container *ngIf="index !== 0 && displayedColumn.extract === true"><fa-icon [icon]="'minus'" style="cursor: pointer; color: red;" (click)="showDetails(displayedColumn, false)"></fa-icon></ng-container>
+                                            <br/>
+                                            <span *ngIf="index !== 0 && displayedColumn.extract === false" style="font-size: 9px; color: blue; font-style: italic;">{{displayedColumn.name}}</span>
+                                            <input *ngIf="index !== 0 && displayedColumn.extract === true" type="text" class="form-control form-control-sm" name="auditBuyerName{{index}}" id="field_auditBuyerName{{index}}" [(ngModel)]="displayedColumn.name" placeholder="Enter Audit Name" required>
+                                        </th>
+                                        <td mat-cell class="align-middle" *matCellDef="let element">
+                                            <ng-container *ngIf="index===0">{{element.auditQuestion}}</ng-container>
+                                            <ng-container *ngIf="index!==0">
+                                                <input type="checkbox" [checked]="element.buyerMastersMap.get(displayedColumn.id)"/>
+                                            </ng-container>
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                </table-->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                                </button>
+                                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                                </button>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button type="button" id="add-buyer-entity" class="btn btn-sm btn-info btn-round" (click)="searchContent();">
+                                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Add Buyers</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

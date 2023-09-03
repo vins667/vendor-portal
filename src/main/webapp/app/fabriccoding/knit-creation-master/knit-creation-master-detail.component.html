@@ -1,0 +1,100 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Knit Creation Master</span> {{knitCreationMaster.id}}</h5>
+        <hr>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="knitCreationMaster">
+                    <div class="row">
+                        <div class="col-md-3"> <dt><span>Yarn Count Code</span></dt></div>
+                        <div class="col-md-9">
+                            <span>{{knitCreationMaster.yarnCountMaster.code}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Yarn Count Description</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{knitCreationMaster.yarnCountMaster.description}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Yarn Type Code</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{knitCreationMaster.yarnTypeMaster.code}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Yarn Type Description</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{knitCreationMaster.yarnTypeMaster.description}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Knit Type Code</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{knitCreationMaster.knitTypeMaster.code}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Knit Type Description</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{knitCreationMaster.knitTypeMaster.description}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Process Code</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{knitCreationMaster.knitProcessMaster.code}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Process Description</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{knitCreationMaster.knitProcessMaster.description}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Code</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{knitCreationMaster.code}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Description</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{knitCreationMaster.description}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <button type="submit"
+                           (click)="previousState()"
+                           class="btn btn-sm btn-info btn-round">
+                           <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+                    <button type="button"
+                            [routerLink]="['/knit-creation-master', knitCreationMaster.id, 'edit']"
+                            class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

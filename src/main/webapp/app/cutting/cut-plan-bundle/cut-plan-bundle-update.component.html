@@ -1,0 +1,197 @@
+<div align="center" class="centered" *ngIf="isProcess">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+    <h2>Please wait ....</h2>
+</div>
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 id="jhi-asset-master-heading">Bundling</h6>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-right">
+                        <button type="button" id="cancel-entity" class="btn btn-sm btn-xs btn-second btn-round m-0" (click)="previousState();">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button *ngIf="cutPlanBundleBean" (click)="callBundlePrint('B');" type="button" id="print-bundle-entity" class="btn btn-sm btn-xs btn-warning btn-round m-0" [disabled]="isSaving || editForm.invalid">
+                            &nbsp;<fa-icon [icon]="'download'"></fa-icon>&nbsp;<span>Print Bundle</span>&nbsp;
+                        </button>
+                        <button *ngIf="cutPlanBundleBean" (click)="callBundlePrint('P');" type="button" id="print-piece-entity" class="btn btn-sm btn-xs btn-warning btn-round m-0" [disabled]="isSaving || editForm.invalid">
+                            &nbsp;<fa-icon [icon]="'download'"></fa-icon>&nbsp;<span>Print Pieces</span>&nbsp;
+                        </button>
+                        <button type="submit" id="save-entity" class="btn btn-sm btn-xs btn-blush btn-round m-0" [disabled]="isSaving || editForm.invalid">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>{{!cutPlanEntry.id ? 'Save' : 'Update'}}</span>
+                        </button>
+                        <button *ngIf="cutPlanBundleBean && cutPlanBundleBean.saveFlag" (click)="postSave();" type="button" id="post-entity" class="btn btn-sm btn-xs btn-info btn-round m-0" [disabled]="disabledPost || isSaving || editForm.invalid">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Post</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white py-2">
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_plantCode">Plant</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="plantCode" id="field_plantCode" [(ngModel)]="cutPlanEntry.plantCode" required (change)="selectPlant();" *ngIf="!cutPlanEntry.id">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let userPlant of userPlants" [value]="userPlant.id.plantCode">{{userPlant.plantDescription}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="plantDescription" id="field_plantDescription" [(ngModel)]="cutPlanEntry.plantDescription" readonly *ngIf="cutPlanEntry.id"/>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_productionCode">PO#</label></div>
+                <div class="col-md-3">
+                    <div class="input-group  mb-0 pb-0">
+                        <input type="text" class="form-control form-control-xs" name="productionCode" id="field_productionCode" [(ngModel)]="cutPlanEntry.productionCode" required [attr.disabled]="cutPlanEntry.id ? 'true' : null"/>
+                        <div class="input-group-append input-group-append-top">
+                            <button type="button" name="btnSearch" id="btnSearch" (click)="callDetails();" class="btn btn-xs btn-blush" [disabled]="cutPlanEntry.id ? 'true' : null">
+                                <fa-icon [icon]="'search'"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"><label class="form-control-label" for="field_style">Project</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="style" id="field_style" [(ngModel)]="cutPlanEntry.style" readonly required />
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_color">Color</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="color" id="field_color" [(ngModel)]="cutPlanEntry.color" required (change)="fetchDestinations();" *ngIf="!cutPlanEntry.id">
+                        <option [value]="'undefined'">Select Color</option>
+                        <option [value]="colorOption.name" *ngFor="let colorOption of colors;">{{colorOption.name}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="colorDisplay" id="field_colorDisplay" [(ngModel)]="cutPlanEntry.color" readonly *ngIf="cutPlanEntry.id">
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_destination">Destination</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="destination" id="field_destination" [(ngModel)]="cutPlanEntry.destination" required (change)="fetchReservationItem();" *ngIf="!cutPlanEntry.id">
+                        <option [value]="'undefined'">Select Destination</option>
+                        <option [value]="destinationOption.name" *ngFor="let destinationOption of destinations;">{{destinationOption.desc}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="destinationDisplay" id="field_destinationDisplay" [(ngModel)]="cutPlanEntry.destinationDesc" readonly *ngIf="cutPlanEntry.id">
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body p-0 py-2" *ngIf="cutPlanBundleBean">
+            <div class="col-12">
+                <div class="table-responsive" id="entities2">
+                    <table class="table table-sm table-bordered mb-1" aria-describedby="page-heading">
+                        <thead>
+                        <tr>
+                            <th style="width: 250px;">Fabric</th>
+                            <th *ngFor="let cutPlanBundleSizesBean of cutPlanBundleBean.cutPlanBundleSizesBeans;" style="width: 80px;" class="text-center"><span>{{ cutPlanBundleSizesBean.sizeCode }}</span></th>
+                            <th style="width: 80px;" class="text-center">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let cutPlanBundleSizesBean of cutPlanBundleBean.cutPlanBundleDetailsBeans; let index = index">
+                                <tr class="bg-white text-black">
+                                    <td>{{cutPlanBundleSizesBean.summerizeddescription}}</td>
+                                    <td *ngFor="let cutPlanBundleSizesBeanLine of cutPlanBundleSizesBean.cutPlanBundleSizesBeans; let dtindex = index"  style="width: 80px;" class="text-center">
+                                        <input type="text" name="quantity{{index}}id{{dtindex}}" id="quantity{{index}}id{{dtindex}}" class="form-control form-control-xs text-center" [(ngModel)]="cutPlanBundleSizesBeanLine.quantity" readonly/>
+                                    </td>
+                                    <td style="width: 100px;" class="text-center">
+                                        <input type="text" name="quantityTotal{{index}}" id="quantityTotal{{index}}" class="form-control form-control-xs" [value]="calculateTotal(cutPlanBundleSizesBean)" readonly/>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body p-0 py-2" *ngIf="cutPlanBundleBean">
+            <div class="col-12">
+                <div class="table-responsive scroll-popup-table-3" id="entities3">
+                    <table class="table table-sm table-bordered mb-1" aria-describedby="page-heading">
+                        <thead>
+                        <tr>
+                            <th style="width: 90px;">Sized</th>
+                            <th style="width: 90px;" class="text-right">Progressed&nbsp;Qty</th>
+                            <th style="width: 90px;" class="text-right">Bundled&nbsp;Qty</th>
+                            <th style="width: 20px;"></th>
+                            <th style="width: 90px;" class="text-right">Balance&nbsp;Qty</th>
+                            <th style="width: 90px;" class="text-right">Bundle&nbsp;Size</th>
+                            <th style="width: 90px;" class="text-right">Bundle&nbsp;Possible</th>
+                            <th style="width: 20px;"></th>
+                            <th>&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ng-container *ngFor="let cutPlanBundleMatrix of cutPlanBundleBean.cutPlanBundleMatrixBeans; let indexMatrix = index">
+                            <tr class="bg-white text-black">
+                                <td><input type="text" class="form-control form-control-xs text-right" name="sizeCodeMatrix{{indexMatrix}}" id="sizeCodeMatrix{{indexMatrix}}" [(ngModel)]="cutPlanBundleMatrix.sizeCode" readonly/></td>
+                                <td><input type="text" class="form-control form-control-xs text-right" name="sizeProgressedQtyMatrix{{indexMatrix}}" id="sizeProgressedQtyMatrix{{indexMatrix}}" [(ngModel)]="cutPlanBundleMatrix.allotedQty" readonly/></td>
+                                <td><input type="text" class="form-control form-control-xs text-right" name="sizeBundledQtyMatrix{{indexMatrix}}" id="sizeBundledQtyMatrix{{indexMatrix}}" [(ngModel)]="cutPlanBundleMatrix.bundledQty" readonly/></td>
+                                <td>
+                                    <fa-icon [icon]="'plus-circle'" style="color: #d3d3d3; cursor: pointer;" *ngIf="cutPlanBundleMatrix.cutPlanBundleMatrixExistBreakups.length === 0"></fa-icon>
+                                    <fa-icon [icon]="'plus-circle'" style="color: #00FF00; cursor: pointer;" (click)="changeExpend(cutPlanBundleMatrix, true, 'EXIST');" *ngIf="(cutPlanBundleMatrix.cutPlanBundleMatrixExistBreakups && cutPlanBundleMatrix.cutPlanBundleMatrixExistBreakups.length>0) && (!cutPlanBundleMatrix.expend || cutPlanBundleMatrix.expend === false)"></fa-icon>
+                                    <fa-icon [icon]="'minus-circle'" style="color: #FF0000; cursor: pointer;"  (click)="changeExpend(cutPlanBundleMatrix, false, 'EXIST');" *ngIf="(cutPlanBundleMatrix.cutPlanBundleMatrixExistBreakups && cutPlanBundleMatrix.cutPlanBundleMatrixExistBreakups.length>0) && (cutPlanBundleMatrix.expend || cutPlanBundleMatrix.expend === true)"></fa-icon>
+                                </td>
+                                <td><input type="text" class="form-control form-control-xs text-right" name="sizeBalanceQtyMatrix{{indexMatrix}}" id="sizeBalanceQtyMatrix{{indexMatrix}}" [(ngModel)]="cutPlanBundleMatrix.balanceQty" readonly/></td>
+                                <td><input type="number" class="form-control form-control-xs text-right" name="sizeBundleSizeMatrix{{indexMatrix}}" id="sizBundleSizeMatrix{{indexMatrix}}" [(ngModel)]="cutPlanBundleMatrix.bundleSize" (keyup)="keyUpChange(); createBreakup(cutPlanBundleMatrix);"/></td>
+                                <td><input type="number" class="form-control form-control-xs text-right" name="sizeBundlePcsMatrix{{indexMatrix}}" id="sizeBundlePcsMatrix{{indexMatrix}}" [(ngModel)]="cutPlanBundleMatrix.bundlePcs" (keyup)="keyUpChange(); createBreakupByBundlePcs(cutPlanBundleMatrix);"/></td>
+                                <td>
+                                    <fa-icon [icon]="'plus-circle'" style="color: #d3d3d3; cursor: pointer;" *ngIf="!cutPlanBundleMatrix.bundleSize || !cutPlanBundleMatrix.bundlePcs"></fa-icon>
+                                    <fa-icon [icon]="'plus-circle'" style="color: #00FF00; cursor: pointer;" (click)="changeExpend(cutPlanBundleMatrix, true);" *ngIf="(cutPlanBundleMatrix.bundleSize && cutPlanBundleMatrix.bundlePcs) && (!cutPlanBundleMatrix.expend || cutPlanBundleMatrix.expend === false)"></fa-icon>
+                                    <fa-icon [icon]="'minus-circle'" style="color: #FF0000; cursor: pointer;"  (click)="changeExpend(cutPlanBundleMatrix, false);" *ngIf="(cutPlanBundleMatrix.bundleSize && cutPlanBundleMatrix.bundlePcs) && (cutPlanBundleMatrix.expend || cutPlanBundleMatrix.expend === true)"></fa-icon>
+                                </td>
+                                <td>
+                                    <table *ngIf="cutPlanBundleMatrix.expend && !breakType" class="table table-sm table-bordered mb-1" aria-describedby="page-heading">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 90px;">Bundle Code</th>
+                                            <th style="width: 90px;" class="text-right">Pcs</th>
+                                            <th style="width: 90px;" class="text-right">Start&nbsp;Sequence</th>
+                                            <th style="width: 90px;" class="text-right">End&nbsp;Sequence</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <ng-container *ngFor="let cutPlanBundleMatrixBreakup of cutPlanBundleMatrix.cutPlanBundleMatrixBreakups; let indexMatrixBreakup = index">
+                                            <tr class="bg-white text-black">
+                                                <td><input type="text" class="form-control form-control-xs" name="bundle{{indexMatrix}}_{{indexMatrixBreakup}}" id="bundle{{indexMatrix}}_{{indexMatrixBreakup}}" [(ngModel)]="cutPlanBundleMatrixBreakup.bundle" readonly/></td>
+                                                <td><input type="text" class="form-control form-control-xs text-right" name="bundlePcs{{indexMatrix}}_{{indexMatrixBreakup}}" id="bundlePcs{{indexMatrix}}_{{indexMatrixBreakup}}" [(ngModel)]="cutPlanBundleMatrixBreakup.bundlePcs" readonly/></td>
+                                                <td><input type="text" class="form-control form-control-xs text-right" name="startSequence{{indexMatrix}}_{{indexMatrixBreakup}}" id="startSequence{{indexMatrix}}_{{indexMatrixBreakup}}" [(ngModel)]="cutPlanBundleMatrixBreakup.startSequence" readonly/></td>
+                                                <td><input type="text" class="form-control form-control-xs text-right" name="endSquence{{indexMatrix}}_{{indexMatrixBreakup}}" id="endSquence{{indexMatrix}}_{{indexMatrixBreakup}}" [(ngModel)]="cutPlanBundleMatrixBreakup.endSequence" readonly/></td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+                                        </ng-container>
+                                        </tbody>
+                                    </table>
+                                    <table *ngIf="cutPlanBundleMatrix.expend && breakType === 'EXIST'" class="table table-sm table-bordered mb-1" aria-describedby="page-heading">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 90px;">Bundle Code</th>
+                                            <th style="width: 90px;" class="text-right">Pcs</th>
+                                            <th style="width: 90px;" class="text-right">Start&nbsp;Sequence</th>
+                                            <th style="width: 90px;" class="text-right">End&nbsp;Sequence</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <ng-container *ngFor="let cutPlanBundleMatrixBreakup of cutPlanBundleMatrix.cutPlanBundleMatrixExistBreakups; let indexMatrixBreakup = index">
+                                            <tr class="bg-white text-black">
+                                                <td><input type="text" class="form-control form-control-xs" name="bundleExist{{indexMatrix}}_{{indexMatrixBreakup}}" id="bundleExist{{indexMatrix}}_{{indexMatrixBreakup}}" [(ngModel)]="cutPlanBundleMatrixBreakup.bundle" readonly/></td>
+                                                <td><input type="text" class="form-control form-control-xs text-right" name="bundlePcsExist{{indexMatrix}}_{{indexMatrixBreakup}}" id="bundlePcsExist{{indexMatrix}}_{{indexMatrixBreakup}}" [(ngModel)]="cutPlanBundleMatrixBreakup.bundlePcs" readonly/></td>
+                                                <td><input type="text" class="form-control form-control-xs text-right" name="startSequenceExist{{indexMatrix}}_{{indexMatrixBreakup}}" id="startSequenceExist{{indexMatrix}}_{{indexMatrixBreakup}}" [(ngModel)]="cutPlanBundleMatrixBreakup.startSequence" readonly/></td>
+                                                <td><input type="text" class="form-control form-control-xs text-right" name="endSquenceExist{{indexMatrix}}_{{indexMatrixBreakup}}" id="endSquenceExist{{indexMatrix}}_{{indexMatrixBreakup}}" [(ngModel)]="cutPlanBundleMatrixBreakup.endSequence" readonly/></td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+                                        </ng-container>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

@@ -1,0 +1,64 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Knit Creation Master</span>
+                <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round float-right create-knit-creation-master" [routerLink]="['/knit-creation-master/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span>new</span>
+                </button>
+            </h5>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-7">
+                    <input type="text" name="searchCodeDesc" id="searchCodeDesc" placeholder="Search By Code/ Description" class="form-control form-control-sm" [(ngModel)]="masterSearch.desc"/>
+                </div>
+                <div class="col-md-3 input-group-append-top">
+                    <button type="button" class="btn btn-sm btn-blush" (click)="search();"><fa-icon [icon]="'search'"></fa-icon></button>
+                </div>
+            </div>
+            <div class="table-responsive" *ngIf="knitCreationMasters">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="code"><span>Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let knitCreationMaster of knitCreationMasters ;trackBy: trackId">
+                        <td>{{knitCreationMaster.code}}</td>
+                        <td>{{knitCreationMaster.description}}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/knit-creation-master', knitCreationMaster.id, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/', 'knit-creation-master', { outlets: { popup: knitCreationMaster.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div [hidden]="knitCreationMasters?.length === 0">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

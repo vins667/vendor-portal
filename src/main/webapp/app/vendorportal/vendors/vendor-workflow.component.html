@@ -1,0 +1,128 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-md-6">
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_vendorCode">Vendor Code</label></div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control form-control-sm text-uppercase" name="vendorCode" id="field_vendorCode" [(ngModel)]="vendorsBean.vendorCode" [required]="profileWorkFlow.forwardFlag && profileWorkFlow.forwardFlag==='A'" [disabled]="profileWorkFlow.forwardFlag && profileWorkFlow.forwardFlag!=='A'" maxlength="45"/>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_vendorShortName">Vendor Short Name</label></div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control form-control-sm text-uppercase" name="vendorShortName" id="field_vendorShortName" [(ngModel)]="vendorsBean.vendorShortName" [required]="profileWorkFlow.forwardFlag && profileWorkFlow.forwardFlag==='A'" [disabled]="profileWorkFlow.forwardFlag && profileWorkFlow.forwardFlag!=='A'" maxlength="45"/>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_vendorName">Vendor Name</label></div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control form-control-sm text-uppercase" name="vendorName" id="field_vendorName" [(ngModel)]="vendorsBean.vendorName" maxlength="45" readonly/>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_payTermMasterId">Payment Method</label></div>
+                <div class="col-md-7">
+                    <select class="form-control form-control-sm custom-select custom-select-sm" name="payTermMasterId" id="field_payTermMasterId" [(ngModel)]="vendorsBean.payTermMasterId" [required]="profileWorkFlow.forwardFlag && profileWorkFlow.forwardFlag==='A'"  [disabled]="profileWorkFlow.forwardFlag && profileWorkFlow.forwardFlag!=='A'" >
+                        <option *ngFor="let payTermMaster of payTermMasters" [value]="payTermMaster.id">{{payTermMaster.description}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_deliveryTermMasterId">Terms of Delivery</label></div>
+                <div class="col-md-7">
+                    <select class="form-control form-control-sm custom-select custom-select-sm" name="deliveryTermMasterId" id="field_deliveryTermMasterId" [(ngModel)]="vendorsBean.deliveryTermMasterId" [required]="profileWorkFlow.forwardFlag && profileWorkFlow.forwardFlag==='A'"  [disabled]="profileWorkFlow.forwardFlag && profileWorkFlow.forwardFlag!=='A'" >
+                        <option *ngFor="let deliveryTermMaster of deliveryTermMasters" [value]="deliveryTermMaster.id">{{deliveryTermMaster.description}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_shipmentTermMasterId">Terms of Shipment</label></div>
+                <div class="col-md-7">
+                    <select class="form-control form-control-sm custom-select custom-select-sm" name="shipmentTermMasterId" id="field_shipmentTermMasterId" [(ngModel)]="vendorsBean.shipmentTermMasterId" [required]="profileWorkFlow.forwardFlag && profileWorkFlow.forwardFlag==='A'"  [disabled]="profileWorkFlow.forwardFlag && profileWorkFlow.forwardFlag!=='A'" >
+                        <option *ngFor="let shipmentTermMaster of shipmentTermMasters" [value]="shipmentTermMaster.id">{{shipmentTermMaster.description}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_currencyMasterId">Currency</label></div>
+                <div class="col-md-7">
+                    <select class="form-control form-control-sm custom-select custom-select-sm" name="currencyMasterId" id="field_currencyMasterId" [(ngModel)]="vendorsBean.currencyMasterId" [required]="profileWorkFlow.forwardFlag && profileWorkFlow.forwardFlag==='A'"  [disabled]="profileWorkFlow.forwardFlag && profileWorkFlow.forwardFlag!=='A'" >
+                        <option *ngFor="let currencyMaster of currencyMasters" [value]="currencyMaster.id">{{currencyMaster.symbol}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-5"><label class="form-control-label" for="field_orderAllowed">Order allowed</label></div>
+                <div class="col-md-7">
+                    <input type="checkbox" name="orderAllowed" id="field_orderAllowed" [(ngModel)]="vendorsBean.orderAllowed" [disabled]="profileWorkFlow.forwardFlag && profileWorkFlow.forwardFlag!=='A'"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="container" style="padding-right: 0;">
+                <div class="col-md-12" style="padding-right: 0;">
+                    <div class="panel">
+                        <!--Heading-->
+                        <div class="panel-heading" style="padding-right: 0; border: 1px solid #f2f2f2;">
+                            <div class="panel-control">
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-blush btn-round" type="button"><fa-icon [icon]="'comments'"></fa-icon></button>
+                                </div>
+                            </div>
+                            <label class="panel-title form-control-label">Work flow</label>
+                        </div>
+
+                        <!--Widget body-->
+                        <div id="demo-chat-body" style="padding-right: 0; border-left: 1px solid #f2f2f2; border-right: 1px solid #f2f2f2;">
+                            <div class="nano has-scrollbar" style="height:300px">
+                                <div class="nano-content pad-all" tabindex="0" id="scroll-me" #scrollMe>
+                                    <ul class="list-unstyled media-block" *ngIf="vendorsBean && vendorsBean.profileWorkFlows && vendorsBean.profileWorkFlows.length>0">
+                                        <li class="mar-btm" *ngFor="let profileWorkFlows of vendorsBean.profileWorkFlows; let index = index;">
+                                            <div [class]="profileWorkFlows.userType === 'V' ? 'media-right' : 'media-left'">
+                                                <img [src]="profileWorkFlows.userType === 'V' ? '../../../content/images/logo.png' : '../../../content/images/boy.png'" class="img-circle img-sm" alt="Profile Picture"/>
+                                            </div>
+                                            <div [class]="profileWorkFlows.userType === 'V' ? 'media-body pad-hor speech-right' : 'media-body pad-hor'">
+                                                <div class="speech">
+                                                    <a href="javascript:void(0)" class="media-heading">{{profileWorkFlows.userName}}</a>
+                                                    <p>{{profileWorkFlows.remarks}}</p>
+                                                    <p class="speech-time">
+                                                                            <span class="float-left" style="padding-right: 50px;">
+                                                                                <ng-container *ngIf="profileWorkFlows.forwardFlag==='Q'">Raised Query</ng-container>
+                                                                                <ng-container *ngIf="profileWorkFlows.forwardFlag==='F'">Forward for Approval</ng-container>
+                                                                                <ng-container *ngIf="profileWorkFlows.forwardFlag==='A'">Approved</ng-container>
+                                                                                <ng-container *ngIf="profileWorkFlows.forwardFlag==='R'">Rejected</ng-container>
+                                                                            </span>
+                                                        <span class="float-right"><fa-icon [icon]="'clock'"></fa-icon> {{profileWorkFlows.createdDate | date: 'dd-MM-yy H:mm' }}</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="nano-pane"><div class="nano-slider" style="height: 141px; transform: translate(0px, 0px);"></div></div></div>
+
+                            <!--Widget footer-->
+                            <div class="panel-footer" style="border: 1px solid #f2f2f2; height: 32px;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <select class="form-control-sm" style="background-color: #d92419; color: #fff;" name="forwardFlag" id="field_forwardFlag" [(ngModel)]="profileWorkFlow.forwardFlag" required>
+                                                    <option value="A" *ngIf="vendorsBean.approvalStatus === 'F'">Approve</option>
+                                                    <option value="R" *ngIf="vendorsBean.approvalStatus === 'F'">Reject</option>
+                                                    <option value="Q">Query</option>
+                                                </select>
+                                            </div>
+                                            <input type="text" placeholder="Enter your text" class="form-control form-control-sm" maxlength="500"  name="remarks" id="field_remarks" [(ngModel)]="profileWorkFlow.remarks" required/>
+                                            <div class="input-group-append"><button type="submit" class="btn btn-sm btn-blush" style="margin-top: 0;" [disabled]="editForm.form.invalid || isSaving"><fa-icon [icon]="'paper-plane'"></fa-icon></button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

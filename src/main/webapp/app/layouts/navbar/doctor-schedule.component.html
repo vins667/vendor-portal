@@ -1,0 +1,5 @@
+<ng-template #htmlContent>
+    <span style="font-weight: bold;">Doctor Schedule:</span><br/>
+    {{doctorSchedule.days}} ({{doctorSchedule.timing}})
+</ng-template>
+<a *ngIf="doctorSchedule" href="javascript:void(0);" placement="bottom"  [ngbTooltip]="htmlContent" style="padding-bottom: 21px;"><fa-icon [icon]="'medkit'"></fa-icon></a>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="podeliveryAddress" pageWidth="200" pageHeight="25" columnWidth="190" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="210f015a-82e8-4d4e-a261-b09e88a2ff69">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db2Test"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="delvuniqueid" class="java.lang.String"/>
+	<parameter name="delvcode" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT nvl(TRIM(addressee), '')DELIVERYADDRESS 
+ FROM address WHERE uniqueid =$P{delvuniqueid} AND code = $P{delvcode} ]]>
+	</queryString>
+	<field name="DELIVERYADDRESS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DELIVERYADDRESS"/>
+	</field>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="190" height="12" uuid="347f7d86-63c6-4172-95a2-204fc7cba242"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DELIVERYADDRESS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

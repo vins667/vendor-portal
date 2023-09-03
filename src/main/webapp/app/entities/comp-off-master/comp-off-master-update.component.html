@@ -1,0 +1,80 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-comp-off-master-heading">Create or edit a Comp Off Request</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div class="row card-margin-bottom-10" [hidden]="!compOffMaster.id">
+                        <div class="col-md-2"><label for="id">ID</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="compOffMaster.id" readonly /></div>
+                    </div>
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-2"><label class="form-control-label" for="field_compOffDate">Comp Off Date</label></div>
+                        <div class="col-md-10">
+                            <div class="input-group input-group-sm">
+                                <input [owlDateTime]="compOff" name="compOffDate" id="field_compOffDate" placeholder="Comp Off Date" class="form-control form-control-sm" readonly  required [(ngModel)]="compOffDate" [owlDateTimeTrigger]="compOff" (dateTimeInput)="callCompOff();" [disabled]="compOffMaster.id !== undefined">
+                                <div class="input-group-append input-group-append-top">
+                                    <div class="btn btn-blush" [owlDateTimeTrigger]="compOff"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                </div>
+                            </div>
+                            <owl-date-time [pickerType]="'calendar'" #compOff></owl-date-time>
+                            <div [hidden]="!(editForm.controls.compOffDate?.dirty && editForm.controls.compOffDate?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.compOffDate?.errors?.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.compOffDate?.errors?.ZonedDateTimelocal">
+                                    This field should be a date and time.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-2"><label class="form-control-label" for="field_timeFrom">In Time</label></div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control form-control-sm" name="timeFrom" id="field_timeFrom" [(ngModel)]="compOffMaster.timeFrom" maxlength="5" readonly required/>
+                        </div>
+                        <div class="col-md-2"><label class="form-control-label" for="field_timeTo">Out Time</label></div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control form-control-sm" name="timeTo" id="field_timeTo" [(ngModel)]="compOffMaster.timeTo" maxlength="5" readonly required/>
+                        </div>
+                    </div>
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-2"><label class="form-control-label" for="field_balance">Balance</label></div>
+                        <div class="col-md-10">
+                            <input type="number" class="form-control form-control-sm" name="balance" id="field_balance" [(ngModel)]="compOffMaster.balance" readonly/>
+                        </div>
+                    </div>
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-2"><label class="form-control-label" for="field_remarks">Remarks</label></div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control form-control-sm text-uppercase" name="remarks" id="field_remarks" [(ngModel)]="compOffMaster.remarks" maxlength="500" required [disabled]="compOffMaster.id !== undefined"/>
+                        </div>
+                    </div>
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-2"><label class="form-control-label" for="field_hodApprovedBy">Approved By</label></div>
+                        <div class="col-md-10">
+                            <select class="form-control form-control-sm custom-select custom-select-sm" name="hodApprovedBy" id="field_hodApprovedBy" [(ngModel)]="compOffMaster.hodApprovedBy" required [disabled]="compOffMaster.id !== undefined">
+                                <option *ngIf="hodEmployeeView" [value]="hodEmployeeView.login | lowercase">{{hodEmployeeView.name}}</option>
+                            </select>
+                            <div [hidden]="!(editForm.controls.hodApprovedBy?.dirty && editForm.controls.hodApprovedBy?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.hodApprovedBy?.errors?.maxlength">
+                                    This field cannot be longer than 50 characters.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving || compOffMaster.id !== undefined" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

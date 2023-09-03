@@ -1,0 +1,173 @@
+<div class="card">
+    <div class="body">
+     <form name="editForm" role="form" novalidate  #editForm="ngForm">
+        <h5 id="jhi-delivery-challan-heading">Delivery Challan Approval
+            <button type="button" id="cancel-save" class="btn btn-sm btn-round btn-secondary float-right"  (click)="previousState()">
+                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+            </button>
+            <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-sm btn-round btn-blush float-right" (click)="saveReject()">
+                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Reject</span>
+            </button>
+            <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-sm btn-round btn-success float-right" (click)="saveApproved()">
+                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Approve</span>
+            </button>
+        </h5>
+        <hr/>
+        <div class="row">
+            <div class="col-12">
+                    <div>
+                       <div class="row">
+                           <div class="col-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <fieldset class="scheduler-border-margin">
+                                            <legend class="scheduler-border">From Address</legend>
+                                            <div class="row gutters-2">
+                                                <div class="col-md-12 card-margin-bottom-2">
+                                                    <input type="text" name="factDescription" id="factDescription" [(ngModel)]="deliveryChallan.factDescription" disabled class="form-control form-control-sm" required/>
+                                                </div>
+                                                <div class="col-md-12 card-margin-bottom-2">
+                                                    <textarea name="showAddress1" class="form-control form-control-sm" id="field_showAddress1" [(ngModel)]="deliveryChallan.showAddress1" rows="2" readonly></textarea>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <fieldset class="scheduler-border-margin">
+                                            <legend class="scheduler-border">To Address</legend>
+                                            <div class="row gutters-2">
+                                                <div class="col-md-12 card-margin-bottom-2">
+                                                    <input type="text" name="bLegalname1" id="bLegalname1" [(ngModel)]="deliveryChallan.bLegalname1" disabled class="form-control form-control-sm" required/>
+                                                </div>
+                                                <div class="col-md-12 card-margin-bottom-5">
+                                                    <textarea name="showAddress2" class="form-control form-control-sm" id="field_showAddress2" [(ngModel)]="deliveryChallan.showAddress2" rows="2" readonly></textarea>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <fieldset class="scheduler-border-margin" style="height:130px;">
+                                            <legend class="scheduler-border">Challan Details:</legend>
+                                            <div class="row gutters-2">
+                                                <div class="col-md-3">
+                                                    <label class="form-control-label" for="field_challanType">Challan Type</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="form-control-label" for="field_challanDate">Challan Date</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label class="form-control-label" for="field_eWayBillNo">E Way Bill No</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="form-control-label" for="field_eWayBillDate">E Way Bill Date</label>
+                                                </div>
+                                                <div class="col-md-2" *ngIf="deliveryChallan.challanType === 'R'">
+                                                    <label class="form-control-label" for="field_expReturnDate">Expected Return Date</label>
+                                                </div>
+                                            </div>
+                                            <div class="row gutters-2">
+                                                <div class="col-md-1">
+                                                    <input type="checkbox" id="checkbox1" name="checkbox1" value="R" [(ngModel)]="checkbox1"  disabled> Returnable
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="checkbox" id="checkbox2" name="checkbox2" value="N" [(ngModel)]="checkbox2" disabled>Non Returnable
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="input-group input-group-sm" style="margin-bottom: 0;">
+                                                        <input [owlDateTime]="shipment" name="challanDate" id="field_challanDate" placeholder="Challan Date" class="form-control form-control-sm" [(ngModel)]="challanDate" disabled>
+                                                        <div class="input-group-append input-group-append-top">
+                                                            <div class="btn btn-blush" [owlDateTimeTrigger]="shipment"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                                        </div>
+                                                    </div>
+                                                    <owl-date-time [pickerType]="'calendar'" #shipment></owl-date-time>
+                                                </div>
+                                               
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control form-control-sm" name="eWayBillNo" id="field_eWayBillNo"[(ngModel)]="deliveryChallan.eWayBillNo" maxlength="14" disabled/>
+                                                     <div [hidden]="!(editForm.controls.eWayBillNo?.dirty && editForm.controls.eWayBillNo?.invalid)">
+                                                        <small class="form-text text-danger"
+                                                        [hidden]="!editForm.controls.eWayBillNo?.errors?.maxlength">
+                                                        This field cannot be longer than 14 characters.
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="input-group input-group-sm" style="margin-bottom: 0;">
+                                                        <input [owlDateTime]="eWayBillDt" name="eWayBillDate" id="field_eWayBillDate" placeholder="E Way Bill Date" class="form-control form-control-sm" [(ngModel)]="eWayBillDate" disabled>
+                                                        <div class="input-group-append input-group-append-top">
+                                                            <div class="btn btn-blush" [owlDateTimeTrigger]="eWayBillDt"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                                        </div>
+                                                    </div>
+                                                    <owl-date-time [pickerType]="'calendar'" #eWayBillDt></owl-date-time>
+                                                </div>
+                                                <div class="col-md-2" *ngIf="deliveryChallan.challanType === 'R'">
+                                                    <div class="input-group input-group-sm" style="margin-bottom: 0;">
+                                                        <input [owlDateTime]="expReturnDt" name="expReturnDate" id="field_expReturnDate" placeholder="Exp Return Date" class="form-control form-control-sm" [(ngModel)]="expReturnDate" disabled>
+                                                        <div class="input-group-append input-group-append-top">
+                                                            <div class="btn btn-blush" [owlDateTimeTrigger]="expReturnDt"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                                        </div>
+                                                    </div>
+                                                    <owl-date-time [pickerType]="'calendar'" #expReturnDt></owl-date-time>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <input type="text" class="form-control form-control-sm" name="remarks" id="field_remarks" [(ngModel)]="deliveryChallan.remarks" maxlength="500" placeholder="Remarks" disabled/>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                           </div>
+                       </div>
+                       <div class="row">
+                        <div class="col-md-12">
+                            <fieldset class="scheduler-border-margin">
+                                <legend class="scheduler-border">Product Details</legend>
+                                <div class="row gutters-2">
+                                    <div class="col-md-12">
+                                        <table class="table table-sm table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:500px;"><span>Product</span></th>
+                                                    <th style="width:100px;"><span>Tariff Code</span></th>
+                                                    <th style="width:100px;text-align:right;padding-right:10px;"><span>Quantity</span></th>
+                                                    <th style="width:100px;text-align:right;padding-right:10px;"><span>Rate</span></th>
+                                                    <th style="width:100px;text-align:right;padding-right:10px;"><span>Amount</span></th>
+                                                    <th style="width:50px;"><span>Tax%</span></th>
+                                                    <th style="width:50px;" *ngIf="this.deliveryChallan.stateCode ==this.deliveryChallan.bStateCode"><span>CGST</span></th>
+                                                    <th style="width:50px;" *ngIf="this.deliveryChallan.stateCode ==this.deliveryChallan.bStateCode"><span>SGST</span></th>
+                                                    <th style="width:50px;" *ngIf="this.deliveryChallan.stateCode !==this.deliveryChallan.bStateCode"><span>IGST</span></th>
+                                                    <th style="width:150px;text-align:right;padding-right:10px;"><span>Taxable Value</span></th>
+                                                    <th style="width:150px;text-align:right;padding-right:10px;"><span>Net Amt</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let deliveryChallanDetail of deliveryChallan.deliveryChallanDetails; let index = index;">
+                                                    <td style="width:500px;">{{deliveryChallanDetail.productName | slice:0:30}} <fa-icon [icon]="'eye'" [ngbTooltip]="deliveryChallanDetail.productName"  [openDelay]="300" [closeDelay]="500"></fa-icon></td>
+                                                    <td style="width:100px;">{{deliveryChallanDetail.triffCode}}</td>
+                                                    <td style="width:100px;">{{deliveryChallanDetail.quantity | number : '1.2-2'}}</td>
+                                                    <td style="width:50px;">{{deliveryChallanDetail.rate |number : '1.2-2'}}</td>
+                                                    <td style="width:100px;text-align:right;padding-right:10px;">{{deliveryChallanDetail.amount |number : '1.2-2'}}</td>
+                                                    <td style="width:100px;">{{deliveryChallanDetail.taxper |number}}%</td>
+                                                    <td style="width:100px;" *ngIf="deliveryChallanDetail.taxper && this.deliveryChallan.stateCode ==this.deliveryChallan.bStateCode">{{deliveryChallanDetail.taxper/2|number}}%</td>
+                                                    <td style="width:100px;" *ngIf="deliveryChallanDetail.taxper && this.deliveryChallan.stateCode ==this.deliveryChallan.bStateCode">{{deliveryChallanDetail.taxper/2|number}}%</td>
+                                                    <td style="width:100px;" *ngIf="deliveryChallanDetail.taxper && this.deliveryChallan.stateCode !==this.deliveryChallan.bStateCode">{{deliveryChallanDetail.taxper|number}}%</td>
+                                                    <td colspan="2" *ngIf="!deliveryChallanDetail.taxper && this.deliveryChallan.stateCode ==this.deliveryChallan.bStateCode"></td>
+                                                    <td *ngIf="!deliveryChallanDetail.taxper && this.deliveryChallan.stateCode !==this.deliveryChallan.bStateCode"></td>
+                                                    <td style="width:150px;text-align:right;padding-right:10px;">{{deliveryChallanDetail.taxval | number : '1.2-2'}}</td>
+                                                    <td style="width:150px;text-align:right;padding-right:10px;">{{deliveryChallanDetail.totalAmt | number : '1.2-2'}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+      </form>
+    </div>
+</div>

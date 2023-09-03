@@ -1,0 +1,195 @@
+<div class="card">
+    <div class="body">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <input type="hidden" name="financeYear" formControlName="financeYear" id="field_financeYear"/>
+            <input type="hidden" name="cardNo" formControlName="cardNo" id="field_cardNo"/>
+            <div>
+                <h5 id="jhi-previous-employment-details-heading">Create or edit a Previous Employment Details <span *ngIf="tdsYearMaster" class="float-right">Financial Year - {{tdsYearMaster.financeYear}}</span></h5>
+                <hr>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <label class="form-control-label">Date From</label>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group input-group-sm">
+                        <input [owlDateTime]="tempDate" name="dateFrom" formControlName="dateFrom" id="field_dateFrom"
+                            readonly placeholder="Date" class="form-control form-control-sm" required>
+                        <div class="input-group-append input-group-append-top">
+                            <div class="btn btn-blush" [owlDateTimeTrigger]="tempDate"><span>
+                                    <fa-icon [icon]="'calendar'"></fa-icon>
+                                </span></div>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #tempDate></owl-date-time>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-control-label">Date To</label>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group input-group-sm">
+                        <input [owlDateTime]="tempDate2" name="dateTo" formControlName="dateTo" id="field_dateTo"
+                            readonly placeholder="Date" class="form-control form-control-sm" required>
+                        <div class="input-group-append input-group-append-top">
+                            <div class="btn btn-blush" [owlDateTimeTrigger]="tempDate2"><span>
+                                    <fa-icon [icon]="'calendar'"></fa-icon>
+                                </span></div>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #tempDate2></owl-date-time>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-2">
+                    <label class="form-control-label">Employer</label>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control form-control-sm" name="previousEmployer"
+                        id="field_previousEmployer" formControlName="previousEmployer" />
+                    <div
+                        *ngIf="editForm.get('previousEmployer').invalid && (editForm.get('previousEmployer').dirty || editForm.get('previousEmployer').touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('previousEmployer').errors.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="editForm.get('previousEmployer').errors.maxlength">
+                            This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-2">
+                    <label class="form-control-label" for="field_monthRent">Total Rent</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="number" class="form-control form-control-sm" name="monthRent" id="field_monthRent" formControlName="monthRent" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-control-label" for="field_landLordName">Landlord Name</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control form-control-sm" name="landLordName" id="field_landLordName" formControlName="landLordName" />
+                    <div
+                        *ngIf="editForm.get('landLordName').invalid && (editForm.get('landLordName').dirty || editForm.get('landLordName').touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('landLordName').errors.maxlength">
+                            This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+
+                <div class="col-md-2">
+                    <label class="form-control-label" for="field_landLordPan">Land Lord PanNo</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control form-control-sm" name="landLordPan" id="field_landLordPan"
+                           formControlName="landLordPan" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-control-label" for="field_landLordAddress">Rent Address</label>
+                </div>
+                <div class="col-md-4">
+                    <textarea type="text" class="form-control form-control-sm" name="landLordAddress" id="field_landLordAddress" formControlName="landLordAddress"></textarea>
+                    <div *ngIf="editForm.get('landLordAddress').invalid && (editForm.get('landLordAddress').dirty || editForm.get('landLordAddress').touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('landLordAddress').errors.maxlength">
+                            This field cannot be longer than 200 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-12">
+                    <table class="table table-sm table-bordered">
+                        <tr>
+                            <td colspan="2" style="font-weight: 700;">Earnings</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                Basic
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="basic" id="field_basic" formControlName="basic" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                House Rent Allowance
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="hra" id="field_hra" formControlName="hra" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                Conveyance/Transport Allowance
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="cta" id="field_cta" formControlName="cta" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                Others
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="others"  id="field_others" formControlName="others" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                Special Allowance
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="spa" id="field_spa" formControlName="spa" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                Medical Allowance
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="mda" id="field_mda" formControlName="mda" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="font-weight: 700;">Deductions</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                PF
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="epf" id="field_epf" formControlName="epf" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                VPF
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="vpf" id="field_vpf" formControlName="vpf" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                TDS
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="tds" id="field_tds" formControlName="tds" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary btn-sm btn-round" (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-blush btn-sm btn-round">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

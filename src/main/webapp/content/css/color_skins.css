@@ -1,0 +1,1542 @@
+/** Theme Blush */
+.theme-blush .bars {
+  color: #fff;
+}
+.theme-blush .logo-img {
+  content: url('https://vpulse.vamanioverseas.com/content/images/pulse.png');
+}
+.theme-blush .mat-tab-label:hover,
+.theme-blush .mat-tab-label:focus {
+  border: 1px solid #fff;
+}
+.theme-blush .nav-tabs .nav-item .nav-link:hover,
+.theme-blush .nav-tabs .nav-item .nav-link:focus {
+  border: 1px solid #fff;
+}
+.theme-blush button.close {
+  color: #fff !important;
+}
+.theme-blush .text-muted {
+  color: #fff !important;
+}
+.theme-blush .form-control {
+  color: #fff !important;
+}
+.theme-blush text {
+  fill: #fff !important;
+}
+.theme-blush .table th,
+.theme-blush .table td {
+  border-color: rgba(0, 0, 0, 0.125);
+}
+.theme-blush .card {
+  color: #fff;
+}
+.theme-blush .card .body {
+  color: #fff;
+}
+.theme-blush .text-color {
+  color: #fff;
+}
+.theme-blush .text-color-active {
+  color: #ffaa3f;
+}
+.theme-blush .ngb-dp-month-name {
+  color: #fff;
+}
+.theme-blush .ngb-dp-weekday {
+  color: #fff !important;
+}
+.theme-blush a {
+  color: #fff !important;
+}
+.theme-blush .carousel-indicators .active {
+  background-color: #fff;
+}
+.theme-blush .carousel-control-next-icon:after {
+  color: #fff;
+}
+.theme-blush .carousel-control-prev-icon:after {
+  color: #fff;
+}
+.theme-blush .carousel-caption h3 {
+  color: #fff;
+}
+.theme-blush .carousel-caption div {
+  color: #fff;
+}
+.theme-blush .carousel-caption div span {
+  color: #fff;
+}
+.theme-blush .carousel-caption div span p {
+  color: #fff;
+}
+.theme-blush .animated-active {
+  color: #ffaa3f;
+}
+.theme-blush .navbar-nav.navbar-left .dropdown-menu {
+  background-color: #dddedb;
+  color: #000;
+}
+.theme-blush .navbar-nav.navbar-left .dropdown-menu .btn.btn-link {
+  color: #000 !important;
+}
+.theme-blush .navbar-nav.navbar-left .dropdown-menu .active {
+  background-color: #ffaa3f;
+  font-weight: 700;
+}
+.theme-blush .dropdown-menu {
+  background-color: #dddedb;
+  color: #000;
+}
+.theme-blush .dropdown-menu .btn.btn-link {
+  color: #000 !important;
+}
+.theme-blush .dropdown-menu .active {
+  background-color: #ffaa3f;
+  font-weight: 700;
+}
+.theme-blush .bg-background {
+  background-color: #7e7a4c !important;
+}
+.theme-blush .bg-blush {
+  background-color: #3e4524 !important;
+}
+.theme-blush .bg-blush-light {
+  background-color: #7e7a4c !important;
+}
+.theme-blush .bg-border {
+  border: 1px solid #7e7a4c !important;
+}
+.theme-blush .btn-primary.btn-simple {
+  border-color: #d92419;
+  color: #d92419;
+  background: transparent;
+}
+.theme-blush .btn-primary:active,
+.theme-blush .btn-primary:hover,
+.theme-blush .btn-primary:focus {
+  background: #d92419;
+}
+.theme-blush .btn-primary {
+  background: #d92419;
+}
+.theme-blush .cal-day-view .cal-hour:nth-child(odd) {
+  background-color: #7e7a4c !important;
+}
+.theme-blush .cal-day-view {
+  background-color: #7e7a4c !important;
+}
+.theme-blush .cal-month-view .cal-cell-row:hover {
+  background-color: #3e4524 !important;
+}
+.theme-blush .cal-month-view {
+  background-color: #7e7a4c;
+}
+.theme-blush .cal-week-view .cal-hour-odd {
+  background-color: #7e7a4c !important;
+}
+.theme-blush .cal-week-view {
+  background-color: #7e7a4c !important;
+}
+.theme-blush .card {
+  background-color: #3e4524 !important;
+}
+.theme-blush .chart-card {
+  background-color: #3e4524;
+}
+.theme-blush .chart-title {
+  color: #fff;
+}
+.theme-blush .customTooltip {
+  background: #7e7a4c;
+}
+.theme-blush .fusioncharts-container svg {
+  background-color: #3e4524 !important;
+}
+.theme-blush .home {
+  height: 100vh;
+  background-color: #7e7a4c;
+}
+.theme-blush .mat-tab-label-active:hover,
+.theme-blush .mat-tab-label-active:focus {
+  background-color: #3e4524 !important;
+  color: #ffaa3f !important;
+}
+.theme-blush .mat-tab-label-active {
+  background-color: #3e4524 !important;
+  color: #ffaa3f !important;
+}
+.theme-blush .nav-tabs .nav-link.active {
+  border: 0 !important;
+  background-color: #3e4524 !important;
+  color: #ffaa3f !important;
+}
+.theme-blush .navbar,
+.theme-blush .page-loader-wrapper {
+  background: #3e4524;
+}
+.theme-blush .nodeDoesNotHaveChildren {
+  fill: #7e7a4c !important;
+}
+.theme-blush .nodeHasChildren {
+  fill: #7e7a4c !important;
+}
+.theme-blush .sidebar {
+  background-color: #3e4524;
+  color: #fff;
+}
+.theme-blush .sidebar .menu .list a:hover {
+  color: #fff;
+}
+.theme-blush .sidebar .menu .list li.active > :first-child i,
+.theme-blush .sidebar .menu .list li.active > :first-child span {
+  color: #ffaa3f;
+}
+.theme-blush .sidebar .menu .list li.active {
+  background-color: transparent;
+}
+.theme-blush .table thead th {
+  color: #fff;
+}
+.theme-blush .table-striped tbody tr:nth-of-type(even) {
+  background-color: transparent;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-blush .table-striped tbody tr:nth-of-type(odd) {
+  background-color: #7e7a4c;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-blush .table .table {
+  background-color: #7e7a4c;
+}
+.theme-blush .table .table .table-striped tbody tr:nth-of-type(even) {
+  background-color: #7e7a4c;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-blush .table .table .table-striped tbody tr:nth-of-type(odd) {
+  background-color: #3e4524;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-blush .text-bg {
+  color: #fc9e4f !important;
+}
+.theme-blush g rect {
+  fill: #3e4524 !important;
+}
+.theme-blush .fc__tooltip {
+  color: #000 !important;
+}
+.theme-blush .tooltip-inner {
+  color: #3e4524 !important;
+}
+.theme-blush .tooltip-slab .tooltip-inner {
+  color: #3e4524 !important;
+}
+.theme-blush .user-search-box .input-box {
+  background-color: #3e4524;
+}
+.theme-blush .user-search-box .list-item {
+  background-color: #3e4524;
+}
+.theme-blush .user-search-box .result-header {
+  background-color: #7e7a4c;
+  color: #fff;
+}
+.theme-blush .user-search-box .result-list {
+  background-color: #3e4524;
+}
+.theme-blush .user-search-box {
+  border: 1px solid #7e7a4c;
+}
+
+/** Theme Night */
+.theme-dark .bars {
+  color: #fff;
+}
+.theme-dark .logo-img {
+  content: url('https://vpulse.vamanioverseas.com/content/images/pulse.png');
+}
+.theme-dark .mat-tab-label:hover,
+.theme-dark .mat-tab-label:focus {
+  border: 1px solid #fff;
+}
+.theme-dark .nav-tabs .nav-item .nav-link:hover,
+.theme-dark .nav-tabs .nav-item .nav-link:focus {
+  border: 1px solid #fff;
+}
+.theme-dark button.close {
+  color: #fff !important;
+}
+.theme-dark .text-muted {
+  color: #fff !important;
+}
+.theme-dark .form-control {
+  color: #fff !important;
+}
+.theme-dark text {
+  fill: #fff !important;
+}
+.theme-dark .table th,
+.theme-dark .table td {
+  border-color: rgba(0, 0, 0, 0.125);
+}
+.theme-dark .text-color {
+  color: #fff;
+}
+.theme-dark .text-color-active {
+  color: #ffaa3f;
+}
+.theme-dark .card {
+  color: #fff;
+}
+.theme-dark .card .body {
+  color: #fff;
+}
+.theme-dark .ngb-dp-month-name {
+  color: #fff;
+}
+.theme-dark .ngb-dp-weekday {
+  color: #fff !important;
+}
+.theme-dark a {
+  color: #fff !important;
+}
+.theme-dark .carousel-indicators .active {
+  background-color: #fff;
+}
+.theme-dark .carousel-control-next-icon:after {
+  color: #fff;
+}
+.theme-dark .carousel-control-prev-icon:after {
+  color: #fff;
+}
+.theme-dark .carousel-caption h3 {
+  color: #fff;
+}
+.theme-dark .carousel-caption div {
+  color: #fff;
+}
+.theme-dark .carousel-caption div span {
+  color: #fff;
+}
+.theme-dark .carousel-caption div span p {
+  color: #fff;
+}
+.theme-dark .animated-active {
+  color: #ffaa3f;
+}
+.theme-dark .navbar-nav.navbar-left .dropdown-menu {
+  background-color: #dddedb;
+  color: #000;
+}
+.theme-dark .navbar-nav.navbar-left .dropdown-menu .btn.btn-link {
+  color: #000 !important;
+}
+.theme-dark .navbar-nav.navbar-left .dropdown-menu .active {
+  background-color: #ffaa3f;
+  font-weight: 700;
+}
+.theme-dark .dropdown-menu {
+  background-color: #dddedb;
+  color: #000;
+}
+.theme-dark .dropdown-menu .btn.btn-link {
+  color: #000 !important;
+}
+.theme-dark .dropdown-menu .active {
+  background-color: #ffaa3f;
+  font-weight: 700;
+}
+.theme-dark .bg-background {
+  background-color: #636365 !important;
+}
+.theme-dark .bg-blush {
+  background-color: #363835 !important;
+}
+.theme-dark .bg-blush-light {
+  background-color: #636365 !important;
+}
+.theme-dark .bg-border {
+  border: 1px solid #636365 !important;
+}
+.theme-dark .btn-primary.btn-simple {
+  border-color: #d92419;
+  color: #d92419;
+  background: transparent;
+}
+.theme-dark .btn-primary:active,
+.theme-dark .btn-primary:hover,
+.theme-dark .btn-primary:focus {
+  background: #d92419;
+}
+.theme-dark .btn-primary {
+  background: #d92419;
+}
+.theme-dark .cal-day-view .cal-hour:nth-child(odd) {
+  background-color: #636365 !important;
+}
+.theme-dark .cal-day-view {
+  background-color: #636365 !important;
+}
+.theme-dark .cal-month-view .cal-cell-row:hover {
+  background-color: #363835 !important;
+}
+.theme-dark .cal-month-view {
+  background-color: #636365;
+}
+.theme-dark .cal-week-view .cal-hour-odd {
+  background-color: #636365 !important;
+}
+.theme-dark .cal-week-view {
+  background-color: #636365 !important;
+}
+.theme-dark .card {
+  background-color: #363835 !important;
+}
+.theme-dark .chart-card {
+  background-color: #363835;
+}
+.theme-dark .chart-title {
+  color: #fff;
+}
+.theme-dark .customTooltip {
+  background: #636365;
+}
+.theme-dark .fusioncharts-container svg {
+  background-color: #363835 !important;
+}
+.theme-dark .home {
+  height: 100vh;
+  background-color: #636365;
+}
+.theme-dark .mat-tab-label-active:hover,
+.theme-dark .mat-tab-label-active:focus {
+  background-color: #363835 !important;
+  color: #ffaa3f !important;
+}
+.theme-dark .mat-tab-label-active {
+  background-color: #363835 !important;
+  color: #ffaa3f !important;
+}
+.theme-dark .nav-tabs .nav-link.active {
+  border: 0 !important;
+  background-color: #363835 !important;
+  color: #ffaa3f !important;
+}
+.theme-dark .navbar,
+.theme-dark .page-loader-wrapper {
+  background: #363835;
+}
+.theme-dark .nodeDoesNotHaveChildren {
+  fill: #636365 !important;
+}
+.theme-dark .nodeHasChildren {
+  fill: #636365 !important;
+}
+.theme-dark .sidebar {
+  background-color: #363835;
+  color: #fff;
+}
+.theme-dark .sidebar .menu .list a:hover {
+  color: #fff;
+}
+.theme-dark .sidebar .menu .list li.active > :first-child i,
+.theme-dark .sidebar .menu .list li.active > :first-child span {
+  color: #ffaa3f;
+}
+.theme-dark .sidebar .menu .list li.active {
+  background-color: transparent;
+}
+.theme-dark .table thead th {
+  color: #fff;
+}
+.theme-dark .table-striped tbody tr:nth-of-type(even) {
+  background-color: transparent;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-dark .table-striped tbody tr:nth-of-type(odd) {
+  background-color: #636365;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-dark .table .table {
+  background-color: #636365;
+}
+.theme-dark .table .table .table-striped tbody tr:nth-of-type(even) {
+  background-color: #636365;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-dark .table .table .table-striped tbody tr:nth-of-type(odd) {
+  background-color: #363835;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-dark .text-bg {
+  color: #fc9e4f !important;
+}
+.theme-dark g rect {
+  fill: #363835 !important;
+}
+.theme-dark .fc__tooltip {
+  color: #000 !important;
+}
+.theme-dark .tooltip-inner {
+  color: #363835 !important;
+}
+.theme-dark .tooltip-slab .tooltip-inner {
+  color: #363835 !important;
+}
+.theme-dark .user-search-box .input-box {
+  background-color: #363835;
+}
+.theme-dark .user-search-box .list-item {
+  background-color: #363835;
+}
+.theme-dark .user-search-box .result-header {
+  background-color: #636365;
+  color: #fff;
+}
+.theme-dark .user-search-box .result-list {
+  background-color: #363835;
+}
+.theme-dark .user-search-box {
+  border: 1px solid #636365;
+}
+
+/** Theme Forest */
+.theme-forest .bars {
+  color: #fff;
+}
+.theme-forest .logo-img {
+  content: url('https://vpulse.vamanioverseas.com/content/images/pulse.png');
+}
+.theme-forest .mat-tab-label:hover,
+.theme-forest .mat-tab-label:focus {
+  border: 1px solid #fff;
+}
+.theme-forest .nav-tabs .nav-item .nav-link:hover,
+.theme-forest .nav-tabs .nav-item .nav-link:focus {
+  border: 1px solid #fff;
+}
+.theme-forest button.close {
+  color: #fff !important;
+}
+.theme-forest .text-muted {
+  color: #fff !important;
+}
+.theme-forest .form-control {
+  color: #fff !important;
+}
+.theme-forest text {
+  fill: #fff !important;
+}
+.theme-forest .table th,
+.theme-forest .table td {
+  border-color: rgba(0, 0, 0, 0.125);
+}
+.theme-forest .text-color {
+  color: #fff;
+}
+.theme-forest .text-color-active {
+  color: #ffaa3f;
+}
+.theme-forest .card {
+  color: #fff;
+}
+.theme-forest .card .body {
+  color: #fff;
+}
+.theme-forest .ngb-dp-month-name {
+  color: #fff;
+}
+.theme-forest .ngb-dp-weekday {
+  color: #fff !important;
+}
+.theme-forest a {
+  color: #fff !important;
+}
+.theme-forest .carousel-indicators .active {
+  background-color: #fff;
+}
+.theme-forest .carousel-control-next-icon:after {
+  color: #fff;
+}
+.theme-forest .carousel-control-prev-icon:after {
+  color: #fff;
+}
+.theme-forest .carousel-caption h3 {
+  color: #fff;
+}
+.theme-forest .carousel-caption div {
+  color: #fff;
+}
+.theme-forest .carousel-caption div span {
+  color: #fff;
+}
+.theme-forest .carousel-caption div span p {
+  color: #fff;
+}
+.theme-forest .animated-active {
+  color: #ffaa3f;
+}
+.theme-forest .navbar-nav.navbar-left .dropdown-menu {
+  background-color: #dddedb;
+  color: #000;
+}
+.theme-forest .navbar-nav.navbar-left .dropdown-menu .btn.btn-link {
+  color: #000 !important;
+}
+.theme-forest .navbar-nav.navbar-left .dropdown-menu .active {
+  background-color: #ffaa3f;
+  font-weight: 700;
+}
+.theme-forest .dropdown-menu {
+  background-color: #dddedb;
+  color: #000;
+}
+.theme-forest .dropdown-menu .btn.btn-link {
+  color: #000 !important;
+}
+.theme-forest .dropdown-menu .active {
+  background-color: #ffaa3f;
+  font-weight: 700;
+}
+.theme-forest .bg-background {
+  background-color: #908b13 !important;
+}
+.theme-forest .bg-blush {
+  background-color: #645c1f !important;
+}
+.theme-forest .bg-blush-light {
+  background-color: #908b13 !important;
+}
+.theme-forest .bg-border {
+  border: 1px solid #908b13 !important;
+}
+.theme-forest .btn-primary.btn-simple {
+  border-color: #d92419;
+  color: #d92419;
+  background: transparent;
+}
+.theme-forest .btn-primary:active,
+.theme-forest .btn-primary:hover,
+.theme-forest .btn-primary:focus {
+  background: #d92419;
+}
+.theme-forest .btn-primary {
+  background: #d92419;
+}
+.theme-forest .cal-day-view .cal-hour:nth-child(odd) {
+  background-color: #908b13 !important;
+}
+.theme-forest .cal-day-view {
+  background-color: #908b13 !important;
+}
+.theme-forest .cal-month-view .cal-cell-row:hover {
+  background-color: #645c1f !important;
+}
+.theme-forest .cal-month-view {
+  background-color: #908b13;
+}
+.theme-forest .cal-week-view .cal-hour-odd {
+  background-color: #908b13 !important;
+}
+.theme-forest .cal-week-view {
+  background-color: #908b13 !important;
+}
+.theme-forest .card {
+  background-color: #645c1f !important;
+}
+.theme-forest .chart-card {
+  background-color: #645c1f;
+}
+.theme-forest .chart-title {
+  color: #fff;
+}
+.theme-forest .customTooltip {
+  background: #908b13;
+}
+.theme-forest .fusioncharts-container svg {
+  background-color: #645c1f !important;
+}
+.theme-forest .home {
+  height: 100vh;
+  background-color: #908b13;
+}
+.theme-forest .mat-tab-label-active:hover,
+.theme-forest .mat-tab-label-active:focus {
+  background-color: #645c1f !important;
+  color: #ffaa3f !important;
+}
+.theme-forest .mat-tab-label-active {
+  background-color: #645c1f !important;
+  color: #ffaa3f !important;
+}
+.theme-forest .nav-tabs .nav-link.active {
+  border: 0 !important;
+  background-color: #645c1f !important;
+  color: #ffaa3f !important;
+}
+.theme-forest .navbar,
+.theme-forest .page-loader-wrapper {
+  background: #645c1f;
+}
+.theme-forest .nodeDoesNotHaveChildren {
+  fill: #908b13 !important;
+}
+.theme-forest .nodeHasChildren {
+  fill: #908b13 !important;
+}
+.theme-forest .sidebar {
+  background-color: #645c1f;
+  color: #fff;
+}
+.theme-forest .sidebar .menu .list a:hover {
+  color: #fff;
+}
+.theme-forest .sidebar .menu .list li.active > :first-child i,
+.theme-forest .sidebar .menu .list li.active > :first-child span {
+  color: #ffaa3f;
+}
+.theme-forest .sidebar .menu .list li.active {
+  background-color: transparent;
+}
+.theme-forest .table thead th {
+  color: #fff;
+}
+.theme-forest .table-striped tbody tr:nth-of-type(even) {
+  background-color: transparent;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-forest .table-striped tbody tr:nth-of-type(odd) {
+  background-color: #908b13;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-forest .table .table {
+  background-color: #908b13;
+}
+.theme-forest .table .table .table-striped tbody tr:nth-of-type(even) {
+  background-color: #908b13;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-forest .table .table .table-striped tbody tr:nth-of-type(odd) {
+  background-color: #645c1f;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-forest .text-bg {
+  color: #fc9e4f !important;
+}
+.theme-forest g rect {
+  fill: #645c1f !important;
+}
+.theme-forest .fc__tooltip {
+  color: #000 !important;
+}
+.theme-forest .tooltip-inner {
+  color: #645c1f !important;
+}
+.theme-forest .tooltip-slab .tooltip-inner {
+  color: #645c1f !important;
+}
+.theme-forest .user-search-box .input-box {
+  background-color: #645c1f;
+}
+.theme-forest .user-search-box .list-item {
+  background-color: #645c1f;
+}
+.theme-forest .user-search-box .result-header {
+  background-color: #908b13;
+  color: #fff;
+}
+.theme-forest .user-search-box .result-list {
+  background-color: #645c1f;
+}
+.theme-forest .user-search-box {
+  border: 1px solid #908b13;
+}
+
+/** Original Original */
+.theme-original .bars {
+  color: #fff;
+}
+.theme-original .logo-img {
+  content: url('https://vpulse.vamanioverseas.com/content/images/pulse.png');
+}
+.theme-original .mat-tab-label:hover,
+.theme-original .mat-tab-label:focus {
+  border: 1px solid #fff;
+}
+.theme-original .nav-tabs .nav-item .nav-link:hover,
+.theme-original .nav-tabs .nav-item .nav-link:focus {
+  border: 1px solid #fff;
+}
+.theme-original button.close {
+  color: #fff !important;
+}
+.theme-original .text-muted {
+  color: #fff !important;
+}
+.theme-original .form-control {
+  color: #fff !important;
+}
+.theme-original text {
+  fill: #fff !important;
+}
+.theme-original .table th,
+.theme-original .table td {
+  border-color: rgba(0, 0, 0, 0.125);
+}
+.theme-original .text-color {
+  color: #fff;
+}
+.theme-original .text-color-active {
+  color: #ffaa3f;
+}
+.theme-original .card {
+  color: #fff;
+}
+.theme-original .card .body {
+  color: #fff;
+}
+.theme-original .ngb-dp-month-name {
+  color: #fff;
+}
+.theme-original .ngb-dp-weekday {
+  color: #fff !important;
+}
+.theme-original a {
+  color: #fff !important;
+}
+.theme-original .carousel-indicators .active {
+  background-color: #fff;
+}
+.theme-original .carousel-control-next-icon:after {
+  color: #fff;
+}
+.theme-original .carousel-control-prev-icon:after {
+  color: #fff;
+}
+.theme-original .carousel-caption h3 {
+  color: #fff;
+}
+.theme-original .carousel-caption div {
+  color: #fff;
+}
+.theme-original .carousel-caption div span {
+  color: #fff;
+}
+.theme-original .carousel-caption div span p {
+  color: #fff;
+}
+.theme-original .animated-active {
+  color: #ffaa3f;
+}
+.theme-original .navbar-nav.navbar-left .dropdown-menu {
+  background-color: #dddedb;
+  color: #000;
+}
+.theme-original .navbar-nav.navbar-left .dropdown-menu .btn.btn-link {
+  color: #000 !important;
+}
+.theme-original .navbar-nav.navbar-left .dropdown-menu .active {
+  background-color: #ffaa3f;
+  font-weight: 700;
+}
+.theme-original .dropdown-menu {
+  background-color: #dddedb;
+  color: #000;
+}
+.theme-original .dropdown-menu .btn.btn-link {
+  color: #000 !important;
+}
+.theme-original .dropdown-menu .active {
+  background-color: #ffaa3f;
+  font-weight: 700;
+}
+.theme-original .bg-background {
+  background-color: #1f5a82 !important;
+}
+.theme-original .bg-blush {
+  background-color: #1c2b53 !important;
+}
+.theme-original .bg-blush-light {
+  background-color: #1f5a82 !important;
+}
+.theme-original .bg-border {
+  border: 1px solid #1f5a82 !important;
+}
+.theme-original .btn-primary.btn-simple {
+  border-color: #1c2b53;
+  color: #1c2b53;
+  background: transparent;
+}
+.theme-original .btn-primary:active,
+.theme-original .btn-primary:hover,
+.theme-original .btn-primary:focus {
+  background: #1c2b53;
+}
+.theme-original .btn-primary {
+  background: #1c2b53;
+}
+.theme-original .cal-day-view .cal-hour:nth-child(odd) {
+  background-color: #1f5a82 !important;
+}
+.theme-original .cal-day-view {
+  background-color: #1f5a82 !important;
+}
+.theme-original .cal-month-view .cal-cell-row:hover {
+  background-color: #1c2b53 !important;
+}
+.theme-original .cal-month-view {
+  background-color: #1f5a82;
+}
+.theme-original .cal-week-view .cal-hour-odd {
+  background-color: #1f5a82 !important;
+}
+.theme-original .cal-week-view {
+  background-color: #1f5a82 !important;
+}
+.theme-original .card {
+  background-color: #1c2b53 !important;
+}
+.theme-original .chart-card {
+  background-color: #1c2b53;
+}
+.theme-original .chart-title {
+  color: #fff;
+}
+.theme-original .customTooltip {
+  background: #1f5a82;
+}
+.theme-original .fusioncharts-container svg {
+  background-color: #1c2b53 !important;
+}
+.theme-original .home {
+  height: 100vh;
+  background-color: #1f5a82;
+}
+.theme-original .mat-tab-label-active:hover,
+.theme-original .mat-tab-label-active:focus {
+  background-color: #1c2b53 !important;
+  color: #ffaa3f !important;
+}
+.theme-original .mat-tab-label-active {
+  background-color: #1c2b53 !important;
+  color: #ffaa3f !important;
+}
+.theme-original .nav-tabs .nav-link.active {
+  border: 0 !important;
+  background-color: #1c2b53 !important;
+  color: #ffaa3f !important;
+}
+.theme-original .navbar,
+.theme-original .page-loader-wrapper {
+  background: #1c2b53;
+}
+.theme-original .nodeDoesNotHaveChildren {
+  fill: #1f5a82 !important;
+}
+.theme-original .nodeHasChildren {
+  fill: #1f5a82 !important;
+}
+.theme-original .sidebar {
+  background-color: #1c2b53;
+  color: #fff;
+}
+.theme-original .sidebar .menu .list a:hover {
+  color: #fff;
+}
+.theme-original .sidebar .menu .list li.active > :first-child i,
+.theme-original .sidebar .menu .list li.active > :first-child span {
+  color: #ffaa3f;
+}
+.theme-original .sidebar .menu .list li.active {
+  background-color: transparent;
+}
+.theme-original .table thead th {
+  color: #fff;
+}
+.theme-original .table-striped tbody tr:nth-of-type(even) {
+  background-color: transparent;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-original .table-striped tbody tr:nth-of-type(odd) {
+  background-color: #1f5a82;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-original .table .table {
+  background-color: #1f5a82;
+}
+.theme-original .table .table .table-striped tbody tr:nth-of-type(even) {
+  background-color: #1f5a82;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-original .table .table .table-striped tbody tr:nth-of-type(odd) {
+  background-color: #1c2b53;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-original .text-bg {
+  color: #1f5a82 !important;
+}
+.theme-original g rect {
+  fill: #1c2b53 !important;
+}
+.theme-original .fc__tooltip {
+  color: #000 !important;
+}
+.theme-original .tooltip-inner {
+  color: #1c2b53 !important;
+}
+.theme-original .tooltip-slab .tooltip-inner {
+  color: #1c2b53 !important;
+}
+.theme-original .user-search-box .input-box {
+  background-color: #1c2b53;
+}
+.theme-original .user-search-box .list-item {
+  background-color: #1c2b53;
+}
+.theme-original .user-search-box .result-header {
+  background-color: #1f5a82;
+  color: #fff;
+}
+.theme-original .user-search-box .result-list {
+  background-color: #1c2b53;
+}
+.theme-original .user-search-box {
+  border: 1px solid #1f5a82;
+}
+
+/** Sunsine */
+.theme-sunshine .bars {
+  color: #fff;
+}
+.theme-sunshine .logo-img {
+  content: url('https://vpulse.vamanioverseas.com/content/images/pulse.png');
+}
+.theme-sunshine .mat-tab-label:hover,
+.theme-sunshine .mat-tab-label:focus {
+  border: 1px solid #fff;
+}
+.theme-sunshine .nav-tabs .nav-item .nav-link:hover,
+.theme-sunshine .nav-tabs .nav-item .nav-link:focus {
+  border: 1px solid #fff;
+}
+.theme-sunshine button.close {
+  color: #fff !important;
+}
+.theme-sunshine .text-muted {
+  color: #fff !important;
+}
+.theme-sunshine .form-control {
+  color: #fff !important;
+}
+.theme-sunshine text {
+  fill: #fff !important;
+}
+.theme-sunshine .table th,
+.theme-sunshine .table td {
+  border-color: rgba(0, 0, 0, 0.125);
+}
+.theme-sunshine .text-color {
+  color: #fff;
+}
+.theme-sunshine .text-color-active {
+  color: #ffaa3f;
+}
+.theme-sunshine .card {
+  color: #fff;
+}
+.theme-sunshine .card .body {
+  color: #fff;
+}
+.theme-sunshine .ngb-dp-month-name {
+  color: #fff;
+}
+.theme-sunshine .ngb-dp-weekday {
+  color: #fff !important;
+}
+.theme-sunshine a {
+  color: #fff !important;
+}
+.theme-sunshine .carousel-indicators .active {
+  background-color: #fff;
+}
+.theme-sunshine .carousel-control-next-icon:after {
+  color: #fff;
+}
+.theme-sunshine .carousel-control-prev-icon:after {
+  color: #fff;
+}
+.theme-sunshine .carousel-caption h3 {
+  color: #fff;
+}
+.theme-sunshine .carousel-caption div {
+  color: #fff;
+}
+.theme-sunshine .carousel-caption div span {
+  color: #fff;
+}
+.theme-sunshine .carousel-caption div span p {
+  color: #fff;
+}
+.theme-sunshine .animated-active {
+  color: #ffaa3f;
+}
+.theme-sunshine .navbar-nav.navbar-left .dropdown-menu {
+  background-color: #dddedb;
+  color: #000;
+}
+.theme-sunshine .navbar-nav.navbar-left .dropdown-menu .btn.btn-link {
+  color: #000 !important;
+}
+.theme-sunshine .navbar-nav.navbar-left .dropdown-menu .active {
+  background-color: #ffaa3f;
+  font-weight: 700;
+}
+.theme-sunshine .dropdown-menu {
+  background-color: #dddedb;
+  color: #000;
+}
+.theme-sunshine .dropdown-menu .btn.btn-link {
+  color: #000 !important;
+}
+.theme-sunshine .dropdown-menu .active {
+  background-color: #ffaa3f;
+  font-weight: 700;
+}
+.theme-sunshine .bg-background {
+  background-color: #d9b281 !important;
+}
+.theme-sunshine .bg-blush {
+  background-color: #8c5639 !important;
+}
+.theme-sunshine .bg-blush-light {
+  background-color: #d9b281 !important;
+}
+.theme-sunshine .bg-border {
+  border: 1px solid #d9b281 !important;
+}
+.theme-sunshine .btn-primary.btn-simple {
+  border-color: #8c5639;
+  color: #8c5639;
+  background: transparent;
+}
+.theme-sunshine .btn-primary:active,
+.theme-sunshine .btn-primary:hover,
+.theme-sunshine .btn-primary:focus {
+  background: #8c5639;
+}
+.theme-sunshine .btn-primary {
+  background: #8c5639;
+}
+.theme-sunshine .cal-day-view .cal-hour:nth-child(odd) {
+  background-color: #d9b281 !important;
+}
+.theme-sunshine .cal-day-view {
+  background-color: #d9b281 !important;
+}
+.theme-sunshine .cal-month-view .cal-cell-row:hover {
+  background-color: #8c5639 !important;
+}
+.theme-sunshine .cal-month-view {
+  background-color: #d9b281;
+}
+.theme-sunshine .cal-week-view .cal-hour-odd {
+  background-color: #d9b281 !important;
+}
+.theme-sunshine .cal-week-view {
+  background-color: #d9b281 !important;
+}
+.theme-sunshine .card {
+  background-color: #8c5639 !important;
+}
+.theme-sunshine .chart-card {
+  background-color: #8c5639;
+}
+.theme-sunshine .chart-title {
+  color: #fff;
+}
+.theme-sunshine .customTooltip {
+  background: #d9b281;
+}
+.theme-sunshine .fusioncharts-container svg {
+  background-color: #8c5639 !important;
+}
+.theme-sunshine .home {
+  height: 100vh;
+  background-color: #d9b281;
+}
+.theme-sunshine .mat-tab-label-active:hover,
+.theme-sunshine .mat-tab-label-active:focus {
+  background-color: #8c5639 !important;
+  color: #ffaa3f !important;
+}
+.theme-sunshine .mat-tab-label-active {
+  background-color: #8c5639 !important;
+  color: #ffaa3f !important;
+}
+.theme-sunshine .nav-tabs .nav-link.active {
+  border: 0 !important;
+  background-color: #8c5639 !important;
+  color: #ffaa3f !important;
+}
+.theme-sunshine .navbar,
+.theme-sunshine .page-loader-wrapper {
+  background: #8c5639;
+}
+.theme-sunshine .nodeDoesNotHaveChildren {
+  fill: #d9b281 !important;
+}
+.theme-sunshine .nodeHasChildren {
+  fill: #d9b281 !important;
+}
+.theme-sunshine .sidebar {
+  background-color: #8c5639;
+  color: #fff;
+}
+.theme-sunshine .sidebar .menu .list a:hover {
+  color: #fff;
+}
+.theme-sunshine .sidebar .menu .list li.active > :first-child i,
+.theme-sunshine .sidebar .menu .list li.active > :first-child span {
+  color: #ffaa3f;
+}
+.theme-sunshine .sidebar .menu .list li.active {
+  background-color: transparent;
+}
+.theme-sunshine .table thead th {
+  color: #fff;
+}
+.theme-sunshine .table-striped tbody tr:nth-of-type(even) {
+  background-color: transparent;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-sunshine .table-striped tbody tr:nth-of-type(odd) {
+  background-color: #d9b281;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-sunshine .table .table {
+  background-color: #d9b281;
+}
+.theme-sunshine .table .table .table-striped tbody tr:nth-of-type(even) {
+  background-color: #d9b281;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-sunshine .table .table .table-striped tbody tr:nth-of-type(odd) {
+  background-color: #8c5639;
+  color: #fff;
+  font-weight: 400;
+}
+.theme-sunshine .text-bg {
+  color: #d9b281 !important;
+}
+.theme-sunshine g rect {
+  fill: #8c5639 !important;
+}
+.theme-sunshine .fc__tooltip {
+  color: #000 !important;
+}
+.theme-sunshine .tooltip-inner {
+  color: #8c5639 !important;
+}
+.theme-sunshine .tooltip-slab .tooltip-inner {
+  color: #8c5639 !important;
+}
+.theme-sunshine .user-search-box .input-box {
+  background-color: #8c5639;
+}
+.theme-sunshine .user-search-box .list-item {
+  background-color: #8c5639;
+}
+.theme-sunshine .user-search-box .result-header {
+  background-color: #d9b281;
+  color: #fff;
+}
+.theme-sunshine .user-search-box .result-list {
+  background-color: #8c5639;
+}
+.theme-sunshine .user-search-box {
+  border: 1px solid #d9b281;
+}
+
+/** Light */
+.theme-light .bars {
+  color: #fff;
+}
+.theme-light .justify-content-start {
+  background-color: rgba(111, 189, 225, 0.6) !important;
+}
+.theme-light .logo-img {
+  content: url('https://vpulse.vamanioverseas.com/content/images/pulse_dark.png');
+}
+.theme-light .mat-tab-label:hover,
+.theme-light .mat-tab-label:focus {
+  border: 1px solid #000;
+}
+.theme-light .nav-tabs .nav-item .nav-link:hover,
+.theme-light .nav-tabs .nav-item .nav-link:focus {
+  border: 1px solid #000;
+}
+.theme-light button.close {
+  color: #000 !important;
+}
+.theme-light .text-muted {
+  color: #000 !important;
+}
+.theme-light .form-control {
+  color: #000 !important;
+}
+.theme-light text {
+  fill: #000 !important;
+}
+.theme-light .table th,
+.theme-light .table td {
+  border-color: rgba(0, 0, 0, 0.125);
+}
+.theme-light .text-color {
+  color: #000 !important;
+}
+.theme-light .text-color-active {
+  color: #f93a09;
+}
+.theme-light .card {
+  color: #000;
+}
+.theme-light .card .body {
+  color: #000;
+}
+.theme-light .ngb-dp-month-name {
+  color: #000;
+}
+.theme-light .ngb-dp-weekday {
+  color: #000 !important;
+}
+.theme-light a {
+  color: #000 !important;
+}
+.theme-light .carousel-indicators .active {
+  background-color: #000;
+}
+.theme-light .carousel-control-next-icon:after {
+  color: #000;
+}
+.theme-light .carousel-control-prev-icon:after {
+  color: #000;
+}
+.theme-light .carousel-caption h3 {
+  color: #000;
+}
+.theme-light .carousel-caption div {
+  color: #000;
+}
+.theme-light .carousel-caption div span {
+  color: #000;
+}
+.theme-light .carousel-caption div span p {
+  color: #000;
+}
+.theme-light .animated-active {
+  color: #f93a09;
+}
+.theme-light .navbar-nav.navbar-left .dropdown-menu {
+  background-color: #42a8d7;
+  color: #000;
+}
+.theme-light .navbar-nav.navbar-left .dropdown-menu .btn.btn-link {
+  color: #000 !important;
+}
+.theme-light .navbar-nav.navbar-left .dropdown-menu .active {
+  background-color: #f93a09;
+  font-weight: 700;
+}
+.theme-light .dropdown-menu {
+  background-color: #42a8d7;
+  color: #000;
+}
+.theme-light .dropdown-menu .btn.btn-link {
+  color: #000 !important;
+}
+.theme-light .dropdown-menu .active {
+  background-color: #f93a09;
+  font-weight: 700;
+}
+.theme-light .bg-background {
+  background-color: #42a8d7 !important;
+}
+.theme-light .bg-blush {
+  background-color: #f6f7fb !important;
+}
+.theme-light .bg-blush-light {
+  background-color: #42a8d7 !important;
+}
+.theme-light .bg-border {
+  border: 1px solid #d9b281 !important;
+}
+.theme-light .btn-primary.btn-simple {
+  border-color: #8c5639;
+  color: #8c5639;
+  background: transparent;
+}
+.theme-light .btn-primary:active,
+.theme-light .btn-primary:hover,
+.theme-light .btn-primary:focus {
+  background: #8c5639;
+}
+.theme-light .btn-primary {
+  background: #8c5639;
+}
+.theme-light .cal-day-view .cal-hour:nth-child(odd) {
+  background-color: #fff !important;
+}
+.theme-light .cal-day-view {
+  background-color: #fff !important;
+}
+.theme-light .cal-month-view .cal-cell-row:hover {
+  background-color: #6fbde1 !important;
+}
+.theme-light .cal-month-view {
+  background-color: #fff;
+}
+.theme-light .cal-week-view .cal-hour-odd {
+  background-color: #fff !important;
+}
+.theme-light .cal-week-view {
+  background-color: #fff !important;
+}
+.theme-light .card {
+  background-color: #f6f7fb !important;
+}
+.theme-light .chart-card {
+  background-color: #f6f7fb;
+}
+.theme-light .chart-title {
+  color: #000;
+}
+.theme-light .customTooltip {
+  background: #d9b281;
+}
+.theme-light .fusioncharts-container svg {
+  background-color: #f6f7fb !important;
+}
+.theme-light .home {
+  height: 100vh;
+  background-color: #42a8d7;
+}
+.theme-light .mat-tab-label-active:hover,
+.theme-light .mat-tab-label-active:focus {
+  background-color: #6fbde1 !important;
+  color: #f93a09 !important;
+  font-weight: 600 !important;
+}
+.theme-light .mat-tab-label-active {
+  background-color: #6fbde1 !important;
+  color: #f93a09 !important;
+  font-weight: 600 !important;
+}
+.theme-light .nav-tabs .nav-link.active {
+  border: 0 !important;
+  background-color: #6fbde1 !important;
+  color: #f93a09 !important;
+  font-weight: 600 !important;
+}
+.theme-light .navbar,
+.theme-light .page-loader-wrapper {
+  background: #6fbde1;
+}
+.theme-light .nodeDoesNotHaveChildren {
+  fill: #82c6e5 !important;
+}
+.theme-light .nodeHasChildren {
+  fill: #82c6e5 !important;
+}
+.theme-light .sidebar {
+  background-color: #6fbde1;
+  color: #000;
+}
+.theme-light .sidebar .menu .list a:hover {
+  color: #fff;
+}
+.theme-light .sidebar .menu .list li.active > :first-child i,
+.theme-light .sidebar .menu .list li.active > :first-child span {
+  color: #f93a09;
+  font-weight: 600 !important;
+}
+.theme-light .sidebar .menu .list li.active {
+  background-color: transparent;
+}
+.theme-light .table thead th {
+  color: #000;
+}
+.theme-light .table-striped tbody tr:nth-of-type(even) {
+  background-color: transparent;
+  color: #000;
+  font-weight: 400;
+}
+.theme-light .table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(111, 189, 225, 0.5);
+  color: #000;
+  font-weight: 400;
+}
+.theme-light .table .table {
+  background-color: rgba(111, 189, 225, 0.5);
+}
+.theme-light .table .table .table-striped tbody tr:nth-of-type(even) {
+  background-color: rgba(111, 189, 225, 0.5);
+  color: #000;
+  font-weight: 400;
+}
+.theme-light .table .table .table-striped tbody tr:nth-of-type(odd) {
+  background-color: #fff;
+  color: #000;
+  font-weight: 400;
+}
+.theme-light .text-bg {
+  color: #d9b281 !important;
+}
+.theme-light g rect {
+  fill: #f6f7fb !important;
+}
+.theme-light .fc__tooltip {
+  color: #000 !important;
+}
+.theme-light .tooltip-inner {
+  color: #000 !important;
+}
+.theme-light .tooltip-slab .tooltip-inner {
+  color: #000 !important;
+}
+.theme-light .user-search-box .input-box {
+  background-color: #6fbde1;
+}
+.theme-light .user-search-box .list-item {
+  background-color: #fff;
+}
+.theme-light .user-search-box .result-header {
+  background-color: #6fbde1;
+  color: #000;
+}
+.theme-light .user-search-box .result-list {
+  background-color: #fff;
+}
+.theme-light .user-search-box {
+  border: 1px solid #6fbde1;
+}

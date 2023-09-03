@@ -1,0 +1,64 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Tds Slab Masters</span>
+                <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-tds-slab-master" [routerLink]="['/tds-slab-master/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span >new</span>
+                </button>
+            </h5>
+            <jhi-alert></jhi-alert>
+            <br/>
+            <div class="table-responsive" *ngIf="tdsSlabMasters">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="finYear"><span>Fin Year</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="gender"><span>Gender</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="createdBy"><span>Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let tdsSlabMaster of tdsSlabMasters ;trackBy: trackId">
+                        <td><a [routerLink]="['/tds-slab-master', tdsSlabMaster.id, 'view' ]">{{tdsSlabMaster.id}}</a></td>
+                        <td>{{tdsSlabMaster.finYear}}</td>
+                        <td><ng-container *ngIf="tdsSlabMaster.gender=='M'">Male</ng-container><ng-container *ngIf="tdsSlabMaster.gender=='F'">Female</ng-container></td>
+                        <td>{{tdsSlabMaster.createdBy}}</td>
+                        <td>{{tdsSlabMaster.createdDate | date:'medium'}}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/tds-slab-master',tdsSlabMaster.finYear,tdsSlabMaster.gender, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/', { outlets: { popup: 'tds-slab-master/'+ tdsSlabMaster.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="tdsSlabMasters && tdsSlabMasters.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

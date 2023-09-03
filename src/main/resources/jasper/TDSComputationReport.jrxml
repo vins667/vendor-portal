@@ -1,0 +1,1642 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TDSComputationReport" pageWidth="1850" pageHeight="595" orientation="Landscape" columnWidth="1830" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="8371129a-1b71-42b3-9288-7951bd02b7bb">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Crosstab_CH" mode="Opaque" backcolor="#FFFFFF" fontName="Times New Roman" pdfFontName="Times-Roman" isPdfEmbedded="true">
+		<box leftPadding="0" rightPadding="0">
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CG" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CT" mode="Opaque" backcolor="#005FB3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CD" mode="Opaque" backcolor="#FFFFFF" pdfFontName="Times-Roman" pdfEncoding="" isPdfEmbedded="true">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="groupCode" class="java.lang.String"/>
+	<field name="factoryDesc" class="java.lang.String"/>
+	<field name="cardNo" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="doj" class="java.lang.String"/>
+	<field name="resignDate" class="java.lang.String"/>
+	<field name="pan" class="java.lang.String"/>
+	<field name="paidDays" class="java.lang.Double"/>
+	<field name="basic" class="java.lang.Double"/>
+	<field name="hra" class="java.lang.Double"/>
+	<field name="convAllow" class="java.lang.Double"/>
+	<field name="others" class="java.lang.Double"/>
+	<field name="specialAllow" class="java.lang.Double"/>
+	<field name="medical" class="java.lang.Double"/>
+	<field name="grossSalary" class="java.lang.Double"/>
+	<field name="previousEmployerSalary" class="java.lang.Double"/>
+	<field name="previousEmployerTax" class="java.lang.Double"/>
+	<field name="uploadInformation" class="java.lang.String"/>
+	<field name="upload80EAmount" class="java.lang.Double"/>
+	<field name="upload80DDAmount" class="java.lang.Double"/>
+	<field name="uploadInformationAmount" class="java.lang.Double"/>
+	<field name="regime" class="java.lang.String"/>
+	<field name="tax" class="java.lang.Double"/>
+	<field name="monthlyDed" class="java.lang.Double"/>
+	<field name="balance" class="java.lang.Double"/>
+	<field name="totalTaxLiability" class="java.lang.Double"/>
+	<field name="balanceTaxValue" class="java.lang.Double"/>
+	<field name="totalTaxIncome" class="java.lang.Double"/>
+	<field name="taxDeductValue" class="java.lang.Double"/>
+	<field name="monthNo" class="java.lang.Integer"/>
+	<field name="monthYear" class="java.lang.String"/>
+	<field name="tdsAmount" class="java.lang.Double"/>
+	<field name="rentExempt" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="1830" height="20" uuid="2b1cc886-4519-4778-961e-a75e313ddae2">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Vamani Overseas Pvt. Ltd.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="1550" height="20" uuid="c4f7dd16-345c-470a-a747-b1f6c7c1fb9e">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[TDS Computation Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1550" y="20" width="130" height="20" uuid="5ad94bb7-3e17-4935-b361-c6de2a91c052">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Print Date :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy hh:mm a">
+				<reportElement x="1680" y="20" width="150" height="20" uuid="06c0b85e-73be-45df-b087-32b4b7dcc1b0">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<summary>
+		<band height="40" splitType="Stretch">
+			<crosstab>
+				<reportElement x="0" y="0" width="1830" height="40" uuid="e500a0eb-cc21-41e0-a771-27995a627e07">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
+					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
+					<property name="com.jaspersoft.studio.crosstab.style.total" value="Crosstab_CT"/>
+					<property name="com.jaspersoft.studio.crosstab.style.detail" value="Crosstab_CD"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="0"/>
+				<crosstabHeaderCell>
+					<cellContents mode="Opaque" style="Crosstab_CD">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+						<staticText>
+							<reportElement x="70" y="0" width="100" height="90" uuid="e9407d7c-bd2d-447c-919d-8cc692c3e0ef">
+								<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Factory]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="170" y="0" width="70" height="90" uuid="4e54add3-cbb6-4b1a-9e61-f1074337b421">
+								<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Code]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="240" y="0" width="150" height="90" uuid="e32696b5-70b5-4529-9007-e3e1ee02aa03">
+								<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Name]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="390" y="0" width="60" height="90" uuid="a861fdcf-5750-4315-87f8-98f6a3314055">
+								<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Date of Joining]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="450" y="0" width="60" height="90" uuid="4bb16da9-d0ec-4e6c-b716-2d82bc1e7b4c">
+								<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Date of Leaving]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="510" y="0" width="70" height="90" uuid="1b09d774-276b-4b12-977b-c39e1edea1b1">
+								<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[PAN]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="580" y="0" width="50" height="90" uuid="dfee2371-76da-4e02-a57e-180619fc14bf"/>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[P.Days]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="630" y="0" width="60" height="90" uuid="0b8624e8-71c4-4fbf-bf56-c09ff77e8d41"/>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Basic]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="690" y="0" width="60" height="90" uuid="0aea1674-7edd-4a64-a8ac-ff0edec6332c"/>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[HRA]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="750" y="0" width="60" height="90" uuid="91511a26-4776-4b11-8595-0e08a2fcf0e0"/>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Conv. Allow.]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="810" y="0" width="60" height="90" uuid="18656574-4ac5-46c5-880c-d75aaea9ea25"/>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Others]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="870" y="0" width="60" height="90" uuid="ae7650ca-3e74-41b2-abe9-d7f656984d53"/>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Gross salary]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="1270" y="0" width="70" height="90" uuid="2348db31-819c-4a4f-b44c-0672067bf40b">
+								<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Uploaded Information for Saving (80DD & 80 U) Rs]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="1340" y="0" width="60" height="90" uuid="503fab65-3496-4786-8a7b-9943d93a814f">
+								<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Uploaded Information for Saving (HRA+80C+80D+80CCD+Housing Loan Repayment and interest) Rs]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="1400" y="0" width="70" height="90" uuid="14b4813c-f35b-42d1-a03f-750c6d6c47aa">
+								<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Regime (Old/New/ No Information)]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="1540" y="0" width="60" height="90" uuid="1d587e1d-5b8d-45c7-81fd-5452389f6cd6"/>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Tax]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="1600" y="0" width="60" height="90" uuid="1d587e1d-5b8d-45c7-81fd-5452389f6cd6"/>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Monthly Deduction]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="930" y="0" width="70" height="90" uuid="e64901b4-55b6-48e4-a0a4-eae75efb56ff">
+								<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								<property name="com.jaspersoft.studio.unit.x" value="px"/>
+								<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Rent Exempted]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="0" y="0" width="70" height="90" uuid="0d8d923b-112d-4dea-97e9-9fee75b3ed19">
+								<property name="com.jaspersoft.studio.unit.x" value="px"/>
+								<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Group]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="1000" y="0" width="70" height="90" uuid="f35548ec-32ce-419f-9ee2-8b90b17d8c3c">
+								<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Previous Employer Salary]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="1070" y="0" width="70" height="90" uuid="49732bb6-9220-4c89-bed1-d84aa9394c80">
+								<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Previous Employer TDS Deduction]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="1470" y="0" width="70" height="90" uuid="65c3733d-1adc-4e28-b9ac-db4ccf0476ba">
+								<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Taxable income]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="1660" y="0" width="60" height="90" uuid="1d587e1d-5b8d-45c7-81fd-5452389f6cd6">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Balance]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="1140" y="0" width="60" height="90" uuid="89e12f07-f234-4199-b885-5fb13918d323">
+								<property name="com.jaspersoft.studio.unit.x" value="px"/>
+								<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Upload Information for Saving (Yes/No)]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="1200" y="0" width="70" height="90" uuid="e72f1495-a058-4199-a1cb-10abc564c751">
+								<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							</reportElement>
+							<box leftPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<text><![CDATA[Uploaded Information for Saving (80E) Rs]]></text>
+						</staticText>
+					</cellContents>
+				</crosstabHeaderCell>
+				<rowGroup name="groupCodeCardNo" width="0">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{groupCode}+$F{factoryDesc}+$F{cardNo}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="0" height="15" uuid="93e449bd-7f6e-4ed5-b4b8-7a5cc2a8282e"/>
+								<textFieldExpression><![CDATA[$V{groupCodeCardNo}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="bf27007e-0cc4-4a9f-9513-0fdc8cf8b71b"/>
+								<text><![CDATA[Total groupCodeCardNo]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="groupCode" width="70" mergeHeaderCells="true">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{groupCode}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField>
+								<reportElement x="0" y="0" width="70" height="15" uuid="078affac-8fcb-42ba-a366-0a94efa70ec8"/>
+								<box leftPadding="2">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{groupCode}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="4f851e19-9c63-486c-8728-26949ccdc608"/>
+								<text><![CDATA[Total groupCode]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="factoryDesc" width="100" mergeHeaderCells="true">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{factoryDesc}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="100" height="15" uuid="33ae8bd4-dcf7-49d4-b09c-9adc0f32eb19"/>
+								<box leftPadding="2" rightPadding="0"/>
+								<textElement>
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{factoryDesc}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CT">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" forecolor="#FFFFFF" uuid="1f6a0b7b-bf59-44d6-91b8-c9f9e4258c06"/>
+								<text><![CDATA[Total factoryDesc]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="cardNo" width="70">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{cardNo}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="70" height="15" uuid="e5ef52a1-6162-475e-a828-72223c3e9a57"/>
+								<box leftPadding="2" rightPadding="0">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{cardNo}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="51005d26-fea5-458c-b52c-7b19899c9933"/>
+								<text><![CDATA[Total cardNo]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="name" width="150">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{name}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="150" height="15" uuid="0abbc14b-74dc-409c-bdb0-13f29eda5dee"/>
+								<box leftPadding="2" rightPadding="0">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{name}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="9d9e1de3-1894-4d9c-a679-a80a4c317df4"/>
+								<text><![CDATA[Total name]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="doj" width="60">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{doj}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField>
+								<reportElement x="0" y="0" width="60" height="15" uuid="aa0c5738-cbc1-424f-8941-bf6bfb02e6e6"/>
+								<box leftPadding="2" rightPadding="0">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{doj}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="a3abdb74-d950-422c-91a0-c207e5f2ec73"/>
+								<text><![CDATA[Total doj]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="resignDate" width="60">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{resignDate}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField>
+								<reportElement x="0" y="0" width="60" height="15" uuid="2c819668-3dcd-4931-afb9-d4e96f2560ef"/>
+								<box leftPadding="2" rightPadding="0">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{resignDate} !=null ? $V{resignDate}  : "Working"]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="812d061b-8b04-4fcf-a1d3-fac374a8b18b"/>
+								<text><![CDATA[Total resignDate]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="pan" width="70">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{pan}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="70" height="15" uuid="4ec2b573-fa9d-47cb-b834-7259b1dd096d"/>
+								<box leftPadding="2" rightPadding="0">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{pan}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="539a5f5d-3219-48d7-a725-55863f4e32d5"/>
+								<text><![CDATA[Total pan]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="paidDays" width="50">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{paidDays}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField pattern="###0">
+								<reportElement x="0" y="0" width="50" height="15" uuid="64818f36-d9d2-4b6d-b844-ba4acd773858"/>
+								<box leftPadding="2" rightPadding="2">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{paidDays}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="688a6b17-a359-450d-af8f-43bea5ab94cb"/>
+								<text><![CDATA[Total paidDays]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="basic" width="60">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{basic}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField pattern="###0">
+								<reportElement x="0" y="0" width="60" height="15" uuid="7ac0b033-ceab-4030-bf60-e7bdc80f2eb9"/>
+								<box leftPadding="0" rightPadding="2">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{basic}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="203dac76-b445-4b6c-aa72-8b0a2fcc8cec"/>
+								<text><![CDATA[Total basic]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="hra" width="60">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{hra}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField pattern="###0">
+								<reportElement x="0" y="0" width="60" height="15" uuid="79025582-67ad-4bd9-a533-6d182a4527f6"/>
+								<box leftPadding="0" rightPadding="2">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{hra}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="8aff19cc-b611-4223-8c8b-517aaebf8ea0"/>
+								<text><![CDATA[Total hra]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="convAllow" width="60">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{convAllow}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField pattern="###0">
+								<reportElement x="0" y="0" width="60" height="15" uuid="24928207-9b16-4564-9922-d11fd33d1d54"/>
+								<box leftPadding="0" rightPadding="2">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{convAllow}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="5374c45e-84e8-4c8f-bb92-423838ea6bed"/>
+								<text><![CDATA[Total convAllow]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="others" width="60">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{others}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField pattern="###0">
+								<reportElement x="0" y="0" width="60" height="15" uuid="453643b6-3998-42c1-8e48-f9cc66c15788"/>
+								<box leftPadding="0" rightPadding="2">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{others}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="67fb8e9f-0866-4532-b950-da16e21301b4"/>
+								<text><![CDATA[Total others]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="grossSalary" width="60">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{grossSalary}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField pattern="###0">
+								<reportElement x="0" y="0" width="60" height="15" uuid="d5656c5f-265f-479a-9cc3-d3053e6851c0"/>
+								<box leftPadding="0" rightPadding="2">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{grossSalary}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="3b24b07e-b28a-41d0-858b-fc58a7da18e1"/>
+								<text><![CDATA[Total grossSalary]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="rentExempt" width="70">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{rentExempt}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField pattern="###0">
+								<reportElement x="0" y="0" width="70" height="15" uuid="98647624-6b99-4485-aac7-bad412e37294"/>
+								<box rightPadding="2">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{rentExempt}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="bf519abe-0c60-4809-bfdd-ad4f6cb268d8"/>
+								<text><![CDATA[Total rentExempt]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="previousEmployerSalary" width="70">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{previousEmployerSalary}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField pattern="###0">
+								<reportElement x="0" y="0" width="70" height="15" uuid="471396b6-6f17-475e-8745-84306ef022e7"/>
+								<box rightPadding="2">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{previousEmployerSalary}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="d0e62393-562e-4e97-bd3f-9247b3c36398"/>
+								<text><![CDATA[Total previousEmployerSalary]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="previousEmployerTax" width="70">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{previousEmployerTax}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField pattern="###0">
+								<reportElement x="0" y="0" width="70" height="15" uuid="65aacfc7-f5a6-4723-a1d6-3c00a293232b"/>
+								<box rightPadding="2">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{previousEmployerTax}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="5e90d442-8877-4692-9791-ca547ebb57bc"/>
+								<text><![CDATA[Total previousEmployerTax]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="uploadInformation" width="60">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{uploadInformation}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="60" height="15" uuid="331764a2-6a73-4660-bdd3-ef543c6aff89"/>
+								<box leftPadding="2" rightPadding="2">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Left">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{uploadInformation} != null ? $V{uploadInformation} : "NO"]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="61ee429a-f46f-484f-9e78-c27b2ff78df3"/>
+								<text><![CDATA[Total uploadInformation]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="upload80EAmount" width="70">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{upload80EAmount}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="70" height="15" uuid="5b7a6614-95ec-4b73-9065-734bd8b4ef6b"/>
+								<box>
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{upload80EAmount}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="380" height="20" uuid="a5177dcc-30ee-42ee-9f23-d9e96a1a9f69"/>
+								<text><![CDATA[Total upload80EAmount]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="upload80DDAmount" width="70">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{upload80DDAmount}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField pattern="###0">
+								<reportElement x="0" y="0" width="70" height="15" uuid="3b5523b6-416a-4bb2-9c48-e55e1f883c0c"/>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{upload80DDAmount}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="380" height="20" uuid="fd7aa984-b68e-481b-af6b-c48dddc1a0a2"/>
+								<text><![CDATA[Total upload80DDAmount]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="uploadInformationAmount" width="60">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{uploadInformationAmount}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="60" height="15" uuid="2096a86c-09e6-4dc5-aa6d-fb140803c487"/>
+								<box leftPadding="0" rightPadding="2">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{uploadInformationAmount}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="99d7d9ad-6947-459e-be30-0f08adb92f16"/>
+								<text><![CDATA[Total uploadInformationAmount]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="regime" width="70">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{regime}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="70" height="15" uuid="edd5b15d-376c-4519-b29a-76db7ff2d882"/>
+								<box leftPadding="2" rightPadding="0">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{regime}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="4360bfd3-5892-46fa-9f90-839aed78a6af"/>
+								<text><![CDATA[Total regime]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="totalTaxIncome" width="70">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{totalTaxIncome}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField pattern="###0">
+								<reportElement x="0" y="0" width="70" height="15" uuid="b9eaf5f4-cb54-4c5e-973d-ed1944ea55d8"/>
+								<box leftPadding="2" rightPadding="2">
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{totalTaxIncome}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="30c4c475-9429-41b8-a647-485fe0d4ca79"/>
+								<text><![CDATA[Total totalTaxIncome]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="totalTaxLiability" width="60">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{totalTaxLiability}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField pattern="###0">
+								<reportElement x="0" y="0" width="60" height="15" uuid="9492cfc3-3956-4930-9789-2b9745724aa4"/>
+								<box leftPadding="0" rightPadding="2">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{totalTaxLiability}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="fe8db2b0-c493-4627-83ec-21750ce22d46"/>
+								<text><![CDATA[Total totalTaxLiability]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="taxDeductValue" width="60">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{taxDeductValue}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField pattern="###0">
+								<reportElement x="0" y="0" width="60" height="15" uuid="68aa199f-a43d-4df4-93f9-baa0784a9b17"/>
+								<box leftPadding="0" rightPadding="2">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{taxDeductValue}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="84bec6ed-6471-42ab-a768-899f75db28d9"/>
+								<text><![CDATA[Total taxDeductValue]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="balanceTaxValue" width="60">
+					<bucket class="java.lang.Double">
+						<bucketExpression><![CDATA[$F{balanceTaxValue}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField pattern="###0">
+								<reportElement x="0" y="0" width="60" height="15" uuid="09a77ab0-9fdb-4371-96f5-866cb7c71604"/>
+								<box leftPadding="0" rightPadding="2">
+									<pen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right">
+									<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{balanceTaxValue}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="2dc5c986-57f2-448c-8cd7-7a130e97d544"/>
+								<text><![CDATA[Total balanceTaxValue]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="monthNo" height="0">
+					<bucket class="java.lang.Integer">
+						<bucketExpression><![CDATA[$F{monthNo}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField>
+								<reportElement x="0" y="0" width="60" height="0" uuid="d904227e-2504-49fa-a7a3-2996206c5329"/>
+								<textFieldExpression><![CDATA[$V{monthNo}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="005e1037-643f-4e68-af6d-62b31217bf51"/>
+								<text><![CDATA[Total monthNo]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<columnGroup name="monthYear" height="90">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{monthYear}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField>
+								<reportElement x="0" y="0" width="60" height="90" uuid="1616fd33-5504-41b1-bc7a-e9ff0a15b070">
+									<property name="com.jaspersoft.studio.unit.y" value="px"/>
+								</reportElement>
+								<box leftPadding="0" rightPadding="0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{monthYear}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab_CT">
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" forecolor="#FFFFFF" uuid="91e6ef2c-7a5a-40ca-bc7c-00213655ffe2"/>
+								<text><![CDATA[Total monthYear]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="tdsAmount_MEASURE" class="java.lang.Double" calculation="Sum">
+					<measureExpression><![CDATA[$F{tdsAmount}]]></measureExpression>
+				</measure>
+				<crosstabCell width="60" height="15">
+					<cellContents mode="Opaque" style="Crosstab_CD">
+						<textField pattern="###0">
+							<reportElement x="0" y="0" width="60" height="15" uuid="df69e194-78d0-47ea-b62f-0cde2db7f911"/>
+							<box leftPadding="0" rightPadding="2">
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Right">
+								<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="15" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="15" forecolor="#FFFFFF" uuid="60f8d5a5-eb7a-417a-8b62-98fa1091cbad"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="factoryDesc">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="ac6db5f8-4456-4a7d-8111-ec87fa596a91"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="factoryDesc" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="efac063d-01ac-412e-b76e-944b3693b1a5"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="cardNo">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="9ba48765-d016-4172-9407-802f6dcf58f2"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="cardNo" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="669e4d56-bbd2-41bb-9f45-6a9fd2de1305"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="name">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="19353622-6cf5-44c3-acf0-8ee14411cf39"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="name" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="91c14b09-e494-45fc-9434-4583481ec4f9"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="doj">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="e0c0f533-b758-4212-9fa1-586947a38c20"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="doj" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="f9bec10b-919a-495e-ade3-1c4fd1aef84a"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="resignDate">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="ceb810d4-63ac-4131-bd9a-17185ca9ea0b"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="resignDate" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="55cb7156-fa75-41de-bb86-6e19d60b7b56"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="pan">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="a31d552c-1399-425d-bbf7-7968ffe9e0de"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="pan" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="b9d04f8f-b6d5-4b8a-b106-6a69384b3831"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="paidDays">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="d3c9406a-1581-42ff-b41e-2aad54d8a3ed"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="paidDays" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="c061881f-1586-4c27-9ddf-3c1bd08f4f2e"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="basic">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="b1c953f6-ac1f-41f3-a131-af59d1765ed1"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="basic" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="fcaa099e-3d4c-4e57-a5a1-e470aed36131"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="hra">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="8fdaab85-d0b5-4de9-84d5-cec13bf9fd40"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="hra" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="d0d1d9eb-6a89-419f-81e6-63989853ba8c"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="convAllow">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="9a0370c8-2f81-4b35-88ba-13fb016fae39"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="convAllow" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="5e534177-6c04-4adc-8393-6695b0b7f088"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="others">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="a556e537-b8fb-4e9d-9c8f-e40bebcf2045"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="others" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="604821b5-2b92-4e41-8229-61f564169a5d"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="grossSalary">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="da26a646-0856-47ff-a124-4dfaff5aa6cf"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="grossSalary" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="d7dbefa8-2440-4163-a7ac-c46985c6e491"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="uploadInformation">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="5ef42788-7bf3-4658-ae26-3b808b7a6162"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="uploadInformation" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="718fbb59-a5eb-46d4-9dfa-cbcf7cc42aed"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="uploadInformationAmount">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="5caef29e-9375-4e70-8b2a-52d1c4f84063"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="uploadInformationAmount" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="7e1d7db1-5d6d-4bd3-8162-61222692f3f2"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="regime">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="d7a77bb5-96f7-404f-88e1-97c9902905b7"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="regime" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="6416e196-2f7c-454e-91a2-bda55ae6abeb"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="totalTaxLiability">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="042f8786-beec-4f5c-bc8d-439867c1409b"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="totalTaxLiability" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="ebb90955-0550-4245-9bc1-456bf22fa88f"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="taxDeductValue">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="882565a1-16bd-4056-8207-fb89c6cf5df7"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="taxDeductValue" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="a7528c1c-bb0b-40f9-afe3-a6821c53e843"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="balanceTaxValue">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="4b486c57-bab3-4be8-9468-084a1a53fc15"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="balanceTaxValue" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="1fb56e0d-3a7c-40bc-8f78-a5433fb3dd8d"/>
+							<textFieldExpression><![CDATA[$V{tdsAmount_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="factoryDesc" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="cardNo" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="name" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="doj" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="resignDate" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="pan" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="paidDays" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="basic" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="hra" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="convAllow" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="others" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="grossSalary" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="uploadInformation" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="uploadInformationAmount" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="regime" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="totalTaxLiability" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="taxDeductValue" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="balanceTaxValue" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="rentExempt">
+					<cellContents mode="Opaque" style="Crosstab_CG"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="rentExempt" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="rentExempt" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="groupCode">
+					<cellContents mode="Opaque" style="Crosstab_CG"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="groupCode" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="groupCode" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="groupCodeCardNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="groupCodeCardNo" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="groupCodeCardNo" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="previousEmployerSalary">
+					<cellContents mode="Opaque" style="Crosstab_CG"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="previousEmployerSalary" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="previousEmployerSalary" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="previousEmployerTax">
+					<cellContents mode="Opaque" style="Crosstab_CG"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="previousEmployerTax" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="previousEmployerTax" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="totalTaxIncome">
+					<cellContents mode="Opaque" style="Crosstab_CG"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="totalTaxIncome" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="totalTaxIncome" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="upload80EAmount">
+					<cellContents mode="Opaque" style="Crosstab_CG"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="upload80EAmount" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="upload80EAmount" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="upload80DDAmount">
+					<cellContents mode="Opaque" style="Crosstab_CG"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="upload80DDAmount" columnTotalGroup="monthNo">
+					<cellContents mode="Opaque" style="Crosstab_CT"/>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="upload80DDAmount" columnTotalGroup="monthYear">
+					<cellContents mode="Opaque" style="Crosstab_CG"/>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>

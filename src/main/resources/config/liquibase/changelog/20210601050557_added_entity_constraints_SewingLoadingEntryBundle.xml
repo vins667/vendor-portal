@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <!--
+        Added the constraints for entity SewingLoadingEntryBundle.
+    -->
+    <changeSet id="20210601050557-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="sewing_loading_entry_details_id"
+                                 baseTableName="sewing_loading_entry_bundle"
+                                 constraintName="fk_sewing_loading_entry_bundle_sewing_loading_entry_details_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sewing_loading_entry_details"/>
+
+    </changeSet>
+</databaseChangeLog>

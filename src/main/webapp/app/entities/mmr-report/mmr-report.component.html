@@ -1,0 +1,62 @@
+<div class="card">
+    <div class="body">
+        <div align="center" class="centered" *ngIf="isDownload">
+            <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+        </div>
+        <div>
+            <h5 id="page-heading"><span>MMR Report</span></h5>
+            <hr/>
+        </div>
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-1">
+                <label class="form-control-label">Factory</label>
+            </div>
+            <div class="col-md-6">
+                <select name="factory" id="factory" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="mmrReport.factoryCode" required>
+                    <option value="101">137 Faridabad</option>
+                    <option value="102">169 Faridabad</option>
+                </select>
+            </div>
+        </div>
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-1">
+                <label class="form-control-label">Date From</label>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group input-group-sm">
+                    <input [owlDateTime]="leaveDateFrom" name="dateFrom" id="field_dateFrom" readonly placeholder="Date" class="form-control form-control-sm" required [(ngModel)]="dateFrom">
+                    <div class="input-group-append input-group-append-top">
+                        <div class="btn btn-blush" [owlDateTimeTrigger]="leaveDateFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #leaveDateFrom></owl-date-time>
+            </div>
+        </div>
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-1">
+                <label class="form-control-label">Date To</label>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group input-group-sm">
+                    <input [owlDateTime]="leaveDateTo" name="dateTo" id="field_dateTo" readonly placeholder="Date" class="form-control form-control-sm" required [(ngModel)]="dateTo">
+                    <div class="input-group-append input-group-append-top">
+                        <div class="btn btn-blush" [owlDateTimeTrigger]="leaveDateTo"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #leaveDateTo></owl-date-time>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-sm btn-blush btn-round" style="margin-top: 0;" [disabled]="isDownload" (click)="generateReport();">
+                    <fa-icon [icon]="'download'"></fa-icon>
+                    <span>Generate</span>
+                </button>&nbsp;&nbsp;
+                <button type="reset" class="btn btn-sm btn-secondary btn-round" style="margin-top: 0;" [disabled]="isDownload">
+                    <fa-icon [icon]="'times'"></fa-icon>
+                    <span>Reset</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

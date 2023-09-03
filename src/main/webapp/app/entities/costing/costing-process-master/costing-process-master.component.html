@@ -1,0 +1,77 @@
+<div class="card">
+    <div class="body">
+            <div>
+                <h5 id="page-heading"> <span>Costing Process Master</span></h5>
+                 <div class="row">
+                    <div class="col-md-2">
+                        <input class="form-control form-control-sm text-uppercase ng-valid ng-dirty ng-touched" name="processcode" id="field_processcode" placeholder="Process Code" type="text" [(ngModel)]="search.processcode" [ngModelOptions]="{standalone: true}"/>
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control form-control-sm text-uppercase ng-valid ng-dirty ng-touched" name="processdesc" id="field_processdesc" placeholder="Process Desc" type="text" [(ngModel)]="search.processdesc" [ngModelOptions]="{standalone: true}"/>
+                    </div>
+                    <div class="col-md-8 text-right">
+                        <button id="jh-search-entity" class="btn btn-sm btn-info btn-round" type="button" style="margin: 0;" (click)="filter()">
+                            <fa-icon [icon]="'search'"></fa-icon>
+                            <span >Search</span>
+                        </button>
+                        <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round jh-create-entity create-costing-process-master" [routerLink]="['/costing-process-master/new']">
+                            <fa-icon [icon]="'plus'"></fa-icon>
+                            <span>new</span>
+                        </button>
+                    </div>
+                </div>
+                 <jhi-alert></jhi-alert>
+                 <div class="table-responsive">
+                        <table class="table table-sm table-striped">
+                            <thead>
+                                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                                    <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                                    <th jhiSortBy="processcode"><span>Process Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                                    <th jhiSortBy="processdesc"><span>Process Desc</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                            <tbody>
+                                <tr *ngFor="let costingProcessMaster of costingProcessMasters ;trackBy: trackId">
+                                    <td><a [routerLink]="['/costing-process-master', costingProcessMaster.id, 'view' ]">{{costingProcessMaster.id}}</a></td>
+                                    <td>{{costingProcessMaster.processcode}}</td>
+                                    <td>{{costingProcessMaster.processdesc}}</td>
+                                   <td class="text-right button-column">
+                                    <div class="btn-group">
+                                        <button type="submit"
+                                              [routerLink]="['/costing-process-master', costingProcessMaster.id, 'view' ]"
+                                               class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['/costing-process-master', costingProcessMaster.id, 'edit']"
+                                                class="btn btn-blush btn-sm">
+                                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                            <span class="d-none d-md-inline">Edit</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['/', 'costing-process-master', { outlets: { popup: costingProcessMaster.id + '/delete'} }]"
+                                                replaceUrl="true"
+                                                queryParamsHandling="merge"
+                                                class="btn btn-danger btn-sm">
+                                            <fa-icon [icon]="'times'"></fa-icon>
+                                            <span class="d-none d-md-inline">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div [hidden]="costingProcessMasters?.length === 0">
+                        <div class="row justify-content-center">
+                            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                        </div>
+                        <div class="row justify-content-center">
+                            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                        </div>
+                    </div>
+            </div>
+    </div>
+</div>

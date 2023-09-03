@@ -1,0 +1,89 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading"><span>Conveyance Entry</span></h5>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="input-group input-group-sm">
+                        <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" [formControl]="fromDate" class="form-control form-control-sm">
+                        <div class="input-group-append input-group-append-top">
+                            <div class="btn btn-blush" [owlDateTimeTrigger]="dt1"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" [startView]="'multi-years'" (yearSelected)="chosenYearHandler1($event)" (monthSelected)="chosenMonthHandler1($event, dt1)" #dt1="owlDateTime"></owl-date-time>
+                </div>
+                <div class="col-md-9 text-right">
+                    <button id="jh-search-entity" class="btn btn-sm btn-info btn-round" type="button" style="margin: 0;" (click)="search()">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                        <span >Search</span>
+                    </button>
+                    <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round jh-create-entity create-conveyance-master" [routerLink]="['/conveyance-master/new']">
+                        <fa-icon [icon]="'plus'"></fa-icon>
+                        <span>new</span>
+                    </button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiSortBy="conveyanceDate"><span>Conveyance Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="conveyanceType"><span>Conveyance Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="vehicleNo"><span>Vehicle No</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="totalDistance" class="text-right"><span>Total Distance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="rate" class="text-right"><span>Rate</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="totalAmount" class="text-right"><span>Total Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="flag"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let conveyanceMaster of conveyanceMasters ;trackBy: trackId">
+                        <td>{{conveyanceMaster.conveyanceDate | date:'dd/MM/yyyy'}}</td>
+                        <td><ng-container *ngIf="conveyanceMaster.conveyanceType=='O'">Own</ng-container></td>
+                        <td>{{conveyanceMaster.vehicleNo}}</td>
+                        <td class="text-right">{{conveyanceMaster.totalDistance}}</td>
+                        <td class="text-right">{{conveyanceMaster.rate | number : '1.2-2'}}</td>
+                        <td class="text-right">{{conveyanceMaster.totalAmount | number : '1.2-2'}}</td>
+                        <td>
+                            <ng-container *ngIf="conveyanceMaster.flag=='E'">Entry</ng-container>
+                            <ng-container *ngIf="conveyanceMaster.flag=='A'">Approved By HOD</ng-container>
+                            <ng-container *ngIf="conveyanceMaster.flag=='R' && !conveyanceMaster.hrApproved">Rejected By HOD</ng-container>
+                            <ng-container *ngIf="conveyanceMaster.flag=='R' && conveyanceMaster.hrApproved">Rejected By HR</ng-container>
+                            <ng-container *ngIf="conveyanceMaster.flag=='C'">Approved By HR</ng-container>
+                            <ng-container *ngIf="conveyanceMaster.flag=='P'">Processed For Payment</ng-container>
+                        </td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/conveyance-master', conveyanceMaster.id, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/', 'conveyance-master', { outlets: { popup: conveyanceMaster.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm" [disabled]="conveyanceMaster.flag!=='E'">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div [hidden]="conveyanceMasters?.length === 0">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

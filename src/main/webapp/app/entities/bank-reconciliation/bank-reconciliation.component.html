@@ -1,0 +1,260 @@
+<div align="center" class="centered" *ngIf="isSaving">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+    <h2>Please wait ....</h2>
+</div>
+<form name="editForm" role="form" (ngSubmit)="save()" novalidate [formGroup]="editForm">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 id="jhi-asset-master-heading">Bank Reconcilation</h6>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button type="button" id="clear-button" class="btn btn-sm btn-xs btn-secondary btn-round m-0" (click)="clearscreen();">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Clear</span>
+                    </button>
+                    <button type="submit" id="save-entity" class="btn btn-sm btn-xs btn-blush btn-round m-0" [disabled]="editForm.invalid || isSaving">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save (Ref Only)</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body py-2">
+            <div class="row">
+                <div class="col-md-9 card py-2" style="background-color: white !important;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-4"><label class="form-control-label" for="field_reconcilationdatehead">Reco. Date :</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group m-0">
+                                        <input type="text" class="form-control form-control-xs" [owlDateTime]="reconcilationdatehead" name="reconcilationdatehead" id="field_reconcilationdatehead" formControlName="reconcilationdatehead"
+                                               placeholder="ddmmyyyy" [attr.disabled]="bankReconciliationDetailsFilter && bankReconciliationDetailsFilter.length > 0 ? true : null" (blur)="arrangeDate();"/>
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-xs btn-blush m-0" [disabled]="bankReconciliationDetailsFilter && bankReconciliationDetailsFilter.length > 0">
+                                                <fa-icon [icon]="'calendar'" [owlDateTimeTrigger]="reconcilationdatehead"></fa-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <owl-date-time [pickerType]="'calendar'" #reconcilationdatehead></owl-date-time>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><label class="form-control-label" for="field_documentbalance">Balance&nbsp;As&nbsp;Per&nbsp;Bank(A)&nbsp;:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="number" class="form-control form-control-xs" name="documentbalance" id="field_documentbalance" (change)="onchagetotalBalace()" formControlName="documentbalance" [attr.disabled]="bankReconciliationDetailsFilter && bankReconciliationDetailsFilter.length > 0 ? true : null"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row mb-1">
+                                <div class="col-md-3"><label class="form-control-label">Bank&nbsp;Name&nbsp;:</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteGlmaster" [minSearchLength]="3" [placeholder]="'Search GL Code'" [textSearching]="'Please wait...'"
+                                                   [inputClass]="!this.editForm.controls['bankcode'].value || this.editForm.controls['bankcode'].value.length ===0 ? 'form-control form-control-xs d-inline input-required' : 'form-control form-control-xs d-inline'" formControlName="bankname" (selected)="onProjectSelected($event)" [disableInput]="bankReconciliationDetailsFilter && bankReconciliationDetailsFilter.length > 0">
+                                    </ng2-completer>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <button type="button" id="clear-entity" (click)="getDetailList()" [disabled]="editForm.invalid || isSaving" class="btn btn-sm btn-xs btn-secondary btn-round m-0 text-left" [disabled]="bankReconciliationDetailsFilter && bankReconciliationDetailsFilter.length > 0">
+                                        <fa-icon [icon]="'sync'"></fa-icon>&nbsp;<span>Get Data from server</span>
+                                    </button>
+                                    <button type="button" id="post-entity" (click)="postReconciliation()" [disabled]="editForm.invalid || (!saveReconciliationDetails || saveReconciliationDetails.length ===0) || isSaving" class="btn btn-sm btn-xs btn-success btn-round m-0 text-left">
+                                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Post Reconciliation (NOW)</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 card py-2" style="background-color: #5bc4bf !important;">
+                    <div class="row mb-1">
+                        <div class="col-md-3"><label class="form-control-label">Ref#</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control form-control-xs text-left" name="refNo" id="refNo" [(ngModel)]="refNo" [ngModelOptions]="{standalone: true}"/>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-12 text-right">
+                            <button type="button" id="generate-entity" [disabled]="!refNo || isSaving" class="btn btn-sm btn-xs btn-info btn-round m-0 text-left">
+                                <fa-icon [icon]="'file'"></fa-icon>&nbsp;<span>Generate Report</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body p-0 bg-white">
+            <div class="table-responsive" id="entities" style="max-height: 1000px; overflow-x: scroll;">
+                <table class="table table-sm table-xs table-bordered table-striped mb-1" aria-describedby="page-heading">
+                    <thead>
+                    <tr>
+                        <th><span>Sr.No</span></th>
+                        <th><span>Division</span></th>
+                        <th><span>Unit</span></th>
+                        <th><span>Type</span></th>
+                        <th><span>Vch#</span></th>
+                        <th><span>Vch&nbsp;Date</span></th>
+                        <th><span>GL/SL&nbsp;Code</span></th>
+                        <th><span>GL/SL&nbsp;Name</span></th>
+                        <th><span>CH/Ref.&nbsp;No</span></th>
+                        <th><span>CH/Ref.&nbsp;Date</span></th>
+                        <th class="text-right"><span>Debit</span></th>
+                        <th class="text-right"><span>Credit</span></th>
+                        <th><span>Reco&nbsp;Date</span></th>
+                        <th><span>Profit&nbsp;Center</span></th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>
+                            <input type="text" class="form-control form-control-xs text-left" name="unitdivi" id="field_divisearch" (keyup)="filterDiviSearch();" [(ngModel)]="divisearch" [ngModelOptions]="{standalone: true}"/>
+                        </th>
+                        <th>
+                            <input type="text" class="form-control form-control-xs text-left" name="unitsearch" id="field_unitsearch" (keyup)="filterUnitSearch();" [(ngModel)]="unitsearch" [ngModelOptions]="{standalone: true}"/>
+                        </th>
+                        <th>
+                            <input type="text" class="form-control form-control-xs text-left" name="doctypesearch" id="field_doctypesearch" (keyup)="filterDocTypeSearch();" [(ngModel)]="doctypesearch" [ngModelOptions]="{standalone: true}"/>
+                        </th>
+                        <th>
+                            <input type="text" class="form-control form-control-xs text-left" name="findocsearch" id="field_findocsearch" (keyup)="filterFindocSearch();" [(ngModel)]="findocsearch" [ngModelOptions]="{standalone: true}"/>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                            <input type="text" class="form-control form-control-xs text-left" name="glcodesearch" id="field_glcodesearch" (keyup)="filterGlcodeSearch();" [(ngModel)]="glcodesearch" [ngModelOptions]="{standalone: true}"/>
+                        </th>
+                        <th>
+                            <input type="text" class="form-control form-control-xs text-left" name="glnamesearch" id="field_glnamesearch" (keyup)="filterSearch();" formControlName="glnamesearch"/>
+                        </th>
+                        <th>
+                            <input type="text" class="form-control form-control-xs text-left" name="chknosearch" id="field_chknosearch" (keyup)="filterSearch();" formControlName="chknosearch"/>
+                        </th>
+                        <th>
+                            <div>
+                                <div class="input-group m-0">
+                                    <input type="text" class="form-control form-control-xs" [owlDateTime]="chkdatesearch" name="chkdatesearch" id="field_chkdatesearch" formControlName="chkdatesearch" (dateTimeInput)="searchBy()" readonly/>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-xs btn-blush m-0"><fa-icon [icon]="'calendar'" [owlDateTimeTrigger]="chkdatesearch"></fa-icon></button>
+                                    </div>
+                                </div>
+                                <owl-date-time [pickerType]="'calendar'" #chkdatesearch></owl-date-time>
+                            </div>
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                            <input type="text" class="form-control form-control-xs text-left" name="profitcentsearch" id="field_profitcentsearch" formControlName="profitcentsearch"/>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody *ngIf="bankReconciliationDetailsFilter">
+                    <ng-container *ngFor="let bankReconciliationDetail of bankReconciliationDetailsFilter; let index = index">
+                        <tr>
+                            <td>
+                                <fa-icon [icon]="'plus-circle'" class="text-success" style="cursor: pointer" (click)="showHide(bankReconciliationDetail, true)" *ngIf="!bankReconciliationDetail.exist"></fa-icon>
+                                <fa-icon [icon]="'minus-circle'" class="text-danger" style="cursor: pointer" (click)="showHide(bankReconciliationDetail, false)" *ngIf="bankReconciliationDetail.exist"></fa-icon>
+                                {{bankReconciliationDetail.rowcount}}
+                            </td>
+                            <td>{{bankReconciliationDetail.companycode}}</td>
+                            <td>{{bankReconciliationDetail.businessunitcode}}</td>
+                            <td>{{bankReconciliationDetail.documentype}}</td>
+                            <td>{{bankReconciliationDetail.code}}</td>
+                            <td>{{bankReconciliationDetail.documentdate | date: 'dd-MM-yyyy'}}</td>
+                            <td>{{bankReconciliationDetail.glcode}}</td>
+                            <td>{{bankReconciliationDetail.glname}}</td>
+                            <td>{{bankReconciliationDetail.chequeno}}</td>
+                            <td>{{bankReconciliationDetail.chequedate | date: 'dd-MM-yyyy'}}</td>
+                            <td class="text-right">{{bankReconciliationDetail.debitamit | number: '1.2-2'}}</td>
+                            <td class="text-right">{{bankReconciliationDetail.creditamt | number: '1.2-2'}}</td>
+                            <td>
+                                <div>
+                                    <div class="input-group mb-0">
+                                        <input type="text" class="form-control form-control-xs" [owlDateTime]="reconciliationdate" name="reconciliationdate" id="field_reconciliationdate" [(ngModel)]="bankReconciliationDetail.reconciliationdate" (dateTimeInput)="reconcileDetails(bankReconciliationDetail);" [ngModelOptions]="{standalone: true}" readonly/>
+                                        <div class="input-group-append input-group-append-top">
+                                            <button type="button" class="btn btn-xs btn-blush"><fa-icon [icon]="'calendar'" [owlDateTimeTrigger]="reconciliationdate"></fa-icon></button>
+                                        </div>
+                                    </div>
+                                    <owl-date-time [pickerType]="'calendar'" #reconciliationdate></owl-date-time>
+                                </div>
+                            </td>
+                            <td>{{bankReconciliationDetail.profitcentercode}}</td>
+                        </tr>
+                        <tr *ngIf="bankReconciliationDetail.exist">
+                            <td colspan="12">
+                                <table class="table table-sm table-bordered mb-0">
+                                    <tr>
+                                        <td class="bg-white text-black font-weight-bold" style="width: 60px;">Narration</td>
+                                        <td class="bg-white text-black">
+                                            {{bankReconciliationDetail.narration}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer body">
+            <div class="row mb-1">
+                <div class="col-md-7">
+                    <div class="row mb-1">
+                        <div class="col-md-5"><label class="form-control-label" for="field_ledgerbalance">C/B. Balance As Per Ledger(B) :</label>
+                        </div>
+                        <div class="col-md-7">
+                            <input type="number" class="form-control form-control-xs text-right" name="ledgerbalance" id="field_ledgerbalance" formControlName="ledgerbalance" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-5"><label class="form-control-label" for="field_checkdepositnotclear">Check Deposit Yet Not Cleared (C) :</label>
+                        </div>
+                        <div class="col-md-7">
+                            <input type="number" class="form-control form-control-xs text-right" name="checkdepositnotclear" id="field_checkdepositnotclear" formControlName="checkdepositnotclear" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-5"><label class="form-control-label" for="field_checkissuenotclear">Cheque Issue Yet Not Cleared (D) :</label>
+                        </div>
+                        <div class="col-md-7">
+                            <input type="number" class="form-control form-control-xs text-right" name="checkissuenotclear" id="field_checkissuenotclear" formControlName="checkissuenotclear" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-5"><label class="form-control-label" for="field_bankbalance">Calc. Bank Balance E=(B-C+D) :</label>
+                        </div>
+                        <div class="col-md-7">
+                            <input type="number" class="form-control form-control-xs text-right" name="bankbalance" id="field_bankbalance" formControlName="bankbalance" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-5"><label class="form-control-label" for="field_balancedifference">Difference (A)-(E) :</label>
+                        </div>
+                        <div class="col-md-7">
+                            <input type="number" class="form-control form-control-xs text-right" name="balancedifference" id="field_balancedifference" formControlName="balancedifference" readonly/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <fieldset class="scheduler-border-margin">
+                        <legend class="scheduler-border">Choose Sorting option</legend>
+                        <div class="row">
+                            <div class="col-md-4"><input type="radio" name="sortby" id="sortby0" [(ngModel)]="sortby" value="4" [ngModelOptions]="{standalone: true}"/>&nbsp;Fin.Document</div>
+                            <div class="col-md-4"><input type="radio" name="sortby" id="sortby1" [(ngModel)]="sortby" value="5" [ngModelOptions]="{standalone: true}"/>&nbsp;GL/SL Code</div>
+                            <div class="col-md-4"><input type="radio" name="sortby" id="sortby2" [(ngModel)]="sortby" value="6" [ngModelOptions]="{standalone: true}"/>&nbsp;GL/SL Name</div>
+                            <div class="col-md-4"><input type="radio" name="sortby" id="sortby3" [(ngModel)]="sortby" value="7" [ngModelOptions]="{standalone: true}"/>&nbsp;CH/Ref. No</div>
+                            <div class="col-md-4"><input type="radio" name="sortby" id="sortby4" [(ngModel)]="sortby" value="8" [ngModelOptions]="{standalone: true}"/>&nbsp;CH/Ref. Date</div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

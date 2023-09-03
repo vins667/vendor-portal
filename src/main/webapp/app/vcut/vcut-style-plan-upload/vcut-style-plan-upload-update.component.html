@@ -1,0 +1,192 @@
+<div class="card">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6">
+                <h6 id="jhi-asset-master-heading">Create or edit a Stitch Planning</h6>
+            </div>
+            <div class="col-md-6">
+                <div class="text-right">
+                    <button type="button" id="cancel-save" class="btn btn-xs btn-secondary btn-round m-0" (click)="previousState()">
+                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                    </button>
+                    <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-xs btn-blush btn-round m-0">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                    </button>
+                    <button type="button" id="attach-entity" *ngIf="editForm.get('id').value" class="btn btn-xs btn-warning btn-round m-0" (click)="attachPlan(editForm.get('id').value);">
+                        <fa-icon [icon]="'plus'"></fa-icon>&nbsp;<span>Attach Session</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="card-footer body bg-white">
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_planDate">Plan Date</label></div>
+                <div class="col-md-3">
+                    <div class="input-group mb-0">
+                        <input type="text" [owlDateTime]="planDateFrom" name="planDate" id="field_planDate" placeholder="Date From" class="form-control form-control-xs" formControlName="planDate" [readonly]="editForm.get('id').value">
+                        <div class="input-group-append input-group-append-top">
+                            <button type="button" class="btn btn-xs btn-blush" [owlDateTimeTrigger]="planDateFrom"><span><fa-icon [icon]="'calendar'" ></fa-icon></span></button>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #planDateFrom [disabled]="editForm.get('id').value"></owl-date-time>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_plantCode">Plant</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="plantCode" id="field_plantCode" formControlName="plantCode" (change)="fetchLines();" *ngIf="!editForm.controls['id'].value">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let userPlant of userPlants" [value]="userPlant.id.plantCode">{{userPlant.plantDescription}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs custom-select custom-select-xs" name="plantDescription" id="field_plantDescription" formControlName="plantDescription" *ngIf="editForm.controls['id'].value" disabled>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_lineNo">Line</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="lineNo" id="field_lineNo" formControlName="lineNo" (change)="selectLine()" *ngIf="!editForm.controls['id'].value">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let resource of resources" [value]="resource.id.code">{{resource.id.code +'-'+ resource.longdescription}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="lineDesc" id="field_lineDesc" formControlName="lineDesc" readonly *ngIf="editForm.controls['id'].value" disabled>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_poNo">Po No</label>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group mb-0">
+                        <input type="text" class="form-control form-control-xs" name="poNo" id="field_poNo" formControlName="poNo" [readonly]="editForm.get('id').value"/>
+                        <div class="input-group-append input-group-append-top">
+                            <button type="button" name="btnSearch" id="btnSearch" class="btn btn-xs btn-blush" [disabled]="editForm.controls['id'].value ? 'true' : null" (click)="callDetails();">
+                                <fa-icon [icon]="'search'"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div *ngIf="editForm.get('poNo').invalid && (editForm.get('poNo').dirty || editForm.get('poNo').touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('poNo').errors.maxlength">
+                            This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_style">Style</label></div>
+                <div class="col-md-3"><input type="text" class="form-control form-control-xs" name="style" id="field_style" formControlName="style" readonly/></div>
+                <div class="col-md-1"><label class="form-control-label" for="field_color">Color</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="color" id="field_color" formControlName="color" *ngIf="!editForm.controls['id'].value" (change)="fetchReservationItem();">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let color of colors" [value]="color.name">{{color.desc}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="colorName" id="field_colorName" formControlName="colorName" *ngIf="editForm.controls['id'].value" disabled/>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-1"><label class="form-control-label" for="field_destination">Destination</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="destination" id="field_destination" formControlName="destination" (change)="selectDestination()" *ngIf="!editForm.controls['id'].value">
+                        <option [value]="undefined">Select</option>
+                        <option [value]="destinationOption.name" *ngFor="let destinationOption of destinations;">{{destinationOption.desc}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="destinationDesc" id="field_destinationDesc" formControlName="destinationDesc" readonly *ngIf="editForm.controls['id'].value" disabled>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_itemName">Item</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="itemName" id="field_itemName" formControlName="itemName" disabled>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_buyerName">Buyer</label></div>
+                <div class="col-md-3">
+                    <input type="hidden" class="form-control form-control-xs" name="buyer" id="field_buyer" formControlName="buyer" readonly/>
+                    <input type="text" class="form-control form-control-xs" name="buyerName" id="field_buyerName" formControlName="buyerName" readonly/>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_quantity">Quantity</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="quantity" id="field_quantity" formControlName="quantity"/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_kickOff">Plan Eff</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="kickOff" id="field_kickOff"  formControlName="kickOff" [readonly]="editForm.get('id').value"/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_smv">Smv</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="smv" id="field_smv"  formControlName="smv" [readonly]="editForm.get('id').value"/>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_days">Days</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="days" id="field_days" formControlName="days" [readonly]="editForm.get('id').value"/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_operators">Operators</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="operators" id="field_operators" formControlName="operators"/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_helpers">Helpers</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="helpers" id="field_helpers" formControlName="helpers"/>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_workingHours">Work Hrs.</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="workingHours" id="field_workingHours" formControlName="workingHours" [readonly]="editForm.get('id').value"/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_merchant">Merchant</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="merchant" id="field_merchant" formControlName="merchant" [readonly]="editForm.get('id').value"/>
+                    <div *ngIf="editForm.get('merchant').invalid && (editForm.get('merchant').dirty || editForm.get('merchant').touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('merchant').errors.maxlength">
+                            This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_merchantName">Name</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="merchantName" id="field_merchantName" formControlName="merchantName" [readonly]="editForm.get('id').value"/>
+                    <div *ngIf="editForm.get('merchantName').invalid && (editForm.get('merchantName').dirty || editForm.get('merchantName').touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('merchantName').errors.maxlength">
+                            This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_floor">Floor</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="floor" id="field_floor" formControlName="floor"/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_vcutPlanChangeMaster">Plan&nbsp;Change</label>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" id="field_vcutPlanChangeMaster" name="vcutPlanChangeMaster" formControlName="vcutPlanChangeMaster">
+                        <option [value]="undefined" selected>Select Plan</option>
+                        <option [ngValue]="vcutPlanChangeMasterOption.id === editForm.get('vcutPlanChangeMaster').value?.id ? editForm.get('vcutPlanChangeMaster').value : vcutPlanChangeMasterOption" *ngFor="let vcutPlanChangeMasterOption of vcutplanchangemasters; trackBy: trackVcutPlanChangeMasterById">{{vcutPlanChangeMasterOption.description}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

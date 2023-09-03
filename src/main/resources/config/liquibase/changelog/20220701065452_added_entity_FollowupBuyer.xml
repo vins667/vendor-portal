@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    
+    <!--
+        Added the entity FollowupBuyer.
+    -->
+    <changeSet id="20220701065452-1" author="jhipster">
+        <createTable tableName="followup_buyer">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="buyercode" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="buyername" type="varchar(200)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="flag" type="varchar(1)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="createdby" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="createddate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="updatedby" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="updateddate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+<createSequence startValue="1"  sequenceName="followup_buyer_seq" incrementBy = "1" cycle = "false"/>
+        <dropDefaultValue tableName="followup_buyer" columnName="createddate" columnDataType="datetime"/>
+        <dropDefaultValue tableName="followup_buyer" columnName="updateddate" columnDataType="datetime"/>
+    </changeSet>
+
+
+</databaseChangeLog>

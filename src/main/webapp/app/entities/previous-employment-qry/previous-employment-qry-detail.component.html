@@ -1,0 +1,183 @@
+<div class="card">
+    <div class="body">
+         <form name="editForm" role="form" novalidate #editForm="ngForm">
+                <input type="hidden" name="financeYear" id="field_financeYear" [(ngModel)]="previousEmploymentQry.financeYear"/>
+            <div>
+                <h5 id="jhi-previous-employment-details-heading">Previous Employer Details <span *ngIf="previousEmploymentQry.tdsYearMaster" class="float-right">Financial Year - {{previousEmploymentQry.tdsYearMaster.financeYear}}</span></h5>
+                <hr>
+            </div>
+            <div class="row card-margin-bottom-10">
+                    <div class="col-md-2">
+                        <label class="form-control-label">Card No</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control form-control-sm" name="cardNo" id="field_cardNo"  [(ngModel)]="previousEmploymentQry.cardNo" readonly/>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-control-label">Name</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control form-control-sm" name="name" id="field_name"  [(ngModel)]="previousEmploymentQry.name" readonly/>
+                    </div>
+             </div>
+            <div class="row">
+                    <div class="col-md-2">
+                        <label class="form-control-label">Date From</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group input-group-sm">
+                            <input [owlDateTime]="tempDate" name="dateFrom" [(ngModel)]="previousEmploymentQry.dateFrom" id="field_dateFrom"  placeholder="Date" class="form-control form-control-sm" readonly>
+                            <div class="input-group-append input-group-append-top">
+                                <div class="btn btn-blush" [owlDateTimeTrigger]="tempDate"><span>
+                                        <fa-icon [icon]="'calendar'"></fa-icon>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #tempDate></owl-date-time>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-control-label">Date To</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group input-group-sm">
+                            <input [owlDateTime]="tempDate2" name="dateTo" [(ngModel)]="previousEmploymentQry.dateTo" id="field_dateTo"  placeholder="Date" class="form-control form-control-sm" readonly>
+                            <div class="input-group-append input-group-append-top">
+                                <div class="btn btn-blush" [owlDateTimeTrigger]="tempDate2"><span>
+                                        <fa-icon [icon]="'calendar'"></fa-icon>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #tempDate2></owl-date-time>
+                    </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-2">
+                    <label class="form-control-label">Employer</label>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control form-control-sm" name="previousEmployer" id="field_previousEmployer"  [(ngModel)]="previousEmploymentQry.previousEmployer" readonly/>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-2">
+                    <label class="form-control-label" for="field_monthRent">Total Rent</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="number" class="form-control form-control-sm" name="monthRent" id="field_monthRent"  [(ngModel)]="previousEmploymentQry.monthRent" readonly/>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-control-label" for="field_landLordName">Landlord Name</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control form-control-sm" name="landLordName" id="field_landLordName"  [(ngModel)]="previousEmploymentQry.landLordName" readonly/>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+
+                <div class="col-md-2">
+                    <label class="form-control-label" for="field_landLordPan">Land Lord PanNo</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control form-control-sm" name="landLordPan" id="field_landLordPan"  [(ngModel)]="previousEmploymentQry.landLordPan" readonly/>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-control-label" for="field_landLordAddress">Rent Address</label>
+                </div>
+                <div class="col-md-4">
+                    <textarea type="text" class="form-control form-control-sm" name="landLordAddress" id="field_landLordAddress"  [(ngModel)]="previousEmploymentQry.landLordAddress" readonly></textarea>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-12">
+                    <table class="table table-sm table-bordered">
+                        <tr>
+                            <td colspan="2" style="font-weight: 700;">Earnings</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                Basic
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="basic" id="field_basic" [(ngModel)]="previousEmploymentQry.basic" readonly/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                House Rent Allowance
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="hra" id="field_hra" [(ngModel)]="previousEmploymentQry.hra" readonly/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                Conveyance/Transport Allowance
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="cta" id="field_cta"  [(ngModel)]="previousEmploymentQry.cta" readonly/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                Others
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="others"  id="field_others"  [(ngModel)]="previousEmploymentQry.others" readonly/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                Special Allowance
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="spa" id="field_spa"  [(ngModel)]="previousEmploymentQry.spa" readonly/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                Medical Allowance
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="mda" id="field_mda" [(ngModel)]="previousEmploymentQry.mda" readonly/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="font-weight: 700;">Deductions</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                PF
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="epf" id="field_epf" [(ngModel)]="previousEmploymentQry.epf" readonly/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                VPF
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="vpf" id="field_vpf"  [(ngModel)]="previousEmploymentQry.vpf" readonly/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%;  padding-left: 20px;">
+                                TDS
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="number" class="form-control form-control-sm text-right" name="tds" id="field_tds" [(ngModel)]="previousEmploymentQry.tds" readonly/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary btn-sm btn-round" (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

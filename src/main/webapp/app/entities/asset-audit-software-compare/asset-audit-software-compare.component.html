@@ -1,0 +1,116 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Asset Comparison</span>
+            </h5>
+            <div class="row">
+                <div class="col-md-4">
+                    <select name="startTime" id="startTime" [(ngModel)]="startTime" class="form-control form-control-sm custom-select custom-select-sm" required (change)="fetchEndTime()">
+                        <option [ngValue]="assetAuditRunTime.runTime" *ngFor="let assetAuditRunTime of assetAuditRunTimes;">{{assetAuditRunTime.runTime | date: 'dd-MM-yyy HH:mm'}}</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select name="endTime" id="endTime" [(ngModel)]="endTime" class="form-control form-control-sm custom-select custom-select-sm" required>
+                        <option [ngValue]="assetAuditRunTime.runTime" *ngFor="let assetAuditRunTime of assetAuditRunTimesEnd;">{{assetAuditRunTime.runTime | date: 'dd-MM-yyy HH:mm'}}</option>
+                    </select>
+                </div>
+                <div class="col-md-4 text-right">
+                    <button type="button" class="btn btn-sm btn-round btn-blush" style="margin-top: 0;" (click)="search();"><fa-icon [icon]="'search'"></fa-icon> <span>Compare</span></button>
+                </div>
+            </div>
+            <ngb-tabset>
+                <ngb-tab id="hardware">
+                    <ng-template ngbTabTitle>
+                        H/W
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                <tr>
+                                    <th><span>Uuid</span></th>
+                                    <th><span>Name</span></th>
+                                    <th><span>Hostname</span></th>
+                                    <th><span>Ip</span></th>
+                                    <th><span>Asset Code</span></th>
+                                    <th><span>Storage(GB)</span></th>
+                                    <th><span>Memory(GB)</span></th>
+                                    <th><span>Type</span></th>
+                                </tr>
+                                </thead>
+                                <tbody  *ngIf="assetCompareBean.assetHardwareCompareBeans">
+                                <tr *ngFor="let assetAuditSoftwareCompare of assetCompareBean.assetHardwareCompareBeans" [class.text-danger] = "assetAuditSoftwareCompare.type==='OLD'" [class.text-success] = "assetAuditSoftwareCompare.type==='NEW'" [style.background-color]="assetAuditSoftwareCompare.color">
+                                    <td>{{assetAuditSoftwareCompare.uuid}}</td>
+                                    <td>{{assetAuditSoftwareCompare.name}}</td>
+                                    <td>{{assetAuditSoftwareCompare.hostname}}</td>
+                                    <td>{{assetAuditSoftwareCompare.ip}}</td>
+                                    <td>{{assetAuditSoftwareCompare.assetCode}}</td>
+                                    <td><ng-container *ngIf="assetAuditSoftwareCompare.storageCount">{{assetAuditSoftwareCompare.storageCount/1024  | number: '1.0-0'}}</ng-container></td>
+                                    <td><ng-container *ngIf="assetAuditSoftwareCompare.memoryCount">{{assetAuditSoftwareCompare.memoryCount/1048576 | number: '1.0-0'  | number: '1.0-0'}}</ng-container></td>
+                                    <td>{{assetAuditSoftwareCompare.type}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab id="software">
+                    <ng-template ngbTabTitle>
+                        S/W
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                <tr>
+                                    <th style="min-width: 300px;"><span>Uuid</span></th>
+                                    <th><span>Publisher</span></th>
+                                    <th><span>Name</span></th>
+                                    <th><span>Type</span></th>
+                                </tr>
+                                </thead>
+                                <tbody  *ngIf="assetCompareBean.assetSoftwareCompareBeans">
+                                <tr *ngFor="let assetSoftwareCompareBean of assetCompareBean.assetSoftwareCompareBeans" [class.text-danger] = "assetSoftwareCompareBean.type==='DELETED'" [class.text-success] = "assetSoftwareCompareBean.type==='INSTALLED'" [style.background-color]="assetSoftwareCompareBean.color">
+                                    <td>{{assetSoftwareCompareBean.uuid}}</td>
+                                    <td>{{assetSoftwareCompareBean.publisher}}</td>
+                                    <td>{{assetSoftwareCompareBean.name}}</td>
+                                    <td>{{assetSoftwareCompareBean.type}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab id="softwareKey">
+                    <ng-template ngbTabTitle>
+                        S/W Key
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                <tr>
+                                    <th style="min-width: 300px;"><span>Uuid</span></th>
+                                    <th><span>Name</span></th>
+                                    <th><span>Key</span></th>
+                                    <th><span>Type</span></th>
+                                </tr>
+                                </thead>
+                                <tbody  *ngIf="assetCompareBean.assetSoftwareKeyCompareBeans">
+                                <tr *ngFor="let assetSoftwareKeyCompareBean of assetCompareBean.assetSoftwareKeyCompareBeans" [class.text-danger] = "assetSoftwareKeyCompareBean.type==='OLD'" [class.text-success] = "assetSoftwareKeyCompareBean.type==='NEW'" [style.background-color]="assetSoftwareKeyCompareBean.color">
+                                    <td>{{assetSoftwareKeyCompareBean.uuid}}</td>
+                                    <td>{{assetSoftwareKeyCompareBean.name}}</td>
+                                    <td>{{assetSoftwareKeyCompareBean.jhiKey}}</td>
+                                    <td>{{assetSoftwareKeyCompareBean.type}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+</div>
+

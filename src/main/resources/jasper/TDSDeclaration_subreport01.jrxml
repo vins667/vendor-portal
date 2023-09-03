@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TDSDeclaration_subreport01" pageWidth="585" pageHeight="842" columnWidth="585" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2faa6ee7-4238-4f16-b4ce-fec74d873dbd">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="groupCode" class="java.lang.String"/>
+	<field name="groupDescription" class="java.lang.String"/>
+	<field name="groupLimit" class="java.lang.Double"/>
+	<field name="tdsGroupDetailsBean" class="java.util.List"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<printWhenExpression><![CDATA[!$F{groupDescription}.equalsIgnoreCase( "NA" ) && !$F{groupDescription}.equalsIgnoreCase( $F{groupCode} )]]></printWhenExpression>
+			<textField>
+				<reportElement x="0" y="5" width="585" height="15" uuid="3ffd4d6e-9514-4320-b682-47e66b92605e"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{groupDescription}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="15">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="15" uuid="853e34f9-f68c-414d-bea0-2929b93d2646"/>
+				<box leftPadding="10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{groupCode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="485" height="15" forecolor="#F21E1B" uuid="3349b693-b1e8-4aea-adb9-c564affc66fb">
+					<printWhenExpression><![CDATA[$F{groupLimit} != null]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true" pdfFontName="Times-Italic"/>
+				</textElement>
+				<textFieldExpression><![CDATA["**Maximum Saving possible (Rs "+$F{groupLimit}+")."]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="585" height="20" uuid="e61d4dae-98f5-495d-bdf0-405b905bfb07"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{tdsGroupDetailsBean})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"TDSDeclaration_subreport01_01.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

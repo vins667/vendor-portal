@@ -1,0 +1,126 @@
+<form name="editForm" role="form" novalidate #editForm="ngForm">
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-md-6">
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_bankName">Bank Name</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorBankDetailsCompare.bankName | uppercase) != (vendorBankDetails.bankName | uppercase)) ? vendorBankDetails.bankName:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="bankName" id="field_bankName" [(ngModel)]="vendorBankDetailsCompare.bankName" [class.bg-warning-light]="approved && approved === true && ((vendorBankDetailsCompare.bankName | uppercase) != (vendorBankDetails.bankName | uppercase))" maxlength="45" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-12">
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Bank Address:</legend>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_addressLine1">Address</label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorBankDetailsCompare.addressLine1 | uppercase) != (vendorBankDetails.addressLine1 | uppercase)) ? vendorBankDetails.addressLine1:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="addressLine1" id="field_addressLine1" [(ngModel)]="vendorBankDetailsCompare.addressLine1" [class.bg-warning-light]="approved && approved === true && ((vendorBankDetailsCompare.addressLine1 | uppercase) != (vendorBankDetails.addressLine1 | uppercase))" maxlength="100" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_addressLine2"></label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorBankDetailsCompare.addressLine2 | uppercase) != (vendorBankDetails.addressLine2 | uppercase)) ? vendorBankDetails.addressLine2:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="addressLine2" id="field_addressLine2" [(ngModel)]="vendorBankDetailsCompare.addressLine2" [class.bg-warning-light]="approved && approved === true && ((vendorBankDetailsCompare.addressLine2 | uppercase) != (vendorBankDetails.addressLine2 | uppercase))" maxlength="100" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_addressLine3"></label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorBankDetailsCompare.addressLine3 | uppercase) != (vendorBankDetails.addressLine3 | uppercase)) ? vendorBankDetails.addressLine3:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="addressLine3" id="field_addressLine3" [(ngModel)]="vendorBankDetailsCompare.addressLine3" [class.bg-warning-light]="approved && approved === true && ((vendorBankDetailsCompare.addressLine3 | uppercase) != (vendorBankDetails.addressLine3 | uppercase))" maxlength="100" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_addressLine4"></label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorBankDetailsCompare.addressLine4 | uppercase) != (vendorBankDetails.addressLine4 | uppercase)) ? vendorBankDetails.addressLine4:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="addressLine4" id="field_addressLine4" [(ngModel)]="vendorBankDetailsCompare.addressLine4" [class.bg-warning-light]="approved && approved === true && ((vendorBankDetailsCompare.addressLine4 | uppercase) != (vendorBankDetails.addressLine4 | uppercase))" maxlength="100" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_countryId">Country</label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && vendorBankDetailsCompare.countryId != vendorBankDetails.countryId ? vendorBankDetails.countryId:''">
+                                    <select class="form-control form-control-sm custom-select custom-select-sm" name="countryId" id="field_countryId" [(ngModel)]="vendorBankDetailsCompare.countryId" [class.bg-warning-light]="approved && approved === true && vendorBankDetailsCompare.countryId != vendorBankDetails.countryId" disabled (change)=getStates();>
+                                        <option *ngFor="let country of countries" [value]="country.id">{{country.countryName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_stateId">State</label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && vendorBankDetailsCompare.stateId != vendorBankDetails.stateId ? vendorBankDetails.stateId:''">
+                                    <select class="form-control form-control-sm custom-select custom-select-sm" name="stateId" id="field_stateId" [(ngModel)]="vendorBankDetailsCompare.stateId" [class.bg-warning-light]="approved && approved === true && vendorBankDetailsCompare.stateId != vendorBankDetails.stateId" disabled>
+                                        <option *ngFor="let state of states" [value]="state.id">{{state.stateName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"><label class="form-control-label" for="field_pinCode">Pin/Zip Code</label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorBankDetailsCompare.pinCode | uppercase) != (vendorBankDetails.pinCode | uppercase)) ? vendorBankDetails.pinCode:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="pinCode" id="field_pinCode" [(ngModel)]="vendorBankDetailsCompare.pinCode" [class.bg-warning-light]="approved && approved === true && ((vendorBankDetailsCompare.pinCode | uppercase) != (vendorBankDetails.pinCode | uppercase))" maxlength="10" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_accountNumber">Account Number</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorBankDetailsCompare.accountNumber | uppercase) != (vendorBankDetails.accountNumber | uppercase)) ? vendorBankDetails.accountNumber:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="accountNumber" id="field_accountNumber" [(ngModel)]="vendorBankDetailsCompare.accountNumber" [class.bg-warning-light]="approved && approved === true && ((vendorBankDetailsCompare.accountNumber | uppercase) != (vendorBankDetails.accountNumber | uppercase))" maxlength="45" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN'">
+                <div class="col-md-4"><label class="form-control-label" for="field_ifsc">IFSC</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorBankDetailsCompare.ifsc | uppercase) != (vendorBankDetails.ifsc | uppercase)) ? vendorBankDetails.ifsc:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="ifsc" id="field_ifsc" [(ngModel)]="vendorBankDetailsCompare.ifsc" [class.bg-warning-light]="approved && approved === true && ((vendorBankDetailsCompare.ifsc | uppercase) != (vendorBankDetails.ifsc | uppercase))" maxlength="45" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode !== 'IN'">
+                <div class="col-md-4"><label class="form-control-label" for="field_swiftCode">Swift Code</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorBankDetailsCompare.swiftCode | uppercase) != (vendorBankDetails.swiftCode | uppercase)) ? vendorBankDetails.swiftCode:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="swiftCode" id="field_swiftCode" [(ngModel)]="vendorBankDetailsCompare.swiftCode" [class.bg-warning-light]="approved && approved === true && ((vendorBankDetailsCompare.swiftCode | uppercase) != (vendorBankDetails.swiftCode | uppercase))" maxlength="45" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN'">
+                <div class="col-md-4"><label class="form-control-label" for="field_accountType">Account Type</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorBankDetailsCompare.accountType | uppercase) != (vendorBankDetails.accountType | uppercase)) ? vendorBankDetails.accountType:''">
+                        <select class="form-control form-control-sm custom-select custom-select-sm" name="accountType" id="field_accountType" [(ngModel)]="vendorBankDetailsCompare.accountType" [class.bg-warning-light]="approved && approved === true && ((vendorBankDetailsCompare.accountType | uppercase) != (vendorBankDetails.accountType | uppercase))" maxlength="10" disabled>
+                            <option value="SAVING">SAVING</option>
+                            <option value="CURRENT">CURRENT</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_bankMailId">Bank Mail Id</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorBankDetailsCompare.bankMailId | uppercase) != (vendorBankDetails.bankMailId | uppercase)) ? vendorBankDetails.bankMailId:''">
+                        <input type="text" class="form-control form-control-sm text-lowercase" name="bankMailId" id="field_bankMailId" [(ngModel)]="vendorBankDetailsCompare.bankMailId" [class.bg-warning-light]="approved && approved === true && ((vendorBankDetailsCompare.bankMailId | lowercase) != (vendorBankDetails.bankMailId | lowercase))" maxlength="45" disabled/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

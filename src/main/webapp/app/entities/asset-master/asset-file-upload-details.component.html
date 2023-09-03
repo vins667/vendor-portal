@@ -1,0 +1,100 @@
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5 id="page-heading">
+        <span>Asset Attachment</span>
+    </h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <ngb-tabset>
+                <ngb-tab>
+                    <ng-template ngbTabTitle>
+                        Attachment
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <div style="height: 400px; overflow: auto">
+                            <table class="table table-sm table-striped">
+                                <thead>
+                                <tr>
+                                    <th>File Name</th>
+                                    <th>Document Type</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <ng-container *ngIf="assetFileUploadBean.assetFileUploadDetails; let index = index;">
+                                    <tr *ngFor="let assetFileUploadDetail of assetFileUploadBean.assetFileUploadDetails">
+                                        <td>{{assetFileUploadDetail.assetFileUploadMaster.displayFileName}}</td>
+                                        <td>{{assetFileUploadDetail.assetFileUploadMaster.assetDocumentMaster.description}}</td>
+                                        <td class="button-column text-right">
+                                            <div class="btn-group">
+                                                <button type="button" name="downloadBtn{{index}}" id="downloadBtn{{index}}" (click)="download(assetFileUploadDetail.assetFileUploadMaster);" class="btn btn-sm btn-blush"><fa-icon [icon]="'download'"></fa-icon> <span>Download</span></button>
+                                                <button type="button" name="deleteBtn{{index}}" id="deleteBtn{{index}}" (click)="delete(assetFileUploadDetail);" class="btn btn-sm btn-danger"><fa-icon [icon]="'times'"></fa-icon> <span>Detach</span></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab>
+                    <ng-template ngbTabTitle>
+                        Upload
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <div style="height: 300px; overflow: auto">
+                            <table class="table table-sm table-striped">
+                                <thead>
+                                <tr>
+                                    <th>File Name</th>
+                                    <th>Document Type</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <ng-container *ngIf="assetFileUploadBean.assetFileUploadMasters; let index = index;">
+                                    <tr *ngFor="let assetFileUploadMaster of assetFileUploadBean.assetFileUploadMasters">
+                                        <td>{{assetFileUploadMaster.displayFileName}}</td>
+                                        <td>{{assetFileUploadMaster.assetDocumentMaster.description}}</td>
+                                        <td class="button-column text-right">
+                                            <div class="btn-group">
+                                                <button type="button" name="applyBtn{{index}}" id="applyBtn{{index}}" class="btn btn-sm btn-success" [disabled]="assetFileUploadMaster.detailExist" (click)="applyAttach(assetFileUploadMaster);"><fa-icon [icon]="'check'"></fa-icon> <span>Apply</span></button>
+                                                <button type="button" name="downloadAppBtn{{index}}" id="downloadAppBtn{{index}}" (click)="download(assetFileUploadMaster);" class="btn btn-sm btn-blush"><fa-icon [icon]="'download'"></fa-icon> <span>Download</span></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr/>
+                        <form name="editForm" role="form" novalidate #editForm="ngForm">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <select class="form-control form-control-sm custom-select custom-select-sm" id="field_assetDocumentMaster" name="assetDocumentMaster" [(ngModel)]="assetFileUploadMaster.assetDocumentMaster" required>
+                                        <option *ngIf="!editForm.value.assetDocumentMaster" [ngValue]="null" selected></option>
+                                        <option [ngValue]="assetDocumentMasterOption.id === assetFileUploadMaster.assetDocumentMaster?.id ? assetFileUploadMaster.assetDocumentMaster : assetDocumentMasterOption"
+                                                *ngFor="let assetDocumentMasterOption of assetdocumentmasters;">{{assetDocumentMasterOption.description}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="file" class="form-control form-control-sm" required (change)="selectFile($event)"/>
+                                </div>
+                                <div class="col-md-2">
+                                    <button id="jh-create-entity"  class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-asset-file-upload-master" (click)="saveUpload()">
+                                        <fa-icon [icon]="'save'"></fa-icon>
+                                        <span>Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

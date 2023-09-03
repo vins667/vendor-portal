@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity VcutStylePlanUpload.
+    -->
+    <changeSet id="20190930133726-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="vcut_plan_change_master_id"
+                                 baseTableName="vcut_style_plan_upload"
+                                 constraintName="fk_vcut_style_plan_upload_vcut_plan_change_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vcut_plan_change_master"/>
+
+    </changeSet>
+</databaseChangeLog>

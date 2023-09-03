@@ -1,0 +1,40 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "fabricContentMaster",
+            "otherEntityName": "fabricContentMaster",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "fabricCreationMaster",
+            "otherEntityName": "fabricCreationMaster",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "percentage",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20190828113423",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "fabric_creation_content_dtls",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

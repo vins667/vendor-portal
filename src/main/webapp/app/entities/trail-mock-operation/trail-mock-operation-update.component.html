@@ -1,0 +1,193 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-news-details-heading">Operator Profile</h5>
+        <hr/>
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div>
+                        <jhi-alert-error></jhi-alert-error>
+                        <div class="row card-margin-bottom-10" [hidden]="true">
+                            <div class="col-md-3"><label for="id">ID</label></div>
+                            <div class="col-md-9"><input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="trailMockOperation.id" readonly /></div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_workerRecruitment">Operator Name</label></div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm"  id="field_workerRecruitment" name="workerRecruitment" [(ngModel)]="trailMockOperation.workerRecruitment.name" readonly/>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_fatherName">Father Name</label></div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm"  id="field_fatherName" [(ngModel)]="trailMockOperation.workerRecruitment.fatherName"  name="fatherName" readonly/>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label">Types</label></div>
+                            <div class="col-md-1">
+                                <label class="form-control-label" for="field_snls">SNLS</label>
+                            </div>
+                            <div class="col-md-1">
+                                <input type="checkbox" class="form-control-sm" name="snls" id="field_snls"[(ngModel)]="trailMockOperation.snls"  style="width:20px;height:20px;"/>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="form-control-label" for="field_dnls">DNLS</label>
+                            </div>
+                            <div class="col-md-1">
+                                <input type="checkbox" class="form-control-sm" name="dnls" id="field_dnls" [(ngModel)]="trailMockOperation.dnls" style="width:20px;height:20px;"/>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="form-control-label" for="field_ol">O/L</label>
+                            </div>
+                            <div class="col-md-1">
+                                <input type="checkbox" class="form-control-sm" name="ol" id="field_ol" [(ngModel)]="trailMockOperation.ol" style="width:20px;height:20px;"/>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"> <label class="form-control-label" for="field_splMachineKnowledge">Spl Machine Know</label></div>
+                            <div class="col-md-4">
+                                <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="splMachineKnowledge" id="field_splMachineKnowledge" [(ngModel)]="trailMockOperation.splMachineKnowledge">
+                                    <option value="Y">Yes</option>
+                                    <option value="N">No</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.splMachineKnowledge?.dirty && editForm.controls.splMachineKnowledge?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.splMachineKnowledge?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.splMachineKnowledge?.errors?.maxlength">
+                                        This field cannot be longer than 1 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-4" *ngIf="trailMockOperation.splMachineKnowledge == 'Y'">
+                                <mat-form-field style="width:335px;" class="form-control form-control-sm">
+                                    <mat-select id="field_machineMaster" multiple name="machineMaster" [compareWith]="compareFn" [(ngModel)]="trailMockOperation.machineMasters">
+                                        <mat-option  *ngFor="let machineMasterOption of machinemasters; trackBy:trackMachineMasterById" [value]="machineMasterOption">{{machineMasterOption.machineName}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><label>Operations</label></div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="row" style="margin-right:15px;">
+                                        <div class="col-md-12 table-bordered" style="margin-left: 15px;">
+                                            <div class="row" [formGroup]="listBoxForm">
+                                                <div class="col-md-5 col-lg-5 col-sm-12">
+                                                    <label class="text-center vertical-spacing-5">{{availableText}}</label>
+                                                    <input type="text" class="form-control form-control-sm vertical-spacing-5" placeholder="{{availableFilterPlaceholder}}" formControlName="availableSearchInput" />
+                                                    <select class="form-control form-control-sm list-box" formControlName="availableListBox" multiple style="height: 150px;">
+                                                        <option *ngFor="let item of availableItems | arrayFilter:['description', searchTermAvailable] | arraySort:['description', 'ASC']; trackBy:trackByValue" [value]="item?.id" (dblclick)="moveAvailableItemToSelected(item)">{{item?.description}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2 col-lg-2 col-sm-12 center-block text-center">
+                                                    <button type="button" class="btn btn-sm btn-blush col-md-8 col-md-offset-2 atr top80 sm-spacing" *ngIf="moveAllButton" (click)="moveAllItemsToSelected()">
+                                                        <fa-icon [icon]="'angle-double-right'"></fa-icon>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-blush col-md-8 col-md-offset-2 str vertical-spacing-5 sm-spacing" [disabled]="!availableListBoxControl.value?.length" (click)="moveMarkedAvailableItemsToSelected()">
+                                                        <fa-icon [icon]="'chevron-right'"></fa-icon>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-blush col-md-8 col-md-offset-2 stl vertical-spacing-5 sm-spacing" [disabled]="!selectedListBoxControl.value?.length" (click)="moveMarkedSelectedItemsToAvailable()">
+                                                        <fa-icon [icon]="'chevron-left'"></fa-icon>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-blush col-md-8 col-md-offset-2 atl bottom10 sm-spacing" *ngIf="moveAllButton" (click)="moveAllItemsToAvailable()">
+                                                        <fa-icon [icon]="'angle-double-left'"></fa-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-5 col-lg-5 col-sm-12">
+                                                    <label class="text-center vertical-spacing-5">{{selectedText}}</label>
+                                                    <input type="text" class="form-control form-control-sm vertical-spacing-5" placeholder="{{selectedFilterPlaceholder}}"
+                                                           formControlName="selectedSearchInput" />
+                                                    <select class="form-control form-control-sm list-box" multiple style="height: 150px;" formControlName="selectedListBox">
+                                                        <option *ngFor="let item of selectedItems | arrayFilter:['description', searchTermSelected] | arraySort:['description', 'ASC'];trackBy:trackByValue" [value]="item?.id" (dblclick)="moveSelectedItemToAvailable(item)">{{item?.description}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_achiveRating">Achive Rating</label></div>
+                            <div class="col-md-4">
+                                <input type="number" class="form-control form-control-sm" name="achiveRating" id="field_achiveRating" [(ngModel)]="trailMockOperation.achiveRating" (blur) ="getRating();" onKeyPress="if(this.value.length==3) return false;"/>
+                            </div>
+                            <div [hidden]="!(editForm.controls.result?.dirty && editForm.controls.result?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.result?.errors?.maxlength">
+                                    This field cannot be longer than 1 characters.
+                                </small>
+                            </div>
+                            <div class="col-md-1" [hidden]="!trailMockOperation.grade"><label class="form-control-label" for="field_timeTaken">Grade</label></div>
+                            <div class="col-md-3" [hidden]="!trailMockOperation.grade">
+                                <input type="text" [ngStyle]="myStyles" class="form-control form-control-sm" name="gradeDescription" id="field_gradeDescription" [(ngModel)]="trailMockOperation.gradeDescription" maxlength="200" readonly/>
+                            </div>
+                            <div class="col-md-1" [hidden]="!trailMockOperation.grade">
+                                <input type="text" [ngStyle]="myStyles" class="form-control form-control-sm" name="grade" id="field_grade" [(ngModel)]="trailMockOperation.grade" maxlength="5" readonly/>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"> <label class="form-control-label" for="field_result">Result</label></div>
+                            <div class="col-md-4">
+                                <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="result" id="field_result" [(ngModel)]="trailMockOperation.result">
+                                    <option value="F">Fail</option>
+                                    <option value="P">Pass</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.result?.dirty && editForm.controls.result?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.result?.errors?.maxlength">
+                                        This field cannot be longer than 1 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-1"><label class="form-control-label" for="field_timeTaken">Time</label></div>
+                            <div class="col-md-4">
+                                <input [textMask]="{mask: mask}"  type="text"  placeholder="HH:mm"  class="form-control form-control-sm" name="timeTaken" id="field_timeTaken" [(ngModel)]="trailMockOperation.timeTaken" maxlength="15" />
+                                <div [hidden]="!(editForm.controls.timeTaken?.dirty && editForm.controls.timeTaken?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.timeTaken?.errors?.maxlength">
+                                        This field cannot be longer than 15 characters.
+                                    </small>
+                                </div>
+                            </diV>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"> <label class="form-control-label" for="field_remarks">Remarks</label></div>
+                            <div class="col-md-9">
+                                <textarea class="form-control form-control-sm"  name="remarks" id="field_remarks" [(ngModel)]="trailMockOperation.remarks" maxlength="500" rows="1"></textarea>
+                                <div [hidden]="!(editForm.controls.remarks?.dirty && editForm.controls.remarks?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.remarks?.errors?.maxlength">
+                                        This field cannot be longer than 500 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                            </button>
+                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving || trailMockOperation.allowEntry === false" class="btn btn-sm btn-blush btn-round">
+                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                            </button>
+                            <button type="button" id="work-flow-entity" [disabled]="!trailMockOperation.id || isSaving" class="btn btn-sm btn-info btn-round" (click)="workFlow();">
+                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Work Flow</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-2">
+                <div>
+                    <img [src]="'../file_upload/workerrecruitemt/profile/'+trailMockOperation.workerRecruitment.fileName" style="border-radius:5px; width:200px;"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

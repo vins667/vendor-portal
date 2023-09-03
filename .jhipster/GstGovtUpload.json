@@ -1,0 +1,135 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "gGstin",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
+            "fieldName": "gSupplier",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "200"
+        },
+        {
+            "fieldName": "gInvno",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
+            "fieldName": "gInvdate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "gInvtype",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "5"
+        },
+        {
+            "fieldName": "gState",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "40"
+        },
+        {
+            "fieldName": "gReverse",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "5"
+        },
+        {
+            "fieldName": "gInvamt",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "gInvnet",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "gRate",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "gCgst",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "gSgst",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "gIgst",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "gCess",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "gMonth",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "gLocation",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "40"
+        },
+        {
+            "fieldName": "gSrlno",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
+            "fieldName": "gStatus",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "5"
+        },
+        {
+            "fieldName": "gConfirmdate",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20200321060302",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "gst_govt_upload",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

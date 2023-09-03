@@ -1,0 +1,88 @@
+<div class="card">
+    <div class="card-header">
+        <h6 id="page-heading">
+            <span>Packing Line Issue</span>
+            <button id="jh-create-entity"
+                    class="btn btn-sm btn-xs btn-blush btn-round float-right jh-create-entity create-cut-plan-entry m-0"
+                    [routerLink]="['/packing-line-issue/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span>New</span>&nbsp;
+            </button>
+        </h6>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-1 font-weight-bold">
+                        Style#
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control form-control-xs text-uppercase" name="style" id="field_style" placeholder="Enter Style#" [(ngModel)]="search.style"/>
+                    </div>
+                    <div class="col-md-1 font-weight-bold">
+                        Color
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control form-control-xs text-uppercase" name="color" id="field_color" placeholder="Enter Color" [(ngModel)]="search.color"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 text-right">
+                <button class="btn btn-sm btn-xs btn-round btn-success m-0" type="button" (click)="loadPage();">
+                    <fa-icon [icon]="'search'"></fa-icon> <span>Search</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body p-0">
+        <div class="table-responsive" id="entities">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="plantDescription"><span>Plant</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="projectcode"><span>Project</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="style"><span>Style</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="destinationDesc"><span>Destination</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="lineDesc"><span>Line</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let stitchLineIssue of stitchLineIssues ;trackBy: trackId">
+                    <td>{{ stitchLineIssue.id }}</td>
+                    <td>{{ stitchLineIssue.plantDescription }}</td>
+                    <td>{{ stitchLineIssue.projectcode }}</td>
+                    <td>{{ stitchLineIssue.style }}</td>
+                    <td>{{ stitchLineIssue.destinationDesc }}</td>
+                    <td>{{ stitchLineIssue.lineDesc }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/packing-line-issue', stitchLineIssue.id, 'edit']"
+                                    class="btn btn-blush btn-sm btn-xs m-0">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" id="no-result" *ngIf="stitchLineIssues?.length === 0">
+            <span>No data found</span>
+        </div>
+        <div *ngIf="stitchLineIssues?.length > 0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                                [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

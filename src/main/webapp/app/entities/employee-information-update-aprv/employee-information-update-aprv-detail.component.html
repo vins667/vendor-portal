@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="employeeInformationUpdateAprv">
+            <h2><span>Employee Information Update Aprv</span> {{employeeInformationUpdateAprv.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Correspondence Address</span></dt>
+                <dd>
+                    <span>{{employeeInformationUpdateAprv.correspondenceAddress}}</span>
+                </dd>
+                <dt><span>Mobile Number</span></dt>
+                <dd>
+                    <span>{{employeeInformationUpdateAprv.mobileNumber}}</span>
+                </dd>
+                <dt><span>Image Path</span></dt>
+                <dd>
+                    <span>{{employeeInformationUpdateAprv.imagePath}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{employeeInformationUpdateAprv.createdBy}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{employeeInformationUpdateAprv.createdDate}}</span>
+                </dd>
+                <dt><span>Last Updated By</span></dt>
+                <dd>
+                    <span>{{employeeInformationUpdateAprv.lastUpdatedBy}}</span>
+                </dd>
+                <dt><span>Last Updated Date</span></dt>
+                <dd>
+                    <span>{{employeeInformationUpdateAprv.lastUpdatedDate}}</span>
+                </dd>
+                <dt><span>Flag</span></dt>
+                <dd>
+                    <span>{{employeeInformationUpdateAprv.flag}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/employee-information-update-aprv', employeeInformationUpdateAprv.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

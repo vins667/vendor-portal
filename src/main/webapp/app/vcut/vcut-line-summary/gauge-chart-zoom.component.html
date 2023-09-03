@@ -1,0 +1,35 @@
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5 id="page-heading">
+        <span>Achieved Efficiency</span>
+    </h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="close()">&times;</button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <ng-container *ngIf="dataSourceGauge">
+                <fusioncharts [width]="widthGauge" [height]="heightGauge" [type]="typeGauge" [dataFormat]="dataFormatGauge" [dataSource]="dataSourceGauge">
+                </fusioncharts>
+            </ng-container>
+        </div>
+    </div>
+    <div class="row no-gutters" *ngIf="dataSourceGauge">
+        <div class="col-md-3" style="background-color: #fff;"></div>
+        <div class="col-md-6 text-center" style="background-color: #fff;">
+            <svg style="height: 30px !important;">
+                <g class="raphael-group-48-item" transform="matrix(1,0,0,1,0,0)">
+                    <text fill-opacity="1" fill="#7c7c7c" font-family="Source Sans Pro" font-size="15px" text-anchor="start" font-weight="normal" x="28" stroke="none" y="20" style="font-family: &quot;Source Sans Pro&quot;; cursor: inherit; font-size: 15px; text-anchor: start; font-weight: normal;">LOW</text>
+                    <path opacity="1" d="M7,15A8,8,0,0,0,23,15A8,8,0,0,0,7,15Z" stroke="#F2726F" stroke-opacity="1" fill-opacity="1" fill="#F2726F" stroke-width="0" stroke-linecap="round" style="cursor: pointer;"></path>
+                    <rect opacity="1" x="4" y="4" width="60" height="22" ry="0" rx="0" fill-opacity="0.000001" fill="#c0c0c0" stroke-width="1" stroke="none" style="cursor: pointer;"></rect>
+                    <text fill-opacity="1" fill="#7c7c7c" font-family="Source Sans Pro" font-size="15px" text-anchor="start" font-weight="normal" x="99.1" stroke="none" y="20" style="font-family: &quot;Source Sans Pro&quot;; cursor: pointer; font-size: 15px; text-anchor: start; font-weight: normal;">AVG</text>
+                    <path opacity="1" d="M78.1,15A8,8,0,0,0,94.1,15A8,8,0,0,0,78.1,15Z" stroke="#FFC533" stroke-opacity="1" fill-opacity="1" fill="#FFC533" stroke-width="0" stroke-linecap="round" style="cursor: pointer;"></path>
+                    <rect opacity="1" x="75.1" y="4" width="49" height="22" ry="0" rx="0" fill-opacity="0.000001" fill="#c0c0c0" stroke-width="1" stroke="none" style="cursor: pointer;"></rect>
+                    <text fill-opacity="1" fill="#7c7c7c" font-family="Source Sans Pro" font-size="15px" text-anchor="start" font-weight="normal" x="159.2" stroke="none" y="20" style="font-family: &quot;Source Sans Pro&quot;; cursor: pointer; font-size: 15px; text-anchor: start; font-weight: normal;">HIGH</text>
+                    <path opacity="1" d="M138.2,15A8,8,0,0,0,154.2,15A8,8,0,0,0,138.2,15Z" stroke="#62B58F" stroke-opacity="1" fill-opacity="1" fill="#62B58F" stroke-width="0" stroke-linecap="round" style="cursor: pointer;"></path>
+                    <rect opacity="1" x="135.2" y="4" width="49" height="22" ry="0" rx="0" fill-opacity="0.000001" fill="#c0c0c0" stroke-width="1" stroke="none" style="cursor: pointer;"></rect>
+                </g>
+            </svg>
+        </div>
+        <div class="col-md-3" style="background-color: #fff;"></div>
+    </div>
+</div>

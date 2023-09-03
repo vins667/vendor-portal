@@ -1,0 +1,24 @@
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5 id="page-heading">
+        <span>Style: <span style="color: blue;">{{vcutTvImageSummary.style}}</span></span>
+    </h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="close()">&times;</button>
+</div>
+<div class="modal-body">
+    <div class="row no-gutters">
+        <div class="col-md-6 bg-blush-light text-center">
+            <h5>Front</h5>
+        </div>
+        <div class="col-md-6 bg-blush-light text-center">
+            <h5>Back</h5>
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-md-6">
+            <canvas id="canvasFront" width="460" height="500" [style.backgroundImage]="'url('+ vcutTvImageSummary.imageFront +')'" class="item-image-bg"></canvas>
+        </div>
+        <div class="col-md-6" style="border-left: 5px solid #D3D4D2;">
+            <canvas id="canvasBack" width="460" height="500" [style.backgroundImage]="'url('+ vcutTvImageSummary.imageBack +')'" class="item-image-bg"></canvas>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5 id="page-heading">
+        <span>Inline QC</span>
+    </h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="close()">&times;</button>
+</div>
+<div class="modal-body">
+    <div class="row no-gutters">
+        <div class="col-md-2" style="background-color: #fff;"></div>
+        <div class="col-md-8">
+            <ng-container *ngIf="dataSourceStacks">
+                <fusioncharts [width]="widthStacks" [height]="heightStacks" [type]="typeStacks" [dataFormat]="dataFormatStacks" [dataSource]="dataSourceStacks">
+                </fusioncharts>
+            </ng-container>
+        </div>
+        <div class="col-md-2" style="background-color: #fff;"></div>
+    </div>
+</div>

@@ -1,0 +1,140 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "unitCode",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "5"
+        },
+        {
+            "fieldName": "gstin",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
+            "fieldName": "invoiceType",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "5"
+        },
+        {
+            "fieldName": "invoiceNo",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
+            "fieldName": "invoiceDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "supplierName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "200"
+        },
+        {
+            "fieldName": "state",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "40"
+        },
+        {
+            "fieldName": "invoiceAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "reverseAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "cgstAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "sgstAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "igstAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "cessAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "location",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
+            "fieldName": "srlNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "5"
+        },
+        {
+            "fieldName": "creationDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "govtInvoiceAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "govtCgstAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "govtSgstAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "govtIgstAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "differenceAmt",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20200330034118",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "gst_reconciliation",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

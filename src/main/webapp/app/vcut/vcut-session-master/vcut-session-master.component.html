@@ -1,0 +1,65 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Session Plan Master</span>
+                <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-vcut-session-master" [routerLink]="['/vcut-session-master/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span>new</span>
+                </button>
+            </h5>
+            <br/>
+            <div class="table-responsive" *ngIf="vcutSessionMasters">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="planName"><span>Plan Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="dayStartTime"><span>Day Start Time</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="hours"><span>Hours</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="minutes"><span>Minutes</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="totalMinsPerDay"><span>Total Mins Per Day</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let vcutSessionMaster of vcutSessionMasters ;trackBy: trackId">
+                        <td><a [routerLink]="['/vcut-session-master', vcutSessionMaster.id, 'view' ]">{{vcutSessionMaster.id}}</a></td>
+                        <td>{{vcutSessionMaster.planName}}</td>
+                        <td>{{vcutSessionMaster.dayStartTime | date:'HH:mm'}}</td>
+                        <td>{{vcutSessionMaster.hours}}</td>
+                        <td>{{vcutSessionMaster.minutes}}</td>
+                        <td>{{vcutSessionMaster.totalMinsPerDay}}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/vcut-session-master', vcutSessionMaster.id, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/vcut-session-master', { outlets: { popup: vcutSessionMaster.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <div *ngIf="vcutSessionMasters && vcutSessionMasters.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

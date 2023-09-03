@@ -1,0 +1,94 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Vehicle Approval</span>
+            </h5>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="input-group input-group-sm">
+                        <input [owlDateTime]="leaveFrom" name="leaveDateFrom" id="field_leaveDateFrom" placeholder="Date From" class="form-control form-control-sm" required [(ngModel)]="leaveDateFrom">
+                        <div class="input-group-append input-group-append-top">
+                            <div class="btn btn-blush" [owlDateTimeTrigger]="leaveFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #leaveFrom></owl-date-time>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group input-group-sm">
+                        <input [owlDateTime]="leaveTo" name="leaveDateTo" id="field_leaveDateTo" placeholder="Date To" class="form-control form-control-sm" required [(ngModel)]="leaveDateTo">
+                        <div class="input-group-append input-group-append-top">
+                            <div class="btn btn-blush" [owlDateTimeTrigger]="leaveTo"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #leaveTo></owl-date-time>
+                </div>
+                <div class="col-md-2">
+                    <select name="leaveStatus" id="leaveStatus" class="form-control custom-select custom-select-sm" [(ngModel)]="leavesearch.leaveStatus">
+                        <option value="P">Pending</option>
+                        <option value="A">Approved</option>
+                        <option value="R">Rejected</option>
+                    </select>
+                </div>
+                <div class="col-md-2"><input type="text" name="empCode" class="form-control form-control-sm" placeholder="Enter Employee Code" [(ngModel)]="leavesearch.empCode"/></div>
+                <div class="col-md-2">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-round btn-blush" style="margin-top: 0;" (click)="search()"><fa-icon [icon]="'search'"></fa-icon><span> Search</span></button>
+                        &nbsp;&nbsp;
+                        <button id="jh-create-entity" class="btn btn-sm btn-round btn-success" (click)="save()" [disabled]="!vehicleSaveMasters" style="margin-top: 0;">
+                            <fa-icon [icon]="'save'"></fa-icon><span> Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" *ngIf="vehicleMasters">
+                <table class="table table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th><span>User</span></th>
+                        <th jhiSortBy="vehicleType"><span>Vehicle&nbsp;Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="noVehicle"><span>No&nbsp;Vehicle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="vehicleDate"><span>Vehicle&nbsp;Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="placeFrom"><span>Place&nbsp;From</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="placeTo"><span>Place&nbsp;To</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="purpose"><span>Purpose</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="flag"><span>Flag</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let vehicleMaster of vehicleMasters ;trackBy: trackId">
+                        <td>{{vehicleMaster.id}}</td>
+                        <td *ngIf="vehicleMaster.user">{{vehicleMaster.user.firstName +' '+ vehicleMaster.user.lastName}} ({{vehicleMaster.user.login}})</td>
+                        <td>
+                            <ng-container *ngIf="vehicleMaster.vehicleType === 'NC'">Normal Vehicle</ng-container>
+                            <ng-container *ngIf="vehicleMaster.vehicleType === 'LC'">Luxury Vehicle</ng-container>
+                        <td>{{vehicleMaster.noVehicle}}</td>
+                        <td>{{vehicleMaster.vehicleDate | date:'dd-MM-yyyy HH:mm'}}</td>
+                        <td>{{vehicleMaster.placeFrom}}</td>
+                        <td>{{vehicleMaster.placeTo}}</td>
+                        <td>{{vehicleMaster.purpose}}</td>
+                        <td>
+                            <select name="leaveApprove" id="leaveApprove" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="vehicleMaster.flag" [disabled]="(vehicleMaster.flag=='A' || vehicleMaster.flag=='C' || vehicleMaster.flag=='R') && vehicleMaster.hodApprovedDate" (change)="pushValue(vehicleMaster);">
+                                <option value="E">Select</option>
+                                <option value="A">Approve</option>
+                                <option value="R">Reject</option>
+                                <option *ngIf="vehicleMaster.flag=='C'" value="C">Closed By HR</option>
+                            </select>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="vehicleMasters && vehicleMasters.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

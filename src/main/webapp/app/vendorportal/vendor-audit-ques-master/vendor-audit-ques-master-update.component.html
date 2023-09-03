@@ -1,0 +1,64 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-vendor-audit-ques-master-heading">Create or edit a Vendor Audit Master</h5><hr/>
+        <div class="row">
+            <div class="col-12">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_auditName">Audit Name</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control form-control-sm text-uppercase" name="auditName" id="field_auditName" [(ngModel)]="vendorAuditQuesMaster.auditName" required maxlength="100"/>
+                                <div [hidden]="!(editForm.controls.auditName?.dirty && editForm.controls.auditName?.invalid)">
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.auditName?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.auditName?.errors?.maxlength">
+                                        This field cannot be longer than 100 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gutters-2">
+                            <div class="col-md-12">
+                                <fieldset class="scheduler-border-margin">
+                                    <legend class="scheduler-border">Questions: <fa-icon [icon]="'plus'" style="cursor:pointer;" (click)="addRow();"></fa-icon></legend>
+                                    <div class="row gutters-2" *ngFor="let vendorAuditQuesDetail of vendorAuditQuesMaster.vendorAuditQuesDetails; let index = index;">
+                                        <div class="col-md-1">
+                                            <input type="text" class="form-control form-control-sm" name="labelSrNo" id="labelSrNo" [value]="index+1" readonly/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_auditGroupMaster{{index}}" name="auditGroupMaster{{index}}" [(ngModel)]="vendorAuditQuesDetail.auditGroupMaster" >
+                                                <option [value]="undefined">Select Group</option>
+                                                <option [ngValue]="auditGroupMasterOption.id === vendorAuditQuesDetail.auditGroupMaster?.id ? vendorAuditQuesDetail.auditGroupMaster : auditGroupMasterOption" *ngFor="let auditGroupMasterOption of auditgroupmasters;">{{auditGroupMasterOption.description}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="input-group input-group-sm card-margin-bottom-0">
+                                                <input type="text" class="form-control form-control-sm text-uppercase" name="auditQuestion{{index}}" id="fieldAuditQuestion{{index}}" [(ngModel)]="vendorAuditQuesDetail.auditQuestion" maxlength="500"/>
+                                                <div class="input-group-append input-group-append-top">
+                                                    <button type="button" name="auditBtn{{index}}" id="auditBtn{{index}}" class="btn btn-blush btn-sm" (click)="clearBox(index);"><fa-icon [icon]="'trash-alt'"></fa-icon></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

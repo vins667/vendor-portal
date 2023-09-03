@@ -1,0 +1,14 @@
+<jhi-page-ribbon></jhi-page-ribbon>
+<div [ngClass]="activeTheme()" [class.ls-toggle-menu]="commonService.sidebarMiniToggleValue" [class.ls-closed]="!commonService.sidebarToggleValue" [class.overlay-open]="commonService.mobileFeature==true">
+    <!-- Overlay For Sidebars -->
+    <div class="overlay" [ngStyle]="{'display': commonService.mobileFeature==true? 'block':'none'}" (click)="commonService.mobileToggle();"></div>
+    <router-outlet name="navbar"></router-outlet>
+</div>
+<div [ngClass]="activeTheme()" class="container-fluid authentication" [class.ls-toggle-menu]="commonService.sidebarMiniToggleValue" style="padding-right: 0px; padding-left: 0px;">
+    <section class="content home" style="margin-bottom: 0;" [class.content]="isAuthenticated()">
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+        <router-outlet name="popup"></router-outlet>
+        <jhi-footer *ngIf="isAuthenticated()"></jhi-footer>
+    </section>
+</div>
+<ng-snotify></ng-snotify>

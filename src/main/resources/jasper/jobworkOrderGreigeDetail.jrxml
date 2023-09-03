@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="jobworkOrderGreigeDetail" pageWidth="880" pageHeight="595" orientation="Landscape" columnWidth="880" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e505a1dd-45f3-4039-b9a0-946cceef9a2a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db2"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="169"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="826"/>
+	<parameter name="code" class="java.lang.String"/>
+	<parameter name="lineno" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[ SELECT
+    nvl(er.userprimaryquantity, 0) greigeqty,
+   NVL(FDR.SUMMARIZEDDESCRIPTION, '') greigecode
+FROM
+    extoplinereservation er, FULLITEMKEYDECODER FDR
+WHERE
+ER.ITEMTYPEAFICODE=FDR.ITEMTYPECODE AND ER.SUBCODE01 = FDR.SUBCODE01 AND NVL(ER.SUBCODE02, '') = NVL(FDR.SUBCODE02, '') AND NVL(ER.SUBCODE03, '') = NVL(FDR.SUBCODE03, '') AND NVL(ER.SUBCODE04, '') = NVL(FDR.SUBCODE04, '')
+AND NVL(ER.SUBCODE05, '') = NVL(FDR.SUBCODE05, '') AND NVL(ER.SUBCODE06, '') = NVL(FDR.SUBCODE06, '') AND NVL(ER.SUBCODE07, '') = NVL(FDR.SUBCODE07, '') AND NVL(ER.SUBCODE08, '') = NVL(FDR.SUBCODE08, '') AND NVL(ER.SUBCODE09, '') = NVL(FDR.SUBCODE09, '')
+AND NVL(ER.SUBCODE10, '') = NVL(FDR.SUBCODE10, '') AND er.extoplinecode =  $P{code}  AND er.extoplineorderline =  $P{lineno}]]>
+	</queryString>
+	<field name="GREIGEQTY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="GREIGEQTY"/>
+	</field>
+	<field name="GREIGECODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="GREIGECODE"/>
+	</field>
+	<group name="jobGrp">
+		<groupExpression><![CDATA[$P{code}]]></groupExpression>
+	</group>
+	<detail>
+		<band height="12">
+			<staticText>
+				<reportElement mode="Opaque" x="10" y="0" width="105" height="12" forecolor="#E05C58" uuid="8873d7ab-567b-4f39-b3cf-e864f8aac16e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="10">
+					<pen lineWidth="0.75" lineColor="#080707"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" pdfEncoding="" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Greige Code / Qty :]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="115" y="0" width="350" height="12" forecolor="#E05C58" uuid="5734ceba-ee24-4cce-98ea-eed8b805de47"/>
+				<box leftPadding="5">
+					<pen lineWidth="1.0" lineColor="#080707"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GREIGECODE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;(#,##0.00#-)" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="465" y="0" width="51" height="12" forecolor="#E05C58" uuid="7b05c5f1-92e1-4673-88da-478a6f2ca5d6"/>
+				<box leftPadding="0" rightPadding="5">
+					<pen lineWidth="1.0" lineColor="#080707"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GREIGEQTY}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

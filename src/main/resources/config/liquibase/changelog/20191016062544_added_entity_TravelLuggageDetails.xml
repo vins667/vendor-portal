@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    
+    <!--
+        Added the entity TravelLuggageDetails.
+    -->
+    <changeSet id="20191016062544-1" author="jhipster">
+        <createTable tableName="travel_luggage_details">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="luggage_count" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="luggage_type" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="approx_weight" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="extra_luggage_req" type="boolean">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="last_updated_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="last_updated_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="travel_application_master_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+		<createSequence startValue="1" sequenceName="travel_luggage_details_seq" incrementBy="1" cycle="false"/>
+        <dropDefaultValue tableName="travel_luggage_details" columnName="created_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="travel_luggage_details" columnName="last_updated_date" columnDataType="datetime"/>
+    </changeSet>
+
+    <changeSet id="20191016062544-1-relations" author="jhipster">
+
+    </changeSet>
+    
+
+</databaseChangeLog>

@@ -1,0 +1,61 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Conveyance Master</span> {{conveyanceMaster.id}}</h5>
+        <hr>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="conveyanceMaster">
+                    
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Conveyance Date</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{conveyanceMaster.conveyanceDate | date:'dd/MM/yyyy'}}</span></dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-md-3"><dt><span>Conveyance Type</span></dt></div>
+                            <div class="col-md-9">
+                                <dd><span><ng-container *ngIf="conveyanceMaster.conveyanceType=='O'">Own</ng-container></span></dd>
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Vehicle No</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{conveyanceMaster.vehicleNo}}</span></dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Total Distance</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{conveyanceMaster.totalDistance}}</span></dd>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-md-3"><dt><span>Rate</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{conveyanceMaster.rate}}</span></dd>
+                        </div>
+                      </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Total Amount</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{conveyanceMaster.totalAmount}}</span></dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Approved By</span></dt></div>
+                        <div class="col-md-9">
+                            <dd><span>{{conveyanceMaster.approvedBy}}</span></dd>
+                        </div>
+                     </div>
+                     <button type="submit" (click)="previousState()" class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                     </button>
+                    <button type="button"   [routerLink]="['/conveyance-master', conveyanceMaster.id, 'edit']" class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

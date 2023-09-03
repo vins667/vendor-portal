@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "374024345612",
+    "firebase_url": "https://vpulse.firebaseio.com",
+    "project_id": "vpulse",
+    "storage_bucket": "vpulse.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374024345612:android:7934bff8e297cb44",
+        "android_client_info": {
+          "package_name": "com.vamani.vpulse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374024345612-c1kkbbpgqter868nv02377q9d6intj69.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vamani.vpulse",
+            "certificate_hash": "d2421d8c455d796cd26876ce60256f1f2b4e0c8e"
+          }
+        },
+        {
+          "client_id": "374024345612-8dr8c4s7uqqcuj4gos90ebclk6hcc26m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0yfDuvsGlWtVWilLGkliPKpRBRbkj4-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374024345612-8dr8c4s7uqqcuj4gos90ebclk6hcc26m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

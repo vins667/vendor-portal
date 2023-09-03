@@ -1,0 +1,83 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-worker-join-flow-master-heading">Create or edit a Worker Join Flow Master</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div>
+                        <jhi-alert-error></jhi-alert-error>
+                        <div class="row bottom10" [hidden]="!workerJoinFlowMaster.id">
+                            <div class="col-md-3"><label for="id">ID</label></div>
+                            <div class="col-md-9"><input type="text" class="form-control" id="id" name="id" [(ngModel)]="workerJoinFlowMaster.id" readonly /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><label class="form-control-label" for="field_empName">Emp Name</label></div>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm" name="empName" id="field_empName" [(ngModel)]="workerJoinFlowMaster.empCodeName" maxlength="100" required readonly/>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-sm btn-secondary" style="margin-top: 0;" (click)="searchEmployee('F');"><fa-icon [icon]="'search'"></fa-icon></button>
+                                    </div>
+                                </div>
+                                <div [hidden]="!(editForm.controls.empName?.dirty && editForm.controls.empName?.invalid)">
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.empName?.errors?.maxlength">
+                                        This field cannot be longer than 100 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row bottom10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_workerForwardTypeMaster">Will</label></div>
+                            <div class="col-md-9">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" id="field_workerForwardTypeMaster" name="workerForwardTypeMaster" [(ngModel)]="workerJoinFlowMaster.workerForwardTypeMaster"  required (change)="checkWorkflow();">
+                                    <option *ngIf="!editForm.value.workerForwardTypeMaster" [ngValue]="null" selected></option>
+                                    <option [ngValue]="workerForwardTypeMasterOption.code === workerJoinFlowMaster.workerForwardTypeMaster?.code ? workerJoinFlowMaster.workerForwardTypeMaster : workerForwardTypeMasterOption" *ngFor="let workerForwardTypeMasterOption of workerforwardtypemasters; trackBy: trackWorkerForwardTypeMasterById">{{workerForwardTypeMasterOption.description}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><label class="form-control-label" for="field_forwardName">Forward Name</label></div>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm" name="forwardName" id="field_forwardName" [(ngModel)]="workerJoinFlowMaster.forwardCodeName" maxlength="100" required readonly/>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-sm btn-secondary" style="margin-top: 0;" (click)="searchEmployee('T');"><fa-icon [icon]="'search'"></fa-icon></button>
+                                    </div>
+                                </div>
+                                <div [hidden]="!(editForm.controls.forwardName?.dirty && editForm.controls.forwardName?.invalid)">
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.forwardName?.errors?.maxlength">
+                                        This field cannot be longer than 100 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row bottom10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_status">Status</label></div>
+                            <div class="col-md-9">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" name="status" id="field_status" [(ngModel)]="workerJoinFlowMaster.status" maxlength="1" required>
+                                    <option value="Y">Active</option>
+                                    <option value="N">Inactive</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.status?.errors?.maxlength">
+                                        This field cannot be longer than 1 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

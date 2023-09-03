@@ -1,0 +1,60 @@
+<html>
+<head><meta charset="ISO-8859-1"></head>
+<body>
+<table align='center' bgcolor='#d92419' width='98%' cellpadding='0' cellspacing='0' style='border-color:#e8b36d; border-style:solid; border-width:thick;'>
+    <tr th:if="${flag == 'E'}">
+        <td style="text-align: center;font-weight: bold; font-size: 18px ;color:white">Please Sanction My Vehicle Request</td>
+        <br/>
+    </tr>
+    <tr th:if="${flag == 'A' || flag == 'R'}">
+        <td style="text-align: center;font-weight: bold; font-size: 18px ;color:white">Status of My <span th:text="${vehicleTypeName}" th:remove="tag"/> Request</td>
+        <br/>
+    </tr>
+    <tr>
+        <td>
+            <table align='center' cellpadding='10' bgcolor='#f7ad9d' cellspacing='1' width='98%'>
+                <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);'>
+                    <td align='right'>Employee Code :</td><td><span th:text="${empCode}" th:remove="tag"/></td>
+                    <td align='right'>Name :</td><td><span th:text="${name}" th:remove="tag"/></td>
+                </tr>
+                <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);'>
+                    <td align='right'>Vehicle Type :</td><td><span th:text="${vehicleTypeName}" th:remove="tag"/></td>
+                    <td align='right'>No of Vehicle :</td><td><span th:text="${noVehicle}" th:remove="tag"/></td>
+                </tr>
+                <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);'>
+                    <td align='right'>Vehicle Date :</td><td colspan="3"><span th:text="${vehicleDate}" th:remove="tag"/></td>
+                </tr>
+                <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);'>
+                    <td align='right'>Place from :</td><td><span th:text="${placeFrom}" th:remove="tag"/></td>
+                    <td align='right'>Place to :</td><td><span th:text="${placeTo}" th:remove="tag"/></td>
+                </tr>
+                <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);'>
+                    <td align='right' >Reason :</td><td colspan='3'><span th:text="${purpose}" th:remove="tag"/></td>
+                </tr>
+                <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);'>
+                    <td align='right' >Vehicle No :</td><td><span th:text="${vehicle}" th:remove="tag"/></td>
+                    <td align='right' >Driver :</td><td><span th:text="${driver}" th:remove="tag"/></td>
+                </tr>
+                <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);'>
+                    <td align='right' >Remarks :</td><td colspan="3"><span th:text="${adminRemarks}" th:remove="tag"/></td>
+                </tr>
+                <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);font-weight:bold;' th:if="${flag == 'E'}">
+                    <td align='center' colspan='4'><a th:href='${url}'>Click to Approve/Reject</a></td>
+                </tr>
+                <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);font-weight:bold;' th:if="${flag == 'A'}">
+                    <td align='right' >Status :</td><td colspan='3' style="color:green; font-size: 15px;">Approved By HOD</td>
+                </tr>
+
+                <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);font-weight:bold;' th:if="${flag == 'C'}">
+                    <td align='right' >Status :</td><td colspan='3' style="color:green; font-size: 15px;">Approved by Transportation</td>
+                </tr>
+
+                <tr style='font-family:Arial;font-size:11px;background-color:rgb(245,245,243);font-weight:bold;' th:if="${flag == 'R'}">
+                    <td align='right' >Status :</td><td colspan='3' style="color:red; font-size: 15px;">Rejected</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

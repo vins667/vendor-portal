@@ -1,0 +1,58 @@
+<div class="centered" *ngIf="isProcess">
+    <div class="loader">
+    </div>
+</div>
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5>Mrn Item Filter</h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+</div>
+<div class="modal-body">
+    <div class="row clearfix">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form name="editForm" role="form">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-striped table-hover table-vcenter table_custom text-nowrap spacing5 mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th class="align-top">Item Type</th>
+                                                <th class="align-top">Item</th>
+                                                <th class="align-top">Uom</th>
+                                                <th class="align-top">Tariff</th>
+                                                <th class="align-top align-right"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <ng-container *ngIf="mrnBeans?.length > 0">
+                                                <tr *ngFor="let mrnBean of mrnBeans;">
+                                                    <td>{{mrnBean.itemtypeaficode}}</td>
+                                                    <td>{{mrnBean.itemcode}}</td>
+                                                    <td>{{mrnBean.uom}}</td>
+                                                    <td>{{mrnBean.tariffcode}}</td>
+                                                    <td class="button-column"><button type="button" class="btn btn-xs btn-warning" (click)="loadData(mrnBean)"><fa-icon [icon]="'plus'"></fa-icon></button></td>
+                                                </tr>
+                                            </ng-container>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <jhi-alert-error></jhi-alert-error>
+                                <jhi-alert></jhi-alert>
+                                <br/>
+                                <div class="alert alert-warning" *ngIf="mrnBeans?.length === 0">
+                                    <span>No data found</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

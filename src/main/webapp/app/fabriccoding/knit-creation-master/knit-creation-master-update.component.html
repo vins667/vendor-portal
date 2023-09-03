@@ -1,0 +1,223 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-knit-creation-master-heading">Create or edit a Knit Creation Master</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-12">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!knitCreationMaster.id">
+                            <div class="col-md-2">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="knitCreationMaster.id" readonly />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_yarnCountCode">Yarn Count</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="yarnCountCode" id="field_yarnCountCode" class="form-control form-control-sm" [value]="knitCreationMaster.yarnCountMaster? knitCreationMaster.yarnCountMaster.code: ''" required maxlength="15" readonly/>
+                                    <div class="input-group-append" style="margin-top: -5px;">
+                                        <button type="button" name="btnSearch" id="btnSearchYarnCountCode" class="btn btn-sm btn-blush" (click)="searchUUID('A');"><fa-icon [icon]="'search'"></fa-icon></button>
+                                    </div>
+                                </div>
+                                <div [hidden]="!(editForm.controls.yarnCountCode?.dirty && editForm.controls.yarnCountCode?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.yarnCountCode?.errors?.required">
+                                    This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.yarnCountCode?.errors?.maxlength">
+                                    This field cannot be longer than 15 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control form-control-sm" name="yarnCountDesc" id="field_yarnCountDesc" [value]="knitCreationMaster.yarnCountMaster? knitCreationMaster.yarnCountMaster.description: ''" required maxlength="100" readonly/>
+                                <div [hidden]="!(editForm.controls.yarnCountDesc?.dirty && editForm.controls.yarnCountDesc?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.yarnCountDesc?.errors?.required">
+                                    This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.yarnCountDesc?.errors?.maxlength">
+                                    This field cannot be longer than 100 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <td class="button-column" style="margin-top:-5px;">
+                                <fa-icon [icon]="'times'" style="font-size: 20px; cursor: pointer;" (click)="clearField('A');"></fa-icon>
+                            </td>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_yarnTypeCode">Yarn Type</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="yarnTypeCode" id="field_yarnTypeCode"  class="form-control form-control-sm" [value]="knitCreationMaster.yarnTypeMaster? knitCreationMaster.yarnTypeMaster.code: ''" required maxlength="15" readonly/>
+                                    <div class="input-group-append" style="margin-top: -5px;">
+                                        <button type="button" name="btnSearch" id="btnSearchYarnTypeCode" class="btn btn-sm btn-blush" (click)="searchUUID('B');"><fa-icon [icon]="'search'"></fa-icon></button>
+                                    </div>
+                                </div>
+                                <div [hidden]="!(editForm.controls.yarnTypeCode?.dirty && editForm.controls.yarnTypeCode?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.yarnTypeCode?.errors?.required">
+                                    This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.yarnTypeCode?.errors?.maxlength">
+                                    This field cannot be longer than 15 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control form-control-sm" name="yarnTypeDesc" id="field_yarnTypeDesc" [value]="knitCreationMaster.yarnTypeMaster? knitCreationMaster.yarnTypeMaster.description: ''" required maxlength="100" readonly/>
+                                <div [hidden]="!(editForm.controls.yarnTypeDesc?.dirty && editForm.controls.yarnTypeDesc?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.yarnTypeDesc?.errors?.required">
+                                    This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.yarnTypeDesc?.errors?.maxlength">
+                                    This field cannot be longer than 100 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <td class="button-column" style="margin-top:-5px;">
+                                <fa-icon [icon]="'times'" style="font-size: 20px; cursor: pointer;" (click)="clearField('B');"></fa-icon>
+                            </td>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_knitTypeCode">Knit Type</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="knitTypeCode" id="field_knitTypeCode" readonly class="form-control form-control-sm" [value]="knitCreationMaster.knitTypeMaster? knitCreationMaster.knitTypeMaster.code: ''" required maxlength="15" readonly/>
+                                    <div class="input-group-append" style="margin-top: -5px;">
+                                        <button type="button" name="btnSearch" id="btnSearchKnitTypeCode" class="btn btn-sm btn-blush" (click)="searchUUID('C');"><fa-icon [icon]="'search'"></fa-icon></button>
+                                    </div>
+                                </div>
+                                <div [hidden]="!(editForm.controls.knitTypeCode?.dirty && editForm.controls.knitTypeCode?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.knitTypeCode?.errors?.required">
+                                    This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.knitTypeCode?.errors?.maxlength">
+                                    This field cannot be longer than 15 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control form-control-sm" name="knitTypeDesc" id="field_knitTypeDesc" [value]="knitCreationMaster.knitTypeMaster? knitCreationMaster.knitTypeMaster.description: ''" required maxlength="100" readonly/>
+                                <div [hidden]="!(editForm.controls.knitTypeDesc?.dirty && editForm.controls.knitTypeDesc?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.knitTypeDesc?.errors?.required">
+                                    This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.knitTypeDesc?.errors?.maxlength">
+                                    This field cannot be longer than 100 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <td class="button-column" style="margin-top:-5px;">
+                                <fa-icon [icon]="'times'" style="font-size: 20px; cursor: pointer;" (click)="clearField('C');"></fa-icon>
+                            </td>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_processCode">Process</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="processCode" id="field_processCode"  readonly class="form-control form-control-sm" [value]="knitCreationMaster.knitProcessMaster? knitCreationMaster.knitProcessMaster.code: ''" required maxlength="15" readonly/>
+                                    <div class="input-group-append" style="margin-top: -5px;">
+                                        <button type="button" name="btnSearch" id="btnSearchProcessCode" class="btn btn-sm btn-blush" (click)="searchUUID('D');"><fa-icon [icon]="'search'"></fa-icon></button>
+                                    </div>
+                                </div>
+                                <div [hidden]="!(editForm.controls.processCode?.dirty && editForm.controls.processCode?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.processCode?.errors?.required">
+                                    This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.processCode?.errors?.maxlength">
+                                    This field cannot be longer than 15 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control form-control-sm" name="processDesc" id="field_processDesc" [value]="knitCreationMaster.knitProcessMaster? knitCreationMaster.knitProcessMaster.description: ''" required maxlength="100" readonly/>
+                                <div [hidden]="!(editForm.controls.processDesc?.dirty && editForm.controls.processDesc?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.processDesc?.errors?.required">
+                                    This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.processDesc?.errors?.maxlength">
+                                    This field cannot be longer than 100 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <td class="button-column" style="margin-top:-5px;">
+                                <fa-icon [icon]="'times'" style="font-size: 20px; cursor: pointer;" (click)="clearField('D');"></fa-icon>
+                            </td>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_code">Code</label>
+                            </div>
+                            <div class="col-md-8">
+                                    <input type="text" class="form-control form-control-sm" name="code" id="field_code" [(ngModel)]="knitCreationMaster.code" maxlength="100" readonly/>
+                                    <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                                        <small class="form-text text-danger"
+                                        [hidden]="!editForm.controls.code?.errors?.required">
+                                            This field is required.
+                                        </small>
+                                        <small class="form-text text-danger"
+                                        [hidden]="!editForm.controls.code?.errors?.maxlength">
+                                        This field cannot be longer than 15 characters.
+                                        </small>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                 <label class="form-control-label" for="field_description">Description</label>
+                            </div>
+                            <div class="col-md-8">
+                                <textarea class="form-control form-control-sm" name="description" id="field_description" [(ngModel)]="knitCreationMaster.description" readonly rows="2" cols="3" maxlength="1000"></textarea>
+                                <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.description?.errors?.required">
+                                         This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.description?.errors?.maxlength">
+                                    This field cannot be longer than 1000 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

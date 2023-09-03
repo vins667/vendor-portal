@@ -1,0 +1,276 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-asset-master-heading">Create or Edit Asset</h5>
+        <hr>
+        <div class="row">
+            <div class="col-11">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!assetMaster.id">
+                            <div class="col-md-3">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-9">
+                            <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="assetMaster.id" readonly />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_assetOwnershipMaster">Asset Ownership</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" id="field_assetOwnershipMaster" name="assetOwnershipMaster" [(ngModel)]="assetMaster.assetOwnershipMaster"  required>
+                                    <option *ngIf="!editForm.value.assetOwnershipMaster" [ngValue]="null" selected></option>
+                                    <option [ngValue]="assetOwnershipMasterOption.id === assetMaster.assetOwnershipMaster?.id ? assetMaster.assetOwnershipMaster : assetOwnershipMasterOption" *ngFor="let assetOwnershipMasterOption of assetownershipmasters; trackBy: trackAssetOwnershipMasterById">{{assetOwnershipMasterOption.description}}</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.assetOwnershipMaster?.dirty && editForm.controls.assetOwnershipMaster?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.assetOwnershipMaster?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_assetTypeMaster">Asset Type by Accountability</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" id="field_assetTypeMaster" name="assetTypeMaster" [(ngModel)]="assetMaster.assetTypeMaster"  required (change)="fetchTangibility();">
+                                    <option *ngIf="!editForm.value.assetTypeMaster" [ngValue]="null" selected></option>
+                                    <option [ngValue]="assetTypeMasterOption.id === assetMaster.assetTypeMaster?.id ? assetMaster.assetTypeMaster : assetTypeMasterOption" *ngFor="let assetTypeMasterOption of assettypemasters; trackBy: trackAssetTypeMasterById">{{assetTypeMasterOption.description}}</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.assetTypeMaster?.dirty && editForm.controls.assetTypeMaster?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.assetTypeMaster?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_assetSubTypeMaster"><ng-container *ngIf="assetMaster.assetTypeMaster">{{assetMaster.assetTypeMaster.description}} </ng-container>Asset Type Tangibility</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" id="field_assetSubTypeMaster" name="assetSubTypeMaster" [(ngModel)]="assetMaster.assetSubTypeMaster"  required (change)="fetchAssetTypes();">
+                                    <option *ngIf="!editForm.value.assetSubTypeMaster" [ngValue]="null" selected></option>
+                                    <option [ngValue]="assetSubTypeMasterOption.id === assetMaster.assetSubTypeMaster?.id ? assetMaster.assetSubTypeMaster : assetSubTypeMasterOption" *ngFor="let assetSubTypeMasterOption of assetsubtypemasters; trackBy: trackAssetSubTypeMasterById">{{assetSubTypeMasterOption.description}}</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.assetSubTypeMaster?.dirty && editForm.controls.assetSubTypeMaster?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.assetSubTypeMaster?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_assetSubTypeDetailMaster"><ng-container *ngIf="assetMaster.assetSubTypeMaster">{{assetMaster.assetSubTypeMaster.description}} </ng-container> Asset Types</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" id="field_assetSubTypeDetailMaster" name="assetSubTypeDetailMaster" [(ngModel)]="assetMaster.assetSubTypeDetailMaster"  required>
+                                    <option *ngIf="!editForm.value.assetSubTypeDetailMaster" [ngValue]="null" selected></option>
+                                    <option [ngValue]="assetSubTypeDetailMasterOption.id === assetMaster.assetSubTypeDetailMaster?.id ? assetMaster.assetSubTypeDetailMaster : assetSubTypeDetailMasterOption" *ngFor="let assetSubTypeDetailMasterOption of assetsubtypedetailmasters; trackBy: trackAssetSubTypeDetailMasterById">{{assetSubTypeDetailMasterOption.description}}</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.assetSubTypeDetailMaster?.dirty && editForm.controls.assetSubTypeDetailMaster?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.assetSubTypeDetailMaster?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_assetCode">Asset Code</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control form-control-sm" name="assetCode" id="field_assetCode" [(ngModel)]="assetMaster.assetCode" maxlength="100" required/>
+                                <div [hidden]="!(editForm.controls.assetCode?.dirty && editForm.controls.assetCode?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.assetCode?.errors?.maxlength">
+                                        This field cannot be longer than 100 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_assetTag">Sr.No/Service Tag</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control form-control-sm" name="assetTag" id="field_assetTag" [(ngModel)]="assetMaster.assetTag" maxlength="100"/>
+                                <div [hidden]="!(editForm.controls.assetTag?.dirty && editForm.controls.assetTag?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.assetTag?.errors?.maxlength">
+                                        This field cannot be longer than 100 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_assetCompanyMaster">Make/Producer</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" id="field_assetCompanyMaster" name="assetCompanyMaster" [(ngModel)]="assetMaster.assetCompanyMaster"  required>
+                                    <option *ngIf="!editForm.value.assetCompanyMaster" [ngValue]="null" selected></option>
+                                    <option [ngValue]="assetCompanyMasterOption.id === assetMaster.assetCompanyMaster?.id ? assetMaster.assetCompanyMaster : assetCompanyMasterOption" *ngFor="let assetCompanyMasterOption of assetcompanymasters; trackBy: trackAssetCompanyMasterById">{{assetCompanyMasterOption.description}}</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.assetCompanyMaster?.dirty && editForm.controls.assetCompanyMaster?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.assetCompanyMaster?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_model">Model</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control form-control-sm" name="model" id="field_model" [(ngModel)]="assetMaster.model" maxlength="100"/>
+                                <div [hidden]="!(editForm.controls.model?.dirty && editForm.controls.model?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.model?.errors?.maxlength">
+                                        This field cannot be longer than 100 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_warrantyDate">Warranty/Leased Start Date</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group input-group-sm">
+                                    <input [owlDateTime]="warrantyDate" name="warrantyDate" id="field_warrantyDate" placeholder="Warranty/Leased Start Date" [owlDateTimeTrigger]="warrantyDate" class="form-control form-control-sm" [(ngModel)]="assetMaster.warrantyDate">
+                                    <div class="input-group-append input-group-append-top">
+                                        <button type="button" class="btn btn-blush" [owlDateTimeTrigger]="warrantyDate"><span><fa-icon [icon]="'calendar'"></fa-icon></span></button>
+                                    </div>
+                                </div>
+                                <owl-date-time [pickerType]="'calendar'" #warrantyDate></owl-date-time>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_warrantyEndDate">Warranty/Leased End Date</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group input-group-sm">
+                                    <input [owlDateTime]="warrantyEndDate" name="warrantyEndDate" id="field_warrantyEndDate" placeholder="Warranty/Leased End Date" [owlDateTimeTrigger]="warrantyEndDate" class="form-control form-control-sm" [(ngModel)]="assetMaster.warrantyEndDate">
+                                    <div class="input-group-append input-group-append-top">
+                                        <button type="button" class="btn btn-blush" [owlDateTimeTrigger]="warrantyEndDate"><span><fa-icon [icon]="'calendar'"></fa-icon></span></button>
+                                    </div>
+                                </div>
+                                <owl-date-time [pickerType]="'calendar'" #warrantyEndDate></owl-date-time>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_assetSupplierMaster">Supplier Name</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" id="field_assetSupplierMaster" name="assetSupplierMaster" [(ngModel)]="assetMaster.assetSupplierMaster"  required>
+                                    <option *ngIf="!editForm.value.assetSupplierMaster" [ngValue]="null" selected></option>
+                                    <option [ngValue]="assetSupplierMasterOption.id === assetMaster.assetSupplierMaster?.id ? assetMaster.assetSupplierMaster : assetSupplierMasterOption" *ngFor="let assetSupplierMasterOption of assetsuppliermasters; trackBy: trackAssetSupplierMasterById">{{assetSupplierMasterOption.description}}</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.assetSupplierMaster?.dirty && editForm.controls.assetSupplierMaster?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.assetSupplierMaster?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_poNumber">Po Number</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control form-control-sm" name="poNumber" id="field_poNumber" [(ngModel)]="assetMaster.poNumber" maxlength="100"/>
+                                <div [hidden]="!(editForm.controls.poNumber?.dirty && editForm.controls.poNumber?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.poNumber?.errors?.maxlength">
+                                        This field cannot be longer than 100 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="form-control-label" for="field_invoiceNumber">Invoice Number</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control form-control-sm" name="invoiceNumber" id="field_invoiceNumber" [(ngModel)]="assetMaster.invoiceNumber" maxlength="100" required/>
+                            <div [hidden]="!(editForm.controls.invoiceNumber?.dirty && editForm.controls.invoiceNumber?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.invoiceNumber?.errors?.maxlength">
+                                    This field cannot be longer than 100 characters.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-control-label" for="field_invoiceDate">Invoice Date</label>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group input-group-sm">
+                                <input [owlDateTime]="invoiceDate" name="invoiceDate" id="field_invoiceDate" placeholder="Invoice Date" [owlDateTimeTrigger]="invoiceDate" class="form-control form-control-sm" [(ngModel)]="assetMaster.invoiceDate">
+                                <div class="input-group-append input-group-append-top">
+                                    <button type="button" class="btn btn-blush" [owlDateTimeTrigger]="invoiceDate"><span><fa-icon [icon]="'calendar'"></fa-icon></span></button>
+                                </div>
+                            </div>
+                            <owl-date-time [pickerType]="'calendar'" #invoiceDate></owl-date-time>
+                        </div>
+                    </div>
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-3">
+                            <label class="form-control-label" for="field_assetLocationMaster">Location</label>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_assetLocationMaster" name="assetLocationMaster" [(ngModel)]="assetMaster.assetLocationMaster"  required>
+                                <option *ngIf="!editForm.value.assetLocationMaster" [ngValue]="null" selected></option>
+                                <option [ngValue]="assetLocationMasterOption.id === assetMaster.assetLocationMaster?.id ? assetMaster.assetLocationMaster : assetLocationMasterOption" *ngFor="let assetLocationMasterOption of assetlocationmasters; trackBy: trackAssetSupplierMasterById">{{assetLocationMasterOption.description}}</option>
+                            </select>
+                            <div [hidden]="!(editForm.controls.assetLocationMaster?.dirty && editForm.controls.assetLocationMaster?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.assetLocationMaster?.errors?.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-control-label" for="field_quantity">Quantity</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" class="form-control form-control-sm" name="quantity" id="field_quantity" [(ngModel)]="assetMaster.quantity" (blur)="changeAudit();" required/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6 class="text-capitalize">Asset Linking</h6>
+                        </div>
+                    </div>
+                    <div class="row" *ngFor="let assetAuditDetail of assetMaster.assetAuditDetails; let index = index" style="margin-bottom: -12px;">
+                        <div class="col-md-12">
+                            <div class="input-group input-group-sm">
+                                <input type="text" name="assetAuditDetailUuid{{index}}" id="assetAuditDetailUuid{{index}}" [(ngModel)]="assetAuditDetail.uuid" readonly class="form-control" required/>
+                                <div class="input-group-append" style="margin-top: -5px;">
+                                    <button type="button" name="btnSearch" id="btnSearch" class="btn btn-sm btn-blush" (click)="searchUUID(assetAuditDetail);"><fa-icon [icon]="'search'"></fa-icon></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"   (click)="previousState()">
+                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                            </button>
+                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                            </button>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <button type="button" id="attach-button" class="btn btn-sm btn-round btn-success" (click)="attachment();" [disabled]="!assetMaster.id">
+                                <fa-icon [icon]="'paperclip'"></fa-icon>&nbsp;<span>Attach</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

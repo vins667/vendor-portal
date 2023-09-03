@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <!--
+        Added the entity DirectBookingEntry.
+    -->
+    <changeSet id="20210315051247-1" author="jhipster">
+        <createTable tableName="direct_booking_entry">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="company" type="varchar(3)">
+                <constraints nullable="false" />
+            </column>
+            <column name="division" type="varchar(3)">
+                <constraints nullable="false" />
+            </column>
+            <column name="businessunitcompanycode" type="varchar(3)">
+                <constraints nullable="false" />
+            </column>
+            <column name="businessunitcode" type="varchar(10)">
+                <constraints nullable="false" />
+            </column>
+            <column name="factorycode" type="varchar(10)">
+                <constraints nullable="false" />
+            </column>
+            <column name="factorystate" type="varchar(10)">
+                <constraints nullable="false" />
+            </column>
+            <column name="bookingdate" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="bookingtype" type="varchar(1)">
+                <constraints nullable="false" />
+            </column>
+            <column name="bookingfor" type="varchar(1)">
+                <constraints nullable="false" />
+            </column>
+            <column name="suppliercustomertype" type="varchar(1)">
+                <constraints nullable="false" />
+            </column>
+            <column name="suppliercustomercode" type="varchar(8)">
+                <constraints nullable="false" />
+            </column>
+            <column name="suppliercustomerdesc" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+            <column name="suppliercustomerstate" type="varchar(10)">
+                <constraints nullable="false" />
+            </column>
+            <column name="billno" type="varchar(25)">
+                <constraints nullable="false" />
+            </column>
+            <column name="billdate" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="paymenttermcode" type="varchar(3)">
+                <constraints nullable="false" />
+            </column>
+            <column name="paymenttermdesc" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="costcentercode" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            <column name="costcenterdesc" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="remarks" type="varchar(500)">
+                <constraints nullable="true" />
+            </column>
+            <column name="vehicle_no" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="rcm_bill" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="shipping_bill" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="freight_applicable" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="freight_type" type="varchar(1)">
+                <constraints nullable="true" />
+            </column>
+            <column name="freight_value" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="discount_applicable" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="discount_type" type="varchar(1)">
+                <constraints nullable="true" />
+            </column>
+            <column name="discount_value" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="other_charges_applicable" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="other_charges_type" type="varchar(1)">
+                <constraints nullable="true" />
+            </column>
+            <column name="other_charges_value" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="tcs_applicable" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="tcs_value" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="tcs_glcode" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="value" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="itaxvalue" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="ctaxvalue" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="staxvalue" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="taxvalue" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="totalvalue" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="round_off_value" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="round_off_type" type="varchar(1)">
+                <constraints nullable="true" />
+            </column>
+            <column name="net_amount" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="tds_value" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="discount" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="freight" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="others" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="taxablevalue" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="findocumentcode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="flag" type="varchar(1)">
+                <constraints nullable="true" />
+            </column>
+            <column name="createdby" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="createddate" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="updatedby" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="updateddate" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="direct_booking_entry_seq" incrementBy="1" cycle="false"/>
+        <dropDefaultValue tableName="direct_booking_entry" columnName="bookingdate" columnDataType="datetime"/>
+        <dropDefaultValue tableName="direct_booking_entry" columnName="billdate" columnDataType="datetime"/>
+    </changeSet>
+
+    <changeSet id="20210315051247-1-relations" author="jhipster">
+
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,98 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading"><span>Conveyance Entry Approval</span></h5>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-3">
+                    <select name="status" id="status" class="form-control custom-select custom-select-sm" [(ngModel)]="conveyanceSearchMaster.status">
+                        <option value="P">Pending</option>
+                        <option value="A">Approved</option>
+                        <option value="R">Rejected</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <ng-container *ngIf="conveyanceSearchMaster.status && conveyanceSearchMaster.status!=='P'">
+                        <div class="input-group input-group-sm">
+                            <input [owlDateTime]="leaveFrom" name="leaveDateFrom" id="field_leaveDateFrom" placeholder="Date From" class="form-control form-control-sm" required [(ngModel)]="leaveDateFrom">
+                            <div class="input-group-append input-group-append-top">
+                                <div class="btn btn-blush" [owlDateTimeTrigger]="leaveFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                            </div>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #leaveFrom></owl-date-time>
+                    </ng-container>
+                </div>
+                <div class="col-md-3">
+                    <ng-container *ngIf="conveyanceSearchMaster.status && conveyanceSearchMaster.status!=='P'">
+                        <div class="input-group input-group-sm">
+                            <input [owlDateTime]="leaveTo" name="leaveDateTo" id="field_leaveDateTo" placeholder="Date To" class="form-control form-control-sm" required [(ngModel)]="leaveDateTo">
+                            <div class="input-group-append input-group-append-top">
+                                <div class="btn btn-blush" [owlDateTimeTrigger]="leaveTo"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                            </div>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #leaveTo></owl-date-time>
+                    </ng-container>
+                </div>
+                <div class="col-md-3 text-right">
+                    <div class="btn-group">
+                        <button id="jh-search-entity" class="btn btn-sm btn-blush btn-round" type="button" style="margin: 0;" (click)="search()">
+                            <fa-icon [icon]="'search'"></fa-icon>
+                            <span >Search</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiSortBy="empCode"><span>Emp Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="conveyanceDate"><span>Conveyance Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="conveyanceType"><span>Conveyance Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="vehicleNo"><span>Vehicle No</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="totalDistance" class="text-right"><span>Total Distance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="rate" class="text-right"><span>Rate</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="miscAmount" class="text-right"><span>Misc Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="totalAmount" class="text-right"><span>Total Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let conveyanceMaster of conveyanceMasters ;trackBy: trackId">
+                        <td>{{conveyanceMaster.empCode}}</td>
+                        <td>{{conveyanceMaster.name}}</td>
+                        <td>{{conveyanceMaster.conveyanceDate | date:'dd/MM/yyyy'}}</td>
+                        <td><ng-container *ngIf="conveyanceMaster.conveyanceType=='O'">Own</td>
+                        <td>{{conveyanceMaster.vehicleNo}}</td>
+                        <td class="text-right">
+                            <ng-container *ngIf="conveyanceMaster.totalDistance<=200">{{conveyanceMaster.totalDistance}}</ng-container>
+                            <ng-container *ngIf="conveyanceMaster.totalDistance>200"><span class="text-danger font-weight-bold">{{conveyanceMaster.totalDistance}}</span></ng-container>
+                        </td>
+                        <td class="text-right">{{conveyanceMaster.rate | number : '1.2-2'}}</td>
+                        <td class="text-right">{{conveyanceMaster.miscAmount | number : '1.2-2'}}</td>
+                        <td class="text-right">{{conveyanceMaster.totalAmount | number : '1.2-2'}}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/conveyance-master-approval',conveyanceMaster.id, 'edit']"
+                                        class="btn btn-info btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">view</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div [hidden]="conveyanceMasters?.length === 0">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

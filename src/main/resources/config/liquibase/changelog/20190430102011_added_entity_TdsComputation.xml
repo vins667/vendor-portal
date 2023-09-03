@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity TdsComputation.
+    -->
+    <changeSet id="20190430102011-1" author="jhipster">
+        <createTable tableName="tds_computation">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="financial_year" type="varchar(6)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="card_no" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="earn_label_1" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_amount_1" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_label_2" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_amount_2" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_label_3" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_amount_3" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_label_4" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_amount_4" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_label_5" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_amount_5" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_label_6" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_amount_6" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_label_7" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_amount_7" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_label_8" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_amount_8" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_label_9" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_amount_9" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_label_10" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="earn_amount_10" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="tds_computation_seq" incrementBy="1" cycle="false"/>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

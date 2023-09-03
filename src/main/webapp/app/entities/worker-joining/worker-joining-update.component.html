@@ -1,0 +1,871 @@
+<div class="card">
+    <div class="body">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm" enctype="multipart/form-data">
+            <div class="row" style="margin-bottom: -20px;">
+                <div class="col-md-12">
+                    <h5> Worker Joining
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round float-right"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round float-right" *ngIf="workerJoining.allowEntry">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                        <button type="button" (click)="sendForApproval();" id="approval-entity" class="btn btn-sm btn-success btn-round float-right">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Approval</span>
+                        </button>
+                    </h5>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-md-12">
+                    <ngb-tabset #tabs>
+                        <ngb-tab [id]="'personal'">
+                            <ng-template ngbTabTitle>
+                                Personal
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col-12">
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_name">Name</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text"  class="form-control form-control-sm text-uppercase"  name="name" id="field_name" [(ngModel)]="workerJoining.name" required maxlength="100" disabled/>
+                                                <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                                                    <small class="form-text text-danger"
+                                                           [hidden]="!editForm.controls.name?.errors?.required">
+                                                        This field is required.
+                                                    </small>
+                                                    <small class="form-text text-danger"
+                                                           [hidden]="!editForm.controls.name?.errors?.maxlength">
+                                                        This field cannot be longer than 100 characters.
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_guardianName">Father/Husb.&nbsp;Name</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control form-control-sm text-uppercase" name="guardianName" id="field_guardianName" [(ngModel)]="workerJoining.guardianName" required maxlength="100" disabled/>
+                                                <div [hidden]="!(editForm.controls.guardianName?.dirty && editForm.controls.guardianName?.invalid)">
+                                                    <small class="form-text text-danger"
+                                                           [hidden]="!editForm.controls.guardianName?.errors?.required">
+                                                        This field is required.
+                                                    </small>
+                                                    <small class="form-text text-danger"
+                                                           [hidden]="!editForm.controls.guardianName?.errors?.maxlength">
+                                                        This field cannot be longer than 100 characters.
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_aadhar">Aadhaar No</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control form-control-sm text-uppercase" name="aadhar" id="field_aadhar" [(ngModel)]="workerJoining.aadharNo" disabled/>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_mobileNo">PAN</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control form-control-sm text-uppercase" name="panNo" id="field_panNo" [(ngModel)]="workerJoining.panNo" maxlength="15" disabled/>
+                                                <div [hidden]="!(editForm.controls.mobileNo?.dirty && editForm.controls.mobileNo?.invalid)">
+                                                    <small class="form-text text-danger"
+                                                           [hidden]="!editForm.controls.mobileNo?.errors?.maxlength">
+                                                        This field cannot be longer than 15 characters.
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2">
+                                                <label class="form-control-label">Bank Name</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_bankName" name="bankMaster" [(ngModel)]="workerJoining.bankMasterId"  disabled>
+                                                    <ng-option *ngFor="let bankMasterOption of bankmasters;" [value]="bankMasterOption.id">{{bankMasterOption.bankName}}</ng-option>
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_bankBranch">Bank Branch</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control form-control-sm text-uppercase" name="bankBranch" id="field_bankBranch" [(ngModel)]="workerJoining.bankBranch" required maxlength="50" disabled/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_bankAccNo">Bank Acc No</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control form-control-sm text-uppercase" name="bankAccNo" id="field_bankAccNo" [(ngModel)]="workerJoining.bankAccNo" required maxlength="20" disabled/>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_joinDate">DOB</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group input-group-sm" style="margin-bottom: 0;">
+                                                    <input [owlDateTime]="dob" name="dobDate" id="field_dob" placeholder="Date of Birth" class="form-control form-control-sm" [(ngModel)]="workerJoining.dob" [owlDateTimeTrigger]="dob" disabled>
+                                                    <div class="input-group-append input-group-append-top">
+                                                        <div class="btn btn-blush" [owlDateTimeTrigger]="dob"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                                    </div>
+                                                </div>
+                                                <owl-date-time [pickerType]="'calendar'" #dob></owl-date-time>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_gender">Gender</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select name="gender" id="field_gender" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="workerJoining.gender" required>
+                                                    <option value="M">Male</option>
+                                                    <option value="F">Female</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_joinDate">Joining Date</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group input-group-sm" style="margin-bottom: 0;">
+                                                    <input [owlDateTime]="joinDate" name="joinDate" id="field_joinDate" placeholder="Joining Date" class="bg-white form-control form-control-sm" required [(ngModel)]="workerJoining.joinDate" [owlDateTimeTrigger]="joinDate" readonly>
+                                                    <div class="input-group-append input-group-append-top">
+                                                        <div class="btn btn-blush" [owlDateTimeTrigger]="joinDate"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                                                    </div>
+                                                </div>
+                                                <owl-date-time [pickerType]="'calendar'" #joinDate></owl-date-time>
+                                            </div>
+                                        </div>
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_grade">Grade</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select name="grade" id="field_grade" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="workerJoining.grade" required>
+                                                    <option value="A+">A+</option>
+                                                    <option value="A">A</option>
+                                                    <option value="B">B</option>
+                                                    <option value="C">C</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_ctc">CTC/PM</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="number" name="ctc" id="field_ctc" class="form-control form-control-sm" required [(ngModel)]="workerJoining.ctc" required>
+                                            </div>
+                                        </div>
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_motherName">Mother Name</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control form-control-sm text-uppercase" name="motherName" id="field_motherName" [(ngModel)]="workerJoining.motherName" required maxlength="100"/>
+                                                <div [hidden]="!(editForm.controls.motherName?.dirty && editForm.controls.motherName?.invalid)">
+                                                    <small class="form-text text-danger"
+                                                           [hidden]="!editForm.controls.motherName?.errors?.required">
+                                                        This field is required.
+                                                    </small>
+                                                    <small class="form-text text-danger"
+                                                           [hidden]="!editForm.controls.motherName?.errors?.maxlength">
+                                                        This field cannot be longer than 100 characters.
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_mobileNo">Mobile No</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control form-control-sm text-uppercase" name="mobileNo" id="field_mobileNo" [(ngModel)]="workerJoining.mobileNo" maxlength="15"/>
+                                                <div [hidden]="!(editForm.controls.mobileNo?.dirty && editForm.controls.mobileNo?.invalid)">
+                                                    <small class="form-text text-danger"
+                                                           [hidden]="!editForm.controls.mobileNo?.errors?.maxlength">
+                                                        This field cannot be longer than 15 characters.
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_uanNo">UAN No</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control form-control-sm text-uppercase" name="uanNo" id="field_uanNo" [(ngModel)]="workerJoining.uanNo" maxlength="20"/>
+                                                <div [hidden]="!(editForm.controls.uanNo?.dirty && editForm.controls.uanNo?.invalid)">
+                                                    <small class="form-text text-danger"
+                                                           [hidden]="!editForm.controls.uanNo?.errors?.maxlength">
+                                                        This field cannot be longer than 20 characters.
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_esiNo">ESI No</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control form-control-sm text-uppercase" name="esiNo" id="field_esiNo" [(ngModel)]="workerJoining.esiNo" maxlength="20"/>
+                                                <div [hidden]="!(editForm.controls.esiNo?.dirty && editForm.controls.esiNo?.invalid)">
+                                                    <small class="form-text text-danger"
+                                                           [hidden]="!editForm.controls.esiNo?.errors?.maxlength">
+                                                        This field cannot be longer than 20 characters.
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2">
+                                                <label class="form-control-label">Marital Status</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select class="form-control form-control-sm custom-select custom-select-sm" name="maritalStatus" id="field_maritalStatus" [(ngModel)]="workerJoining.maritalStatus" required>
+                                                    <option value="S">SINGLE</option>
+                                                    <option value="M">MARRIED</option>
+                                                    <option value="D">DIVORCE</option>
+                                                    <option value="W">WIDOW</option>
+                                                    <option value="O">WIDOWER</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_supervisorName">Supervisor</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" name="supervisorName" id="field_supervisorName" [(ngModel)]="workerJoining.supervisorName" required>
+                                                    <ng-option *ngFor="let cost of costs;" [value]="cost.costCode+''">{{cost.desc1}}</ng-option>
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_departmentMaster">Department</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_departmentMaster" name="departmentMaster" [(ngModel)]="workerJoining.departmentMasterId" required>
+                                                    <ng-option *ngFor="let departmentMasterOption of departmentmasters;" [value]="departmentMasterOption.id">{{departmentMasterOption.deptDesc}}</ng-option>
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_designationMaster">Designation </label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_designationMaster" name="designationMaster" [(ngModel)]="workerJoining.designationMasterId" required>
+                                                    <ng-option *ngFor="let designationMasterOption of designationmasters; trackBy: trackDesignationMasterById" [value]="designationMasterOption.id">{{designationMasterOption.designationName}}</ng-option>
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_subDepartment">Sub-Department</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_subDepartment" name="subDepartment" [(ngModel)]="workerJoining.subdeptId" required>
+                                                    <ng-option *ngFor="let subdept of subdepts;" [value]="subdept.sdepCode+''">{{subdept.sdepDesc}}</ng-option>
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_designationMaster">Email </label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control form-control-sm text-uppercase" name="email" id="field_email" [(ngModel)]="workerJoining.email" maxlength="50"/>
+                                            </div>
+                                        </div>
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2">
+                                                <label class="form-control-label" for="field_permanentAddress">Aadhaar Address</label>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <textarea class="form-control form-control-sm text-uppercase" name="permanentAddress" id="field_permanentAddress" [(ngModel)]="workerJoining.permanentAddress" rows="2" disabled></textarea>
+                                                <div [hidden]="!(editForm.controls.permanentAddress?.dirty && editForm.controls.permanentAddress?.invalid)">
+                                                    <small class="form-text text-danger"
+                                                           [hidden]="!editForm.controls.permanentAddress?.errors?.maxlength">
+                                                        This field cannot be longer than 500 characters.
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab [id]="'addInfo'">
+                            <ng-template ngbTabTitle>
+                                Add. Info
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col-12">
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2"><label class="form-control-label">Card No</label></div>
+                                            <div class="col-md-4"><input type="text" id="field_cardNo" name="cardNo" class="form-control form-control-sm" [(ngModel)]="workerJoining.cardNo" required (keyup)="pushPayCode();" maxlength="10"/> </div>
+                                            <div class="col-md-2"><label class="form-control-label">Pay Code</label></div>
+                                            <div class="col-md-4"><input type="text" id="field_payCode" name="payCode" class="form-control form-control-sm" [(ngModel)]="workerJoining.payCode" readonly/></div>
+                                        </div>
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2"><label class="form-control-label">Line</label></div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_secCode" name="secCode" [(ngModel)]="workerJoining.secCode" required>
+                                                    <ng-option *ngFor="let section of sections;" [value]="section.secCode+''">{{section.desc1}}</ng-option>
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-md-2"><label class="form-control-label">Leave Grade</label></div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_gCode" name="gCode" [(ngModel)]="workerJoining.gCode" required>
+                                                    <ng-option *ngFor="let grade of grades;" [value]="grade.gCode+''">{{grade.desc1}}</ng-option>
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2"><label class="form-control-label">Staff/Worker</label></div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_swCode" name="swCode" [(ngModel)]="workerJoining.swCode" required>
+                                                    <ng-option *ngFor="let staffWork of staffWorks;" [value]="staffWork.swCode+''">{{staffWork.swDesc}}</ng-option>
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-md-2"><label class="form-control-label">Grade</label></div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_catCode" name="catCode" [(ngModel)]="workerJoining.catCode" required>
+                                                    <ng-option *ngFor="let catgory of catgories;" [value]="catgory.catCode+''">{{catgory.catName}}</ng-option>
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2"><label class="form-control-label">Work Unit</label></div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_flCode" name="flCode" [(ngModel)]="workerJoining.flCode" required>
+                                                    <ng-option *ngFor="let floor of floors;" [value]="floor.flCode+''">{{floor.flDesc}}</ng-option>
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-md-2"><label class="form-control-label">Food Grade</label></div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_foodCode" name="foodCode" [(ngModel)]="workerJoining.foodCode" required>
+                                                    <ng-option *ngFor="let foodCat of foodcats;" [value]="foodCat.foodCode+''">{{foodCat.foodDesc}}</ng-option>
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2"><label class="form-control-label">Weekly Off</label></div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_wCode" name="wCode" [(ngModel)]="workerJoining.wCode" required>
+                                                    <ng-option *ngFor="let woff of woffs;" [value]="woff.wCode+''">{{woff.desc1}}</ng-option>
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-md-2"><label class="form-control-label">Overtime Mode</label></div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_ot" name="ot" [(ngModel)]="workerJoining.ot" required>
+                                                    <ng-option value="0">None</ng-option>
+                                                    <ng-option value="1">Overtime</ng-option>
+                                                    <ng-option value="2">H. Comp</ng-option>
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2"><label class="form-control-label">Shift</label></div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_sftCode" name="sftCode" [(ngModel)]="workerJoining.sftCode" required>
+                                                    <ng-option *ngFor="let shift of shifts;" [value]="shift.sftCode+''">{{shift.sftUcode}}({{shift.intime}} - {{shift.outtime}})</ng-option>
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-md-2"><label class="form-control-label">Shift Type</label></div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_sftType" name="sftType" [(ngModel)]="workerJoining.sftType" required>
+                                                    <ng-option value="0">Fixed</ng-option>
+                                                    <ng-option value="1">Rotate</ng-option>
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div class="row card-margin-bottom-5">
+                                            <div class="col-md-2"><label class="form-control-label">Punching Mode</label></div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_punch" name="punch" [(ngModel)]="workerJoining.punch" required>
+                                                    <ng-option value="0">General</ng-option>
+                                                    <ng-option value="1">Executive</ng-option>
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-md-2"><label class="form-control-label">Salary Mode</label></div>
+                                            <div class="col-md-4">
+                                                <ng-select class="form-control form-control-sm" id="field_salMode" name="salMode" [(ngModel)]="workerJoining.salMode" required>
+                                                    <ng-option value="0">Monthly</ng-option>
+                                                    <ng-option value="1">Daily</ng-option>
+                                                    <ng-option value="2">Pcs Rate</ng-option>
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab [id]="'address'" *ngIf="workerJoining.id">
+                            <ng-template ngbTabTitle>
+                                Address
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="row">
+                                    <ng-container *ngFor="let workerAddressDetail of workerJoining.workerAddressDetails; let index = index;">
+                                        <div class="col-md-5" style="margin-top: 10px;">
+                                            <div class="row card-margin-bottom-5">
+                                                <div class="col-md-4"><label class="form-control-label">Address Type</label></div>
+                                                <div class="col-md-8"><input type="text" class="form-control form-control-sm" name="addressType_{{index}}" id="field_addressType_{{index}}" [value]="workerAddressDetail.addressType==='P'?'PERMANENT ADDRESS':'PRESENT ADDRESS'" readonly/></div>
+                                            </div>
+                                            <div class="row card-margin-bottom-5">
+                                                <div class="col-md-4"><label class="form-control-label">Address</label></div>
+                                                <div class="col-md-8"><input type="text" class="form-control form-control-sm text-uppercase" name="addressLine1_{{index}}" id="field_addressLine1_{{index}}" [(ngModel)]="workerAddressDetail.addressLine1" required maxlength="100"/></div>
+                                            </div>
+                                            <div class="row card-margin-bottom-5">
+                                                <div class="col-md-4"><label class="form-control-label"></label></div>
+                                                <div class="col-md-8"><input type="text" class="form-control form-control-sm text-uppercase" name="addressLine2_{{index}}" id="field_addressLine2_{{index}}" [(ngModel)]="workerAddressDetail.addressLine2" maxlength="100"/></div>
+                                            </div>
+                                            <div class="row card-margin-bottom-5">
+                                                <div class="col-md-4"><label class="form-control-label"></label></div>
+                                                <div class="col-md-8"><input type="text" class="form-control form-control-sm text-uppercase" name="addressLine3_{{index}}" id="field_addressLine3_{{index}}" [(ngModel)]="workerAddressDetail.addressLine3" maxlength="100"/></div>
+                                            </div>
+                                            <div class="row card-margin-bottom-5">
+                                                <div class="col-md-4"><label class="form-control-label"></label></div>
+                                                <div class="col-md-8"><input type="text" class="form-control form-control-sm text-uppercase" name="addressLine4_{{index}}" id="field_addressLine4_{{index}}" [(ngModel)]="workerAddressDetail.addressLine4" maxlength="100"/></div>
+                                            </div>
+                                            <div class="row card-margin-bottom-5">
+                                                <div class="col-md-4"><label class="form-control-label">Country</label></div>
+                                                <div class="col-md-8">
+                                                    <select class="form-control form-control-sm custom-select custom-select-sm" id="field_recruitmentCountryMaster_{{index}}" name="recruitmentCountryMaster_{{index}}" [(ngModel)]="workerAddressDetail.recruitmentCountryMaster"  required (change)="fetchState(workerAddressDetail);">
+                                                        <option *ngIf="!editForm.value.recruitmentCountryMaster" [ngValue]="null" selected></option>
+                                                        <option [ngValue]="recruitmentCountryMasterOption.id === workerAddressDetail.recruitmentCountryMaster?.id ? workerAddressDetail.recruitmentCountryMaster : recruitmentCountryMasterOption" *ngFor="let recruitmentCountryMasterOption of recruitmentcountrymasters;">{{recruitmentCountryMasterOption.description}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row card-margin-bottom-5">
+                                                <div class="col-md-4"><label class="form-control-label">State</label></div>
+                                                <div class="col-md-8">
+                                                    <select class="form-control form-control-sm custom-select custom-select-sm" id="field_recruitmentStateMaster_{{index}}" name="recruitmentStateMaster_{{index}}" [(ngModel)]="workerAddressDetail.recruitmentStateMaster"  required (change)="fetchDistrict(workerAddressDetail);">
+                                                        <option *ngIf="!editForm.value.recruitmentStateMaster" [ngValue]="null" selected></option>
+                                                        <option [ngValue]="recruitmentStateMasterOption.id === workerAddressDetail.recruitmentStateMaster?.id ? workerAddressDetail.recruitmentStateMaster : recruitmentStateMasterOption" *ngFor="let recruitmentStateMasterOption of workerAddressDetail.recruitmentstatemasters;">{{recruitmentStateMasterOption.description}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row card-margin-bottom-5">
+                                                <div class="col-md-4"><label class="form-control-label">District</label></div>
+                                                <div class="col-md-8">
+                                                    <select class="form-control form-control-sm custom-select custom-select-sm" id="field_recruitmentDistrict_{{index}}" name="recruitmentDistrict_{{index}}" [(ngModel)]="workerAddressDetail.recruitmentDistrict"  required (change)="fetchCity(workerAddressDetail);">
+                                                        <option *ngIf="!editForm.value.recruitmentDistrict" [ngValue]="null" selected></option>
+                                                        <option [ngValue]="recruitmentDistrictOption.id === workerAddressDetail.recruitmentDistrict?.id ? workerAddressDetail.recruitmentDistrict : recruitmentDistrictOption" *ngFor="let recruitmentDistrictOption of workerAddressDetail.recruitmentdistricts;">{{recruitmentDistrictOption.description}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row card-margin-bottom-5">
+                                                <div class="col-md-4"><label class="form-control-label">City</label></div>
+                                                <div class="col-md-8">
+                                                    <select class="form-control form-control-sm custom-select custom-select-sm" id="field_recruitmentCityMaster_{{index}}" name="recruitmentCityMaster_{{index}}" [(ngModel)]="workerAddressDetail.recruitmentCityMaster"  required>
+                                                        <option *ngIf="!editForm.value.recruitmentCityMaster" [ngValue]="null" selected></option>
+                                                        <option [ngValue]="recruitmentCityMasterOption.id === workerAddressDetail.recruitmentCityMaster?.id ? workerAddressDetail.recruitmentCityMaster : recruitmentCityMasterOption" *ngFor="let recruitmentCityMasterOption of workerAddressDetail.recruitmentcitymasters;">{{recruitmentCityMasterOption.description}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row card-margin-bottom-5">
+                                                <div class="col-md-4"><label class="form-control-label">Pin Code</label></div>
+                                                <div class="col-md-8"><input type="text" class="form-control form-control-sm" name="pinCode_{{index}}" id="field_pinCode_{{index}}" [(ngModel)]="workerAddressDetail.pinCode" maxlength="20" required/></div>
+                                            </div>
+                                            <div class="row card-margin-bottom-5">
+                                                <div class="col-md-4"><label class="form-control-label">Telephone No</label></div>
+                                                <div class="col-md-8"><input type="text" class="form-control form-control-sm" name="telephoneNo_{{index}}" id="field_telephoneNo_{{index}}" [(ngModel)]="workerAddressDetail.telephoneNo" maxlength="20"/></div>
+                                            </div>
+                                            <div class="row card-margin-bottom-5">
+                                                <div class="col-md-4"><label class="form-control-label">Mobile No</label></div>
+                                                <div class="col-md-8"><input type="text" class="form-control form-control-sm" name="mobileNo_{{index}}" id="field_mobileNo_{{index}}" [(ngModel)]="workerAddressDetail.mobileNo" maxlength="20"/></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 text-center" style="margin-top: 10px;" *ngIf="index === 0">
+                                            <button type="button" class="btn btn-blush btn-sm btn-round" (click)="copyAddress(index);"><fa-icon [icon]="'arrow-right'"></fa-icon> <span>Copy</span></button>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab [id]="'family'" *ngIf="workerJoining.id">
+                            <ng-template ngbTabTitle>
+                                Family
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>DOB</td>
+                                            <td>Age</td>
+                                            <td>Relation</td>
+                                            <td>Occupation</td>
+                                            <td>Dependency</td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let workerFamilyDetail of workerJoining.workerFamilyDetails; let index = index;">
+                                        <td><input type="text" class="form-control form-control-sm text-uppercase" name="name_{{index}}" id="field_family_name_{{index}}" [(ngModel)]="workerFamilyDetail.name" maxlength="100"/></td>
+                                        <td>
+                                            <div *ngIf="workerFamilyDetail && workerFamilyDetail.name" class="input-group input-group-sm" style="margin-bottom: 0;">
+                                                <input id="field_workerFamilyDetails_dob{{index}}" type="text" class="form-control form-control-sm" name="workerFamilyDetails_dob{{index}}" [(ngModel)]="workerFamilyDetail.dob" [owlDateTime]="dob"  [owlDateTimeTrigger]="dob"/>
+                                                <span class="input-group-append" style="margin-bottom: 0;">
+                                                        <button type="button" class="btn btn-secondary" style="margin-top: 0; margin-bottom: 0;" [owlDateTimeTrigger]="dob"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                                                    </span>
+                                                <owl-date-time [pickerType]="'calendar'" #dob></owl-date-time>
+                                            </div>
+                                            <input *ngIf="workerFamilyDetail && !workerFamilyDetail.name" type="number" class="form-control form-control-sm" readonly/>
+                                        </td>
+                                        <td>
+                                            <input *ngIf="workerFamilyDetail && workerFamilyDetail.name" type="number" class="form-control form-control-sm" name="age_{{index}}" id="field_age_{{index}}" [(ngModel)]="workerFamilyDetail.age"  [required]="workerFamilyDetail.name.length > 0"/>
+                                            <input *ngIf="workerFamilyDetail && !workerFamilyDetail.name" type="number" class="form-control form-control-sm" readonly/>
+                                        </td>
+                                        <td>
+                                            <select *ngIf="workerFamilyDetail && workerFamilyDetail.name" class="form-control form-control-sm custom-select custom-select-sm" id="field_relationMaster_{{index}}" name="relationMaster_{{index}}" [(ngModel)]="workerFamilyDetail.relationMaster" [required]="workerFamilyDetail.name.length > 0">
+                                                <option [ngValue]="relationMasterOption.id === workerFamilyDetail.relationMaster?.id ? workerFamilyDetail.relationMaster : relationMasterOption"
+                                                        *ngFor="let relationMasterOption of relationmasters;">{{relationMasterOption.description}}</option>
+                                            </select>
+                                            <input *ngIf="workerFamilyDetail && !workerFamilyDetail.name" type="number" class="form-control form-control-sm" readonly/>
+                                        </td>
+                                        <td>
+                                            <select *ngIf="workerFamilyDetail && workerFamilyDetail.name" class="form-control form-control-sm custom-select custom-select-sm" id="field_occupationMaster_{{index}}" name="occupationMaster{{index}}" [(ngModel)]="workerFamilyDetail.occupationMasterId" [required]="workerFamilyDetail.name.length > 0">
+                                                <option *ngFor="let occupationmaster of occupationmasters;" [value]="occupationmaster.id">{{occupationmaster.description}}</option>
+                                            </select>
+                                            <input *ngIf="workerFamilyDetail && !workerFamilyDetail.name" type="number" class="form-control form-control-sm" readonly/>
+                                        </td>
+                                        <td>
+                                            <select *ngIf="workerFamilyDetail && workerFamilyDetail.name" class="form-control form-control-sm custom-select custom-select-sm" id="field_dependency_{{index}}" name="dependency{{index}}" [(ngModel)]="workerFamilyDetail.dependency" [required]="workerFamilyDetail.name.length > 0">
+                                                <option value="Y">Yes</option>
+                                                <option value="N">No</option>
+                                            </select>
+                                            <input *ngIf="workerFamilyDetail && !workerFamilyDetail.name" type="number" class="form-control form-control-sm" readonly/>
+                                        </td>
+                                        <td class="button-column">
+                                            <button *ngIf="workerFamilyDetail.id" type="button" name="field_delete_family_{{index}}" id="delete_family_{{index}}" class="btn btn-sm btn-danger" (click)="deleteFamily(workerFamilyDetail);"><fa-icon [icon]="'times'"></fa-icon></button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab [id]="'nomination'" *ngIf="workerJoining.id">
+                            <ng-template ngbTabTitle>
+                                Nomination
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <table class="table table-sm">
+                                    <thead>
+                                    <tr>
+                                        <td style="width: 30%">Relative</td>
+                                        <td style="width: 30%">Type</td>
+                                        <td style="width: 30%">Nomination(%)</td>
+                                        <td></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let workerNominationDetail of workerJoining.workerNominationDetails; let index = index;">
+                                        <td>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" name="workerFamilyDetails_{{index}}" id="field_workerFamilyDetails_{{index}}" [(ngModel)]="workerNominationDetail.workerFamilyDetails">
+                                                <option [ngValue]="workerFamilyDetailsOption.id === workerNominationDetail.workerFamilyDetails?.id ? workerNominationDetail.workerFamilyDetails : workerFamilyDetailsOption" *ngFor="let workerFamilyDetailsOption of workerfamilydetails;">{{workerFamilyDetailsOption.name}}</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_nominationTypeMaster_{{index}}" name="nominationTypeMaster_{{index}}" [(ngModel)]="workerNominationDetail.nominationTypeMaster" [required]="workerNominationDetail.workerFamilyDetails">
+                                                <option [ngValue]="nominationTypeMasterOption.id === workerNominationDetail.nominationTypeMaster?.id ? workerNominationDetail.nominationTypeMaster : nominationTypeMasterOption" *ngFor="let nominationTypeMasterOption of nominationtypemasters;">{{nominationTypeMasterOption.description}}</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control form-control-sm" name="nominationPercentage_{{index}}" id="field_nominationPercentage_{{index}}" [(ngModel)]="workerNominationDetail.nominationPercentage" [required]="workerNominationDetail.workerFamilyDetails"/>
+                                        </td>
+                                        <td class="button-column">
+                                            <button *ngIf="workerNominationDetail.id" type="button" name="field_delete_nomination_{{index}}" id="delete_nomination_{{index}}" class="btn btn-sm btn-danger" (click)="deleteNomination(workerNominationDetail);"><fa-icon [icon]="'times'"></fa-icon></button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab [id]="'language'" *ngIf="workerJoining.id">
+                            <ng-template ngbTabTitle>
+                                Language
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <table class="table table-sm">
+                                    <thead>
+                                    <tr>
+                                        <td style="width: 50%">Language</td>
+                                        <td style="width: 40%">Mother Tongue</td>
+                                        <td style="width: 10%"></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let workerLanguageDetail of workerJoining.workerLanguageDetails; let index = index;">
+                                        <td>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" name="language_{{index}}" id="field_language_{{index}}" [(ngModel)]="workerLanguageDetail.languageMasterId">
+                                                <option *ngFor="let languageMasterOption of languagemasters;" [value]="languageMasterOption.id">{{languageMasterOption.description}}</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" name="motherTongue_{{index}}" id="field_motherTongue_{{index}}" [(ngModel)]="workerLanguageDetail.motherTongue">
+                                                <option value="N">NO</option>
+                                                <option value="Y">YES</option>
+                                            </select>
+                                        </td>
+                                        <td class="button-column">
+                                            <button *ngIf="workerLanguageDetail.id" type="button" name="field_delete_language_{{index}}" id="delete_language_{{index}}" class="btn btn-sm btn-danger" (click)="deleteLanguage(workerLanguageDetail);"><fa-icon [icon]="'times'"></fa-icon></button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab [id]="'education'" *ngIf="workerJoining.id">
+                            <ng-template ngbTabTitle>
+                                Education
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <table class="table table-sm">
+                                    <thead>
+                                    <tr>
+                                        <td style="width: 15%">Education</td>
+                                        <td style="width: 15%">Edu.Type</td>
+                                        <td style="width: 5%">Duration</td>
+                                        <td style="width: 15%">Institute</td>
+                                        <td style="width: 10%">Country</td>
+                                        <td style="width: 10%">State</td>
+                                        <td style="width: 10%">District</td>
+                                        <td style="width: 10%">City</td>
+                                        <td style="width: 5%">Pass.Year</td>
+                                        <td></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let workerEducationDetail of workerJoining.workerEducationDetails; let index = index;">
+                                        <td>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_educationMaster_{{index}}" name="educationMaster_{{index}}" [(ngModel)]="workerEducationDetail.educationMaster">
+                                                <option *ngIf="!editForm.value.educationMaster" [ngValue]="null" selected></option>
+                                                <option [ngValue]="educationMasterOption.id === workerEducationDetail.educationMaster?.id ? workerEducationDetail.educationMaster : educationMasterOption" *ngFor="let educationMasterOption of educationmasters;">{{educationMasterOption.description}}</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_educationTypeMaster_{{index}}" name="educationTypeMaster_{{index}}" [(ngModel)]="workerEducationDetail.educationTypeMaster" [required]="workerEducationDetail.educationMaster">
+                                                <option *ngIf="!editForm.value.educationTypeMaster" [ngValue]="null" selected></option>
+                                                <option [ngValue]="educationTypeMasterOption.id === workerEducationDetail.educationTypeMaster?.id ? workerEducationDetail.educationTypeMaster : educationTypeMasterOption" *ngFor="let educationTypeMasterOption of educationtypemasters;">{{educationTypeMasterOption.description}}</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" name="duration_{{index}}" id="field_duration_{{index}}" [(ngModel)]="workerEducationDetail.duration" maxlength="20"/>
+                                        </td>
+                                        <td>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_instituteMaster_{{index}}" name="instituteMaster_{{index}}" [(ngModel)]="workerEducationDetail.instituteMaster" [required]="workerEducationDetail.educationMaster">
+                                                <option *ngIf="!editForm.value.instituteMaster" [ngValue]="null" selected></option>
+                                                <option [ngValue]="instituteMasterOption.id === workerEducationDetail.instituteMaster?.id ? workerEducationDetail.instituteMaster : instituteMasterOption" *ngFor="let instituteMasterOption of institutemasters;">{{instituteMasterOption.description}}</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_recruitmentCountryMaster_edu_{{index}}" name="recruitmentCountryMaster_edu_{{index}}" [(ngModel)]="workerEducationDetail.recruitmentCountryMaster" [required]="workerEducationDetail.educationMaster" (change)="fetchEduState(workerEducationDetail);">
+                                                <option *ngIf="!editForm.value.recruitmentCountryMaster" [ngValue]="null" selected></option>
+                                                <option [ngValue]="recruitmentCountryMasterOption.id === workerEducationDetail.recruitmentCountryMaster?.id ? workerEducationDetail.recruitmentCountryMaster : recruitmentCountryMasterOption" *ngFor="let recruitmentCountryMasterOption of recruitmentcountrymasters;">{{recruitmentCountryMasterOption.description}}</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_recruitmentStateMaster_edu_{{index}}" name="recruitmentStateMaster_edu_{{index}}" [(ngModel)]="workerEducationDetail.recruitmentStateMaster" [required]="workerEducationDetail.educationMaster" (change)="fetchEduDistrict(workerEducationDetail);">
+                                                <option *ngIf="!editForm.value.recruitmentStateMaster" [ngValue]="null" selected></option>
+                                                <option [ngValue]="recruitmentStateMasterOption.id === workerEducationDetail.recruitmentStateMaster?.id ? workerEducationDetail.recruitmentStateMaster : recruitmentStateMasterOption" *ngFor="let recruitmentStateMasterOption of workerEducationDetail.recruitmentstatemasters;">{{recruitmentStateMasterOption.description}}</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_recruitmentDistrict_edu_{{index}}" name="recruitmentDistrict_edu_{{index}}" [(ngModel)]="workerEducationDetail.recruitmentDistrict" [required]="workerEducationDetail.educationMaster" (change)="fetchEduCity(workerEducationDetail);">
+                                                <option *ngIf="!editForm.value.recruitmentDistrict" [ngValue]="null" selected></option>
+                                                <option [ngValue]="recruitmentDistrictOption.id === workerEducationDetail.recruitmentDistrict?.id ? workerEducationDetail.recruitmentDistrict : recruitmentDistrictOption" *ngFor="let recruitmentDistrictOption of workerEducationDetail.recruitmentdistricts;">{{recruitmentDistrictOption.description}}</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" id="field_recruitmentCityMaster_edu_{{index}}" name="recruitmentCityMaster_edu_{{index}}" [(ngModel)]="workerEducationDetail.recruitmentCityMaster" [required]="workerEducationDetail.educationMaster">
+                                                <option *ngIf="!editForm.value.recruitmentCityMaster" [ngValue]="null" selected></option>
+                                                <option [ngValue]="recruitmentCityMasterOption.id === workerEducationDetail.recruitmentCityMaster?.id ? workerEducationDetail.recruitmentCityMaster : recruitmentCityMasterOption" *ngFor="let recruitmentCityMasterOption of workerEducationDetail.recruitmentcitymasters;">{{recruitmentCityMasterOption.description}}</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" name="passingYear_{{index}}" id="field_passingYear_{{index}}" [(ngModel)]="workerEducationDetail.passingYear" maxlength="6"/>
+                                        </td>
+                                        <td class="button-column">
+                                            <button *ngIf="workerEducationDetail.id" type="button" name="field_delete_education_{{index}}" id="delete_education_{{index}}" class="btn btn-sm btn-danger" (click)="deleteEducation(workerEducationDetail);"><fa-icon [icon]="'times'"></fa-icon></button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab *ngIf="workerJoining.id">
+                            <ng-template ngbTabTitle>
+                                Reference
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <table class="table table-sm">
+                                    <thead>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>Company Name</td>
+                                        <td>Designation</td>
+                                        <td>Tele No</td>
+                                        <td>Can be Contacted</td>
+                                        <td></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let workerReferenceDetail of workerJoining.workerReferenceDetails; let index = index;">
+                                            <td><input type="text" class="form-control form-control-sm text-uppercase" name="name_workRef_{{index}}" id="field_name_workRef_{{index}}" [(ngModel)]="workerReferenceDetail.name" maxlength="100"/></td>
+                                            <td><input type="text" class="form-control form-control-sm text-uppercase" name="organization_workRef_{{index}}" id="field_organization_workRef_{{index}}" [(ngModel)]="workerReferenceDetail.organization" maxlength="100"/></td>
+                                            <td><input type="text" class="form-control form-control-sm text-uppercase" name="designation_workRef_{{index}}" id="field_designation_workRef_{{index}}" [(ngModel)]="workerReferenceDetail.designation" maxlength="100"/></td>
+                                            <td><input type="text" class="form-control form-control-sm text-uppercase" name="contactNumber_workRef_{{index}}" id="field_contactNumber_workRef_{{index}}" [(ngModel)]="workerReferenceDetail.contactNumber" maxlength="20"/></td>
+                                            <td>
+                                                <select class="form-control form-control-sm custom-select custom-select-sm" name="contacted_workRef_{{index}}" id="field_contacted_workRef_{{index}}" [(ngModel)]="workerReferenceDetail.contacted">
+                                                    <option [ngValue]="!workerReferenceDetail.contacted" selected></option>
+                                                    <option value="Y">Yes</option>
+                                                    <option value="N">No</option>
+                                                </select>
+                                            </td>
+                                            <td><button *ngIf="workerReferenceDetail.id" type="button" name="field_delete_reference_{{index}}" id="delete_reference_{{index}}" class="btn btn-sm btn-danger" (click)="deleteReference(workerReferenceDetail);"><fa-icon [icon]="'times'"></fa-icon></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab *ngIf="workerJoining.id">
+                            <ng-template ngbTabTitle>
+                                Experience
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <table class="table table-sm">
+                                    <thead>
+                                    <tr>
+                                        <td>Company Name</td>
+                                        <td>Date From</td>
+                                        <td>Date To</td>
+                                        <td>Experience</td>
+                                        <td>Designation</td>
+                                        <td>Reason</td>
+                                        <td></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let workerJobsDetails of workerJoining.workerJobsDetails; let index = index;">
+                                            <td><input type="text" class="form-control form-control-sm text-uppercase" name="companyName_{{index}}" id="field_companyName_{{index}}" [(ngModel)]="workerJobsDetails.companyName" maxlength="100"/></td>
+                                            <td>
+                                                <div class="input-group input-group-sm" style="margin-bottom: 0;">
+                                                    <input id="field_fromDate" type="text" class="form-control form-control-sm" name="fromDate_{{index}}" [(ngModel)]="workerJobsDetails.fromDate" [owlDateTime]="fromDate"  [owlDateTimeTrigger]="fromDate" [owlDateTimeTrigger]="fromDate" readonly (dateTimeInput)="calculateExp(workerJobsDetails)"/>
+                                                    <span class="input-group-append" style="margin-bottom: 0;">
+                                                        <button type="button" class="btn btn-secondary" style="margin-top: 0; margin-bottom: 0;" [owlDateTimeTrigger]="fromDate"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                                                    </span>
+                                                    <owl-date-time [pickerType]="'calendar'" #fromDate></owl-date-time>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group input-group-sm" style="margin-bottom: 0;">
+                                                    <input id="field_toDate" type="text" class="form-control" name="toDate_{{index}}" [(ngModel)]="workerJobsDetails.toDate" [owlDateTime]="toDate"  [owlDateTimeTrigger]="toDate" [owlDateTimeTrigger]="toDate" readonly (dateTimeInput)="calculateExp(workerJobsDetails)"/>
+                                                    <span class="input-group-append" style="margin-bottom: 0;">
+                                                        <button type="button" class="btn btn-secondary"  [owlDateTimeTrigger]="toDate" style="margin-top: 0; margin-bottom: 0;"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                                                    </span>
+                                                    <owl-date-time [pickerType]="'calendar'" #toDate></owl-date-time>
+                                                </div>
+                                            </td>
+                                            <td><input type="number" class="form-control form-control-sm" name="exp_{{index}}" id="field_exp_{{index}}" [(ngModel)]="workerJobsDetails.exp" readonly/></td>
+                                            <td><input type="text" class="form-control form-control-sm text-uppercase" name="designation_{{index}}" id="field_designation_{{index}}" [(ngModel)]="workerJobsDetails.designation" /></td>
+                                            <td><input type="text" class="form-control form-control-sm text-uppercase" name="reasonLeavig_{{index}}" id="field_reasonLeavig_{{index}}" [(ngModel)]="workerJobsDetails.reasonLeavig" maxlength="500"/></td>
+                                            <td class="button-column">
+                                                <button *ngIf="workerJobsDetails.id" type="button" name="field_delete_exper_{{index}}" id="delete_exper_{{index}}" class="btn btn-sm btn-danger" (click)="deleteExperience(workerJobsDetails);"><fa-icon [icon]="'times'"></fa-icon></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab [id]="'document'" *ngIf="workerJoining.id">
+                            <ng-template ngbTabTitle>
+                                Document
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <table class="table table-sm">
+                                    <thead>
+                                    <tr>
+                                        <td style="width: 25%;">Document</td>
+                                        <td style="width: 25%;">Document Type</td>
+                                        <td style="width: 30%;">Remarks</td>
+                                        <td style="width: 15%;">Attachment</td>
+                                        <td style="width: 5%;"></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let workerDocumentDetail of workerJoining.workerDocumentDetails; let index = index;">
+                                        <td>{{workerDocumentDetail.recruitmentDocumentMaster.description}} <ng-container *ngIf="workerDocumentDetail.recruitmentDocumentMaster.documentMandatory"><span style="color: red;">**</span></ng-container></td>
+                                        <td>
+                                            <select class="form-control form-control-sm custom-select custom-select-sm" name="field_documentType_upload_{{index}}" name="documentType_upload_{{index}}" [(ngModel)]="workerDocumentDetail.documentType" [required]="workerDocumentDetail.recruitmentDocumentMaster.documentMandatory">
+                                                <ng-container *ngIf="workerDocumentDetail.recruitmentDocumentMaster.forceDocumentType==='A'">
+                                                    <option value="O">Original</option>
+                                                    <option value="P">Provisional</option>
+                                                </ng-container>
+                                                <ng-container *ngIf="workerDocumentDetail.recruitmentDocumentMaster.forceDocumentType==='O'">
+                                                    <option value="O">Original</option>
+                                                </ng-container>
+                                                <ng-container *ngIf="workerDocumentDetail.recruitmentDocumentMaster.forceDocumentType==='P'">
+                                                    <option value="P">Provisional</option>
+                                                </ng-container>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" name="field_uploadRemark_{{index}}" id="uploadRemark_{{index}}" maxlength="200" [(ngModel)]="workerDocumentDetail.remarks" [required]="workerDocumentDetail && workerDocumentDetail.documentType"/>
+                                        </td>
+                                        <td class="button-column">
+                                            <ng-container *ngIf="workerDocumentDetail && workerDocumentDetail.recruitmentDocumentMaster && workerDocumentDetail.recruitmentDocumentMaster.attachType==='C'">
+                                                <input type="checkbox" name="field_uploadAttached_{{index}}" id="uploadAttached_{{index}}" [(ngModel)]="workerDocumentDetail.attached"/>
+                                            </ng-container>
+                                            <ng-container *ngIf="workerDocumentDetail && workerDocumentDetail.recruitmentDocumentMaster && workerDocumentDetail.recruitmentDocumentMaster.attachType=='U' && workerDocumentDetail.recruitmentDocumentMaster.description==='Signature'"><button type="button" class="btn btn-sm btn-blush btn-round" (click)="openSignature(content, workerDocumentDetail);"><fa-icon [icon]="'file-upload'"></fa-icon> <span>Signature Upload</span></button></ng-container>
+                                            <ng-container *ngIf="workerDocumentDetail && workerDocumentDetail.recruitmentDocumentMaster && workerDocumentDetail.recruitmentDocumentMaster.attachType=='U' && workerDocumentDetail.recruitmentDocumentMaster.description!=='Signature'"><input type="file" class="form-control-sm" name="field_uploadAttachedFile_{{index}}" id="uploadAttachedFile_{{index}}" (change)="selectFile($event, workerDocumentDetail)"/></ng-container>
+                                        </td>
+                                        <td class="button-column">
+                                            <ng-container *ngIf="workerDocumentDetail.fileName && workerDocumentDetail.recruitmentDocumentMaster.description!=='Signature'"><button type="button" class="btn btn-sm btn-blush" [disabled]="isDownloading" (click)="download(workerDocumentDetail.id, workerDocumentDetail.fileName);"><fa-icon [icon]="'file-download'"></fa-icon></button></ng-container>
+                                            <ng-container *ngIf="workerDocumentDetail.fileName && workerDocumentDetail.recruitmentDocumentMaster.description==='Signature'"><button type="button" class="btn btn-sm btn-blush" [disabled]="isDownloading" (click)="downloadSignature(workerDocumentDetail.id, workerDocumentDetail.fileName);"><fa-icon [icon]="'file-download'"></fa-icon></button></ng-container>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab [id]="'comments'" *ngIf="workerJoining.id && workerJoining.workerWorkFlowBean">
+                            <ng-template ngbTabTitle>
+                                Workflow
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div style="overflow-x: hidden; overflow-y: scroll;height: 400px;" *ngIf="workerJoining.workerWorkFlowBean.workerWorkFlows">
+                                    <div *ngFor="let workerWorkFlowBean of workerJoining.workerWorkFlowBean.workerWorkFlows; index as i; even as isEven; odd as isOdd" [class]="(workerWorkFlowBean.authType && workerWorkFlowBean.authType==='C') ? 'alert alert-success' : (workerWorkFlowBean.authType && workerWorkFlowBean.authType==='R') ? 'alert alert-danger' : isEven ? 'alert alert-dark': 'alert alert-warning'" style="border-radius: 25px;">
+                                        <ng-container *ngIf="workerWorkFlowBean.empCode"><strong>{{workerWorkFlowBean.empName}}({{workerWorkFlowBean.empCode}}):</strong></ng-container>
+                                        <p>{{workerWorkFlowBean.remarks}}</p>
+                                        <span style="padding: 10px;">
+                                            <span class="time-left font-weight-light font-italic" *ngIf="workerWorkFlowBean.authType">
+                                                <ng-container *ngIf="workerWorkFlowBean.authType==='F'">Forward</ng-container>
+                                                <ng-container *ngIf="workerWorkFlowBean.authType==='C'">Forward HR</ng-container>
+                                                <ng-container *ngIf="workerWorkFlowBean.authType==='R'">Reject</ng-container>
+                                            </span>
+                                            <span class="time-right">{{workerWorkFlowBean.authDate | date:'dd-MMM-yy hh:mm a'}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header bg-blush" style="padding: 10px;">
+        <h4 class="modal-title" id="modal-basic-title" style="margin-top: 0px;">Signature Pad</h4>
+        <button style="top: 10px;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" style="width: 980px; height: 480px; position: relative;">
+        <div class="row">
+            <div class="col-md-12">
+                <ng-container *ngIf="!signatureImage" ><ng-signature-pad format="base64" (done)="saveImage($event)" [width]="921" [height]="400" [doneButtonClass]="'btn btn-sm btn-blush btn-round'" [clearButtonClass]="'btn btn-sm btn-secondary btn-round'" style="cursor: url('/content/images/myBall.png'),auto;" [penColor]="'blue'"></ng-signature-pad></ng-container>
+                <ng-container><img [src]="signatureImage" *ngIf="signatureImage" /></ng-container>
+                <button *ngIf="signatureImage" class="btn btn-sm btn-secondary btn-round" (click)="clearImages();">Clear</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-snotify></ng-snotify>

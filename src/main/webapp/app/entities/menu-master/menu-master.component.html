@@ -1,0 +1,78 @@
+<div>
+    <h2 id="page-heading">
+        <span>Menu Masters</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-menu-master" [routerLink]="['/menu-master/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Menu Master
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="menuMasters">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="menuLabel"><span>Menu Label</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="menuIcon"><span>Menu Icon</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="menuLink"><span>Menu Link</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="folder"><span>Folder</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="collapsed"><span>Collapsed</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="folderId"><span>Folder Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="parent"><span>Parent</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdBy"><span>Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let menuMaster of menuMasters ;trackBy: trackId">
+                <td><a [routerLink]="['/menu-master', menuMaster.id, 'view' ]">{{menuMaster.id}}</a></td>
+                <td>{{menuMaster.menuLabel}}</td>
+                <td>{{menuMaster.menuIcon}}</td>
+                <td>{{menuMaster.menuLink}}</td>
+                <td>{{menuMaster.folder}}</td>
+                <td>{{menuMaster.collapsed}}</td>
+                <td>{{menuMaster.folderId}}</td>
+                <td>{{menuMaster.parent}}</td>
+                <td>{{menuMaster.createdBy}}</td>
+                <td>{{menuMaster.createdDate | date:'medium'}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/menu-master', menuMaster.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/menu-master', menuMaster.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'menu-master/'+ menuMaster.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="menuMasters && menuMasters.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity BillRegisterDetails.
+    -->
+    <changeSet id="20230214114949-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="bill_register_import_id"
+                                 baseTableName="bill_register_import_details"
+                                 constraintName="fk_bill_register_import_details_bill_register_import_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="bill_register_import"/>
+
+    </changeSet>
+</databaseChangeLog>

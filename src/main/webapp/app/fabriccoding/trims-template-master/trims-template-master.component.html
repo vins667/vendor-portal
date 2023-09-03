@@ -1,0 +1,81 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Trims Template Masters</span>
+                <button id="jh-create-entity"
+                    class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-trims-template-master"
+                    [routerLink]="['/trims-template-master/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span>
+                        New
+                    </span>
+                </button>
+            </h5>
+            <jhi-alert></jhi-alert>
+            <br />
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse"
+                            [callback]="transition.bind(this)">
+                            <th jhiSortBy="id"><span>ID</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="accessoriesCode"><span>Accessories Code</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="description"><span>Description</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="flag"><span>Flag</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let trimsTemplateMaster of trimsTemplateMasters ;trackBy: trackId">
+                            <tr>
+                                <td>{{trimsTemplateMaster.id}}</td>
+                                <td>{{trimsTemplateMaster.accessoriesCode}}</td>
+                                <td>{{trimsTemplateMaster.description}}</td>
+                                <td>
+                                    <ng-container *ngIf="trimsTemplateMaster.flag==='Y'">Active</ng-container>
+                                    <ng-container *ngIf="trimsTemplateMaster.flag==='N'">Inactive</ng-container>
+                                </td>
+                                <td class="text-right button-column">
+                                    <div class="btn-group">
+                                        <button type="submit"
+                                            [routerLink]="['/trims-template-master', trimsTemplateMaster.id, 'edit']"
+                                            class="btn btn-blush btn-sm">
+                                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                            <span class="d-none d-md-inline">Edit</span>
+                                        </button>
+                                        <button type="submit"
+                                            [routerLink]="['/', 'trims-template-master', { outlets: { popup: trimsTemplateMaster.id + '/delete'} }]"
+                                            replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                            <fa-icon [icon]="'times'"></fa-icon>
+                                            <span class="d-none d-md-inline">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="trimsTemplateMasters && trimsTemplateMasters.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage">
+                    </jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage"
+                        [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)">
+                    </ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

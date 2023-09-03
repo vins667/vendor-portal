@@ -1,0 +1,151 @@
+<div align="center" class="centered" *ngIf="isProcess">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 id="jhi-asset-master-heading">Create or Edit Marker Entry</h6>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button type="button" id="cancel-save" class="btn btn-sm btn-xs btn-secondary btn-round m-0"  (click)="previousState()">
+                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>&nbsp;
+                    </button>
+                    <button type="submit" id="save-entity" [disabled]="markerMasterEntry.saveDisabled || editForm.form.invalid || isSaving" class="btn btn-sm btn-xs btn-blush btn-round m-0">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>&nbsp;
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body body py-2" style="min-height: 20px;">
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label">Project</label>
+                </div>
+                <div class="col-md-2">
+                    <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteProject" [minSearchLength]="3" [placeholder]="'Search Project'" [textSearching]="'Please wait...'" [inputClass]="!markerMasterEntry.style || markerMasterEntry.style.length === 0 ? 'form-control form-control-xs d-inline input-required' : 'form-control form-control-xs d-inline'" [(ngModel)]="markerMasterEntry.style" (selected)="onProjectSelected($event)" [disableInput]="markerMasterEntries && markerMasterEntries.length>0 ? true : null" [ngModelOptions]="{standalone: true}">
+                    </ng2-completer>
+                    <!--input type="text" class="form-control form-control-xs" name="style" id="field_style" [(ngModel)]="markerMasterEntry.style" required (blur)="fetchColors();" [attr.disabled]="markerMasterEntries && markerMasterEntries.length>0 ? true : null"/-->
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_color">Color</label>
+                </div>
+                <div class="col-md-2">
+                    <select *ngIf="!markerMasterEntries || (markerMasterEntries && markerMasterEntries.length === 0)" class="form-control form-control-xs custom-select custom-select-xs" name="color" id="field_color" [(ngModel)]="markerMasterEntry.color" (change)="fetchSizes(); fetchReservationItem(); viewMarkers();" required [ngModelOptions]="{standalone: true}">
+                        <option [value]="'undefined'">Select Color</option>
+                        <option [value]="colorOption.name" *ngFor="let colorOption of colors;">{{colorOption.desc}}</option>
+                    </select>
+                    <input *ngIf="markerMasterEntries && markerMasterEntries.length>0" type="text" class="form-control form-control-xs" name="colorDesc" id="field_colorDesc" [(ngModel)]="markerMasterEntry.colorDesc" [attr.disabled]="markerMasterEntries && markerMasterEntries.length>0 ? true : null" [ngModelOptions]="{standalone: true}"/>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_plantCode">Plant</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="plantCode" id="field_plantCode" [(ngModel)]="markerMasterEntry.plantCode" required *ngIf="!markerMasterEntries" (change)="selectPlant(); viewMarkers();" [ngModelOptions]="{standalone: true}">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let userPlant of userPlants" [value]="userPlant.id.plantCode">{{userPlant.plantDescription}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="plantDescription" id="field_plantDescription" [(ngModel)]="markerMasterEntry.plantDescription" readonly *ngIf="markerMasterEntries && markerMasterEntries.length>0" [ngModelOptions]="{standalone: true}"/>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body py-2 px-0 bg-white">
+            <div class="col-12">
+                <div class="table-responsive" id="entities">
+                    <table class="table table-sm table-bordered mb-0" aria-describedby="page-heading">
+                        <thead>
+                        <tr>
+                            <th style="width: 120px;">Destination</th>
+                            <ng-container *ngIf="markerDestinationBean && markerDestinationBean.sizeCodes">
+                                <th *ngFor="let sizesBean of markerDestinationBean.sizeCodes;" style="width: 100px;" class="text-center"><span>{{ sizesBean.sizeCode }}</span></th>
+                                <th>Total&nbsp;Qty</th>
+                            </ng-container>
+                        </tr>
+                        </thead>
+                        <tbody *ngIf="markerDestinationBean">
+                        <tr *ngFor="let destinationBean of markerDestinationBean.destinationBeans">
+                            <td style="width: 120px;">{{destinationBean.destination}}</td>
+                            <td *ngFor="let markerEntryDetail of destinationBean.markerEntryDetailsBeans;" style="width: 100px;" class="text-center"><span>{{ markerEntryDetail.orderQty }}</span></td>
+                            <td>{{destinationBean.totalQty}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body py-2 bg-white">
+            <div class="row mb-0">
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="form-control-label" for="field_itemCode">Fabric&nbsp;Code</label>
+                        </div>
+                        <div class="col-md-5">
+                            <select *ngIf="!markerMasterEntries" class="form-control form-control-xs custom-select custom-select-xs" name="itemCode" id="field_itemCode" [(ngModel)]="markerMasterEntry.itemCode" required (change)="widthSet();" [ngModelOptions]="{standalone: true}">
+                                <option [value]="'undefined'">Select Item</option>
+                                <option [ngValue]="itemcodeOption" *ngFor="let itemcodeOption of fullitemkeydecoders;">{{itemcodeOption.summarizeddescription}}</option>
+                            </select>
+                            <input *ngIf="markerMasterEntries && markerMasterEntries.length>0" type="text" class="form-control form-control-xs" name="summarizeddescription" id="field_summarizeddescription" [(ngModel)]="markerMasterEntry.itemCode.summarizeddescription" [attr.disabled]="markerMasterEntries && markerMasterEntries.length>0 ? true : null" [ngModelOptions]="{standalone: true}"/>
+                        </div>
+                        <div class="col-md-1"><label class="form-control-label" for="field_width">Width</label></div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control form-control-xs" name="width" id="field_width"  [(ngModel)]="markerMasterEntry.width" required disabled [ngModelOptions]="{standalone: true}"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="checkbox" class="custom-checkbox" name="bodyFabric" id="field_bodyFabric" [(ngModel)]="markerMasterEntry.bodyFabric" [disabled]="markerMasterEntries && markerMasterEntries.length>0 ? true : false" [ngModelOptions]="{standalone: true}"/>&nbsp;&nbsp;&nbsp;Body&nbsp;Fabric
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_plannedAvg">Plan.Avg</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" class="form-control form-control-xs text-center" name="plannedAvgAdmin" id="field_plannedAvgAdmin" [(ngModel)]="markerMasterEntry.plannedAvg" required [ngModelOptions]="{standalone: true}"  *jhiHasAnyAuthority="'ROLE_ADMIN'" (keyup)="updateInLine();"/>
+                    <input type="number" class="form-control form-control-xs text-center" name="plannedAvg" id="field_plannedAvg" [(ngModel)]="markerMasterEntry.plannedAvg" required disabled [ngModelOptions]="{standalone: true}"  *jhiHasAnyAuthority="'ROLE_USER'"/>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body py-2">
+            <div class="">
+                <div class="table-responsive" id="entities2">
+                    <table class="table table-sm table-bordered" aria-describedby="page-heading">
+                        <thead>
+                        <tr>
+                            <th style="width: 80px;"><fa-icon [icon]="'plus-circle'" class="text-success" (click)="addMarkerEntry();"></fa-icon>&nbsp;Marker#</th>
+                            <th style="width: 70px;">Length#</th>
+                            <th style="width: 70px;">Avg</th>
+                            <ng-container *ngIf="markerDestinationBean && markerDestinationBean.sizeCodes">
+                                <th *ngFor="let sizesBean of markerDestinationBean.sizeCodes;" style="width: 100px;" class="text-center"><span>{{ sizesBean.sizeCode }}</span></th>
+                            </ng-container>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ng-container *ngFor="let markerMasterEntry1 of markerMasterEntries; let indexHeader = index ">
+                            <tr class="bg-white">
+                                <td style="width: 70px;">
+                                    <input type="text" name="markerCode{{indexHeader}}" id="markerCode{{indexHeader}}" class="form-control form-control-xs text-center"  [(ngModel)]="markerMasterEntry1.markerCode" disabled [ngModelOptions]="{standalone: true}">
+                                </td>
+                                <td style="width: 70px;">
+                                    <input type="number" class="form-control form-control-xs text-center" name="length{{indexHeader}}" id="field_length{{indexHeader}}" [(ngModel)]="markerMasterEntry1.length" required [disabled]="markerMasterEntry1.approvalFlag ? 'true' : null" [ngModelOptions]="{standalone: true}" (keyup)="avgCalculation(markerMasterEntry1);"/>
+                                </td>
+                                <td style="width: 70px;">
+                                    <input type="number" class="form-control form-control-xs text-center" name="actualAvg{{indexHeader}}" id="field_actualAvg{{indexHeader}}" [(ngModel)]="markerMasterEntry1.actualAvg" required [disabled]="markerMasterEntry1.approvalFlag ? 'true' : null" [ngModelOptions]="{standalone: true}"/>
+                                </td>
+                                <td *ngFor="let markerEntryDetail of markerMasterEntry1.markerEntryDetails; let index = index;" style="width: 100px;" class="text-center">
+                                    <input type="number" name="sizeQty{{indexHeader}}_{{index}}" id="field_sizeQty{{indexHeader}}_{{index}}" [(ngModel)]="markerEntryDetail.sizeQty" class="form-control form-control-xs text-center" [disabled]="markerMasterEntry1.approvalFlag ? 'true' : null" [ngModelOptions]="{standalone: true}" (keyup)="avgCalculation(markerMasterEntry1);"/>
+                                </td>
+                                <td class="text-black font-weight-bold">
+                                    <ng-container *ngIf="markerMasterEntry1.id && !markerMasterEntry1.approvalFlag">
+                                        <fa-icon [icon]="'arrow-right'" class="text-primary" style="cursor: pointer;" title="Forward for Approval" (click)="forwardPopup(markerMasterEntry1);"></fa-icon>
+                                    </ng-container>
+                                    <ng-container *ngIf="markerMasterEntry1.id && markerMasterEntry1.approvalFlag">
+                                        {{markerMasterEntry1.approvalFlag}}<sup class="font-weight-bold"><span style="cursor: pointer;" title="{{markerMasterEntry1.approvalFlag === 'P' ? 'Pending' : markerMasterEntry1.approvalFlag === 'A'? 'Approved' : 'Rejected'}}">?</span></sup>
+                                    </ng-container>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

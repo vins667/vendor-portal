@@ -1,0 +1,79 @@
+<div class="centered" *ngIf="isProcess">
+    <div class="loader">
+    </div>
+</div>
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5>Invoice Filter</h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+</div>
+<div class="modal-body">
+    <div class="row clearfix">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form name="editForm" role="form">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input class="form-control form-control-sm  ng-valid ng-dirty ng-touched text-uppercase" name="code" id="field_code" placeholder="Challan No" type="text" [(ngModel)]="plantinvoiceSearch.code" />
+                                        <div class="input-group-append">
+                                            <button id="jh-search-entity" class="btn btn-sm btn-success" type="button" style="margin: 0;"  (click)="search();">
+                                                <fa-icon [icon]="'search'"></fa-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-striped table-hover table-vcenter table_custom text-nowrap spacing5 mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th class="align-top">Challan No</th>
+                                                <th class="align-top">Challan Date</th>
+                                                <th class="align-top">Invoice No</th>
+                                                <th class="align-top">Invoice Date</th>
+                                                <th class="align-top align-right"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <ng-container *ngIf="plantinvoices?.length > 0">
+                                                <tr *ngFor="let plantinvoice of plantinvoices;">
+                                                    <td>{{plantinvoice.challanno}}</td>
+                                                    <td>{{plantinvoice.challandate | date: 'dd/MM/yyyy'}}</td>
+                                                    <td>{{plantinvoice.id.code}}</td>
+                                                    <td>{{plantinvoice.invoicedate}}</td>
+                                                    <td class="button-column"><button type="button" class="btn btn-xs btn-warning" (click)="loadData(plantinvoice)"><fa-icon [icon]="'plus'"></fa-icon></button></td>
+                                                </tr>
+                                            </ng-container>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <jhi-alert-error></jhi-alert-error>
+                                <jhi-alert></jhi-alert>
+                                <br/>
+                                <div class="alert alert-warning" *ngIf="plantinvoices?.length === 0">
+                                    <span>No data found</span>
+                                </div>
+
+                                <div *ngIf="plantinvoices?.length > 0">
+                                    <div class="row justify-content-center">
+                                        <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

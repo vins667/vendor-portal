@@ -1,0 +1,83 @@
+<div class="centered" *ngIf="isProcess">
+    <div class="loader">
+    </div>
+</div>
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5>Production Order Filter</h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+</div>
+<div class="modal-body">
+    <div class="row clearfix">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form name="editForm" role="form">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input class="form-control form-control-sm  ng-valid ng-dirty ng-touched text-uppercase" name="code" id="field_code" placeholder="Order Code" type="text" [(ngModel)]="productionorderSearch.code" />
+                                        <div class="input-group-append">
+                                            <button id="jh-search-entity" class="btn btn-sm btn-success" type="button" style="margin: 0;"  (click)="search();">
+                                                <fa-icon [icon]="'search'"></fa-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-striped table-hover table-vcenter table_custom text-nowrap spacing5 mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th class="align-top">Company</th>
+                                                <th class="align-top">Counter Code</th>
+                                                <th class="align-top">Order Code</th>
+                                                <th class="align-top">Date</th>
+                                                <th class="align-top">Quality</th>
+                                                <th class="align-top">UOM</th>
+                                                <th class="align-top align-right"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <ng-container *ngIf="productionorders?.length > 0">
+                                                <tr *ngFor="let productionorder of productionorders;">
+                                                    <td>{{productionorder.id.companycode}}</td>
+                                                    <td>{{productionorder.productionordercountercode}}</td>
+                                                    <td>{{productionorder.id.code}}</td>
+                                                    <td>{{productionorder.orderdate | date: 'dd/MM/yyyy'}}</td>
+                                                    <td>{{productionorder.totalprimaryquantity}}</td>
+                                                    <td>{{productionorder.primaryunitofmeasurecode}}</td>
+                                                    <td class="button-column"><button type="button" class="btn btn-xs btn-warning" (click)="loadData(productionorder)"><fa-icon [icon]="'plus'"></fa-icon></button></td>
+                                                </tr>
+                                            </ng-container>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <jhi-alert-error></jhi-alert-error>
+                                <jhi-alert></jhi-alert>
+                                <br/>
+                                <div class="alert alert-warning" *ngIf="productionorders?.length === 0">
+                                    <span>No data found</span>
+                                </div>
+
+                                <div *ngIf="productionorders?.length > 0">
+                                    <div class="row justify-content-center">
+                                        <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

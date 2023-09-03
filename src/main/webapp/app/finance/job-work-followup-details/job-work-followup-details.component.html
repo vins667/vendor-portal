@@ -1,0 +1,78 @@
+<div align="center" class="centered" *ngIf="isDownload">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6">
+                <h6 id="page-heading">
+                    <span>Job&nbsp;Submit</span>
+                </h6>
+            </div>
+            <div class="col-md-6 text-right">
+            </div>
+        </div>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-3">
+                <select  class="form-control form-control-xs" name="status" id="field_status" [(ngModel)]="search.code">
+                    <option value="P">Pending</option>
+                    <option value="C">Closed</option>
+                </select>
+            </div>
+            <div class="col-md-9 text-right">
+                <button class="btn btn-xs btn-round btn-success m-0" type="button" (click)="loadPage();">
+                    <fa-icon [icon]="'search'"></fa-icon> <span>Search</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="loadPage.bind(this)">
+                    <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="jobWorkFollowup.jobworkname"><span>Job Work</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="jobWorkDate"><span>Job Work Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="submitDate"><span>Submit Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let jobWorkFollowupDetail of jobWorkFollowupDetails ;trackBy: trackId">
+                    <td>{{jobWorkFollowupDetail.id}}</td>
+                    <td>{{jobWorkFollowupDetail.jobWorkFollowup!.jobworkname}}</td>
+                    <td>{{jobWorkFollowupDetail.jobWorkDate | date: 'dd-MM-yyyy'}}</td>
+                    <td>{{jobWorkFollowupDetail.submitDate | date: 'dd-MM-yyyy'}}</td>
+                    <td class="text-right button-column">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/job-work-followup-details', jobWorkFollowupDetail.id, 'edit']"
+                                    class="btn btn-info  btn-xs">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" id="no-result" *ngIf="jobWorkFollowupDetails?.length === 0">
+            <span>No data found</span>
+        </div>
+        <div *ngIf="jobWorkFollowupDetails?.length > 0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                                [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                                (pageChange)="loadPage($event)"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

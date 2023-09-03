@@ -1,0 +1,12 @@
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5 id="page-heading">
+        <span>Defects(Issue Wise)</span>
+    </h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="close()">&times;</button>
+</div>
+<div class="modal-body">
+    <ng-container *ngIf="dataSourceDefects">
+        <fusioncharts [width]="widthDefects" [height]="heightDefects" [type]="typeDefects" [dataFormat]="dataFormatDefects" [dataSource]="dataSourceDefects">
+        </fusioncharts>
+    </ng-container>
+</div>

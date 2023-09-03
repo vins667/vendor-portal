@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity AuditQuesBuyerMappingDtls.
+    -->
+    <changeSet id="20190909115821-2" author="jhipster">
+        
+        <!--addForeignKeyConstraint baseColumnNames="vendor_audit_ques_details_id"
+                                 baseTableName="audit_ques_buyer_mapping_dtls"
+                                 constraintName="fk_audit_ques_buyer_mapping_dtls_vendor_audit_ques_details_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vendor_audit_ques_details"/>
+
+        <addForeignKeyConstraint baseColumnNames="buyer_master_id"
+                                 baseTableName="audit_ques_buyer_mapping_dtls"
+                                 constraintName="fk_audit_ques_buyer_mapping_dtls_buyer_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="buyer_master"/-->
+        <addForeignKeyConstraint baseColumnNames="audit_ques_buyer_mapping_id"
+                                 baseTableName="audit_ques_buyer_mapping_dtls"
+                                 constraintName="fk_audit_ques_buyer_mapping_dtls_audit_ques_buyer_mapping_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="audit_ques_buyer_mapping"/>
+
+    </changeSet>
+</databaseChangeLog>

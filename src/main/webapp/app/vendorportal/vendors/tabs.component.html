@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="body">
+        <ngb-tabset *ngIf="vendorsBean">
+            <ngb-tab>
+                <ng-template ngbTabTitle><fa-icon [icon]="'building'"></fa-icon>&nbsp;&nbsp;Office Use</ng-template>
+                <ng-template ngbTabContent><jhi-vendor-workflow [vendorsBean]="vendorsBean"></jhi-vendor-workflow></ng-template>
+            </ngb-tab>
+            <ngb-tab>
+                <ng-template ngbTabTitle><fa-icon [icon]="'users'"></fa-icon>&nbsp;&nbsp;Details<hr style="margin: 0; height: 2px !important;" [style.background-color]="vendorsBean.vendorContactStatus==='N'? 'RED' : vendorsBean.vendorContactStatus==='Y' ? 'GREEN' : 'ORANGE'"/></ng-template>
+                <ng-template ngbTabContent><jhi-vendor-contact-update [vendorContact]="vendorsBean.vendorContactTaxRegistration" [vendorContactCompare] = "vendorsBean.vendorContactTaxRegistrationCompare ? vendorsBean.vendorContactTaxRegistrationCompare: vendorsBean.vendorContactTaxRegistration"  [branchPresent]="vendorsBean.vendorContactTaxRegistration.branchesPresent" [approvalStatus]="vendorsBean.approvalStatus" [approved]="vendorsBean.approved"></jhi-vendor-contact-update></ng-template>
+            </ngb-tab>
+            <ngb-tab>
+                <ng-template ngbTabTitle><fa-icon [icon]="'piggy-bank'"></fa-icon>&nbsp;&nbsp;Bank<hr style="margin: 0; height: 2px !important;" [style.background-color]="vendorsBean.bankStatus==='N'? 'RED' : vendorsBean.bankStatus==='Y' ? 'GREEN' : 'ORANGE'"/></ng-template>
+                <ng-template ngbTabContent><jhi-vendor-bank-details-update [vendorBankDetails]="vendorsBean.vendorBankDetails" [vendorBankDetailsCompare]="vendorsBean.vendorBankDetailsCompare ? vendorsBean.vendorBankDetailsCompare : vendorsBean.vendorBankDetails" [approvalStatus]="vendorsBean.approvalStatus" [approved]="vendorsBean.approved"></jhi-vendor-bank-details-update></ng-template>
+            </ngb-tab>
+            <ngb-tab>
+                <ng-template ngbTabTitle><fa-icon [icon]="'code-branch'"></fa-icon>&nbsp;&nbsp;Branches<hr style="margin: 0; height: 2px !important;" [style.background-color]="vendorsBean.branchStatus==='N'? 'RED' : vendorsBean.branchStatus==='Y' ? 'GREEN' : 'ORANGE'"/></ng-template>
+                <ng-template ngbTabContent><jhi-vendor-branch-details [approvalStatus]="vendorsBean.approvalStatus" [vendorId]="vendorsBean.id"></jhi-vendor-branch-details></ng-template>
+            </ngb-tab>
+            <ngb-tab>
+                <ng-template ngbTabTitle><fa-icon [icon]="'trophy'"></fa-icon>&nbsp;&nbsp;Nomination<hr style="margin: 0; height: 2px !important;" [style.background-color]="vendorsBean.nominationStatus==='N'? 'RED' : vendorsBean.nominationStatus==='Y' ? 'GREEN' : 'ORANGE'"/></ng-template>
+                <ng-template ngbTabContent><jhi-vendor-nomination-update [vendorNomination]="vendorsBean.vendorNomination" [vendorNominationTransaction]="vendorsBean.vendorNominationTransaction" [approvalStatus]="vendorsBean.approvalStatus"></jhi-vendor-nomination-update></ng-template>
+            </ngb-tab>
+            <ngb-tab>
+                <ng-template ngbTabTitle><fa-icon [icon]="'info'"></fa-icon>&nbsp;&nbsp;Additional Info<hr style="margin: 0; height: 2px !important;" [style.background-color]="vendorsBean.addInfoStatus==='N'? 'RED' : vendorsBean.addInfoStatus==='Y' ? 'GREEN' : 'ORANGE'"/></ng-template>
+                <ng-template ngbTabContent><jhi-vendor-additional-info-update [vendorAdditionalInfo]="vendorsBean.vendorAdditionalInfo" [vendorAdditionalInfoCompare]="vendorsBean.vendorAdditionalInfoCompare ? vendorsBean.vendorAdditionalInfoCompare : vendorsBean.vendorAdditionalInfo" [approvalStatus]="vendorsBean.approvalStatus" [approved]="vendorsBean.approved"></jhi-vendor-additional-info-update></ng-template>
+            </ngb-tab>
+            <ngb-tab>
+                <ng-template ngbTabTitle><fa-icon [icon]="'phone'"></fa-icon>&nbsp;&nbsp;Contacts<hr style="margin: 0; height: 2px !important;" [style.background-color]="vendorsBean.peopleStatus==='N'? 'RED' : vendorsBean.peopleStatus==='Y' ? 'GREEN' : 'ORANGE'"/></ng-template>
+                <ng-template ngbTabContent><jhi-vendor-users-update [vendorUsers]="vendorsBean.vendorUsers" [approvalStatus]="vendorsBean.approvalStatus"></jhi-vendor-users-update></ng-template>
+            </ngb-tab>
+            <ngb-tab>
+                <ng-template ngbTabTitle><fa-icon [icon]="'file-alt'"></fa-icon>&nbsp;&nbsp;Documents<hr style="margin: 0; height: 2px !important;" [style.background-color]="vendorsBean.documentStatus==='N'? 'RED' : vendorsBean.documentStatus==='Y' ? 'GREEN' : 'ORANGE'"/></ng-template>
+                <ng-template ngbTabContent><jhi-vendor-document-update [vendorDocuments]="vendorsBean.vendorDocuments" [approvalStatus]="vendorsBean.approvalStatus" [countryCode]="vendorsBean.vendorContactTaxRegistrationCompare ? vendorsBean.vendorContactTaxRegistrationCompare.countryId : vendorsBean.vendorContactTaxRegistration.countryId"></jhi-vendor-document-update></ng-template>
+            </ngb-tab>
+            <ngb-tab>
+                <ng-template ngbTabTitle><fa-icon [icon]="'shield-alt'"></fa-icon>&nbsp;&nbsp;Terms<hr style="margin: 0; height: 2px !important;" [style.background-color]="vendorsBean.termsStatus==='N'? 'RED' : vendorsBean.termsStatus==='Y' ? 'GREEN' : 'ORANGE'"/></ng-template>
+                <ng-template ngbTabContent><jhi-vendor-terms-update [vendorTerms]="vendorsBean.vendorTerms"></jhi-vendor-terms-update></ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

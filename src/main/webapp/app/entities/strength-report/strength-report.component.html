@@ -1,0 +1,80 @@
+<div class="card">
+    <div class="body">
+        <div align="center" class="centered" *ngIf="isDownload">
+            <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+        </div>
+        <div>
+            <h5 id="page-heading"><span>Strength & CTC Report</span></h5>
+            <hr/>
+        </div>
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-3">
+                <label class="form-control-label">Report Type</label>
+            </div>
+            <div class="col-md-6">
+                <select name="report" id="report" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="reportType" required>
+                    <option value="S">Strength Report</option>
+                    <option value="C">CTC Report</option>
+                    <option value="D">CTC Detail Report(Testing Phase)</option>
+                </select>
+            </div>
+        </div>
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-3">
+                <label class="form-control-label">Factory</label>
+            </div>
+            <div class="col-md-6">
+                <select name="factory" id="factory" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="strengthReport.factory" required (change)="fetchList();">
+                    <option value="101">137 Faridabad</option>
+                    <option value="102">169 Faridabad</option>
+                    <option value="349">349 Faridabad</option>
+                    <option value="190">137 Corporate Faridabad</option>
+                    <option value="191">Infotech Faridabad</option>
+                    <option value="103">Bata Faridabad</option>
+                    <option value="104">C3 Noida</option>
+                    <option value="105">B4 Noida</option>
+                </select>
+            </div>
+        </div>
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-3">
+                <label class="form-control-label">Sub Company</label>
+            </div>
+            <div class="col-md-6">
+                <select name="subCompany" id="subCompany" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="strengthReport.subComp" required>
+                    <option *ngFor="let subcomp of subcomps;" [value] = "subcomp.id.subCode">{{subcomp.subSname}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-3">
+                <label class="form-control-label">Line</label>
+            </div>
+            <div class="col-md-6">
+                <select name="line" id="line" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="strengthReport.line" required>
+                    <option *ngFor="let sectionMat of sectionMats;" [value] = "sectionMat.id.secCode">{{sectionMat.desc1}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-3">
+                <label class="form-control-label">Date From</label>
+            </div>
+            <div class="col-md-6">
+                    <div class="input-group input-group-sm">
+                    <input [owlDateTime]="leaveDateFrom" name="dateFrom" id="field_dateFrom" readonly placeholder="Date" class="form-control form-control-sm" required [(ngModel)]="dateFrom">
+                    <div class="input-group-append input-group-append-top">
+                        <div class="btn btn-blush" [owlDateTimeTrigger]="leaveDateFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #leaveDateFrom></owl-date-time>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-sm btn-blush btn-round" style="margin-top: 0;" [disabled]="isDownload" (click)="generateReport();"><fa-icon [icon]="'download'"></fa-icon> <span>Generate</span></button>&nbsp;&nbsp;
+                <button type="reset" class="btn btn-sm btn-secondary btn-round" style="margin-top: 0;" [disabled]="isDownload"><fa-icon [icon]="'times'"></fa-icon> <span>Reset</span></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity CutPlanProgressEntry.
+    -->
+    <changeSet id="20220702075033-4" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="job_work_followup_id"
+                                 baseTableName="job_work_followup_reminder"
+                                 constraintName="fk_job_work_followup_reminder_job_work_followup_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="job_work_followup"/>
+
+    </changeSet>
+</databaseChangeLog>

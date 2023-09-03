@@ -1,0 +1,93 @@
+<div class="card">
+    <div class="card-header">
+        <h6 id="page-heading">
+            <span>Sales Order Closing</span>
+        </h6>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-2">
+                <select class="form-control form-control-xs" name="entryId" id="field_entryI" [(ngModel)]="search.status">
+                    <option value="0">Active</option>
+                    <option value="1">Closed</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control form-control-xs" name="code" id="field_code" placeholder="Enter Project Code#" [(ngModel)]="search.code" />
+            </div>
+            <div class="col-md-3">
+                <input type="number" class="form-control form-control-xs" name="shippedPercentage" id="field_shippedPercentage" placeholder="Enter Shipped %" [(ngModel)]="search.shippedPercentage" />
+            </div>
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-1 text-right">
+                <button class="btn btn-xs btn-round btn-success m-0" type="button" (click)="loadPage();">
+                    <fa-icon [icon]="'search'"></fa-icon> <span>Search</span>
+                </button>
+            </div>
+
+    </div>
+</div>
+    <div class="card-body body p-0">
+        <div class="table-responsive">
+            <table class="table table-striped" aria-describedby="page-heading">
+                <thead>
+                <tr>
+                    <th scope="col"><span>Project</span></th>
+                    <th scope="col"><span>Style</span></th>
+                    <th scope="col"><span>Customer</span></th>
+                    <th scope="col" class="text-right"><span>Order Quantity</span></th>
+                    <th scope="col" class="text-right"><span>Tolerance%</span></th>
+                    <th scope="col" class="text-right"><span>totalquantity</span></th>
+                    <th scope="col" class="text-right"><span>shippedquantity</span></th>
+                    <th scope="col" class="text-right"><span>shipped%</span></th>
+                    <th scope="col"><span>Status</span></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngIf="salesOrderClosings">
+                    <tr *ngFor="let salesOrderClosing of salesOrderClosings; trackBy: trackId" data-cy="entityTable">
+                        <td>{{ salesOrderClosing.projectCode }}</td>
+                        <td>{{ salesOrderClosing.style }}</td>
+                        <td>{{ salesOrderClosing.customerName }}</td>
+                        <td class="text-right">{{ salesOrderClosing.orderQuantity }}</td>
+                        <td class="text-right">{{ salesOrderClosing.tolerance | number: '1.2-2'}}%</td>
+                        <td class="text-right">{{ salesOrderClosing.totalQuantity }}</td>
+                        <td class="text-right">{{ salesOrderClosing.shippedQuantity }}</td>
+                        <td class="text-right">{{ salesOrderClosing.shippedPercentage | number: '1.2-2'}}%</td>
+                        <td>
+                            <span class="bg-success text-light circle" *ngIf="salesOrderClosing.status === 'Active'">{{ salesOrderClosing.status }}</span>
+                            <span class="bg-danger text-light circle" *ngIf="salesOrderClosing.status === 'Closed'">{{ salesOrderClosing.status }}</span>
+                        </td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="button"
+                                        (click)="edit(salesOrderClosing.projectCode)"
+                                        class="btn btn-blush btn-xs">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" id="no-result" *ngIf="salesOrderClosings?.length === 0">
+            <span>No data found</span>
+        </div>
+        <div *ngIf="salesOrderClosings?.length > 0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

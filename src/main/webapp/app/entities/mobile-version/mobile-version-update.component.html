@@ -1,0 +1,59 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-mobile-version-heading">Create or edit a Mobile Version</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                     <div>
+                            <div class="row card-margin-bottom-10" [hidden]="!mobileVersion.id">
+                                <div class="col-md-3">
+                                    <label for="id">ID</label>
+                                </div>
+                                <div class="col-md-9">
+                                     <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="mobileVersion.id" readonly />
+                                </div>
+                            </div>
+                            <div class="row card-margin-bottom-10">
+                                <div class="col-md-3">
+                                    <label class="form-control-label" for="field_version">Version</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control form-control-sm" name="version" id="field_version" [(ngModel)]="mobileVersion.version" required maxlength="10"/>
+                                        <div [hidden]="!(editForm.controls.version?.dirty && editForm.controls.version?.invalid)">
+                                            <small class="form-text text-danger"
+                                            [hidden]="!editForm.controls.version?.errors?.required">
+                                            This field is required.
+                                            </small>
+                                            <small class="form-text text-danger"
+                                            [hidden]="!editForm.controls.version?.errors?.maxlength">
+                                            This field cannot be longer than 10 characters.
+                                            </small>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="row card-margin-bottom-10">
+                                <div class="col-md-3">
+                                    <label class="form-control-label" for="field_mobileType">Mobile Type</label>
+                                </div>
+                                <div class="col-md-9">
+                                     <select type="text" class="form-control form-control-sm custom-select custom-select-sm" name="mobileType" id="field_mobileType" [(ngModel)]="mobileVersion.mobileType" required>
+                                        <option value="A">Android</option>
+                                        <option value="I">Iphone</option>
+                                     </select>
+                                </div>
+                         </div>
+                     </div>
+                     <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

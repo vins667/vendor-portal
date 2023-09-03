@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CTC29Report" pageWidth="660" pageHeight="842" columnWidth="640" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" isIgnorePagination="true" uuid="e288e2f5-4e98-4762-9a25-08a803b1d3fd">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="dateFrom" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="department" class="java.lang.String"/>
+	<field name="totalStaff" class="java.lang.Integer"/>
+	<field name="totalWorker" class="java.lang.Integer"/>
+	<field name="staffCTC" class="java.lang.Double"/>
+	<field name="workerCTC" class="java.lang.Double"/>
+	<field name="totalDesig" class="java.lang.Integer"/>
+	<field name="totalCTC" class="java.lang.Double"/>
+	<variable name="totalStaff" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalStaff}]]></variableExpression>
+	</variable>
+	<variable name="totalWorker" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalWorker}]]></variableExpression>
+	</variable>
+	<variable name="staffCTC" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{staffCTC}]]></variableExpression>
+	</variable>
+	<variable name="workerCTC" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{workerCTC}]]></variableExpression>
+	</variable>
+	<variable name="totalDesig" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalDesig}]]></variableExpression>
+	</variable>
+	<variable name="totalCTC" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalCTC}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="620" height="30" uuid="4dcf32a5-97fa-492d-b72f-a80cef78c4a7"/>
+				<box>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="24" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[CTC Report]]></text>
+			</staticText>
+			<textField pattern="dd-MM-yyyy h:mm:ss a">
+				<reportElement x="530" y="30" width="89" height="17" uuid="4f7cd43b-befb-46f8-b818-28da152f59b1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="30" width="440" height="18" uuid="61370db0-6ecc-44b6-ad10-4bed0852584f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e64edba-320d-46af-8ee3-ce07ceb0e9fa"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Date: "+ $P{dateFrom}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="440" y="30" width="90" height="17" uuid="a923e3a6-e234-4df2-b946-e31e919c7dbf"/>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Print Date:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="160" height="20" backcolor="#F5F5F5" uuid="325ebca0-622d-4633-b61f-628ee81c46bb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e64edba-320d-46af-8ee3-ce07ceb0e9fa"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Department]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="160" y="0" width="70" height="20" backcolor="#F5F5F5" uuid="641d04f5-ae06-4bbd-9534-b10d44b121ea">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a8b933a5-4fa1-491e-9752-99dbc7486b2c"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Total Staff]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="230" y="0" width="70" height="20" backcolor="#F5F5F5" uuid="44107412-683d-4142-b634-3d77d4d2b5b1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1683dba5-14f8-4486-af6f-dfd050177e3b"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Total Worker]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="300" y="0" width="70" height="20" backcolor="#F5F5F5" uuid="003ffbe1-5807-4056-8b43-12f0b522a104">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1f19d9ea-c671-4aab-8080-84f7b6c22938"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Staff CTC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="370" y="0" width="70" height="20" backcolor="#F5F5F5" uuid="041db79f-a9d3-4500-9c07-27a5ee2add4e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1423c280-b2a7-4865-8c18-904cf0bccb67"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Worker CTC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="440" y="0" width="90" height="20" backcolor="#F5F5F5" uuid="d3a61516-a44c-4230-ad8e-ef5984cb2e75">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1c1b7ea-c87e-4260-a876-df41008b58b0"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="5">
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Total Employees]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="530" y="0" width="90" height="20" backcolor="#F5F5F5" uuid="5bdd879c-31c7-406b-8c07-fffdd033ce3c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1c1b7ea-c87e-4260-a876-df41008b58b0"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Total CTC]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="160" height="18" uuid="9a941228-adc0-4c82-a642-356752304d75">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e64edba-320d-46af-8ee3-ce07ceb0e9fa"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{department}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="160" y="0" width="70" height="18" uuid="a225e1e3-6191-443b-ad5f-649d1d36900f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e64edba-320d-46af-8ee3-ce07ceb0e9fa"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalStaff}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="230" y="0" width="70" height="18" uuid="e17541ad-4561-4aa4-a0c3-e5b9400d8a2e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e64edba-320d-46af-8ee3-ce07ceb0e9fa"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalWorker}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#0.00#" isBlankWhenNull="true">
+				<reportElement x="300" y="0" width="70" height="18" uuid="b6034dee-b9bd-4a15-97c6-4105843974e9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e64edba-320d-46af-8ee3-ce07ceb0e9fa"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{staffCTC}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#0.00#" isBlankWhenNull="true">
+				<reportElement x="370" y="0" width="70" height="18" uuid="e3f94a45-0bfc-4447-b472-44f6b6d6afee">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e64edba-320d-46af-8ee3-ce07ceb0e9fa"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{workerCTC}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="440" y="0" width="90" height="18" uuid="214218c8-5a09-400c-a5a0-0dec962cb2af">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e64edba-320d-46af-8ee3-ce07ceb0e9fa"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="5">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalDesig}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#0.00#" isBlankWhenNull="true">
+				<reportElement x="530" y="0" width="90" height="18" uuid="4feaf1ad-a7a2-4cf5-8ff2-c4fbe2953d26">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e64edba-320d-46af-8ee3-ce07ceb0e9fa"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalCTC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="18">
+			<staticText>
+				<reportElement x="0" y="0" width="160" height="18" uuid="af075e6f-888f-4c95-bbf9-3e82f378ee1f"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Grand Total]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="160" y="0" width="70" height="18" uuid="2fb430b5-c741-427b-a584-5219df38410a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e64edba-320d-46af-8ee3-ce07ceb0e9fa"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalStaff}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="230" y="0" width="70" height="18" uuid="56b9e838-f790-4ed3-906a-a9480f05f696">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e64edba-320d-46af-8ee3-ce07ceb0e9fa"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalWorker}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#0.00#" isBlankWhenNull="true">
+				<reportElement x="300" y="0" width="70" height="18" uuid="7a8e4d02-7672-4e76-b4b4-cbc062099ba8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e64edba-320d-46af-8ee3-ce07ceb0e9fa"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{staffCTC}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#0.00#" isBlankWhenNull="true">
+				<reportElement x="370" y="0" width="70" height="18" uuid="94fbcd5d-7abc-4538-b75c-ead80cbf1836">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e64edba-320d-46af-8ee3-ce07ceb0e9fa"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{workerCTC}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="440" y="0" width="90" height="18" uuid="523afea2-6dca-4374-a786-cfadf4c4b770">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e64edba-320d-46af-8ee3-ce07ceb0e9fa"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="5">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalDesig}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#0.00#" isBlankWhenNull="true">
+				<reportElement x="530" y="0" width="90" height="18" uuid="ba2d6a72-99d5-46f2-880d-13315dbc170d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e64edba-320d-46af-8ee3-ce07ceb0e9fa"/>
+				</reportElement>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalCTC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

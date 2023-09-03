@@ -1,0 +1,69 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Employee Search</span>
+            </h5>
+            <jhi-alert></jhi-alert>
+            <div class="row">
+                <div class="col-md-2"><input type="text" name="name" class="form-control form-control-sm text-uppercase" placeholder="Enter Name" [(ngModel)]="employeesearch.name"/></div>
+                <div class="col-md-2"><input type="text" name="empCode" class="form-control form-control-sm text-uppercase" placeholder="Enter Emp Code" [(ngModel)]="employeesearch.empCode"/></div>
+                <div class="col-md-2"><input type="text" name="Aadhar" class="form-control form-control-sm text-uppercase" placeholder="Enter Aadhar" [(ngModel)]="employeesearch.aadharNo"/></div>
+                <div class="col-md-2"><input type="text" name="panNo" class="form-control form-control-sm text-uppercase" placeholder="Enter Pan No" [(ngModel)]="employeesearch.panNo"/></div>
+                <div class="col-md-2"><input type="text" name="Mobile" class="form-control form-control-sm text-uppercase" placeholder="Enter Mobile" [(ngModel)]="employeesearch.mobileNo"/></div>
+                <div class="col-md-1">
+                    <select name="status" id="status" class="form-control custom-select custom-select-sm" [(ngModel)]="employeesearch.status">
+                        <option value="A">Active</option>
+                        <option value="R">Resigned</option>
+                    </select>
+                </div>
+                <div class="col-md-1"><button type="button" class="btn btn-sm btn-round btn-blush" style="margin-top: 0;" (click)="search();"><fa-icon [icon]="'search'"></fa-icon> <span>Search</span></button></div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th><span>Emp&nbsp;Code</span></th>
+                        <th><span>Name</span></th>
+                        <th><span>Email - Phone</span></th>
+                        <th><span>Aadhar No</span></th>
+                        <th><span>Pan No - UAN</span></th>
+                        <th><span>Factory</span></th>
+                        <th><span>Department</span></th>
+                        <th><span>Designation</span></th>
+                        <th><span>status</span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                  <tbody *ngIf="employeeViews?.length>0">
+                     <ng-container *ngFor="let employeeView of employeeViews ;trackBy: trackId">
+                         <popover-content #myPopover title="{{employeeView.name}}" [closeOnClickOutside]="true">
+                            <!-- <img src="{{employeeView.imagePath}}" style="width: 200px; height: 150px;" alt="Profile Image"/> -->
+                        </popover-content> 
+                        <tr>
+                            <td>{{employeeView.cardNo}}</td>
+                            <td>{{employeeView.name}}</td>
+                            <td>{{employeeView.email}} - {{employeeView.phone}}</td>
+                            <td>{{employeeView.adhNo}}</td>
+                            <td>{{employeeView.pan}} - {{employeeView.uan}}</td>
+                            <td>{{employeeView.factoryDesc}}</td>
+                            <td>{{employeeView.depCodeDesc}}</td>
+                            <td>{{employeeView.desCodeDesc}}</td>
+                            <td><ng-container *ngIf="!employeeView.rdate"><fa-icon [icon]="'circle'" style="color: rgb(16, 133, 16);cursor: pointer;padding-left: 10px;" [ngbTooltip]="'Active'"></fa-icon></ng-container><ng-container *ngIf="employeeView.rdate"><fa-icon [icon]="'circle'" style="color: rgb(218, 23, 23);cursor: pointer;padding-left: 10px;" [ngbTooltip]="'Resigned'"></fa-icon></ng-container></td>
+                            <td class="text-right button-column" [popover]="myPopover"><fa-icon [icon]="'eye'"></fa-icon></td>
+                        </tr >
+                    </ng-container>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="employeeViews && employeeViews.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

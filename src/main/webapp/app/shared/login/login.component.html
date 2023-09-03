@@ -1,0 +1,61 @@
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span>
+    </button>
+    <br/>
+</div>
+<div class="modal-body">
+    <div class="page-header block-background">
+        <div class="page-header-image"></div>
+        <div class="container">
+            <div class="col-md-12 content-center">
+                <div class="card-plain">
+                    <div class="header">
+                        <h2><img src="../../../content/images/pulse.png" width="275" height="70" style="border-radius: 20px;"/></h2><br/>
+                        <h5>Log in</h5>
+                    </div>
+                    <div class="content">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="alert alert-danger" *ngIf="authenticationError">
+                                    <strong>Failed to sign in!</strong> Please check your credentials and try again.
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <form class="form" role="form" (ngSubmit)="login()" [formGroup]="loginForm">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="username" id="username" placeholder="Your username"
+                                               formControlName="username">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="Your password"
+                                               formControlName="password">
+                                    </div>
+                                    <!--div class="form-group">
+                                        <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Your Mobile No"
+                                               formControlName="mobile">
+                                    </div-->
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="rememberMe">
+                                            <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" formControlName="rememberMe" checked>
+                                            <span>Remember me</span>
+                                        </label>
+                                    </div>
+                                    <button type="submit" class="btn btn-blush btn-round btn-deep-orange btn-lg btn-block">Sign in</button>
+                                </form>
+                                <p></p>
+                                <a (click)="requestResetPassword()" class="link">Forgot Password?</a>&nbsp;|&nbsp;<a  (click)="register()" class="link">New Registration</a>
+                                <!--div class="alert alert-warning">
+                                    <a class="alert-link" (click)="requestResetPassword()">Did you forget your password?</a>
+                                </div>
+                                <div class="alert alert-warning">
+                                    <span>You don't have an account yet?</span>
+                                    <a class="alert-link" (click)="register()">Register a new account</a>
+                                </div-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

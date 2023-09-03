@@ -1,0 +1,72 @@
+<div class="card">
+    <div class="card-header">
+        <h6 id="page-heading">
+            <span>UTR Upload Form</span>
+        </h6>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-2">
+                <input class="form-control form-control-xs" name="chequeNo" id="field_chequeNo" placeholder="Cheque No" type="text" [(ngModel)]="search.chequeNo" />
+            </div>
+            <div class="col-md-10 text-right">
+                <button class="btn btn-xs btn-info btn-round btn-round" style="margin-top: 0;" type="button" (click)="loadPage();">
+                    <fa-icon [icon]="'search'"></fa-icon>
+                    <span>Search</span>
+                </button>
+                <button id="jh-excel-entity" class="btn btn-xs btn-blush btn-round jh-create-entity create-doc-file-upload" style="margin-top:0;" [routerLink]="['/transaction-upload/upload']">
+                    <fa-icon [icon]="'upload'"></fa-icon>
+                    <span >Upload From Excel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th jhiSortBy="transactionPostedDate"><span>Txn Date</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="chequeNo"><span>Cheque No</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="description"><span>Description</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="mode"><span>Mode</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="transactionAmount"><span>Amount</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let transactionUpload of transactionUploads ;trackBy: trackId">
+                    <td>{{transactionUpload.transactionPostedDate | date: 'dd-MM-yyyy'}}</td>
+                    <td>{{transactionUpload.chequeNo}}</td>
+                    <td>{{transactionUpload.description}}</td>
+                    <td>{{transactionUpload.mode}}</td>
+                    <td>{{transactionUpload.transactionAmount}}</td>
+                    <td class="text-right button-column">
+                      <!--  <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/transaction-upload',transactionUpload.id,'edit']"
+                                    class="btn btn-blush btn-xs">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+                        </div>-->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" id="no-result" *ngIf="transactionUploads?.length === 0">
+            <span>No data found</span>
+        </div>
+        <div class="transactionUploads?.length>0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                                [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

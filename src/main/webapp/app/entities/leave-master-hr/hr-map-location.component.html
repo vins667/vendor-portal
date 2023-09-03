@@ -1,0 +1,19 @@
+<div class="modal-body">
+    <h5 class="modal-title" id="myWorkerWorkFlowLabel">Current Location <small></small>
+        <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </h5>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- this creates a google map on the page with the given lat/lng from -->
+            <!-- the component as the initial center of the map: -->
+            <agm-map [latitude]="lat" [longitude]="lng" #agmMap>
+                <agm-marker [latitude]="lat" [longitude]="lng" iconUrl="../../../content/images/men.png" (mouseOver)="onMouseOver(infoWindow, agmMap)">
+                    <agm-info-window [disableAutoPan]="false" #infoWindow>
+                        <img [src]="imagePath" width="250" height="250"/>
+                    </agm-info-window>
+                </agm-marker>
+            </agm-map>
+        </div>
+    </div>
+</div>

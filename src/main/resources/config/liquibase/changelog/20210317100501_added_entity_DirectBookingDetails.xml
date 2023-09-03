@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <!--
+        Added the entity DirectBookingDetails.
+    -->
+    <changeSet id="20210317100501-1" author="jhipster">
+        <createTable tableName="direct_booking_details">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="itemtypecode" type="varchar(3)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_01" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_02" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_03" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_04" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_05" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_06" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_07" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_08" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_09" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_10" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="summerizeddescription" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="uom" type="varchar(3)">
+                <constraints nullable="true" />
+            </column>
+            <column name="glcode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="quantity" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="price" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="amount" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="discount" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="freight" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="others" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="taxablevalue" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="cgstperc" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="cgsttaxcode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="cgstglcode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="cgstdesc" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="cgstvalue" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="sgstperc" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="sgsttaxcode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sgstglcode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sgstdesc" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sgstvalue" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="igstperc" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="igsttaxcode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="igstglcode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="igstdesc" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="igstvalue" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="gstperc" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="gstvalue" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="totalvalue" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="hsncode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="direct_booking_entry_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="direct_booking_details_seq" incrementBy="1" cycle="false"/>
+        <createSequence startValue="1" sequenceName="findocumentlineseq" incrementBy="1" cycle="false"/>
+    </changeSet>
+</databaseChangeLog>

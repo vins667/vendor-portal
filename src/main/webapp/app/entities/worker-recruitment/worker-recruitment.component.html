@@ -1,0 +1,96 @@
+<div class="card">
+  <div class="body">
+    <div>
+        <h5 id="page-heading">
+            <span>Worker Recruitments</span>
+            <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-country" [routerLink]="['/worker-recruitment/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span >New</span>
+            </button>
+        </h5>
+        <div class="row card-margin-bottom-9">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input class="form-control form-control-sm text-uppercase ng-valid ng-dirty ng-touched" name="name" placeholder="Enter Name" type="text" [(ngModel)]="trailMockSearchOperation.name"/>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control form-control-sm  text-uppercase ng-valid ng-dirty ng-touched" name="aadharNo" id="field_aadharNo" placeholder="Enter Aadhar No" type="text" [(ngModel)]="trailMockSearchOperation.aadharNo"/>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control form-control-sm  text-uppercase ng-valid ng-dirty ng-touched" name="department" id="field_department" placeholder="Enter Department" type="text" [(ngModel)]="trailMockSearchOperation.department"/>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control form-control-sm  text-uppercase ng-valid ng-dirty ng-touched" name="designation" id="field_designation" placeholder="Enter Designation" type="text" [(ngModel)]="trailMockSearchOperation.designation"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-sm btn-round float-right btn-blush" style="margin-top:0;" type="button" (click)="search();">
+                    <fa-icon [icon]="'search'"></fa-icon>
+                    <span >Search</span>
+                </button>
+            </div>
+        </div>
+        <div class="table-responsive" *ngIf="workerRecruitments">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Date</span></th>
+                    <th><span>Name</span></th>
+                    <th><span>Aadhar</span></th>
+                    <th><span>Dob</span></th>
+                    <th><span>Department</span></th>
+                    <th><span>Designation</span></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let workerRecruitment of workerRecruitments ;trackBy: trackId">
+                    <td><a [routerLink]="['/worker-recruitment', workerRecruitment.id, 'view' ]">{{workerRecruitment.id}}</a></td>
+                    <td>{{workerRecruitment.createdDate | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{workerRecruitment.name}}</td>
+                    <td>{{workerRecruitment.aadharNo}}</td>
+                    <td>{{workerRecruitment.dob | date:'dd/MM/yyyy'}}</td>
+                    <td>{{workerRecruitment.departmentMaster.deptDesc}}</td>
+                    <td>{{workerRecruitment.designationMaster.designationName}}</td>
+                    <td class="text-right button-column">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/worker-recruitment', workerRecruitment.id, 'view' ]"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon [icon]="'eye'"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/worker-recruitment', workerRecruitment.id, 'edit']"
+                                    class="btn btn-blush btn-sm">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/', 'worker-recruitment', { outlets: { popup: workerRecruitment.id + '/delete'} }]"
+                                    replaceUrl="true"
+                                    queryParamsHandling="merge"
+                                    class="btn btn-danger btn-sm" [disabled]="workerRecruitment.status!=='E'">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="workerRecruitments && workerRecruitments.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

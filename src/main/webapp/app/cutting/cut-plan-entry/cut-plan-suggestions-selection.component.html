@@ -1,0 +1,108 @@
+<div class="centered" *ngIf="isProcess">
+    <div class="loader">
+    </div>
+</div>
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5>Suggestions Order Filter</h5>
+    <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+</div>
+<div class="modal-body scroll-popup-table-2">
+    <div class="row clearfix">
+        <div class="col-12">
+            <div class="row mb-1">
+                <div class="col-md-12">
+                    <div class="card p-2">
+                        <div class="row">
+                            <div class="col-md-1 font-weight-bold">
+                                Marker#
+                            </div>
+                            <div class="col-md-2 font-weight-bold">
+                                Length:
+                            </div>
+                            <div class="col-md-2 font-weight-bold">
+                                Lot#
+                            </div>
+                            <div class="col-md-2 font-weight-bold">
+                                Rolls#
+                            </div>
+                            <div class="col-md-2 font-weight-bold">
+                                Plies#
+                            </div>
+                            <div class="col-md-2 font-weight-bold">
+                                End Bits
+                            </div>
+                            <div class="col-md-1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngFor="let markerBean of this.markerBeans; let index = index">
+                <div class="row mb-1">
+                    <div class="col-md-12">
+                        <div class="card p-2" [class.blue-opacity]="markerBean.highlight &&  markerBean.highlight === true ? 'true' : null"  [class.text-white]="markerBean.highlight &&  markerBean.highlight === true ? 'true' : null">
+                            <div class="row">
+                                <div class="col-md-1 font-weight-bold">
+                                    <fa-icon [icon]="'plus-square'" [class]="markerBean.highlight &&  markerBean.highlight === true ? 'text-dark' : 'text-success'" *ngIf="!markerBean.collapse" (click)="markerCollapse(true, markerBean);"></fa-icon>
+                                    <fa-icon [icon]="'minus-square'" class="text-danger" *ngIf="markerBean.collapse" (click)="markerCollapse(false, markerBean);"></fa-icon>&nbsp;
+                                    <span [class]="markerBean.highlight &&  markerBean.highlight === true ? 'text-dark' : 'text-success'">{{markerBean.markercode}}</span>
+                                </div>
+                                <div class="col-md-2 font-weight-bold">
+                                    <span [class]="markerBean.highlight &&  markerBean.highlight === true ? 'text-dark' : 'text-success'">{{markerBean.markerLength}}</span>
+                                </div>
+                                <div class="col-md-2 font-weight-bold">
+                                    <span [class]="markerBean.highlight &&  markerBean.highlight === true ? 'text-dark' : 'text-success'">{{markerBean.lotcode}}</span>
+                                </div>
+                                <div class="col-md-2 font-weight-bold">
+                                    <span [class]="markerBean.highlight &&  markerBean.highlight === true ? 'text-dark' : 'text-success'">{{markerBean.noRolls}}</span>
+                                </div>
+                                <div class="col-md-2 font-weight-bold">
+                                    <span [class]="markerBean.highlight &&  markerBean.highlight === true ? 'text-dark' : 'text-success'">{{markerBean.noPlies}}</span>
+                                </div>
+                                <div class="col-md-2 font-weight-bold">
+                                    <span [class]="markerBean.highlight &&  markerBean.highlight === true ? 'text-dark' : 'text-success'">{{markerBean.endBits}}</span>
+                                </div>
+                                <div class="col-md-1">
+                                    <fa-icon [icon]="'caret-square-right'" style="cursor: pointer" (click)="addRow(markerBean);"></fa-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1" [class.d-none]="!markerBean.collapse ? 'true' : null">
+                    <div class="col-md-12 pl-5">
+                        <div class="table-responsive scroll-popup-table">
+                            <table class="table table-sm table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th class="border-black">Roll#</th>
+                                    <th class="border-black">Quality Level</th>
+                                    <th class="border-black">L/W</th>
+                                    <th class="border-black">UOM</th>
+                                    <th class="text-right border-black">Selected/ROll&nbsp;Qty</th>
+                                    <th class="text-right border-black">Plies#</th>
+                                    <th class="text-right border-black">End&nbsp;bit</th>
+                                    <th class="border-black">&nbsp;</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <ng-container *ngFor="let balance of markerBean.balances; let balIndex = index;">
+                                    <tr>
+                                        <td class="border-black font-weight-500">{{balance.elementscode}}</td>
+                                        <td class="border-black font-weight-500">{{balance.qualitylevelcode}}</td>
+                                        <td class="border-black font-weight-500">{{balance.logicalwarehousecode}}</td>
+                                        <td class="border-black font-weight-500">{{balance.baseprimaryunitcode}}</td>
+                                        <td class="text-right border-black font-weight-500">{{balance.baseprimaryquantityunit | number: '1.3-3'}}</td>
+                                        <td class="text-right border-black font-weight-500"><ng-container *ngIf="balance.allowPlies && balance.allowPlies === true">{{balance.noPlies}}</ng-container></td>
+                                        <td class="text-right border-black font-weight-500"><ng-container *ngIf="balance.allowPlies && balance.allowPlies === true">{{balance.endBits | number: '1.3-3'}}</ng-container></td>
+                                        <td class="text-right border-black"><input type="checkbox" name="allowPlies{{index}}_dt{{balIndex}}" [(ngModel)]="balance.allowPlies" class="custom-checkbox" (change)="suggestionUpdate(markerBean);"/></td>
+                                    </tr>
+                                </ng-container>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

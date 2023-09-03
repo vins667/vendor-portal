@@ -1,0 +1,13 @@
+<div class="card">
+    <div class="body">
+        <pdf-viewer
+            [src]="'../content/profile/NDA.pdf'"
+            [render-text]="true"
+            style="display: block;"
+            [show-all]="false"
+            [page]="page"
+            (after-load-complete)="afterLoadComplete($event)"
+            [zoom]="1.2"
+        ></pdf-viewer>
+    </div>
+</div>

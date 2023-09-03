@@ -1,0 +1,67 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Employee Information Updates</span>
+                <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-employee-information-update" [routerLink]="['/employee-information-update/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span>new</span>
+                </button>
+            </h5>
+            <br/>
+            <div class="table-responsive" *ngIf="employeeInformationUpdates">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="createdDate"><span>Requested Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="correspondenceAddress"><span>Correspondence Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="mobileNumber"><span>Mobile Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="flag"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let employeeInformationUpdate of employeeInformationUpdates ;trackBy: trackId">
+                        <td><a [routerLink]="['/employee-information-update', employeeInformationUpdate.id, 'view' ]">{{employeeInformationUpdate.id}}</a></td>
+                        <td>{{employeeInformationUpdate.createdDate | date: 'dd-MM-yyyy HH:mm'}}</td>
+                        <td>{{employeeInformationUpdate.correspondenceAddress}}</td>
+                        <td>{{employeeInformationUpdate.mobileNumber}}</td>
+                        <td>
+                            <ng-container *ngIf="employeeInformationUpdate.flag==='E'">Pending</ng-container>
+                            <ng-container *ngIf="employeeInformationUpdate.flag==='C'">Approved</ng-container>
+                            <ng-container *ngIf="employeeInformationUpdate.flag==='R'">Rejected</ng-container>
+                        </td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/employee-information-update', employeeInformationUpdate.id, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/', 'employee-information-update', { outlets: { popup:  employeeInformationUpdate.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm" [disabled]="employeeInformationUpdate.flag !== 'E'">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="employeeInformationUpdates && employeeInformationUpdates.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

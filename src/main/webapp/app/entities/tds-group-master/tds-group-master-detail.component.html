@@ -1,0 +1,63 @@
+<div class="card">
+    <div class="body">
+            <h5><span>Tds Group Master</span> {{tdsGroupMaster.id}}</h5>
+            <hr>
+            <div class="row">
+                <div class="col-8">
+                        <div *ngIf="tdsGroupMaster">
+                            <div class="row">
+                                <div class="col-md-3">
+                                   <dt><span>Year</span></dt>
+                                </div>
+                                <div class="col-md-9">
+                                     <dd> <span>{{tdsGroupMaster.year}}</span></dd>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <dt><span>Group Code</span></dt>
+                                </div>
+                                <div class="col-md-9">
+                                        <dd> <span>{{tdsGroupMaster.groupCode}}</span></dd>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                   <dt><span>Group Description</span></dt>
+                                </div>
+                                <div class="col-md-9">
+                                        <dd> <span>{{tdsGroupMaster.groupDescription}}</span></dd>
+                                </div>
+                             </div>
+                             <div class="row">
+                                <div class="col-md-3">
+                                    <dt><span>Group Limit</span></dt>
+                                </div>
+                                <div class="col-md-9">
+                                    <dd> <span>{{tdsGroupMaster.groupLimit}}</span></dd>
+                                </div>
+                             </div>
+                             <div class="row">
+                                <div class="col-md-3">
+                                    <dt><span>Group Order</span></dt>
+                                </div>
+                                <div class="col-md-9">
+                                        <dd> <span>{{tdsGroupMaster.groupOrder}}</span></dd>
+                                </div>
+                             </div>
+                             <button type="submit"
+                                    (click)="previousState()"
+                                     class="btn btn-sm btn-info btn-round">
+                                    <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                            </button>
+
+                            <button type="button"
+                                    [routerLink]="['/tds-group-master', tdsGroupMaster.id, 'edit']"
+                                    class="btn btn-sm btn-blush btn-round">
+                                   <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                            </button>
+                        </div>
+                </div>
+            </div>
+    </div>
+</div>

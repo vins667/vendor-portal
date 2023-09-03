@@ -1,0 +1,58 @@
+<div class="card">
+    <div class="body">
+            <div>
+                    <h5 id="page-heading">
+                        <span>MMR Master</span>
+                        <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-mmr-master" [routerLink]="['/mmr-master/new']">
+                            <fa-icon [icon]="'plus'"></fa-icon>
+                            <span>new</span>
+                        </button>
+                    </h5>
+                    <br/>
+                    <div class="table-responsive" *ngIf="mMRMasters">
+                        <table class="table table-sm table-striped">
+                            <thead>
+                            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                            <th jhiSortBy="monthYear"><span>Month Year</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="factory"><span>Factory</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let mMRMaster of mMRMasters ;trackBy: trackId">
+                                <td>{{mMRMaster.monthYear | date:'dd-MM-yyyy'}}</td>
+                                <td>
+                                    <ng-containter *ngIf="mMRMaster.factory==='101'">137 Faridabad</ng-containter>
+                                    <ng-containter *ngIf="mMRMaster.factory==='102'">169 Faridabad</ng-containter>
+                                </td>
+                                <td class="text-right button-column">
+                                    <div class="btn-group">
+                                        <!-- <button type="submit"
+                                                [routerLink]="['/mmr-master', mMRMaster.id, 'view' ]"
+                                                class="btn btn-info btn-sm">
+                                            <fa-icon [icon]="'eye'"></fa-icon>
+                                            <span class="d-none d-md-inline">View</span>
+                                        </button> -->
+                                        <button type="submit"
+                                                [routerLink]="['/mmr-master', mMRMaster.monthYear | date: 'ddMMyyyy', mMRMaster.factory, 'edit']"
+                                                class="btn btn-blush btn-sm">
+                                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                            <span class="d-none d-md-inline">Edit</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngIf="mMRMasters && mMRMasters.length">
+                        <div class="row justify-content-center">
+                            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                        </div>
+                        <div class="row justify-content-center">
+                            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>

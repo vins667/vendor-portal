@@ -1,0 +1,52 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Designation Master</span> {{designationMaster.id}}</h5>
+        <hr>
+        <div class="row">
+            <div class="col-8" *ngIf="designationMaster">
+                <div class="row">
+                    <div class="col-md-3"><dt><span>Designation Code</span></dt></div>
+                    <div class="col-md-9">
+                        <dd><span>{{designationMaster.designationCode}}</span></dd>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><dt><span>Designation Name</span></dt></div>
+                    <div class="col-md-9">
+                        <dd>
+                            <span>{{designationMaster.designationName}}</span>
+                        </dd>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><dt><span>Flow Type</span></dt></div>
+                    <div class="col-md-9">
+                        <dd>
+                            <span *ngIf="designationMaster.flowType=='O'">Mock Test(Operator)</span>
+                            <span *ngIf="designationMaster.flowType=='N'">Not Applicable</span>
+                        </dd>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><dt><span>Status</span></dt></div>
+                    <div class="col-md-9">
+                        <dd>
+                            <span *ngIf="designationMaster.status=='Y'">Active</span>
+                            <span *ngIf="designationMaster.status=='N'">Inactive</span>
+                        </dd>
+                    </div>
+                </div>
+                <button type="submit" (click)="previousState()"
+                     class="btn btn-sm btn-info btn-round">
+                     <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                </button>
+
+                <button type="button"
+                        [routerLink]="['/designation-master', designationMaster.id, 'edit']"
+                        class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

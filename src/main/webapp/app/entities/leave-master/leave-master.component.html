@@ -1,0 +1,105 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Leaves</span>
+                <button id="jh-create-entity" class="btn btn-sm btn-round btn-blush float-right jh-create-entity create-leave-master" [routerLink]="['/leave-master/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span >New
+            </span>
+                </button>
+            </h5>
+            <!--jhi-alert></jhi-alert-->
+            <br/>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="leaveTypeMaster.id"><span>Leave Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="leaveSubTypeMaster.id"><span>Full/Half Day</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="leaveDateFrom"><span>Date From</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="leaveDateTo"><span>Date To</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="reason"><span>Reason</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="flag"><span>Flag</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ng-container *ngIf="leaveMasters">
+                    <tr *ngFor="let leaveMaster of leaveMasters ;trackBy: trackId">
+                        <td>{{leaveMaster.id}}</td>
+                        <td>
+                            <div *ngIf="leaveMaster.leaveTypeMaster">
+                                {{leaveMaster.leaveTypeMaster?.leaveName}}
+                                <ng-container *ngFor="let mobileAttendance of leaveMaster.mobileAttendances">
+                                    <fa-icon [icon]="'map-marker-alt'" (click)="maps(mobileAttendance);" style="cursor: pointer;"></fa-icon> &nbsp;
+                                </ng-container>
+                            </div>
+                        </td>
+                        <td>
+                            <div *ngIf="leaveMaster.leaveSubTypeMaster && leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode !== 'SP'">{{leaveMaster.leaveSubTypeMaster?.subTypeName}}</div>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode === 'SP'">
+                                <span [class.text-danger]="leaveMaster.missPunchType && (leaveMaster.missPunchType ==='F' || leaveMaster.missPunchType ==='A')" [class.font-weight-bold]="leaveMaster.missPunchType && (leaveMaster.missPunchType ==='F' || leaveMaster.missPunchType ==='A')">{{leaveMaster.leaveDateFrom | date:'dd-MM-yyyy'}} {{leaveMaster.leaveTimeFrom | date:'HH:mm'}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode !== 'SP'">{{leaveMaster.leaveDateFrom | date:'dd-MM-yyyy'}} {{leaveMaster.leaveTimeFrom | date:'HH:mm'}}</ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode === 'SP'">
+                                <span [class.text-danger]="leaveMaster.missPunchType && (leaveMaster.missPunchType ==='S' || leaveMaster.missPunchType ==='A')" [class.font-weight-bold]="leaveMaster.missPunchType && (leaveMaster.missPunchType ==='S' || leaveMaster.missPunchType ==='A')">{{leaveMaster.leaveDateTo | date:'dd-MM-yyyy'}} {{leaveMaster.leaveTimeTo | date:'HH:mm'}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="leaveMaster.leaveTypeMaster && leaveMaster.leaveTypeMaster.leaveCode !== 'SP'">
+                                {{leaveMaster.leaveDateTo | date:'dd-MM-yyyy'}} {{leaveMaster.leaveTimeTo | date:'HH:mm'}}
+                            </ng-container>
+                        </td>
+                        <td>{{leaveMaster.reason}}</td>
+                        <td>
+                            <ng-container *ngIf="leaveMaster.flag=='E'">Pending</ng-container>
+                            <ng-container *ngIf="leaveMaster.flag=='A'">Approved By HOD</ng-container>
+                            <ng-container *ngIf="leaveMaster.flag=='C'">Approved By HR</ng-container>
+                            <ng-container *ngIf="leaveMaster.flag=='R'">Rejected</ng-container>
+                            <ng-container *ngIf="leaveMaster.flag=='Q'">Query By HOD</ng-container>
+                        </td>
+                        <td class="text-right button-column">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        [routerLink]="['/leave-master', leaveMaster.id, 'view' ]"
+                                        class="btn btn-info btn-sm">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+                                <!--button type="submit"
+                                        [routerLink]="['/leave-master', leaveMaster.id, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button-->
+                                <button type="submit"
+                                        [routerLink]="['/', 'leave-master', { outlets: { popup: leaveMaster.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm" [disabled]="leaveMaster.flag=='A' || leaveMaster.flag=='C' || leaveMaster.flag=='R' || leaveMaster.flag=='Q'">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-blush" name="button_remarks" (click)="open(leaveMaster);" title="Click to enter remarks"><fa-icon [icon]="'comment-alt'"></fa-icon></button>
+                            </div>
+                        </td>
+                    </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="leaveMasters && leaveMasters.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

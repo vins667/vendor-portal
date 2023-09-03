@@ -1,0 +1,108 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-country-heading">Create or edit a Buyer</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!buyerMaster.id">
+                            <div class="col-md-3">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="buyerMaster.id" readonly />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_buyerCode">Buyer Code</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="buyerCode" id="field_buyerCode" [(ngModel)]="buyerMaster.buyerCode" required maxlength="50"/>
+                                <div [hidden]="!(editForm.controls.buyerCode?.dirty && editForm.controls.buyerCode?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.buyerCode?.errors?.required">
+                                    This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.buyerCode?.errors?.maxlength">
+                                    This field cannot be longer than 50 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_buyerName">Buyer Name</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="buyerName" id="field_buyerName" [(ngModel)]="buyerMaster.buyerName" required maxlength="200"/>
+                                <div [hidden]="!(editForm.controls.buyerName?.dirty && editForm.controls.buyerName?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.buyerName?.errors?.required">
+                                    This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.buyerName?.errors?.maxlength">
+                                    This field cannot be longer than 200 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_contactNo">Contact No</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="contactNo" id="field_contactNo" [(ngModel)]="buyerMaster.contactNo" required maxlength="15"/>
+                                <div [hidden]="!(editForm.controls.contactNo?.dirty && editForm.controls.contactNo?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.contactNo?.errors?.maxlength">
+                                    This field cannot be longer than 15 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_emailId">Email Id</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="emailId" id="field_emailId" [(ngModel)]="buyerMaster.emailId" required maxlength="320"/>
+                                <div [hidden]="!(editForm.controls.emailId?.dirty && editForm.controls.emailId?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.emailId?.errors?.maxlength">
+                                    This field cannot be longer than 320 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3">
+                                <label class="form-control-label" for="field_address">Address</label>
+                            </div>
+                            <div class="col-md-9">
+                                <textarea class="form-control form-control-sm" name="address" id="field_address" [(ngModel)]="buyerMaster.address" rows="2" required maxlength="500"></textarea>
+                                <div [hidden]="!(editForm.controls.address?.dirty && editForm.controls.address?.invalid)">
+                                    <small class="form-text text-danger"
+                                    [hidden]="!editForm.controls.address?.errors?.maxlength">
+                                    This field cannot be longer than 500 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

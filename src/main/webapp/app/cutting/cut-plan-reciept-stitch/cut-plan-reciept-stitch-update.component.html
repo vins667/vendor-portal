@@ -1,0 +1,153 @@
+<div align="center" class="centered" *ngIf="isProcess">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+    <h2>Please wait ....</h2>
+</div>
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 id="jhi-asset-master-heading">Cut Reciept to Stitch<span *ngIf="editForm.controls['id'].value"># {{editForm.controls['id'].value}}</span></h6>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-right">
+                        <button type="button" id="cancel-entity" class="btn btn-sm btn-xs btn-second btn-round m-0" (click)="previousState();">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>&nbsp;
+                        </button>
+                        <button *ngIf="!editForm.controls['postedBy'].value" type="submit" id="save-entity" class="btn btn-sm btn-xs btn-blush btn-round m-0" [disabled]="editForm.invalid || isSaving">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>&nbsp;
+                        </button>
+                        <button *ngIf="!editForm.controls['recieptPostedDate'].value" (click)="postSave();" type="button" id="post-entity" class="btn btn-sm btn-xs btn-info btn-round m-0" [disabled]="isSaving || editForm.invalid || editForm.controls['recieptPostedDate'].value">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Reciept</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white">
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_transactionType">Type</label></div>
+                <div class="col-md-3">
+                    <input type="hidden" name="hiddenField" id="hiddenField"/>
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="transactionType" id="field_transactionType" formControlName="transactionType"  disabled>
+                        <option [value]="undefined">Select</option>
+                        <option [value]="'I'">Intra Unit</option>
+                        <!--option [value]="'O'">Inter Unit</option>
+                        <option [value]="'J'">Job Work</option-->
+                    </select>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_plantCode">Plant</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="plantCode" id="field_plantCode" formControlName="plantCode" (change)="destinationUnits();" *ngIf="!editForm.controls['id'].value">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let userPlant of userPlants" [value]="userPlant.id.plantCode">{{userPlant.plantDescription}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs custom-select custom-select-xs" name="plantDescription" id="field_plantDescription" formControlName="plantDescription" *ngIf="editForm.controls['id'].value" disabled>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_plantCode">Dest&nbsp;Plant</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="destinationPlantCode" id="field_destinationPlantCode" formControlName="destinationPlantCode" disabled *ngIf="!editForm.controls['id'].value">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let userPlant of userDestinationPlants" [value]="userPlant.id.plantCode">{{userPlant.plantDescription}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs custom-select custom-select-xs" name="destinationPlantDescription" id="field_destinationPlantDescription" formControlName="destinationPlantDescription" *ngIf="editForm.controls['id'].value" disabled>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_projectcode">Project</label></div>
+                <div class="col-md-3">
+                    <ng2-completer #remoteData [autoMatch]="true" [clearUnselected]="true" [dataService]="dataRemoteProject" [minSearchLength]="3" [placeholder]="'Search Project'" [textSearching]="'Please wait...'" [inputClass]="!this.editForm.controls['projectcode'].value || this.editForm.controls['projectcode'].value.length ===0 ? 'form-control form-control-xs d-inline input-required' : 'form-control form-control-xs d-inline'" formControlName="projectcodetemp" (selected)="onProjectSelected($event)" [disableInput]="this.editForm.controls['id'].value" *ngIf="!editForm.controls['id'].value">
+                    </ng2-completer>
+                    <input type="text" class="form-control form-control-xs" name="projectcode" id="field_projectcode" formControlName="projectcode" *ngIf="editForm.controls['id'].value" disabled/>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_style">Style</label></div>
+                <div class="col-md-3"><input type="text" class="form-control form-control-xs" name="style" id="field_style" formControlName="style" readonly/></div>
+                <div class="col-md-1"><label class="form-control-label" for="field_color">Color</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="color" id="field_color" formControlName="color" (change)="selectColor()" *ngIf="!editForm.controls['id'].value">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let color of colors" [value]="color.name">{{color.desc}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="colordescription" id="field_colordescription" formControlName="colordescription" *ngIf="editForm.controls['id'].value" disabled/>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_color">Destination</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="destination" id="destination" formControlName="destination" (change)="selectDestination()" *ngIf="!editForm.controls['id'].value">
+                        <option [value]="undefined">Select</option>
+                        <option [value]="destinationOption.name" *ngFor="let destinationOption of destinations;">{{destinationOption.desc}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="destinationDesc" id="field_destinationDesc" formControlName="destinationDesc" readonly *ngIf="editForm.controls['id'].value" disabled>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_termsofdeliverycode">Delivery&nbsp;Term</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="termsofdeliverycode" id="field_termsofdeliverycode" formControlName="termsofdeliverycode" (change)="selectDelivery();" *ngIf="!editForm.controls['postedDate'].value">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let termsofdelivery of termsofdeliveries" [value]="termsofdelivery.id.code">{{termsofdelivery.longdescription}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="termsofdeliverydescription" id="field_termsofdeliverydescription" formControlName="termsofdeliverydescription" *ngIf="editForm.controls['postedDate'].value"/>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_termsofshippingcode">Shipment&nbsp;Term</label></div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="termsofshippingcode" id="field_termsofshippingcode" formControlName="termsofshippingcode" (change)="selectShipping();" *ngIf="!editForm.controls['postedDate'].value">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let termsofshipping of termsofshippings" [value]="termsofshipping.id.code">{{termsofshipping.longdescription}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="termsofshippingdescription" id="field_termsofshippingdescription" formControlName="termsofshippingdescription" *ngIf="editForm.controls['postedDate'].value"/>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_eway">E-way</label></div>
+                <div class="col-md-3"><input type="text" class="form-control form-control-xs" name="eway" id="field_eway" formControlName="eway"/></div>
+            </div>
+        </div>
+        <div class="card-footer body p-0 pb-2" [hidden]="!editForm.controls['style'].value || !editForm.controls['color'].value || !editForm.controls['destination'].value">
+            <div class="col-12 p-0">
+                <div class="table-responsive scroll-popup-table-4" id="entities">
+                    <table class="table table-sm table-bordered mb-1" aria-describedby="page-heading">
+                        <thead>
+                        <tr>
+                            <th style="width: 90px;">SlNo#</th>
+                            <th style="width: 90px;">Bundle#</th>
+                            <th style="width: 90px;">Bundle&nbsp;Id</th>
+                            <th>Color</th>
+                            <th style="width: 90px;" class="text-center">Size</th>
+                            <th style="width: 90px;" class="text-center">Start&nbsp;Seq</th>
+                            <th style="width: 90px;" class="text-center">End&nbsp;Seq</th>
+                            <th style="width: 90px;">Warehouse</th>
+                            <th style="width: 90px;" class="text-center">UOM</th>
+                            <th style="width: 90px;" class="text-right">Pieces</th>
+                            <th style="width: 40px;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ng-container *ngFor="let cutIssueStitchDetail of cutIssueStitchDetails; let index = index;">
+                            <tr [style.background-color]="cutIssueStitchDetail.colorCode ? cutIssueStitchDetail.colorCode : '#fff'">
+                                <td class="p-1"><input type="text" name="slNo{{index}}" id="field_slNo{{index}}" class="form-control form-control-xs" [value]="index+1" readonly/></td>
+                                <td class="p-1"><input type="text" #bundleCode name="bundleCode{{index}}" id="field_bundleCode{{index}}" class="form-control form-control-xs" [(ngModel)]="cutIssueStitchDetail.bundleCode" [ngModelOptions]="{standalone: true}" (blur)="fetchDetails(index);" [disabled]="!editForm.controls['style'].value || !editForm.controls['color'].value || cutIssueStitchDetail.subcode08"/></td>
+                                <td class="p-1"><input type="text" name="id{{index}}" id="field_id{{index}}" class="form-control form-control-xs" [(ngModel)]="cutIssueStitchDetail.id" [ngModelOptions]="{standalone: true}" readonly/></td>
+                                <td class="p-1">
+                                    <input type="text" name="subcode05{{index}}" id="field_subcode05{{index}}" class="form-control form-control-xs" [(ngModel)]="cutIssueStitchDetail.subcode05" readonly [ngModelOptions]="{standalone: true}" *ngIf="cutIssueStitchDetail.itemtypecode && cutIssueStitchDetail.itemtypecode === 'HFC'"/>
+                                    <input type="text" name="subcode07{{index}}" id="field_subcode07{{index}}" class="form-control form-control-xs" [(ngModel)]="cutIssueStitchDetail.subcode07" readonly [ngModelOptions]="{standalone: true}" *ngIf="cutIssueStitchDetail.itemtypecode && cutIssueStitchDetail.itemtypecode === 'CPT'"/>
+                                </td>
+                                <td class="p-1">
+                                    <input type="text" name="subcode06{{index}}" id="field_subcode06{{index}}" class="form-control form-control-xs text-center" [(ngModel)]="cutIssueStitchDetail.subcode06" readonly [ngModelOptions]="{standalone: true}" *ngIf="cutIssueStitchDetail.itemtypecode && cutIssueStitchDetail.itemtypecode === 'HFC'"/>
+                                    <input type="text" name="subcode08{{index}}" id="field_subcode08{{index}}" class="form-control form-control-xs text-center" [(ngModel)]="cutIssueStitchDetail.subcode08" readonly [ngModelOptions]="{standalone: true}" *ngIf="cutIssueStitchDetail.itemtypecode && cutIssueStitchDetail.itemtypecode === 'CPT'"/>
+                                </td>
+                                <td class="p-1"><input type="text" name="startPiece{{index}}" id="field_startPiece{{index}}" class="form-control form-control-xs text-center" [(ngModel)]="cutIssueStitchDetail.startPiece" readonly [ngModelOptions]="{standalone: true}"/></td>
+                                <td class="p-1"><input type="text" name="endPiece{{index}}" id="field_endPiece{{index}}" class="form-control form-control-xs text-center" [(ngModel)]="cutIssueStitchDetail.endPiece" readonly [ngModelOptions]="{standalone: true}"/></td>
+                                <td class="p-1"><input type="text" name="logicalwarehousecode{{index}}" id="field_logicalwarehousecode{{index}}" class="form-control form-control-xs" [(ngModel)]="cutIssueStitchDetail.logicalwarehousecode" readonly [ngModelOptions]="{standalone: true}"/></td>
+                                <td class="p-1"><input type="text" name="primaryuomcode{{index}}" id="field_primaryuomcode{{index}}" class="form-control form-control-xs text-center" [(ngModel)]="cutIssueStitchDetail.primaryuomcode" readonly [ngModelOptions]="{standalone: true}"/></td>
+                                <td class="p-1"><input type="text" name="primaryquantity{{index}}" id="field_primaryquantity{{index}}" class="form-control form-control-xs text-right" [(ngModel)]="cutIssueStitchDetail.primaryquantity" readonly [ngModelOptions]="{standalone: true}"/></td>
+                                <td class="p-1 text-center align-middle font-13"><fa-icon *ngIf="editForm.controls['id'].value && !editForm.controls['postedBy'].value" [icon]="'trash'" class="text-danger" style="cursor: pointer;" (click)="deleteRow(index, cutIssueStitchDetail);"></fa-icon></td>
+                            </tr>
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

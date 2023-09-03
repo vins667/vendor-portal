@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity FabricSubstractDetails.
+    -->
+    <changeSet id="20190827093635-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="fabric_substract_master_id"
+                                 baseTableName="fabric_substract_details"
+                                 constraintName="fk_fabric_substract_details_fabric_substract_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fabric_substract_master"/>
+
+    </changeSet>
+</databaseChangeLog>

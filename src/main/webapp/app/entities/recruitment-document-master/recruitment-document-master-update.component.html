@@ -1,0 +1,94 @@
+<div class="card">
+    <div class="body">
+        <h2 id="jhi-recruitment-document-master-heading">Create or edit a Recruitment Document Master</h2>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <jhi-alert-error></jhi-alert-error>
+                    <div>
+                        <div class="row card-margin-bottom-10" [hidden]="!recruitmentDocumentMaster.id">
+                            <div class="col-md-3"><label for="id">ID</label></div>
+                            <div class="col-md-9"><input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="recruitmentDocumentMaster.id" readonly /></div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_description">Description</label></div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control form-control-sm" name="description" id="field_description" [(ngModel)]="recruitmentDocumentMaster.description" maxlength="200" required/>
+                                <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.description?.errors?.maxlength">
+                                        This field cannot be longer than 200 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_documentMandatory">Document Mandatory</label></div>
+                            <div class="col-md-9">
+                                <input type="checkbox" name="documentMandatory" id="field_documentMandatory" [(ngModel)]="recruitmentDocumentMaster.documentMandatory" />
+                                <div [hidden]="!(editForm.controls.documentMandatory?.dirty && editForm.controls.documentMandatory?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.documentMandatory?.errors?.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_forceDocumentType">Force Type</label></div>
+                            <div class="col-md-9">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" name="forceDocumentType" id="field_forceDocumentType" [(ngModel)]="recruitmentDocumentMaster.forceDocumentType" required>
+                                    <option value="A">All</option>
+                                    <option value="O">Original</option>
+                                    <option value="P">Provisional</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.forceDocumentType?.dirty && editForm.controls.forceDocumentType?.invalid)">
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.forceDocumentType?.errors?.maxlength">
+                                        This field cannot be longer than 1 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_attachType">Attach Type</label></div>
+                            <div class="col-md-9">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" name="attachType" id="field_attachType" [(ngModel)]="recruitmentDocumentMaster.attachType" maxlength="1" required>
+                                    <option value="U">Upload</option>
+                                    <option value="C">Checked</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.attachType?.dirty && editForm.controls.attachType?.invalid)">
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.attachType?.errors?.maxlength">
+                                        This field cannot be longer than 1 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-3"><label class="form-control-label" for="field_documentType">Document Type</label></div>
+                            <div class="col-md-9">
+                                <select class="form-control form-control-sm custom-select custom-select-sm" name="documentType" id="field_documentType" [(ngModel)]="recruitmentDocumentMaster.documentType" maxlength="1" required>
+                                    <option value="A">All</option>
+                                    <option value="S">Staff</option>
+                                    <option value="W">Worker</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.documentType?.dirty && editForm.controls.documentType?.invalid)">
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.documentType?.errors?.maxlength">
+                                        This field cannot be longer than 1 characters.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

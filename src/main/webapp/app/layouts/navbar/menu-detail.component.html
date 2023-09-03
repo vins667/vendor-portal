@@ -1,0 +1,39 @@
+<ng-container *ngIf="employeeview">
+    <ul class="list">
+        <li style="padding-bottom: 10px;">
+            <div class="user-info">
+                <div class="image"><a routerLink="/dashboard"><img src="{{employeeview.imagePath}}" onerror="this.src='content/images/default.png'" alt="User" style="width: 80px;height: 80px"></a></div>
+                <div class="detail">
+                    <h4 style="font-weight: 500;">{{currentAccount.firstName}}</h4>
+                </div>
+            </div>
+        </li>
+        <ng-container *ngFor="let item of sidebarItems;">
+            <li class="sidebar-item" [class.active]="temp.isActive" #temp="routerLinkActive" routerLinkActive  [routerLinkActiveOptions]="{exact: true}" *jhiHasAnyAuthority="item.type">
+                <a *ngIf="!item.subItem || item.subItem.length===0" [routerLink]="item.link" class="level-font-15" [ngbTooltip]="item.toolTip"><fa-icon [icon]="item.icon" size="lg"></fa-icon><span class="mini-hide bar-label">{{item.label}}</span></a>
+                <!-- if sub menu  -->
+                <a *ngIf="!!item.subItem && item.subItem.length>0" data-toggle="collapse" class="level-font-15" [ngbTooltip]="item.toolTip" click="return false;" [class.collapsed]="!item.isCollapsed" (click)="collapseMenu(item);"><fa-icon [icon]="item.icon" size="lg"></fa-icon><span class="text-capitalize mini-hide bar-label">{{item.label}}</span><span class="toggle-icon "><fa-icon class="toggle-icon" [icon]="'chevron-down'"></fa-icon></span></a>
+                <div *ngIf="!!item.subItem && item.subItem.length>0" class="collapse" [class.show]="item.isCollapsed" [id]="item.id">
+                    <li *ngFor="let subIteml1 of item.subItem" class="sidebar-sub-item" routerLinkActive="active">
+                        <a *ngIf="!subIteml1.subItem || subIteml1.subItem.length===0" class="level-font-14" [ngbTooltip]="subIteml1.toolTip" [routerLink]=subIteml1.link><span class="txt-icon text-uppercase"><span class="txt-icon text-uppercase"><fa-icon style="font-size: 8px;" [icon]="'circle'"></fa-icon> </span><span class="text-capitalize mini-hide bar-label level-font-14-span"> {{subIteml1.label}} </span></a>
+                        <!-- if sub menu level 2 -->
+                        <a *ngIf="!!subIteml1.subItem && subIteml1.subItem.length>0" data-toggle="collapse" [ngbTooltip]="subIteml1.toolTip" class="level-font-14" click="return false;" [class.collapsed]="!subIteml1.isCollapsed"  (click)="collapseMenu(subIteml1);"><span class="txt-icon text-uppercase"><span class="txt-icon text-uppercase"><fa-icon style="font-size: 8px;" [icon]="'circle'"></fa-icon> </span><span class="text-capitalize mini-hide bar-label level-font-14-span">{{subIteml1.label}}</span><span class="toggle-icon"><fa-icon class="toggle-icon" [icon]="'chevron-down'"></fa-icon></span></a>
+                        <div *ngIf="!!subIteml1.subItem && subIteml1.subItem.length>0" class="collapse" [class.show]="subIteml1.isCollapsed" [id]="subIteml1.id">
+                            <li *ngFor="let subIteml2 of subIteml1.subItem" class="sidebar-sub-item-2" routerLinkActive="active">
+                                <a *ngIf="!subIteml2.subItem || subIteml2.subItem.length===0" class="level-font-13" [ngbTooltip]="subIteml2.toolTip" [routerLink]=subIteml2.link><span class="txt-icon text-uppercase"><span class="txt-icon text-uppercase"><fa-icon style="font-size: 8px;" [icon]="'circle'"></fa-icon> </span><span class="text-capitalize mini-hide bar-label level-font-14-span"> {{subIteml2.label}} </span></a>
+
+                                <a *ngIf="!!subIteml2.subItem && subIteml2.subItem.length>0" data-toggle="collapse" [ngbTooltip]="subIteml2.toolTip" class="level-font-13" click="return false;" [class.collapsed]="!subIteml2.isCollapsed"  (click)="collapseMenu(subIteml2);"><span class="txt-icon text-uppercase"><span class="txt-icon text-uppercase"><fa-icon style="font-size: 8px;" [icon]="'circle'"></fa-icon> </span><span class="text-capitalize mini-hide bar-label level-font-14-span">{{subIteml2.label}}</span><span class="toggle-icon"><fa-icon class="toggle-icon" [icon]="'chevron-down'"></fa-icon></span></a>
+                                <div *ngIf="!!subIteml2.subItem && subIteml2.subItem.length>0" class="collapse" [class.show]="subIteml2.isCollapsed" [id]="subIteml2.id">
+                                <li *ngFor="let subIteml3 of subIteml2.subItem" class="sidebar-sub-item-2" routerLinkActive="active">
+                                    <a class="level-font-12" [ngbTooltip]="subIteml3.toolTip" [routerLink]=subIteml3.link><span class="txt-icon text-uppercase"><fa-icon style="font-size: 5px;" [icon]="'circle'"></fa-icon></span><span class="text-capitalize mini-hide bar-label level-font-13-span"> {{subIteml3.label}} </span></a>
+                                </li>
+                                </div>
+                            </li>
+                        </div>
+                    </li>
+                </div>
+            </li>
+        </ng-container>
+    </ul>
+</ng-container>
+

@@ -1,0 +1,180 @@
+# ===================================================================
+# Spring Boot configuration.
+#
+# This configuration will be overridden by the Spring profile you use,
+# for example application-dev.yml if you use the "dev" profile.
+#
+# More information on profiles: https://www.jhipster.tech/profiles/
+# More information on configuration properties: https://www.jhipster.tech/common-application-properties/
+# ===================================================================
+
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+management:
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include: ['configprops', 'env', 'health', 'info', 'jhimetrics', 'logfile', 'loggers', 'prometheus', 'threaddump']
+  endpoint:
+    health:
+      show-details: when-authorized
+      roles: 'ROLE_ADMIN'
+    jhimetrics:
+      enabled: true
+  info:
+    git:
+      mode: full
+  health:
+    mail:
+      enabled: false # When using the MailService, configure an SMTP server and set this to true
+  metrics:
+    export:
+      # Prometheus is the default metrics backend
+      prometheus:
+        enabled: true
+        step: 60
+    enable:
+      http: true
+      jvm: true
+      logback: true
+      process: true
+      system: true
+    distribution:
+      percentiles-histogram:
+        all: true
+      percentiles:
+        all: 0, 0.5, 0.75, 0.95, 0.99, 1.0
+    tags:
+      application: ${spring.application.name}
+    web:
+      server:
+        auto-time-requests: true
+
+spring:
+  application:
+    name: vamaniportal
+  servlet:
+    multipart:
+      max-file-size: 128MB
+      max-request-size: 128MB
+      enabled: true
+  profiles:
+    # The commented value for `active` can be replaced with valid Spring profiles to load.
+    # Otherwise, it will be filled in by maven when building the JAR file
+    # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
+    active: prod
+  jmx:
+    enabled: false
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: deferred
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate.jdbc.time_zone: UTC
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+  messages:
+    basename: i18n/messages
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    favicon:
+      enabled: false
+  task:
+    execution:
+      thread-name-prefix: vamaniportal-task-
+      pool:
+        core-size: 2
+        max-size: 50
+        queue-capacity: 10000
+    scheduling:
+      thread-name-prefix: vamaniportal-scheduling-
+      pool:
+        size: 2
+  thymeleaf:
+    mode: HTML
+
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: true
+      tracking-modes: cookie
+
+# Properties to be exposed on the /info management endpoint
+info:
+  # Comma separated list of profiles that will trigger the ribbon to show
+  display-ribbon-on-profiles: 'dev'
+
+# ===================================================================
+# JHipster specific properties
+#
+# Full reference is available at: https://www.jhipster.tech/common-application-properties/
+# ===================================================================
+
+jhipster:
+  clientApp:
+    name: 'vamaniportalApp'
+  # By default CORS is disabled. Uncomment to enable.
+  # cors:
+  #     allowed-origins: "*"
+  #     allowed-methods: "*"
+  #     allowed-headers: "*"
+  #     exposed-headers: "Authorization,Link,X-Total-Count"
+  #     allow-credentials: true
+  #     max-age: 1800
+  mail:
+    from: vpulse@vamanioverseas.com
+  swagger:
+    default-include-pattern: /api/.*
+    title: vamaniportal API
+    description: vamaniportal API documentation
+    version: 0.0.1
+    terms-of-service-url:
+    contact-name:
+    contact-url:
+    contact-email:
+    license:
+    license-url:
+# ===================================================================
+# Application specific properties
+# Add your own application properties here, see the ApplicationProperties class
+# to have type-safe configuration, like in the JHipsterProperties above
+#
+# More documentation is available at:
+# https://www.jhipster.tech/common-application-properties/
+# ===================================================================
+
+# application:
+application:
+  uploadPath: /home/appadmin/apache-tomcat-8.5.35/webapps_vamani/file_upload/
+  url: https://vpulse.vamanioverseas.com
+  contentPath: /home/appadmin/apache-tomcat-8.5.35/webapps_vamani/vamaniportal/content/
+  templatePath: /home/appadmin/apache-tomcat-8.5.35/webapps_vamani/vamaniportal/WEB-INF/classes/
+  vendorPortalUrl: https://vportal.vamanioverseas.com/
+  imagePath: https://vpulse.vamanioverseas.com/file_upload/
+  directBillRoundGL: 71001
+  directBillRoundValue: 10
+  #uploadPath: D:/file_upload/
+  #templatePath: D:/Projects/VAMANI/vamaniportal/target/classes/
+  #templatePath: D:/vamaniportal/target/classes/
+  #contentPath: D:/Projects/vamaniportal/src/main/webapp/content/
+  
+  
+  #----------------API Consume information----------------------
+stitchapi:
+  apiUrl: https://operations.stitcherp.com/api/integration/production-data/30/?start_date=
+  stickKey: b1ba99d6-51e1-451b-9d86-31f6793f7f60
+  base64EncodedSignature: ZjAzZGRkMTMzM2FhMTVkODQxMDcwOThkYTJiZjA1MmYzNjhmZWNmZjQ1NjkyMjYzMDY3Y2JjZDljNDNiNTI4MQ==
+  contentType: application/json
+  stitchCron: 0 15 16 * * ?

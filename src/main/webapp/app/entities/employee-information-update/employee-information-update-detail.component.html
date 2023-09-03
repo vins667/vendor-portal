@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Employee Information Update</span>{{employeeInformationUpdate.id}}</h5>
+        <hr/>
+        <div class="row">
+             <div class="col-8">
+                    <div *ngIf="employeeInformationUpdate">
+                            <div class="row">
+                                 <div class="col-md-3"><dt><span>Correspondence Address</span></dt></div>
+                                <div class="col-md-9"><dt> <span>{{employeeInformationUpdate.correspondenceAddress}}</span</dt></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><dt><span>Mobile Number</span></dt></div>
+                                <div class="col-md-9"><dt> <span>{{employeeInformationUpdate.mobileNumber}}</span</dt></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><dt><span>Image</span></dt></div>
+                                <div class="col-md-9"><dt> <span> <div class="image"><img src="{{employeeInformationUpdate.imagePath}}" onerror="this.src='content/images/boy.png'" style="width:250px;height:250px" class="rounded-circle"></div></span</dt></div>
+                            </div>
+                            <button type="submit" (click)="previousState()"  class="btn btn-sm btn-info btn-round">
+                                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                            </button>
+                           <button type="button"
+                                [routerLink]="['/employee-information-update', employeeInformationUpdate.id, 'edit']"   class="btn btn-sm btn-blush btn-round">
+                               <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                          </button>
+                    </div>
+             </div>
+        </div>
+    </div>
+</div>

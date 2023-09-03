@@ -1,0 +1,196 @@
+<div class="modal-header bg-blush" style="padding: 10px;">
+    <h5 id="jhi-vendor-branch-details-heading">Branch
+        <button style="top: 10px;" type="button" class="close" aria-label="Close" (click)="close();">
+            <fa-icon [icon]="'times'"></fa-icon>
+        </button>
+    </h5>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_addressLine1">Address</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && ((vendorBranchDetailsCompare.addressLine1 | uppercase) != (vendorBranchDetails.addressLine1 | uppercase)) ? vendorBranchDetails.addressLine1:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="addressLine1" id="field_addressLine1" [(ngModel)]="vendorBranchDetailsCompare.addressLine1" maxlength="100" [class.bg-warning-light]="vendorBranchDetailsCompare.id && ((vendorBranchDetailsCompare.addressLine1 | uppercase) != (vendorBranchDetails.addressLine1 | uppercase))" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_addressLine2"></label></div>
+                <div class="col-md-8">
+                    <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && ((vendorBranchDetailsCompare.addressLine2 | uppercase) != (vendorBranchDetails.addressLine2 | uppercase)) ? vendorBranchDetails.addressLine2:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="addressLine2" id="field_addressLine2" [(ngModel)]="vendorBranchDetailsCompare.addressLine2" maxlength="100" [class.bg-warning-light]="vendorBranchDetailsCompare.id && ((vendorBranchDetailsCompare.addressLine2 | uppercase) != (vendorBranchDetails.addressLine2 | uppercase))" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_addressLine3"></label></div>
+                <div class="col-md-8">
+                    <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && ((vendorBranchDetailsCompare.addressLine3 | uppercase) != (vendorBranchDetails.addressLine3 | uppercase)) ? vendorBranchDetails.addressLine3:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="addressLine3" id="field_addressLine3" [(ngModel)]="vendorBranchDetailsCompare.addressLine3" maxlength="100" [class.bg-warning-light]="vendorBranchDetailsCompare.id && ((vendorBranchDetailsCompare.addressLine3 | uppercase) != (vendorBranchDetails.addressLine3 | uppercase))" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_countryId">Country</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && vendorBranchDetailsCompare.countryId != vendorBranchDetails.countryId ? vendorBranchDetails.countryId:''">
+                        <select class="form-control form-control-sm custom-select custom-select-sm" name="countryId" id="field_countryId" [(ngModel)]="vendorBranchDetailsCompare.countryId" (change)=getStates(); [class.bg-warning-light]="vendorBranchDetailsCompare.id && vendorBranchDetailsCompare.countryId != vendorBranchDetails.countryId" disabled>
+                            <option *ngFor="let country of countries" [value]="country.id">{{country.countryName}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_stateId">State</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && vendorBranchDetailsCompare.stateId != vendorBranchDetails.stateId ? vendorBranchDetails.stateId:''">
+                        <select class="form-control form-control-sm custom-select custom-select-sm" name="stateId" id="field_stateId" [(ngModel)]="vendorBranchDetailsCompare.stateId" (change)="selectStates();" [class.bg-warning-light]="vendorBranchDetailsCompare.id && vendorBranchDetailsCompare.stateId != vendorBranchDetails.stateId" disabled>
+                            <option *ngFor="let state of states" [value]="state.id">{{state.stateName}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_pincode">Pin/Zip Code</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && vendorBranchDetailsCompare.pincode != vendorBranchDetails.pincode ? vendorBranchDetails.pincode:''">
+                        <input type="number" class="form-control form-control-sm text-uppercase" name="pincode" id="field_pincode" [(ngModel)]="vendorBranchDetailsCompare.pincode" [class.bg-warning-light]="vendorBranchDetailsCompare.id && vendorBranchDetailsCompare.pincode != vendorBranchDetails.pincode" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN'">
+                <div class="col-md-4"><label class="form-control-label" for="field_vendTypeMasterId">Vendor Type</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && vendorBranchDetailsCompare.vendTypeMasterId != vendorBranchDetails.vendTypeMasterId ? vendorBranchDetails.vendTypeMasterId:''">
+                        <select class="form-control form-control-sm custom-select custom-select-sm" name="vendTypeMasterId" id="field_vendTypeMasterId" [(ngModel)]="vendorBranchDetailsCompare.vendTypeMasterId" (change)="getVendSubType();" [class.bg-warning-light]="vendorBranchDetailsCompare.id && vendorBranchDetailsCompare.vendTypeMasterId != vendorBranchDetails.vendTypeMasterId" disabled>
+                            <option *ngFor="let vendTypeMaster of vendTypeMasters" [value]="vendTypeMaster.id">{{vendTypeMaster.description}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN'">
+                <div class="col-md-4"><label class="form-control-label" for="field_vendSubTypeMasterId">Vendor Sub Type</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && vendorBranchDetailsCompare.vendSubTypeMasterId != vendorBranchDetails.vendSubTypeMasterId ? vendorBranchDetails.vendSubTypeMasterId:''">
+                        <select class="form-control form-control-sm custom-select custom-select-sm" name="vendSubTypeMasterId" id="field_vendSubTypeMasterId" [(ngModel)]="vendorBranchDetailsCompare.vendSubTypeMasterId" [class.bg-warning-light]="vendorBranchDetailsCompare.id && vendorBranchDetailsCompare.vendSubTypeMasterId != vendorBranchDetails.vendSubTypeMasterId" disabled>
+                            <option *ngFor="let vendSubTypeMaster of vendSubTypeMasters" [value]="vendSubTypeMaster.id">{{vendSubTypeMaster.description}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN' && selectedVendorTypeMaster && selectedVendorTypeMaster.description === 'Registered'">
+                <div class="col-md-4"><label class="form-control-label">GST Number</label></div>
+                <div class="col-md-8">
+                    <div class="row gutters-2">
+                        <div class="col-md-2"><input type="text" class="form-control form-control-sm text-uppercase" name="gstNumber1" id="field_gstNumber1" [(ngModel)]="vendorBranchDetailsCompare.gstNumber1" maxlength="45" readonly="readonly"/></div>
+                        <div class="col-md-4"><input type="text" class="form-control form-control-sm text-uppercase" name="gstNumber2" id="field_gstNumber2" [(ngModel)]="vendorBranchDetailsCompare.gstNumber2" maxlength="45" readonly="readonly"/></div>
+                        <div class="col-md-2">
+                            <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && ((vendorBranchDetailsCompare.gstNumber3 | uppercase) != (vendorBranchDetails.gstNumber3 | uppercase)) ? vendorBranchDetails.gstNumber3:''">
+                                <input type="text" class="form-control form-control-sm text-uppercase" name="gstNumber3" id="field_gstNumber3" [(ngModel)]="vendorBranchDetailsCompare.gstNumber3" maxlength="1" [class.bg-warning-light]="vendorBranchDetailsCompare.id && ((vendorBranchDetailsCompare.gstNumber3 | uppercase) != (vendorBranchDetails.gstNumber3 | uppercase))" disabled/>
+                            </div>
+                        </div>
+                        <div class="col-md-2"><input type="text" class="form-control form-control-sm text-uppercase" name="gstNumber4" id="field_gstNumber4" [(ngModel)]="vendorBranchDetailsCompare.gstNumber4" maxlength="45" readonly="readonly"/></div>
+                        <div class="col-md-2">
+                            <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && ((vendorBranchDetailsCompare.gstNumber5 | uppercase) != (vendorBranchDetails.gstNumber5 | uppercase)) ? vendorBranchDetails.gstNumber5:''">
+                                <input type="text" class="form-control form-control-sm text-uppercase" name="gstNumber5" id="field_gstNumber5" [(ngModel)]="vendorBranchDetailsCompare.gstNumber5" maxlength="1" [class.bg-warning-light]="vendorBranchDetailsCompare.id && ((vendorBranchDetailsCompare.gstNumber5 | uppercase) != (vendorBranchDetails.gstNumber5 | uppercase))" disabled/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_branchContactNo">Branch Tel. Number</label></div>
+                <div class="col-md-8"><input type="text" class="form-control form-control-sm text-uppercase" name="branchContactNo" id="field_branchContactNo" [(ngModel)]="vendorBranchDetailsCompare.branchContactNo" maxlength="50" [class.bg-warning-light]="vendorBranchDetailsCompare.id && approved && approved === true && ((vendorBranchDetailsCompare.branchContactNo | uppercase) != (vendorBranchDetails.branchContactNo | uppercase))" placement="top" [ngbTooltip]="vendorBranchDetailsCompare.id && approved && approved === true && ((vendorBranchDetailsCompare.branchContactNo | uppercase) != (vendorBranchDetails.branchContactNo | uppercase)) ? vendorBranchDetails.branchContactNo:''" disabled/></div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_branchFaxNo">Branch Fax Number</label></div>
+                <div class="col-md-8"><input type="text" class="form-control form-control-sm text-uppercase" name="branchFaxNo" id="field_branchFaxNo" [(ngModel)]="vendorBranchDetailsCompare.branchFaxNo" maxlength="50" [class.bg-warning-light]="vendorBranchDetailsCompare.id && approved && approved === true && ((vendorBranchDetailsCompare.branchFaxNo | uppercase) != (vendorBranchDetails.branchFaxNo | uppercase))" placement="top" [ngbTooltip]="vendorBranchDetailsCompare.id && approved && approved === true && ((vendorBranchDetailsCompare.branchFaxNo | uppercase) != (vendorBranchDetails.branchFaxNo | uppercase)) ? vendorBranchDetails.branchFaxNo:''" disabled/></div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_branchWebsite">Website</label></div>
+                <div class="col-md-8"><input type="text" class="form-control form-control-sm text-lowercase" name="branchWebsite" id="field_branchWebsite" [(ngModel)]="vendorBranchDetailsCompare.branchWebsite" maxlength="50" [class.bg-warning-light]="vendorBranchDetailsCompare.id && approved && approved === true && ((vendorBranchDetailsCompare.branchWebsite | uppercase) != (vendorBranchDetails.branchWebsite | uppercase))" placement="top" [ngbTooltip]="vendorBranchDetailsCompare.id && approved && approved === true && ((vendorBranchDetailsCompare.branchWebsite | uppercase) != (vendorBranchDetails.branchWebsite | uppercase)) ? vendorBranchDetails.branchWebsite:''" disabled/></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN'">
+                <div class="col-md-12"><input type="checkbox" name="registeredForSaleTax" id="field_registeredForSaleTax" [(ngModel)]="vendorBranchDetailsCompare.registeredForSaleTax" disabled/>&nbsp; Are you registered for VAT?</div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN' && vendorBranchDetailsCompare.registeredForSaleTax">
+                <div class="col-md-4"><label class="form-control-label" for="field_salesTaxVatTinNumber">VAT No.</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && ((vendorBranchDetailsCompare.salesTaxVatTinNumber | uppercase) != (vendorBranchDetails.salesTaxVatTinNumber | uppercase)) ? vendorBranchDetails.salesTaxVatTinNumber:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="salesTaxVatTinNumber" id="field_salesTaxVatTinNumber" [(ngModel)]="vendorBranchDetailsCompare.salesTaxVatTinNumber" maxlength="45" [required]="vendorBranchDetailsCompare.registeredForSaleTax && vendorBranchDetailsCompare.registeredForSaleTax === true" [class.bg-warning-light]="vendorBranchDetailsCompare.id && ((vendorBranchDetailsCompare.salesTaxVatTinNumber | uppercase) != (vendorBranchDetails.salesTaxVatTinNumber | uppercase))" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN'">
+                <div class="col-md-12"><input type="checkbox" name="exciseApplicable" id="field_exciseApplicable" [(ngModel)]="vendorBranchDetailsCompare.exciseApplicable" disabled/>&nbsp; Excise applicable?</div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN' && vendorBranchDetailsCompare.exciseApplicable">
+                <div class="col-md-4"><label class="form-control-label" for="field_exciseRegistrationNumber">Excise&nbsp;Registration&nbsp;No.</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && ((vendorBranchDetailsCompare.exciseRegistrationNumber | uppercase) != (vendorBranchDetails.exciseRegistrationNumber | uppercase)) ? vendorBranchDetails.exciseRegistrationNumber:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="exciseRegistrationNumber" id="field_exciseRegistrationNumber" [(ngModel)]="vendorBranchDetailsCompare.exciseRegistrationNumber" maxlength="45" [required]="vendorBranchDetailsCompare.exciseApplicable && vendorBranchDetailsCompare.exciseApplicable === true" [class.bg-warning-light]="vendorBranchDetailsCompare.id && ((vendorBranchDetailsCompare.exciseRegistrationNumber | uppercase) != (vendorBranchDetails.exciseRegistrationNumber | uppercase))" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN' && vendorBranchDetailsCompare.exciseApplicable">
+                <div class="col-md-4"><label class="form-control-label" for="field_exciseRange">Excise Range</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && ((vendorBranchDetailsCompare.exciseRange | uppercase) != (vendorBranchDetails.exciseRange | uppercase)) ? vendorBranchDetails.exciseRange:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="exciseRange" id="field_exciseRange" [(ngModel)]="vendorBranchDetailsCompare.exciseRange" maxlength="45" [class.bg-warning-light]="vendorBranchDetailsCompare.id && ((vendorBranchDetailsCompare.exciseRange | uppercase) != (vendorBranchDetails.exciseRange | uppercase))" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN' && vendorBranchDetailsCompare.exciseApplicable">
+                <div class="col-md-4"><label class="form-control-label" for="field_exciseDivision">Excise Division</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && ((vendorBranchDetailsCompare.exciseDivision | uppercase) != (vendorBranchDetails.exciseDivision | uppercase)) ? vendorBranchDetails.exciseDivision:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="exciseDivision" id="field_exciseDivision" [(ngModel)]="vendorBranchDetailsCompare.exciseDivision" maxlength="45" [class.bg-warning-light]="vendorBranchDetailsCompare.id && ((vendorBranchDetailsCompare.exciseDivision | uppercase) != (vendorBranchDetails.exciseDivision | uppercase))" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN' && vendorBranchDetailsCompare.exciseApplicable">
+                <div class="col-md-12">
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Excise Address:</legend>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_exciseAddressLine1">Excise&nbsp;Address</label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && ((vendorBranchDetailsCompare.exciseAddressLine1 | uppercase) != (vendorBranchDetails.exciseAddressLine1 | uppercase)) ? vendorBranchDetails.exciseAddressLine1:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="exciseAddressLine1" id="field_exciseAddressLine1" [(ngModel)]="vendorBranchDetailsCompare.exciseAddressLine1" maxlength="45" [class.bg-warning-light]="vendorBranchDetailsCompare.id && ((vendorBranchDetailsCompare.exciseAddressLine1 | uppercase) != (vendorBranchDetails.exciseAddressLine1 | uppercase))" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_exciseAddressLine2"></label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && ((vendorBranchDetailsCompare.exciseAddressLine2 | uppercase) != (vendorBranchDetails.exciseAddressLine2 | uppercase)) ? vendorBranchDetails.exciseAddressLine2:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="exciseAddressLine2" id="field_exciseAddressLine2" [(ngModel)]="vendorBranchDetailsCompare.exciseAddressLine2" maxlength="45" [class.bg-warning-light]="vendorBranchDetailsCompare.id && ((vendorBranchDetailsCompare.exciseAddressLine2 | uppercase) != (vendorBranchDetails.exciseAddressLine2 | uppercase))" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_divisionAddressLine1">Division&nbsp;Address</label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && ((vendorBranchDetailsCompare.divisionAddressLine1 | uppercase) != (vendorBranchDetails.divisionAddressLine1 | uppercase)) ? vendorBranchDetails.divisionAddressLine1:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="divisionAddressLine1" id="field_divisionAddressLine1" [(ngModel)]="vendorBranchDetailsCompare.divisionAddressLine1" maxlength="45" [class.bg-warning-light]="vendorBranchDetailsCompare.id && ((vendorBranchDetailsCompare.divisionAddressLine1 | uppercase) != (vendorBranchDetails.divisionAddressLine1 | uppercase))" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_divisionAddressLine2"></label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline;" placement="top" [ngbTooltip]="vendorBranchDetailsCompare && vendorBranchDetailsCompare.id && vendorBranchDetails && ((vendorBranchDetailsCompare.divisionAddressLine2 | uppercase) != (vendorBranchDetails.divisionAddressLine2 | uppercase)) ? vendorBranchDetails.divisionAddressLine2:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="divisionAddressLine2" id="field_divisionAddressLine2" [(ngModel)]="vendorBranchDetailsCompare.divisionAddressLine2" maxlength="45" [class.bg-warning-light]="vendorBranchDetailsCompare.id && ((vendorBranchDetailsCompare.divisionAddressLine2 | uppercase) != (vendorBranchDetails.divisionAddressLine2 | uppercase))" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

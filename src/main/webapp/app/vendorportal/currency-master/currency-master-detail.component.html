@@ -1,0 +1,51 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Currency Master</span> {{currencyMaster.id}}</h5>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="currencyMaster">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <dt><span>Currency Code</span></dt>
+                        </div>
+                        <div class="col-md-9">
+                            <dd><span>{{currencyMaster.currencyCode}}</span></dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <dt><span>Symbol</span></dt>
+                        </div>
+                        <div class="col-md-9">
+                            <dd><span>{{currencyMaster.symbol}}</span></dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <dt><span>Exchange Rate</span></dt>
+                        </div>
+                        <div class="col-md-9">
+                            <dd> <span>{{currencyMaster.exchangeRate}}</span></dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <dt><span>Flag</span></dt>
+                        </div>
+                        <div class="col-md-9">
+                            <dd><span>{{currencyMaster.flag}}</span></dd>
+                        </div>
+                    </div>
+                    <button type="submit" (click)="previousState()" class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button" [routerLink]="['/currency-master', currencyMaster.id, 'edit']"
+                        class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

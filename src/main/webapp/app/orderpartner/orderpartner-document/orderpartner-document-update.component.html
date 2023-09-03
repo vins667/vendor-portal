@@ -1,0 +1,148 @@
+<div align="center" class="centered" *ngIf="isSaving">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<form name="editForm" role="form" novalidate xmlns:trackBy="http://www.w3.org/1999/xhtml">
+    <div class="card">
+        <div class="card-header body pb-1">
+            <div class="row">
+                <div class="col-md-7">
+                    <h6 id="jhi-payment-request-form-heading" data-cy="OrderpartnerDocumentUpdateHeading">View a Order Partner</h6>
+                </div>
+                <div class="col-md-5">
+                    <div class="text-right">
+                        <button type="button" id="cancel-save" class="m-0 btn btn-xs btn-secondary btn-round" (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="button" id="btn-save" class="m-0 btn btn-xs btn-success btn-round" (click)="save()">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                        <button type="button" id="attach-button" class="btn btn-xs btn-round btn-blush" (click)="popup(orderpartnerDocument);">
+                            <fa-icon [icon]="'paperclip'"></fa-icon>&nbsp;<span>Attach</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body body bg-white">
+            <div class="row mb-1">
+                <div class="col-md-1"><label>Company</label></div>
+                <div class="col-md-3"><input type="text" name="company" id="filed_company" class="form-control form-control-xs" [(ngModel)]="orderpartnerDocument.customersuppliercompanycode" readonly/></div>
+                <div class="col-md-1"><label>Type</label></div>
+                <div class="col-md-3"><input type="text" name="type" id="filed_type" class="form-control form-control-xs" [value]="orderpartnerDocument.customersuppliertype === '1' ? 'Customer' : 'Supplier'" readonly/></div>
+                <div class="col-md-1">Code</div>
+                <div class="col-md-3"><input type="text" name="code" id="filed_code" class="form-control form-control-xs" [(ngModel)]="orderpartnerDocument.customersuppliercode" readonly/></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label>Legal Name</label></div>
+                <div class="col-md-3"><input type="text" name="legalname1" id="filed_legalname1" class="form-control form-control-xs" [(ngModel)]="orderpartnerDocument.legalname1" readonly/></div>
+                <div class="col-md-1"><label>Pan</label></div>
+                <div class="col-md-3"><input type="text" name="commissionerate" id="filed_commissionerate" class="form-control form-control-xs" [(ngModel)]="orderpartnerDocument.commissionerate" readonly/></div>
+                <div class="col-md-1"><label>E-mail</label></div>
+                <div class="col-md-3"><input type="text" name="email" id="filed_email" class="form-control form-control-xs" [(ngModel)]="orderpartnerDocument.email" [attr.readonly]="orderpartnerDocument.emailAllow ? null : true"/></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label>GSTIN</label></div>
+                <div class="col-md-3"><input type="text" name="gstinnumber" id="filed_gstinnumber" class="form-control form-control-xs" [(ngModel)]="orderpartnerDocument.gstinnumber" readonly/></div>
+                <div class="col-md-1"><label>Gl Code</label></div>
+                <div class="col-md-3"><input type="text" name="glcode" id="filed_glcode" class="form-control form-control-xs" [(ngModel)]="orderpartnerDocument.glcode" readonly/></div>
+                <div class="col-md-1"><label>Gl Name</label></div>
+                <div class="col-md-3"><input type="text" name="glname" id="filed_glname" class="form-control form-control-xs" [(ngModel)]="orderpartnerDocument.glname" readonly/></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label>MSME</label></div>
+                <div class="col-md-3"><input type="text" name="eccno" id="filed_eccno" class="form-control form-control-xs" [(ngModel)]="orderpartnerDocument.eccno" [attr.readonly]="orderpartnerDocument.eccnoAllow ? null : true"/></div>
+                <div class="col-md-1"><label>GST 3B</label></div>
+                <div class="col-md-3"><input type="text" name="gst3b" id="filed_gst3b" class="form-control form-control-xs" [(ngModel)]="orderpartnerDocument.gst3b" readonly/></div>
+                <div class="col-md-1"><label>GST 1</label></div>
+                <div class="col-md-3"><input type="text" name="gst1" id="filed_gst1" class="form-control form-control-xs" [(ngModel)]="orderpartnerDocument.gst1" readonly/></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label>GST 2A</label></div>
+                <div class="col-md-3"><input type="text" name="gst2a" id="filed_gst2a" class="form-control form-control-xs" [(ngModel)]="orderpartnerDocument.gst2a" readonly/></div>
+                <div class="col-md-1"><label>GST&nbsp;2A&nbsp;Remarks</label></div>
+                <div class="col-md-3"><input type="text" name="gst2aRemark" id="filed_gst2aRemark" class="form-control form-control-xs" [(ngModel)]="orderpartnerDocument.gst2aRemark" readonly/></div>
+                <div class="col-md-1"><label>Phone</label></div>
+                <div class="col-md-3"><input type="text" name="phone" id="filed_phone" class="form-control form-control-xs" [(ngModel)]="orderpartnerDocument.phone" [attr.readonly]="orderpartnerDocument.phoneAllow ? null : true"/></div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white">
+            <div class="row">
+                <div class="col-md-12"><h6>Bank Details</h6></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                        <tr style="background-color: rgba(0, 0, 0, 0.03);">
+                            <th>Country Code</th>
+                            <th>Bank Code</th>
+                            <th>Bank Branch Code</th>
+                            <th>Cin Code</th>
+                            <th>Current Account Id</th>
+                            <th>Currency</th>
+                            <th>Account Holder</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngIf="orderpartnerDocument.orderpartnerbanks?.length===0">
+                            <td colspan="7" class="text-center">No data found</td>
+                        </tr>
+                        <ng-container *ngFor="let orderpartnerbank of orderpartnerDocument.orderpartnerbanks">
+                            <tr>
+                                <td>{{orderpartnerbank.bankbankcountrycode}}</td>
+                                <td>{{orderpartnerbank.bankcode}}</td>
+                                <td>{{orderpartnerbank.bankbranchcode}}</td>
+                                <td>{{orderpartnerbank.cincode}}</td>
+                                <td>{{orderpartnerbank.currentaccountid}}</td>
+                                <td>{{orderpartnerbank.currencycode}}</td>
+                                <td>{{orderpartnerbank.accountowner}}</td>
+                            </tr>
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white">
+            <div class="row">
+                <div class="col-md-12"><h6>Documents</h6></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                        <tr style="background-color: rgba(0, 0, 0, 0.03);">
+                            <th>Document Type</th>
+                            <th>File Name</th>
+                            <th style="width: 20px;"></th>
+                            <th style="width: 20px;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngIf="orderpartnerDocument.orderpartnerUploads?.length===0">
+                            <td colspan="3" class="text-center">No data found</td>
+                        </tr>
+                        <ng-container *ngFor="let orderpartnerUpload of orderpartnerDocument.orderpartnerUploads">
+                            <tr>
+                                <td>{{orderpartnerUpload.documentType}}</td>
+                                <td>{{orderpartnerUpload.originalFileName}}</td>
+                                <th>
+                                    <button type="button" class="btn btn-xs btn-success m-0" (click)="download(orderpartnerUpload);">
+                                        <fa-icon [icon]="'download'" style="cursor: pointer;" ></fa-icon>
+                                    </button>
+                                </th>
+                                <td>
+                                    <button type="button" class="btn btn-xs btn-danger m-0" (click)="pdf(orderpartnerUpload);" *ngIf="orderpartnerUpload.originalFileName && (orderpartnerUpload.originalFileName.includes('.pdf') || orderpartnerUpload.originalFileName.includes('.PDF'))">
+                                        <fa-icon [icon]="'file-pdf'" style="cursor: pointer;" ></fa-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

@@ -1,0 +1,76 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Recruitment Document Masters</span>
+                <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-recruitment-document-master"
+                        [routerLink]="['/recruitment-document-master/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span >New</span>
+                </button>
+            </h5>
+            <jhi-alert></jhi-alert>
+            <div class="table-responsive" *ngIf="recruitmentDocumentMasters">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="documentMandatory"><span>Mandatory</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="forceDocumentType"><span>Force Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="attachType"><span>Attach Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="documentType"><span>Document Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let recruitmentDocumentMaster of recruitmentDocumentMasters ;trackBy: trackId">
+                        <td><a [routerLink]="['/recruitment-document-master', recruitmentDocumentMaster.id, 'view' ]">{{recruitmentDocumentMaster.id}}</a></td>
+                        <td>{{recruitmentDocumentMaster.description}}</td>
+                        <td>{{recruitmentDocumentMaster.documentMandatory}}</td>
+                        <td>
+                            <ng-container *ngIf="recruitmentDocumentMaster.forceDocumentType==='O'">Original</ng-container>
+                            <ng-container *ngIf="recruitmentDocumentMaster.forceDocumentType==='P'">Provisional</ng-container>
+                            <ng-container *ngIf="recruitmentDocumentMaster.forceDocumentType==='A'">Original/Provisional</ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="recruitmentDocumentMaster.attachType==='C'">Checked</ng-container>
+                            <ng-container *ngIf="recruitmentDocumentMaster.attachType==='U'">Upload</ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="recruitmentDocumentMaster.documentType==='S'">Staff</ng-container>
+                            <ng-container *ngIf="recruitmentDocumentMaster.documentType==='W'">Worker</ng-container>
+                            <ng-container *ngIf="recruitmentDocumentMaster.documentType==='A'">Staff/Worker</ng-container>
+                        </td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit" [routerLink]="['/recruitment-document-master', recruitmentDocumentMaster.id, 'view' ]" class="btn btn-info btn-sm">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+                                <button type="submit" [routerLink]="['/recruitment-document-master', recruitmentDocumentMaster.id, 'edit']" class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit" [routerLink]="['/', 'recruitment-document-master', { outlets: { popup: recruitmentDocumentMaster.id + '/delete'} }]"
+                                        replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="recruitmentDocumentMasters && recruitmentDocumentMasters.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

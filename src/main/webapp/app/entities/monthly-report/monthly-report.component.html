@@ -1,0 +1,67 @@
+<div class="card">
+    <div class="body">
+        <div align="center" class="centered" *ngIf="isDownload">
+            <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+        </div>
+        <div>
+            <h5 id="page-heading">
+                <span>Salary Summary</span>
+            </h5>
+            <hr/>
+        </div>
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-2">Factory</div>
+            <div class="col-md-4">
+                <select name="factroy" id="fieldFactory" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="factory">
+                    <option value="ALL">ALL</option>
+                    <option *ngFor="let factoryMaster of factoryMasters" [value]="factoryMaster.factoryCode">{{factoryMaster.factoryName}}</option>
+                    <!--option value="190">137 Corporate Faridabad</option>
+                    <option value="101">137 Faridabad</option>
+                    <option value="102">169 Faridabad</option>
+                    <option value="106">Guntur Factory</option>
+                    <option value="349">349 Faridabad</option>
+                    <option value="105">B4 Noida</option>
+                    <option value="103">Bata Faridabad</option>
+                    <option value="104">C3 Noida</option>
+                    <option value="191">Infotech Faridabad</option-->
+                </select>
+            </div>
+        </div>
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-2">Month From</div>
+            <div class="col-md-4">
+                <div class="input-group input-group-sm">
+                    <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" [formControl]="fromDate" class="form-control form-control-sm">
+                    <div class="input-group-append input-group-append-top">
+                        <div class="btn btn-blush" [owlDateTimeTrigger]="dt1"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" [startView]="'multi-years'" (yearSelected)="chosenYearHandler1($event)" (monthSelected)="chosenMonthHandler1($event, dt1)" #dt1="owlDateTime"></owl-date-time>
+            </div>
+        </div>
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-2">Month To</div>
+            <div class="col-md-4">
+                <div class="input-group input-group-sm">
+                    <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" [formControl]="toDate" class="form-control form-control-sm">
+                    <div class="input-group-append input-group-append-top">
+                        <div class="btn btn-blush" [owlDateTimeTrigger]="dt2"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" [startView]="'multi-years'" (yearSelected)="chosenYearHandler2($event)" (monthSelected)="chosenMonthHandler2($event, dt2)" #dt2="owlDateTime"></owl-date-time>
+            </div>
+        </div>
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-2">Salary</div>
+            <div class="col-md-4">
+                <input type="text" name="cardNo" id="field_cardNo" [(ngModel)]="salarySearch.cardNo" class="form-control form-control-sm"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-sm btn-blush btn-round" style="margin-top: 0;" [disabled]="isDownload" (click)="generateReport();"><fa-icon [icon]="'download'"></fa-icon> <span>Generate</span></button>&nbsp;&nbsp;
+                <button type="reset" class="btn btn-sm btn-secondary btn-round" style="margin-top: 0;" [disabled]="isDownload"><fa-icon [icon]="'times'"></fa-icon> <span>Reset</span></button>
+            </div>
+        </div>
+    </div>
+</div>

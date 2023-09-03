@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <!--
+        Added the entity CutPlanProgressEntry.
+    -->
+    <changeSet id="20211014094723-1" author="jhipster">
+        <createTable tableName="cut_plan_progress_entry">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="operation_code" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="operation_description" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="start_date" type="datetime">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="end_date" type="datetime">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="no_cutters" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="total_hour" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="progress_entry_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="progress_entry_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="progressimportid" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="progress_posted_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="progress_posted_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="cut_plan_entry_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="cut_plan_progress_entry_seq" incrementBy="1" cycle="false"/>
+        <dropDefaultValue tableName="cut_plan_progress_entry" columnName="start_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="cut_plan_progress_entry" columnName="end_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="cut_plan_progress_entry" columnName="progress_entry_date" columnDataType="datetime"/>
+    </changeSet>
+</databaseChangeLog>

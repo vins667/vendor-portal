@@ -1,0 +1,95 @@
+<div align="center" class="centered" *ngIf="isDownload">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>TDS Query</span>
+            </h5>
+            <div class="row">
+                <div class="col-md-2">
+                    <select class="form-control form-control-sm custom-select custom-select-sm" name="status" id="field_status" [(ngModel)]="tdsDeclarationSearch.status" required>
+                        <option value="F">Declaration Filled</option>
+                        <option value="P">Declaration Pending</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control form-control-sm custom-select custom-select-sm" name="year" id="field_year" [(ngModel)]="tdsDeclarationSearch.year" required>
+                        <option *ngFor="let tdsYearMasterOption of tdsyearmasters;" [value]="tdsYearMasterOption.code" (change)="activeYear()">{{tdsYearMasterOption.financeYear}}</option>
+                    </select>
+                </div>
+                <div class="col-md-2"><input type="text" name="empCode" class="form-control form-control-sm" placeholder="Enter Emp Code" [(ngModel)]="tdsDeclarationSearch.cardNo"/></div>
+                <div class="col-md-6 text-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-round btn-blush" style="margin-top: 0;" (click)="search();"><fa-icon [icon]="'search'"></fa-icon> <span>Search</span></button>&nbsp;
+                        <button type="button" class="btn btn-sm btn-info btn-round" style="margin-top: 0;" [disabled]="currentYear && currentYear.active && currentYear.expired" (click)="lockAll();"><fa-icon [icon]="'lock'"></fa-icon> <span>Lock</span></button>&nbsp;
+                        <button type="button" class="btn btn-sm btn-secondary btn-round" style="margin-top: 0;" [disabled]="currentYear && currentYear.active && currentYear.expired" (click)="unlockAll();"><fa-icon [icon]="'unlock'"></fa-icon> <span>Un-Lock</span></button>&nbsp;
+                        <ng-template [ngIf]="currentYear && currentYear.uploadDoc">
+                            <button type="button" class="btn btn-sm btn-secondary btn-round" style="margin-top: 0;" [disabled]="currentYear && currentYear.active && currentYear.expired" (click)="unlockAll();"><fa-icon [icon]="'unlock'"></fa-icon><span>Doc Un-Lock</span></button>&nbsp;
+                        </ng-template>
+                        <ng-template [ngIf]="currentYear && !currentYear.uploadDoc">
+                            <button type="button" class="btn btn-sm btn-info btn-round" style="margin-top: 0;" [disabled]="currentYear && currentYear.active && currentYear.expired" (click)="lockAll();"><fa-icon [icon]="'lock'"></fa-icon> <span>Doc Lock</span></button>&nbsp;
+                        </ng-template>
+                        <button type="button" class="btn btn-sm btn-warning btn-round" style="margin-top: 0;" [disabled]="isDownload" (click)="generateReport();"><fa-icon [icon]="'download'"></fa-icon> <span>Export</span></button>&nbsp;
+                        <button type="button" class="btn btn-sm btn-success btn-round" style="margin-top: 0;" [disabled]="isDownload" (click)="generateXLS();"><fa-icon [icon]="'download'"></fa-icon> <span>Excel</span></button>&nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="cardNo"><span>Card No</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="contectNo"><span>Contect No</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="department"><span>Department</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="designation"><span>Designation</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let tdsDeclaration of tdsDeclarations; let index=index" [class.col-white]="tdsDeclaration.resignDate" [class.bg-red]="tdsDeclaration.resignDate" [title]="tdsDeclaration.resignDate? 'Resigned': ''">
+                        <td>{{tdsDeclaration.cardNo}}</td>
+                        <td>{{tdsDeclaration.name}}</td>
+                        <td>{{tdsDeclaration.phone}}</td>
+                        <td>{{tdsDeclaration.depCodeDesc}}</td>
+                        <td>{{tdsDeclaration.desCodeDesc}}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-sm" (click)="tdsDocumentUpload(tdsDeclarationSearch.year, tdsDeclaration.cardNo)">
+                                    <fa-icon [icon]="'paperclip'"></fa-icon>
+                                    <span class="d-none d-md-inline">Document</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/tds-query', tdsDeclarationSearch.year, tdsDeclaration.cardNo, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit" class="btn btn-success btn-sm" *ngIf="!tdsDeclaration.tempLock || tdsDeclaration.tempLock==='N'" (click)="lockSingle(tdsDeclaration);">
+                                    <fa-icon [icon]="'unlock'"></fa-icon>
+                                    <span class="d-none d-md-inline">Unlock</span>
+                                </button>
+                                <button type="submit" class="btn btn-danger btn-sm" *ngIf="tdsDeclaration.tempLock==='Y'" (click)="unlockSingle(tdsDeclaration);">
+                                    <fa-icon [icon]="'lock'"></fa-icon>
+                                    <span class="d-none d-md-inline">Locked</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                   </tbody>
+                </table>
+            </div>
+            <div *ngIf="tdsDeclarations && tdsDeclarations.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

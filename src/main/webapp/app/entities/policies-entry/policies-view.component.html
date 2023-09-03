@@ -1,0 +1,75 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Policies</span>
+                <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-policies" [routerLink]="['/policies-entry/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span >New</span>
+                </button>
+                <button type="button" class="btn btn-sm btn-round float-right btn-warning" (click)="openSort();"><fa-icon [icon]="'sort'"></fa-icon><span> Ordering</span></button>
+            </h5>
+            <jhi-alert></jhi-alert>
+            <br/>
+            <div class="table-responsive" *ngIf="policies">
+                <table class="table table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="policyName"><span>Policy Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="policyFile"><span>Policy File</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="createdBy"><span>Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="policiesGroup.id"><span>Policies Group</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let policies of policies ;trackBy: trackId">
+                        <td>{{policies.id}}</td>
+                        <td>{{policies.policyName}}</td>
+                        <td>{{policies.policyFile}}</td>
+                        <td>{{policies.createdBy}}</td>
+                        <td>{{policies.createdDate | date:'dd-MM-yyyy HH:mm'}}</td>
+                        <td>
+                            <div *ngIf="policies.policiesGroup">
+                                {{policies.policiesGroup?.description}}
+                            </div>
+                        </td>
+                        <td class="text-right">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/policies-entry', policies.id, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="button" id="download-entity" (click)="download(policies);" class="btn btn-sm btn-success" *ngIf="policies.policyFile">
+                                    <fa-icon [icon]="'download'"></fa-icon>&nbsp;<span>Download</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/', 'policies-entry', { outlets: { popup: policies.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="policies && policies.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

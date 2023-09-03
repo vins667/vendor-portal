@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <!--
+        Added the entity CutPlanProgress.
+    -->
+    <changeSet id="20210322073553-1" author="jhipster">
+        <createTable tableName="cut_plan_progress">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="production_code" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            <column name="groupstepnumber" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="demandcountercode" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="demandcode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workcentercode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="operationcode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primaryquantity" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="primaryuomcode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondaryquantity" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondaryuomcode" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="itemtypecode" type="varchar(3)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_01" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_02" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_03" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_04" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_05" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_06" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_07" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_08" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_09" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="subcode_10" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="resourcecode" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="productionprogressimportid" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="productionprogressid" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="createdby" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="createddate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="lastupdatedby" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+            <column name="lastupdateddate" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="cut_plan_entry_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="cut_plan_progress_seq" incrementBy="1" cycle="false"/>
+        <dropDefaultValue tableName="cut_plan_progress" columnName="createddate" columnDataType="datetime"/>
+        <dropDefaultValue tableName="cut_plan_progress" columnName="lastupdateddate" columnDataType="datetime"/>
+    </changeSet>
+</databaseChangeLog>

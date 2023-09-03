@@ -1,0 +1,147 @@
+<div align="center" class="centered" *ngIf="isDownload">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h6 id="page-heading">
+            <span>Bill Register Import</span>
+            <button id="jh-create-entity" class="btn btn-xs btn-blush btn-round float-right jh-create-entity create-direct-booking-entry m-0" [routerLink]="['/bill-register-import/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span>New&nbsp;</span>
+            </button>
+        </h6>
+    </div>
+
+    <div class="card-footer body py-2 bg-white">
+        <div class="row mb-1">
+            <div class="col-md-2">
+                <select class="form-control form-control-xs custom-select custom-select-xs" name="flag" id="field_flag" [(ngModel)]="search.flag">
+                    <option [value]="undefined">Choose Filter</option>
+                    <option value="P">Pending</option>
+                    <option value="S">Received</option>
+                </select>
+            </div>
+            <div class="col-md-5">
+                <angular2-multiselect [data]="dropdownList"
+                                      [(ngModel)]="search.selectedItems"
+                                      [settings]="dropdownSettings"
+                                      (onSelect)="onItemSelect($event)"
+                                      (onDeSelect)="OnItemDeSelect($event)"
+                                      (onSelectAll)="onSelectAll($event)"
+                                      (onDeSelectAll)="onDeSelectAll($event)">
+                </angular2-multiselect>
+                <!-- select class="form-control form-control-xs custom-select custom-select-xs" name="billType" id="field_billType" [(ngModel)]="search.billType">
+                    <option [value]="undefined">Choose Bill Type</option>
+                    <option value="SUPPLIER">SUPPLIER</option>
+                    <option value="CHA">CHA</option>
+                    <option value="FORWARDER">FORWARDER</option>
+                    <option value="TRANSPORTER">TRANSPORTER</option>
+                    <option value="OTHER">OTHER</option>
+                </select-->
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control form-control-xs" name="entryId" id="field_entryId" placeholder="Enter Bill No#" [(ngModel)]="search.invoiceCode"/>
+            </div>
+            <div class="col-md-3 text-right">
+                <button class="btn btn-xs btn-round btn-blush m-0" type="button" (click)="loadPage();">
+                    &nbsp;<fa-icon [icon]="'search'"></fa-icon> <span>Search</span>&nbsp;
+                </button>
+                <button class="btn btn-xs btn-round btn-secondary m-0" type="button" (click)="excelExport();">
+                    &nbsp;<fa-icon [icon]="'file-export'"></fa-icon> <span>Export</span>&nbsp;
+                </button>
+                <button class="btn btn-xs btn-round btn-success m-0" type="button" (click)="save()">
+                    &nbsp;<fa-icon [icon]="'save'"></fa-icon> <span>Save</span>&nbsp;
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <select class="form-control form-control-xs custom-select custom-select-xs" name="dateType" id="field_dateType" [(ngModel)]="search.dateType">
+                    <option value="INV">BILL DATE</option>
+                    <option value="SUB">SUBMIT DATE</option>
+                    <option value="REC">RECEIVED DATE</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <div class="input-group mb-0">
+                    <input type="text" class="form-control form-control-xs" [owlDateTime]="invoiceDate" name="invoiceDateFrom" id="field_invoiceDateFrom" placeholder="From Date" [(ngModel)]="search.invoiceDateFrom" readonly/>
+                    <div class="input-group-append input-group-append-top">
+                        <button type="button" class="btn btn-xs btn-blush"><fa-icon [icon]="'calendar'" [owlDateTimeTrigger]="invoiceDate"></fa-icon></button>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #invoiceDate></owl-date-time>
+            </div>
+            <div class="col-md-2">
+                <div class="input-group mb-0">
+                    <input type="text" class="form-control form-control-xs" [owlDateTime]="invoiceDateTo" name="invoiceDateTo" id="field_invoiceDateTo" placeholder="To Date" [(ngModel)]="search.invoiceDateTo" readonly/>
+                    <div class="input-group-append input-group-append-top">
+                        <button type="button" class="btn btn-xs btn-blush"><fa-icon [icon]="'calendar'" [owlDateTimeTrigger]="invoiceDateTo"></fa-icon></button>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #invoiceDateTo></owl-date-time>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control form-control-xs text-uppercase" name="supplierName" id="field_supplierName" placeholder="Enter Supplier/Customer" [(ngModel)]="search.supplierName"/>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered table-striped" aria-describedby="page-heading">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col" jhiSortBy="billtype"><span>Type</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col" jhiSortBy="billnumber"><span>Bill No</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col" jhiSortBy="billdate"><span>Bill Date</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col" jhiSortBy="customersuppliername"><span>Supplier</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col" jhiSortBy="totalValue" class="text-right"><span>Total Amount</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"><input type="checkbox" name="submittedAll" id="submittedAll" (change)="submittedCheckAll();" [(ngModel)]="submit"> Submitted</th>
+                    <th scope="col"><input type="checkbox" name="receivedAll" id="receivedAll" (change)="checkAll();" [(ngModel)]="checked"> Received</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngIf="billRegisters">
+                    <tr *ngFor="let billRegister of billRegisters; let index=index; trackBy: trackId" data-cy="entityTable">
+                        <td>{{ billRegister.id }}</td>
+                        <td>{{ billRegister.billtype }}</td>
+                        <td>{{ billRegister.billnumber }}</td>
+                        <td>{{ billRegister.billdate | date:'dd-MM-yyyy' }}</td>
+                        <td>{{ billRegister.customersuppliername }}</td>
+                        <td class="text-right">{{ billRegister.totalValue | number: '1.2-2' }}</td>
+                        <td><input type="checkbox" name="submitted{{index}}" id="field_submitted{{index}}" [(ngModel)]="billRegister.submitted" [attr.disabled]="billRegister.submitDate ? true : null"></td>
+                        <td><input type="checkbox" name="received{{index}}" id="field_received{{index}}" [(ngModel)]="billRegister.received" [attr.disabled]="billRegister.receiveDate ? true : null"></td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/bill-register-import', billRegister.id, 'edit']"
+                                        class="btn btn-blush btn-xs">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit" (click)="delete(billRegister)" class="btn btn-danger btn-xs" [attr.disabled]="billRegister.submitDate || billRegister.receiveDate ? true : null">
+                                    <fa-icon icon="times"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" id="no-result" *ngIf="billRegisters?.length === 0">
+            <span>No data found</span>
+        </div>
+        <div *ngIf="billRegisters?.length > 0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

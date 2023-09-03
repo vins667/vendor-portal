@@ -1,0 +1,69 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "vcutStylePlanUpload",
+            "otherEntityName": "vcutStylePlanUpload",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "vcutMainEntryMaster"
+        },
+        {
+            "relationshipName": "vcutOperationMaster",
+            "otherEntityName": "vcutOperationMaster",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "vcutMainEntryMaster"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "entryType",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "3"
+        },
+        {
+            "fieldName": "entryTime",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "entryBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "rectifiedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "rectifiedDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20191009070420",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "vcut_main_entry_master",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

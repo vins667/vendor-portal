@@ -1,0 +1,63 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Worker Work Flow Master</span> {{workerWorkFlowMaster.id}}</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="workerWorkFlowMaster">
+                    <jhi-alert-error></jhi-alert-error>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Employee Name</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{workerWorkFlowMaster.empName}}({{workerWorkFlowMaster.empCode}})</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Will</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <div *ngIf="workerWorkFlowMaster.workerForwardTypeMaster">
+                                    {{workerWorkFlowMaster.workerForwardTypeMaster?.description}}
+                                </div>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Forward Name</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{workerWorkFlowMaster.forwardName}}({{workerWorkFlowMaster.forwardCode}})</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Forward Type</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span><ng-container *ngIf="workerWorkFlowMaster.forwardType=='W'">Work Flow</ng-container><ng-container *ngIf="workerWorkFlowMaster.forwardType=='H'">HR</ng-container></span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Status</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span><ng-container *ngIf="workerWorkFlowMaster.status=='Y'">Active</ng-container><ng-container *ngIf="workerWorkFlowMaster.status=='N'">Inactive</ng-container></span>
+                                <span>{{workerWorkFlowMaster.status}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <button type="submit" (click)="previousState()" class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button" [routerLink]="['/worker-work-flow-master', workerWorkFlowMaster.id, 'edit']" class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

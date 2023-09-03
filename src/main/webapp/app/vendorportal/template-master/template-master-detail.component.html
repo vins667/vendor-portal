@@ -1,0 +1,76 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-template-master-heading">
+            <span>Template Master</span>
+        </h5>
+        <hr/>
+        <div class="row">
+            <div class="col-10">
+                <div>
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-1">
+                            <label class="form-control-label" for="field_id">Id</label>
+                        </div>
+                        <div class="col-md-11">
+                            <input type="text" class="form-control form-control-sm" name="id" id="field_id" [(ngModel)]="templateMaster.id" readonly/>
+                        </div>
+                    </div>
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-1">
+                            <label class="form-control-label" for="field_templateCode">Template</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control form-control-sm" name="templateCode" id="field_templateCode" [(ngModel)]="templateMaster.templateName" readonly/>
+                        </div>
+                        <div class="col-md-1">
+                            <label class="form-control-label" for="field_templateCode">Category</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control form-control-sm" name="categoryCode" id="field_categoryCode" [(ngModel)]="templateMaster.categoryMaster.description" readonly/>
+                        </div>
+                    </div>
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-12">
+                            <table class="table table-sm table-striped">
+                                <thead>
+                                <tr>
+                                    <th><span>Specification</span></th>
+                                    <th class="align-center align-middle"><span>Required</span></th>
+                                    <th class="align-center align-middle"><span>ShowInBid</span></th>
+                                    <th><span>Field Type</span></th>
+                                    <th><span>Values</span></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let templateMasterDetail of templateMaster.templateDetails; let index = index;">
+                                    <td><input type="text" class="form-control form-control-sm" name="specificationCode_{{index}}" id="field_specificationCode_{{index}}" [(ngModel)]="templateMasterDetail.specification" readonly/></td>
+                                    <td class="align-center align-middle"><input  type="checkbox" style="width: 15px; height: 15px;" name="required_{{index}}" id="field_required_{{index}}" [(ngModel)]="templateMasterDetail.required" readonly/></td>
+                                    <td class="align-center align-middle"><input  type="checkbox" style="width: 15px; height: 15px;" name="showInBid_{{index}}" id="field_showInBid_{{index}}" [(ngModel)]="templateMasterDetail.showInBid" readonly/></td>
+                                    <td>
+                                        <select type="text" class="form-control form-control-sm custom-select custom-select-sm"  name="fieldType_{{index}}" id="field_fieldType_{{index}}" [(ngModel)]="templateMasterDetail.fieldType" disabled>
+                                            <option value="T">Text Field</option>
+                                            <option value="D">Drop Down</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" class="form-control form-control-sm" name="fieldValue_{{index}}" id="field_fieldValue_{{index}}" [(ngModel)]="templateMasterDetail.fieldValue" readonly/></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" (click)="previousState()" class="btn btn-sm btn-info btn-round">
+                                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                            </button>
+
+                            <button type="button" [routerLink]="['/template-master', templateMaster.id, 'edit']" class="btn btn-sm btn-blush btn-round">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

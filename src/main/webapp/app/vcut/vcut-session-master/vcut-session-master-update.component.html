@@ -1,0 +1,131 @@
+<div class="card">
+    <div class="body">
+            <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <h5 id="jhi-vcut-session-master-heading">
+                        Session Plan Master
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round float-right">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round float-right"  (click)="previousState()">
+                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                         </button>
+                    </h5>
+                <hr/>
+                <div class="row">
+                    <div class="col-12">
+                        <div>
+                                <div class="row card-margin-bottom-10" [hidden]="!vcutSessionMaster.id">
+                                    <div class="col-md-2">
+                                        <label for="id">ID</label>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="vcutSessionMaster.id" readonly />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="form-control-label" for="field_planName">Session Plan Name</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control form-control-sm" name="planName" id="field_planName" [(ngModel)]="vcutSessionMaster.planName" maxlength="100" required/>
+                                            <div class="input-group-append input-group-append-top">
+                                                <div class="btn btn-sm btn-secondary"><span>@</span></div>
+                                            </div>
+                                        </div>
+                                        <div [hidden]="!(editForm.controls.planName?.dirty && editForm.controls.planName?.invalid)">
+                                            <small class="form-text text-danger"
+                                            [hidden]="!editForm.controls.planName?.errors?.maxlength">
+                                            This field cannot be longer than 100 characters.
+                                            </small>
+                                        </div>
+                                    </div>
+                                     <div class="col-md-2">
+                                        <label class="form-control-label">Day Start Time</label>
+                                     </div>
+                                     <div class="col-md-4">
+                                            <div class="input-group input-group-sm">
+                                                <input [owlDateTime]="leaveTimeTo" [owlDateTimeTrigger]="leaveTimeTo"  name="leaveTimeFrom" id="field_leaveTimeFrom" class="form-control form-control-sm" maxlength="5" [(ngModel)]="leaveTimeFrom" required>
+                                                <div class="input-group-append input-group-append-top">
+                                                    <div class="btn btn-sm btn-secondary" [owlDateTimeTrigger]="leaveTimeTo"><span><i class="fa fa-clock-o"></i></span></div>
+                                                </div>
+                                           </div>
+                                         <owl-date-time #leaveTimeTo [pickerType]="'timer'"></owl-date-time>
+                                    </div>
+                              </div>
+                              <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="form-control-label" for="field_hours">Total Time Per Day</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="input-group input-group-sm">
+                                            <input type="number" class="form-control form-control-sm" name="hours" id="field_hours" [(ngModel)]="vcutSessionMaster.hours" #hours  required/>
+                                            <div class="input-group-append input-group-append-top">
+                                                <div class="btn btn-sm btn-secondary"><span>HH</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="input-group input-group-sm">
+                                            <input type="number" class="form-control form-control-sm" name="minutes" id="field_minutes" [(ngModel)]="vcutSessionMaster.minutes" #minutes (change)="getHHMints(hours,minutes)" required/>
+                                            <div class="input-group-append input-group-append-top">
+                                                <div class="btn btn-sm btn-secondary"><span>MM</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-control-label" for="field_totalMinsPerDay">Total Mins Per Day</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-group input-group-sm">
+                                           <input type="number" class="form-control form-control-sm" name="totalMinsPerDay" id="field_totalMinsPerDay" [(ngModel)]="vcutSessionMaster.totalMinsPerDay" required readonly/>
+                                            <div class="input-group-append input-group-append-top">
+                                                <div class="btn btn-sm btn-secondary"><span>MM</span></div>
+                                            </div>
+                                        </div>
+                                 </div>
+                             </div>
+                             <div class="row card-margin-bottom-10">
+                                 <div class="col-md-12">
+                                        <table class="table table-sm table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th><fa-icon [icon]="'times'" style="width: 40px;height:40px;"></fa-icon></th>
+                                                    <th><fa-icon [icon]="'plus-circle'" style="width: 40px;height:40px;"></fa-icon></th>
+                                                    <th><span>Start Time</span></th>
+                                                    <th><span>End Time</span></th>
+                                                    <th><span>Type</span></th>
+                                                    <th><span>Duration</span></th>
+                                                    <th><span>Order</span></th>
+                                                    <th><span>Comulative Mins</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let vcutSessionDetail of vcutSessionMaster.vcutSessionDetails ;let index = index;">
+                                                    <td class="button-column"><fa-icon (click)="removeRow(index)" [icon]="'trash-alt'" style="cursor: pointer;" class="text-danger"></fa-icon></td>
+                                                    <td class="button-column"><fa-icon [icon]="'plus-circle'" style="color: #00FF00; cursor: pointer;" (click)="addRow();"></fa-icon></td>
+                                                    <td><input type="text" [textMask]="{mask: mask}" class="form-control form-control-sm " placeholder="HH:mm" name="startTime_{{index}}" id="field_startTime_{{index}}" [(ngModel)]="vcutSessionDetail.startTime" maxlength="10"/></td>
+                                                    <td><input type="text" [textMask]="{mask: mask}" class="form-control form-control-sm " placeholder="HH:mm" name="endTime_{{index}}" id="field_endTime_{{index}}" [(ngModel)]="vcutSessionDetail.endTime" maxlength="10" [required]="vcutSessionDetail.startTime" (change)="calTimeDifference()"/></td>
+                                                    <td>
+                                                        <select class="form-control form-control-sm custom-select custom-select-sm"  name="type_{{index}}" id="field_type_{{index}}" [(ngModel)]="vcutSessionDetail.type" maxlength="20" [required]="vcutSessionDetail.startTime">
+                                                            <option [ngValue]="undefined">Select</option>
+                                                            <option value="WORK">Work</option>
+                                                            <option value="LUNCH">Lunch</option>
+                                                            <option value="TEA">Tea</option>
+                                                            <option value="NOWORK">No Work</option>
+                                                        </select>
+                                                    </td>
+                                                    <td><input type="number" class="form-control form-control-sm" name="duration_{{index}}" id="field_duration_{{index}}" [(ngModel)]="vcutSessionDetail.duration"  [required]="vcutSessionDetail.startTime" readonly/></td>
+                                                    <td><input type="number" class="form-control form-control-sm" name="order_{{index}}" id="field_order_{{index}}" [(ngModel)]="vcutSessionDetail.order" [required]="vcutSessionDetail.startTime"/></td>
+                                                    <td><input type="number" class="form-control form-control-sm" name="cumulativeMins_{{index}}" id="field_cumulativeMins_{{index}}" [(ngModel)]="vcutSessionDetail.cumulativeMins" [required]="vcutSessionDetail.startTime" readonly/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                 </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>

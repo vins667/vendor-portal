@@ -1,0 +1,83 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="gstVoplUpload">
+            <h2><span>Gst Vopl Upload</span> {{gstVoplUpload.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>V Vchno</span></dt>
+                <dd>
+                    <span>{{gstVoplUpload.vVchno}}</span>
+                </dd>
+                <dt><span>V Vchdate</span></dt>
+                <dd>
+                    <span>{{gstVoplUpload.vVchdate}}</span>
+                </dd>
+                <dt><span>V Gstin</span></dt>
+                <dd>
+                    <span>{{gstVoplUpload.vGstin}}</span>
+                </dd>
+                <dt><span>V Supplier Code</span></dt>
+                <dd>
+                    <span>{{gstVoplUpload.vSupplierCode}}</span>
+                </dd>
+                <dt><span>V Supplier Name</span></dt>
+                <dd>
+                    <span>{{gstVoplUpload.vSupplierName}}</span>
+                </dd>
+                <dt><span>V Invoiceno</span></dt>
+                <dd>
+                    <span>{{gstVoplUpload.vInvoiceno}}</span>
+                </dd>
+                <dt><span>V Invoicedate</span></dt>
+                <dd>
+                    <span>{{gstVoplUpload.vInvoicedate}}</span>
+                </dd>
+                <dt><span>V Invamt</span></dt>
+                <dd>
+                    <span>{{gstVoplUpload.vInvamt}}</span>
+                </dd>
+                <dt><span>V Invnet</span></dt>
+                <dd>
+                    <span>{{gstVoplUpload.vInvnet}}</span>
+                </dd>
+                <dt><span>V Cgst</span></dt>
+                <dd>
+                    <span>{{gstVoplUpload.vCgst}}</span>
+                </dd>
+                <dt><span>V Sgst</span></dt>
+                <dd>
+                    <span>{{gstVoplUpload.vSgst}}</span>
+                </dd>
+                <dt><span>V Igst</span></dt>
+                <dd>
+                    <span>{{gstVoplUpload.vIgst}}</span>
+                </dd>
+                <dt><span>Upload Date</span></dt>
+                <dd>
+                    <span>{{gstVoplUpload.uploadDate}}</span>
+                </dd>
+                <dt><span>Confirm Date</span></dt>
+                <dd>
+                    <span>{{gstVoplUpload.confirmDate}}</span>
+                </dd>
+                <dt><span>Status</span></dt>
+                <dd>
+                    <span>{{gstVoplUpload.status}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/gst-vopl-upload', gstVoplUpload.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

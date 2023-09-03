@@ -1,0 +1,17 @@
+<form name="editForm" role="form" novalidate #editForm="ngForm">
+    <div class="row"><div class="col-md-12 form-control-label text-danger">Note: File Size should not exceed 5MB (Format should be .PDF only)</div></div>
+    <ng-container *ngIf="vendorDocuments">
+        <div class="row card-margin-bottom-10" *ngFor="let documentMaster of documentMasters; let index = index;">
+            <div class="col-md-3"><label class="form-control-label">{{documentMaster.documentName}}</label></div>
+            <div class="col-md-4"><input type="file" [class.bg-warning-light]="(vendorDocumentsTemp[index].dataFlag && vendorDocumentsTemp[index].dataFlag.length>0) || (vendorDocumentsTemp[index].tableType && vendorDocumentsTemp[index].tableType == 'T')" [name]="documentMaster.id" [id]="documentMaster.id" class="form-control form-control-sm text-uppercase" style="height: calc(1.8125rem + 8px)" [(ngModel)]="files" (change)="onFileSelect($event,index, documentMaster.id)" disabled/></div>
+            <div class="col-md-2">
+                <div class="btn-group">
+                    <ng-container *ngIf="vendorDocumentsTemp[index].id && vendorDocumentsTemp[index].documentFilePath">
+                        <button type="button" class="btn btn-sm btn-success" [disabled]="isDownloading" title="Download {{documentMaster.documentName}}" (click)="download(vendorDocumentsTemp[index].id, vendorDocumentsTemp[index].documentFilePath, vendorDocumentsTemp[index].tableType);"><fa-icon [icon]="'file-download'"></fa-icon></button>
+                    </ng-container>
+                </div>
+
+            </div>
+        </div>
+    </ng-container>
+</form>

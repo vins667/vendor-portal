@@ -1,0 +1,55 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Worker Work Flow Master</span> {{workerJoinFlowMaster.id}}</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="workerJoinFlowMaster">
+                    <jhi-alert-error></jhi-alert-error>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Employee Name</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{workerJoinFlowMaster.empName}}({{workerJoinFlowMaster.empCode}})</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Will</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <div *ngIf="workerJoinFlowMaster.workerForwardTypeMaster">
+                                    {{workerJoinFlowMaster.workerForwardTypeMaster?.description}}
+                                </div>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Forward Name</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{workerJoinFlowMaster.forwardName}}({{workerJoinFlowMaster.forwardCode}})</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Status</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span><ng-container *ngIf="workerJoinFlowMaster.status=='Y'">Active</ng-container><ng-container *ngIf="workerJoinFlowMaster.status=='N'">Inactive</ng-container></span>
+                                <span>{{workerJoinFlowMaster.status}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <button type="submit" (click)="previousState()" class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button" [routerLink]="['/worker-join-flow-master', workerJoinFlowMaster.id, 'edit']" class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

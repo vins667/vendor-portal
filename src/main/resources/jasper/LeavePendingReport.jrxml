@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LeavePendingReport" pageWidth="1050" pageHeight="842" columnWidth="1030" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" isIgnorePagination="true" uuid="97d05642-5238-4574-ab64-7309a383f79d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="hodCardNo" class="java.lang.String"/>
+	<field name="hodName" class="java.lang.String"/>
+	<field name="empCode" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="leaveFrom" class="java.lang.String"/>
+	<field name="leaveTo" class="java.lang.String"/>
+	<field name="leaveType" class="java.lang.String"/>
+	<field name="leaveSubType" class="java.lang.String"/>
+	<field name="flag" class="java.lang.String"/>
+	<field name="reqDate" class="java.lang.String"/>
+	<field name="reqTime" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="1030" height="25" uuid="15c1cc5e-269f-4040-bc10-f5d22123c276"/>
+				<box>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Leave Pending Report]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="930" y="25" width="100" height="15" uuid="22f777d2-b087-4aea-8d0c-77c9d4196107"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="830" y="25" width="100" height="15" uuid="68109b62-bddf-4d85-a8e4-702bd4ca7c0c"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Print Date: ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="70" height="15" backcolor="#E3DCDC" uuid="7e7b6eee-2264-4e78-8e21-6290f443a409">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a525769f-38f1-454b-bca9-2c76d23ff93e"/>
+				</reportElement>
+				<box leftPadding="4">
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Hod Card No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="70" y="0" width="150" height="15" backcolor="#E3DCDC" uuid="7f2e5035-fbfe-428e-8a2e-17b7f58cdfad">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="430aec40-2c69-4973-b101-67ea93c48e7f"/>
+				</reportElement>
+				<box leftPadding="4">
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Hod Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="220" y="0" width="70" height="15" backcolor="#E3DCDC" uuid="9cfd0379-5576-4eba-8b5a-48f3ef3f11e2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d64cc0c5-6029-48a0-9489-3fc29f4de876"/>
+				</reportElement>
+				<box leftPadding="4">
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Emp Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="290" y="0" width="150" height="15" backcolor="#E3DCDC" uuid="6aa2de0c-0fbe-4716-9e50-7aaf63089339">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cae3e6c7-3bec-4282-b180-5932d09582a9"/>
+				</reportElement>
+				<box leftPadding="4">
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Employee Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="440" y="0" width="80" height="15" backcolor="#E3DCDC" uuid="322f98a8-54ad-48f0-9794-8a604356def7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9775cba3-2ab3-4493-aee8-9b450ad9aeb5"/>
+				</reportElement>
+				<box leftPadding="4">
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Leave From]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="520" y="0" width="80" height="15" backcolor="#E3DCDC" uuid="2b18cb66-1166-4749-8e82-d9818d4c9b31">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fd0ab37a-2c05-49be-873b-9d5c17ee12f5"/>
+				</reportElement>
+				<box leftPadding="4">
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Leave To]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="600" y="0" width="130" height="15" backcolor="#E3DCDC" uuid="d1c6f2bb-15c8-4b78-8d3c-7ab0296023fd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="077dd0e7-4b2b-4d46-8691-9cf1efdd1d3d"/>
+				</reportElement>
+				<box leftPadding="4">
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Leave Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="730" y="0" width="100" height="15" backcolor="#E3DCDC" uuid="f3761222-0d8b-40ee-bf22-0ebf92aff492">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fb7e2de5-7a98-4adf-8ee9-08268b730236"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="4">
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Lv Sub Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="830" y="0" width="100" height="15" backcolor="#E3DCDC" uuid="6d65674e-c235-4258-a528-6fd5224576d3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0dd1346-ba40-48ca-9412-ca77af8f4ad4"/>
+				</reportElement>
+				<box leftPadding="4">
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="930" y="0" width="60" height="15" backcolor="#E3DCDC" uuid="376ab777-a849-4365-a18a-a9b17e9d21f4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0dd1346-ba40-48ca-9412-ca77af8f4ad4"/>
+				</reportElement>
+				<box leftPadding="4">
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Req. Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="990" y="0" width="40" height="15" backcolor="#E3DCDC" uuid="cb1e0a95-a98c-4936-aa30-3ed9fe1e1186">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0dd1346-ba40-48ca-9412-ca77af8f4ad4"/>
+				</reportElement>
+				<box leftPadding="4">
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Time]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="70" height="15" isPrintWhenDetailOverflows="true" uuid="73d3694b-cbe9-4338-a384-47412527ff77">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a525769f-38f1-454b-bca9-2c76d23ff93e"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hodCardNo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="70" y="0" width="150" height="15" isPrintWhenDetailOverflows="true" uuid="2e697328-ee8b-4d2d-89c1-7f618f2c4b6e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="430aec40-2c69-4973-b101-67ea93c48e7f"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hodName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="220" y="0" width="70" height="15" isPrintWhenDetailOverflows="true" uuid="3a61c338-c372-4b6e-8163-56c2d4ac756b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d64cc0c5-6029-48a0-9489-3fc29f4de876"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="290" y="0" width="150" height="15" isPrintWhenDetailOverflows="true" uuid="04f5105c-f946-4e3b-bb04-afc62fc711d8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cae3e6c7-3bec-4282-b180-5932d09582a9"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="440" y="0" width="80" height="15" isPrintWhenDetailOverflows="true" uuid="27ad0aaf-7ce2-4ada-8c37-e75e0d09a0a4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9775cba3-2ab3-4493-aee8-9b450ad9aeb5"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{leaveFrom}]]></textFieldExpression>
+				<patternExpression><![CDATA[$F{leaveFrom}]]></patternExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="600" y="0" width="130" height="15" isPrintWhenDetailOverflows="true" uuid="5d011c1d-a7d4-4162-836d-bb2777d596d6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="077dd0e7-4b2b-4d46-8691-9cf1efdd1d3d"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{leaveType}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="730" y="0" width="100" height="15" isPrintWhenDetailOverflows="true" uuid="3a90b2ac-f25c-4eb3-a094-45692c5f6212">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fb7e2de5-7a98-4adf-8ee9-08268b730236"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{leaveSubType}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="830" y="0" width="100" height="15" isPrintWhenDetailOverflows="true" uuid="b81f68a4-50fa-47f7-9099-0312868ca2eb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0dd1346-ba40-48ca-9412-ca77af8f4ad4"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{flag}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="520" y="0" width="80" height="15" isPrintWhenDetailOverflows="true" uuid="cf15b509-b921-427c-93f2-ad4affe002eb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6bb93423-6546-42d9-9484-bb21bcfa4236"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{leaveTo}]]></textFieldExpression>
+				<patternExpression><![CDATA[$F{leaveTo}]]></patternExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="930" y="0" width="60" height="15" isPrintWhenDetailOverflows="true" uuid="234df9ec-65cc-44fa-be5c-a5b227cf0998">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0dd1346-ba40-48ca-9412-ca77af8f4ad4"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reqDate}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="990" y="0" width="40" height="15" isPrintWhenDetailOverflows="true" uuid="207c72e0-7608-47d7-ad46-afb0c110491d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0dd1346-ba40-48ca-9412-ca77af8f4ad4"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reqTime}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

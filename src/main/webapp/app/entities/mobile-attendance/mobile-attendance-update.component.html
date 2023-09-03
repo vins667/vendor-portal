@@ -1,0 +1,119 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-mobile-attendance-heading">Create or edit a Mobile Attendance</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!mobileAttendance.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="mobileAttendance.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cardNo">Card No</label>
+                    <input type="text" class="form-control" name="cardNo" id="field_cardNo"
+                        [(ngModel)]="mobileAttendance.cardNo" required maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.cardNo?.dirty && editForm.controls.cardNo?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.cardNo?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.cardNo?.errors?.maxlength">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_attendanceDate">Attendance Date</label>
+                    <div class="d-flex">
+                        <input id="field_attendanceDate" type="datetime-local" class="form-control" name="attendanceDate" [(ngModel)]="attendanceDate"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_latitude">Latitude</label>
+                    <input type="text" class="form-control" name="latitude" id="field_latitude"
+                        [(ngModel)]="mobileAttendance.latitude" maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.latitude?.dirty && editForm.controls.latitude?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.latitude?.errors?.maxlength">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_longitude">Longitude</label>
+                    <input type="text" class="form-control" name="longitude" id="field_longitude"
+                        [(ngModel)]="mobileAttendance.longitude" maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.longitude?.dirty && editForm.controls.longitude?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.longitude?.errors?.maxlength">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_fileName">File Name</label>
+                    <input type="text" class="form-control" name="fileName" id="field_fileName"
+                        [(ngModel)]="mobileAttendance.fileName" maxlength="100"/>
+                    <div [hidden]="!(editForm.controls.fileName?.dirty && editForm.controls.fileName?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.fileName?.errors?.maxlength">
+                        This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_attendanceType">Attendance Type</label>
+                    <input type="text" class="form-control" name="attendanceType" id="field_attendanceType"
+                        [(ngModel)]="mobileAttendance.attendanceType" maxlength="1"/>
+                    <div [hidden]="!(editForm.controls.attendanceType?.dirty && editForm.controls.attendanceType?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.attendanceType?.errors?.maxlength">
+                        This field cannot be longer than 1 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_factoryCode">Factory Code</label>
+                    <input type="text" class="form-control" name="factoryCode" id="field_factoryCode"
+                        [(ngModel)]="mobileAttendance.factoryCode" maxlength="15"/>
+                    <div [hidden]="!(editForm.controls.factoryCode?.dirty && editForm.controls.factoryCode?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.factoryCode?.errors?.maxlength">
+                        This field cannot be longer than 15 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdBy">Created By</label>
+                    <input type="text" class="form-control" name="createdBy" id="field_createdBy"
+                        [(ngModel)]="mobileAttendance.createdBy" maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.createdBy?.errors?.maxlength">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdDate">Created Date</label>
+                    <div class="d-flex">
+                        <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" [(ngModel)]="createdDate"
+                        />
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

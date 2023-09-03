@@ -1,0 +1,98 @@
+<div class="card">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 id="jhi-asset-master-heading">Create or edit a BRC DETAILS</h6>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-right">
+                        <button type="button" id="cancel-save" class="btn btn-xs btn-secondary btn-round m-0"
+                                (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
+                                class="btn btn-xs btn-blush btn-round m-0">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white">
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_sbNo">SB No</label></div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control form-control-xs" name="sbNo" id="field_sbNo" formControlName="sbNo" readonly/>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_sbDate">SB Date</label></div>
+                <div class="col-md-4">
+                    <div class="input-group mb-0">
+                        <input type="text" [owlDateTime]="sbDateFrom" name="sbDate" id="field_sbDate"
+                               placeholder="Date From" class="form-control form-control-xs" formControlName="sbDate">
+                        <div class="input-group-append input-group-append-top">
+                            <button type="button" class="btn btn-xs btn-blush" [owlDateTimeTrigger]="sbDateFrom"><span><fa-icon
+                                [icon]="'calendar'"></fa-icon></span></button>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #sbDateFrom></owl-date-time>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_brcNo">BRC No.</label></div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control form-control-xs" name="brcNo" id="field_brcNo"
+                           formControlName="brcNo" readonly>
+
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_brcDate">BRC Date</label></div>
+                <div class="col-md-4">
+                    <div class="input-group mb-0">
+                        <input type="text" [owlDateTime]="brcDateFrom" name="brcDate" id="field_brcDate"
+                               placeholder="Date From" class="form-control form-control-xs" formControlName="brcDate">
+                        <div class="input-group-append input-group-append-top">
+                            <button type="button" class="btn btn-xs btn-blush" [owlDateTimeTrigger]="brcDateFrom"><span><fa-icon
+                                [icon]="'calendar'"></fa-icon></span></button>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #brcDateFrom></owl-date-time>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_portCode">Port Code</label></div>
+                <div class="col-md-4"><input type="text" class="form-control form-control-xs" name="portCode"
+                                             id="field_portCode" formControlName="portCode" readonly>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_fob">FOB</label></div>
+                <div class="col-md-4"><input type="number" class="form-control form-control-xs" name="fob" id="field_fob" formControlName="fob"></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_currency">Currency</label></div>
+                <div class="col-md-4"><input type="text" class="form-control form-control-xs" name="currency" id="field_currency" formControlName="currency" readonly></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-2"><label class="form-control-label" for="field_realisationDate">Realisation
+                    Date</label></div>
+                <div class="col-md-4">
+                    <div class="input-group mb-0">
+                        <input type="text" [owlDateTime]="realisationDateFrom" name="brcDate" id="field_realisationDate"
+                               placeholder="Date From" class="form-control form-control-xs" formControlName="realisationDate">
+                        <div class="input-group-append input-group-append-top">
+                            <button type="button" class="btn btn-xs btn-blush"
+                                    [owlDateTimeTrigger]="realisationDateFrom"><span><fa-icon
+                                [icon]="'calendar'"></fa-icon></span></button>
+                        </div>
+                    </div>
+                    <owl-date-time [pickerType]="'calendar'" #realisationDateFrom></owl-date-time>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

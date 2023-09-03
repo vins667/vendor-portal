@@ -1,0 +1,72 @@
+<div class="card">
+    <div class="body" *ngIf="menuMaster">
+        <iframe [src]="this.menuMaster.qlikUrl" style="border:none;width:100%;height:600px; background-color: #ffffff"></iframe>
+        <!--ngb-tabset>
+            <ng-container *ngIf="this.menuMaster.qlikLabel">
+                <ngb-tab [attr.id]="this.menuMaster.qlikLabel">
+                    <ng-template ngbTabTitle>
+                        <span>{{menuMaster.qlikLabel}}</span>
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <iframe [src]="qlikUrlTemp" style="border:none;width:100%;height:600px; background-color: #ffffff"></iframe>
+                    </ng-template>
+                </ngb-tab>
+            </ng-container>
+            <ng-container *ngIf="this.menuMaster.qlikLabelTwo">
+                <ngb-tab [attr.id]="this.menuMaster.qlikLabelTwo">
+                    <ng-template ngbTabTitle>
+                        <span>{{menuMaster.qlikLabelTwo}}</span>
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <iframe [src]="qlikUrl2Temp" style="border:none;width:100%;height:600px; background-color: #ffffff"></iframe>
+                    </ng-template>
+                </ngb-tab>
+            </ng-container>
+            <ng-container *ngIf="this.menuMaster.qlikLabelThree">
+                <ngb-tab [attr.id]="this.menuMaster.qlikLabelThree">
+                    <ng-template ngbTabTitle>
+                        <span>{{menuMaster.qlikLabelThree}}</span>
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <iframe [src]="qlikUrl3Temp" style="border:none;width:100%;height:600px; background-color: #ffffff"></iframe>
+                    </ng-template>
+                </ngb-tab>
+            </ng-container>
+            <ng-container *ngIf="this.menuMaster.qlikLabelFour">
+                <ngb-tab [attr.id]="this.menuMaster.qlikLabelFour">
+                    <ng-template ngbTabTitle>
+                        <span>{{menuMaster.qlikLabelFour}}</span>
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <iframe [src]="qlikUrl4Temp" style="border:none;width:100%;height:600px; background-color: #ffffff"></iframe>
+                    </ng-template>
+                </ngb-tab>
+            </ng-container>
+            <ng-container *ngIf="this.menuMaster.qlikLabelFive">
+                <ngb-tab [attr.id]="this.menuMaster.qlikLabelFive">
+                    <ng-template ngbTabTitle>
+                        <span>{{menuMaster.qlikLabelFive}}</span>
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <iframe [src]="qlikUrl5Temp" style="border:none;width:100%;height:600px; background-color: #ffffff"></iframe>
+                    </ng-template>
+                </ngb-tab>
+            </ng-container-->
+            <!--ngb-tab [attr.id]="key" *ngFor="let key of map.keys()">
+                <ng-template ngbTabTitle>
+                    <span>{{key}}</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <iframe [src]="map.get(key)" style="border:none;width:100%;height:600px; background-color: #ffffff"></iframe>
+                </ng-template>
+            </ngb-tab-->
+        </ngb-tabset>
+        <!--<h5 id="jhi-fabric-content-master-heading">{{menuMaster.menuLabel}}</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-12">
+                <iframe [src]="menuMaster.qlikUrlSafe" style="border:none;width:100%;height:600px; background-color: #ffffff"></iframe>
+            </div>
+            </div-->
+    </div>
+</div>

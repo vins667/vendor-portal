@@ -1,0 +1,328 @@
+<div class="card">
+    <div class="body">
+        <div class="row">
+            <div class="col-md-12">
+                <h5> <span class="float-left">Travel Master Approval</span> </h5>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-12">
+                <form name="editForm" role="form" #editForm="ngForm">
+                    <div class="div">
+                        <div class="row card-margin-bottom-10" [hidden]="!travelApplicationMasterHod.id">
+                            <div class="col-md-2">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control form-control-sm" id="id" name="id"  [(ngModel)]="travelApplicationMasterHod.id" readonly />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_empCode">Emp Code</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" name="empCode" id="field_empCode" [(ngModel)]="travelApplicationMasterHod.empCode" readonly />
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_name">Name</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" name="name" id="field_name" [(ngModel)]="travelApplicationMasterHod.name" readonly />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_travelDestination">Destination</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control form-control-sm" name="travelDestination" id="field_travelDestination" [(ngModel)]="travelApplicationMasterHod.travelDestination" readonly />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_leaveDateFrom">From</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group input-group-sm">
+                                    <input [owlDateTime]="travelfromDt" name="leaveDateFrom"  id="field_leaveDateFrom" placeholder="From Date"  class="form-control form-control-sm" [(ngModel)]="travelApplicationMasterHod.travelFromdate" disabled>
+                                    <div class="input-group-append input-group-append-top">
+                                        <div class="btn btn-blush" [owlDateTimeTrigger]="travelfromDt">
+                                            <span> <fa-icon [icon]="'calendar'"></fa-icon></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <owl-date-time [pickerType]="'calendar'" #travelfromDt></owl-date-time>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label">To</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group input-group-sm">
+                                    <input [owlDateTime]="travelToDt" name="leaveDateTo"  id="leaveDateTo" placeholder="To Date"  class="form-control form-control-sm" [(ngModel)]="travelApplicationMasterHod.travelTodate" disabled>
+                                    <div class="input-group-append input-group-append-top">
+                                        <div class="btn btn-blush" [owlDateTimeTrigger]="travelToDt">
+                                            <span> <fa-icon [icon]="'calendar'"></fa-icon> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <owl-date-time [pickerType]="'calendar'" #travelToDt>
+                                </owl-date-time>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" name="travelDays" id="field_travelDays" placeholder="Travel Days" class="form-control form-control-sm" [(ngModel)]="travelApplicationMasterHod.travelDays" readonly>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_travelPurpose">Travel Purpose</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control form-control-sm" name="travelPurpose"  id="field_travelPurpose" [(ngModel)]="travelApplicationMasterHod.travelPurpose" readonly />
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-10">
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="field_hodCode">Approved By</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control form-control-sm" name="hodCode" id="field_hodCode" [value]="hodEmployeeView ? hodEmployeeView.name: ''" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin: 0;"/>
+                    <div>
+                        <ngb-tabset #tabs>
+                            <ngb-tab [id]="'PassengerDetail'">
+                                <ng-template ngbTabTitle>
+                                    Passengers
+                                </ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table table-sm table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th><span>Passenger Name</span></th>
+                                                    <th><span>Phone No</span></th>
+                                                    <th><span>Email Address</span></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let listPassengers of travelApplicationMasterHod.travelPassengerDetails; let index4 = index;">
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm text-uppercase" name="passengerName_{{index4}}" id="field_passengerName_{{index4}}" [(ngModel)]="listPassengers.passengerName" readonly/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm text-uppercase" name="phoneNo_{{index4}}" id="field_phoneNo_{{index4}}" [(ngModel)]="listPassengers.phoneNo" readonly/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm text-lowercase" name="emailId_{{index4}}" id="field_emailId_{{index4}}" [(ngModel)]="listPassengers.emailId" readonly/>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab [id]="'flightDetail'">
+                                <ng-template ngbTabTitle>
+                                    Flight Detail
+                                </ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table table-sm table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th><span>Date</span></th>
+                                                    <th><span>Flight No</span></th>
+                                                    <th><span>Departure</span></th>
+                                                    <th><span>Arrival</span></th>
+                                                    <th><span>Fare Price</span></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let travelFlightDetail of travelApplicationMasterHod.travelFlightDetails; let index = index;">
+                                                    <td>
+                                                        <div class="input-group input-group-sm" style="margin-bottom: 0;">
+                                                            <input [owlDateTime]="travelDtFrom"  name="travelDate_{{index}}"   id="field_travelDate_{{index}}"  placeholder="Travel Date" class="form-control form-control-sm"  [(ngModel)]="travelFlightDetail.travelDate" readonly>
+                                                            <div class="input-group-append input-group-append-top">
+                                                                <button class="btn btn-blush" disabled [owlDateTimeTrigger]="travelDtFrom"><span><fa-icon [icon]="'calendar'"></fa-icon> </span></button>
+                                                            </div>
+                                                        </div>
+                                                        <owl-date-time [pickerType]="'calendar'" #travelDtFrom></owl-date-time>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm"  name="ticketNo_{{index}}" id="field_ticketNo_{{index}}" [(ngModel)]="travelFlightDetail.ticketNo" readonly/>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group input-group-sm" style="margin-bottom: 0;">
+                                                            <input [owlDateTime]="departureDt"  name="departureDate_{{index}}"  id="field_departureDate_{{index}}"  placeholder="Departure Date" class="form-control form-control-sm"  [(ngModel)]="travelFlightDetail.departureDate"  readonly/>
+                                                            <div class="input-group-append input-group-append-top">
+                                                                <button class="btn btn-blush" [owlDateTimeTrigger]="departureDt" disabled><span><fa-icon [icon]="'calendar'"></fa-icon> </span></button>
+                                                            </div>
+                                                        </div>
+                                                        <owl-date-time [pickerType]="'calendar'" #departureDt> </owl-date-time>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group input-group-sm" style="margin-bottom: 0;">
+                                                            <input [owlDateTime]="arrivalDt" name="arrivalDate_{{index}}" id="field_arrivalDate_{{index}}" placeholder="Arrival Date" class="form-control form-control-sm" [(ngModel)]="travelFlightDetail.arrivalDate" readonly>
+                                                            <div class="input-group-append input-group-append-top">
+                                                                <button class="btn btn-blush" disabled [owlDateTimeTrigger]="arrivalDt"><span><fa-icon [icon]="'calendar'"></fa-icon></span></button>
+                                                            </div>
+                                                        </div>
+                                                        <owl-date-time [pickerType]="'calendar'" #arrivalDt></owl-date-time>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control form-control-sm text-right" name="farePrice_{{index}}" id="field_farePrice_{{index}}" [(ngModel)]="travelFlightDetail.farePrice" readonly/>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab [id]="'HotelDetail'">
+                                <ng-template ngbTabTitle>
+                                    Hotel Detail
+                                </ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table table-sm table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th><span>Date</span></th>
+                                                    <th><span>Hotel</span></th>
+                                                    <th><span>Tarif</span></th>
+                                                    <th><span>Stay Days</span></th>
+                                                    <th><span>Early CheckIn</span></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let listAccomd of travelApplicationMasterHod.travelAccommodationDetails; let index1 = index;">
+                                                    <td>
+                                                        <div class="input-group input-group-sm" style="margin-bottom: 0;">
+                                                            <input [owlDateTime]="accomDt" name="accommodationDate_{{index1}}" id="field_accommodationDate_{{index1}}" placeholder="Accommodation Date" class="form-control form-control-sm" [(ngModel)]="listAccomd.accommodationDate" readonly>
+                                                            <div class="input-group-append input-group-append-top">
+                                                                <button class="btn btn-blush" [owlDateTimeTrigger]="accomDt" disabled><span><fa-icon [icon]="'calendar'"></fa-icon></span></button>
+                                                            </div>
+                                                        </div>
+                                                        <owl-date-time [pickerType]="'calendar'" #accomDt></owl-date-time>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm text-uppercase" name="accommodationName_{{index1}}" id="field_accommodationName_{{index1}}" [(ngModel)]="listAccomd.accommodationName" readonly/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control form-control-sm text-right" name="accommodationTarif_{{index1}}" id="field_accommodationTarif_{{index1}}" [(ngModel)]="listAccomd.accommodationTarif" readonly/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control form-control-sm text-right" name="daysStay_{{index1}}" id="field_daysStay_{{index1}}" [(ngModel)]="listAccomd.daysStay" readonly/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" id="field_earlyCheckin_{{index1}}" name="earlyCheckin_{{index1}}" [(ngModel)]="listAccomd.earlyCheckin" disabled/>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab [id]="'LuggageDetail'">
+                                <ng-template ngbTabTitle>
+                                    Luggage Detail
+                                </ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table table-sm table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th><span>Luggage Type</span></th>
+                                                    <th><span>Luggage Count</span></th>
+                                                    <th><span>Approx Weight</span></th>
+                                                    <th><span>Extra Luggage Req</span></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let listLuggage of travelApplicationMasterHod.travelLuggageDetails; let index2 = index;">
+                                                    <td>
+                                                        <select name="luggageType{{index2}}" id="field_luggageType{{index2}}" class="form-control form-control-sm custom-select custom-select-sm" [(ngModel)]="listLuggage.luggageType" disabled>
+                                                            <option value="CHECKLG">Check In Luggage</option>
+                                                            <option value="CABINLG">Cabin Luggage</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control form-control-sm text-right" name="luggageCount_{{index2}}" id="field_luggageCount_{{index2}}" [(ngModel)]="listLuggage.luggageCount" readonly/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control form-control-sm text-right" name="approxWeight_{{index2}}" id="field_approxWeight_{{index2}}" [(ngModel)]="listLuggage.approxWeight" readonly/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" id="field_extraLuggageReq_{{index2}}" name="extraLuggageReq_{{index2}}" [(ngModel)]="listLuggage.extraLuggageReq" disabled/>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab [id]="'ForexDetail'">
+                                <ng-template ngbTabTitle>
+                                    Forex Detail
+                                </ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table table-sm table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th><span>Forex Type</span></th>
+                                                    <th><span>Required Amount</span></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let listForex of travelApplicationMasterHod.travelForexDetails; let index3 = index;">
+                                                    <td>
+                                                        <select class="form-control form-control-sm custom-select custom-select-sm"  id="field_forexType_{{index3}}" name="forexType_{{index3}}" [(ngModel)]="listForex.forexType" disabled>
+                                                            <option  *ngFor="let listCurrency of travelCurrencyMaster;" [value]="listCurrency.currencyType">{{listCurrency.currencyType}}</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm" name="requiredAmount_{{index3}}" id="field_requiredAmount_{{index3}}" [(ngModel)]="listForex.requiredAmount" readonly/>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                        </ngb-tabset>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="btn-group">
+                    <button type="button" id="cancel-save" class="btn btn-sm btn-secondary"  (click)="previousState()">
+                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                    </button>
+                    <button type="button" id="approved-entity" [disabled]="travelApplicationMasterHod.hodApprovedDate" class="btn btn-sm btn-success" (click)="saveApproved()">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Approved</span>
+                    </button>
+                    <button type="button" id="reject-entity" [disabled]="travelApplicationMasterHod.hodApprovedDate" class="btn btn-sm btn-blush" (click)="saveReject()">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Reject</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

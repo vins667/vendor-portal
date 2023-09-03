@@ -1,0 +1,87 @@
+<ng-container *ngIf="employeeview">
+    <div class="user-info m-b-20 p-b-15">
+        <div class="image"><a routerLink="/dashboard"><img src="{{employeeview.imagePath}}"
+                    onerror="this.src='content/images/default.png'" alt="User" style="width: 80px;height: 80px"></a>
+        </div>
+        <div class="detail">
+            <h4 style="font-weight: 500;">{{currentAccount.firstName}}</h4>
+            <small>{{employeeview.depCodeDesc}}</small>
+            <small>{{employeeview.desCodeDesc}}</small>
+        </div>
+        <hr style="background-color: hsla(0,0%,100%,.13);" />
+        <div class="row">
+            <div class="col-12">
+                <small><strong>{{employeeview.subCodeDesc}}</strong></small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <small>{{employeeview.subCodeAddress}}</small>
+            </div>
+        </div>
+        <hr style="background-color: hsla(0,0%,100%,.13);" />
+        <div class="row">
+            <div class="col-12"><small><strong>Personal Info</strong></small></div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <small>{{employeeview.add1}}</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 text-left"><small><strong>Card&nbsp;No:&nbsp;</strong></small></div>
+            <div class="col-9 text-left"><small>{{employeeview.cardNo}}</small></div>
+        </div>
+        <div class="row">
+            <div class="col-3 text-left"><small><strong>NDA:&nbsp;</strong></small></div>
+            <div class="col-9 text-left"><small>Accepted&nbsp;&nbsp;&nbsp;</small><button class="btn btn-sm btn-link"
+                    style="padding: 0; margin: 0; color: #d92419; font-weight: 600;"
+                    [routerLink]="'nda/view'">view</button></div>
+        </div>
+        <div class="row">
+            <div class="col-3 text-left"><small><strong>Mobile:&nbsp;</strong></small></div>
+            <div class="col-9 text-left"><small>{{employeeview.phone}}</small></div>
+        </div>
+        <div class="row text-left">
+            <div class="col-3 text-left"><small><strong>Email:&nbsp;</strong></small></div>
+            <div class="col-9 text-left"><small>
+                    {{ (employeeview.email && employeeview.email.length>20)? (employeeview.email |
+                    slice:0:20)+'..':(employeeview.email) }}</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 text-left"><small><strong>PAN:&nbsp;</strong></small></div>
+            <div class="col-9 text-left"><small>{{employeeview.pan}}</small></div>
+        </div>
+        <div class="row">
+            <div class="col-3 text-left"><small><strong>Aadhar:&nbsp;</strong></small></div>
+            <div class="col-9 text-left"><small>{{employeeview.adhNo}}</small></div>
+        </div>
+        <div class="row">
+            <div class="col-3 text-left"><small><strong>DOB:&nbsp;</strong></small></div>
+            <div class="col-9 text-left"><small>{{employeeview.dob | date: 'dd-MM-yyyy'}}</small></div>
+        </div>
+        <div class="row">
+            <div class="col-3 text-left"><small><strong>DOJ:&nbsp;</strong></small></div>
+            <div class="col-9 text-left"><small>{{employeeview.doj | date: 'dd-MM-yyyy'}}</small></div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <button type="button" [routerLink]="'/account/password'" class="btn btn-round btn-sm btn-blush">Change
+                    Password</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <button type="button" [routerLink]="'employee-information-update'" class="btn btn-round btn-sm btn-info">Profile Update</button>
+            </div>
+        </div>
+
+      <!--  <div class="row">
+            <div class="col-12 text-center">
+                <button type="button" [routerLink]="'payment-request-form'" class="btn btn-round btn-sm btn-info">Payment Request Form</button>
+            </div>
+        </div>-->
+
+    </div>
+</ng-container>

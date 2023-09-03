@@ -1,0 +1,62 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <input type="hidden" class="form-control form-control-sm" name="mockId" id="field_mockId" [(ngModel)]="workerJoinFlow.joiningId" required/>
+    <input type="hidden" class="form-control form-control-sm" name="empCode" id="field_empCode" [(ngModel)]="workerJoinFlow.empCode" />
+    <input type="hidden" class="form-control form-control-sm" name="id" id="field_id" [(ngModel)]="workerJoinFlow.id" />
+    <div class="modal-body">
+        <h5 class="modal-title" id="myworkerJoinFlowLabel">Approval Flow <small></small>
+            <button type="button" class="close" style="top: 10px;" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+        </h5>
+        <hr/>
+        <div *ngIf="!workerJoinFlow.allowEntry && workerJoinFlow.empCode && workerJoinFlow.recStatus !== 'A' && workerJoinFlow.recStatus !== 'R'" class="alert alert-danger" style="border-radius: 25px;">
+            <ng-container *ngIf="workerJoinFlow.empCode">Pending with <strong>{{workerJoinFlow.empName}}({{workerJoinFlow.empCode}}):</strong></ng-container>
+        </div>
+        <div style="overflow-x: hidden; overflow-y: scroll;height: 300px;">
+            <div *ngFor="let workerJoinFlowDetail of workerJoinFlow.workerJoinFlowDetails; index as i; even as isEven; odd as isOdd" [class]="(workerJoinFlowDetail.authType && workerJoinFlowDetail.authType==='A') ? 'alert alert-success' : (workerJoinFlowDetail.authType && workerJoinFlowDetail.authType==='R') ? 'alert alert-danger' : isEven ? 'alert alert-dark': 'alert alert-warning'" style="border-radius: 25px;">
+                <ng-container *ngIf="workerJoinFlowDetail.empCode"><strong>{{workerJoinFlowDetail.empName}}({{workerJoinFlowDetail.empCode}}):</strong></ng-container>
+                <p>{{workerJoinFlowDetail.remarks}}</p>
+                <span style="padding: 10px;">
+                    <span class="time-left font-weight-light font-italic" *ngIf="workerJoinFlowDetail.authType">
+                        <ng-container *ngIf="workerJoinFlowDetail.authType==='F'">Forward</ng-container>
+                        <ng-container *ngIf="workerJoinFlowDetail.authType==='A'">Approved</ng-container>
+                        <ng-container *ngIf="workerJoinFlowDetail.authType==='R'">Reject</ng-container>
+                    </span>
+                    <span class="time-right float-right">{{workerJoinFlowDetail.authDate | date:'dd-MMM-yy hh:mm a'}}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer modal-footer-padding">
+        <div class="col-md-12" style="padding-left: 0;">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Action</label>
+                    <select class="form-control form-control-sm custom-select custom-select-sm" id="field_authType" name="authType" [(ngModel)]="workerJoinFlow.authType" required maxlength="1" #authType  (ngModelChange)="onChangeAuthType(workerJoinFlow.authType)" [disabled]="isValidForm()">
+                        <option [ngValue]="null">Select</option>
+                        <option *ngFor="let workerForwardTypeMaster of workerForwardTypeMasters;" value="{{workerForwardTypeMaster?.code}}">{{workerForwardTypeMaster?.description}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Forward To</label>
+                    <select class="form-control form-control-sm custom-select custom-select-sm" id="field_forwardCode" name="forwardCode" [(ngModel)]="workerJoinFlow.forwardCode" required [disabled]="isValidForm()" (change)="userTypeChange();">
+                        <option [ngValue]="null">Select</option>
+                        <option *ngFor="let workerJoinFlowMaster of workerJoinFlowMasters;" [ngValue]="workerJoinFlowMaster.forwardCode">{{workerJoinFlowMaster.forwardCode}}-{{workerJoinFlowMaster.forwardName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer modal-footer-padding-border">
+        <div class="input-group">
+            <input itype="text" class="form-control" placeholder="Write your message here..." name="remarks" id="field_remarks" [(ngModel)]="workerJoinFlow.remarks" required #field_remarks="ngModel" [disabled]="isValidForm()">
+            <span class="input-group-append">
+                <button type="submit" [disabled]="editForm.form.invalid || isSaving || isValidForm()" class="btn btn-blush">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Send</span>
+                </button>
+            </span>
+        </div>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()" style="margin-bottom: 10px;">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Close</span>
+        </button>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

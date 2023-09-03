@@ -1,0 +1,144 @@
+<div align="center" class="centered" *ngIf="isDownload">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-12">
+                <h6 id="page-heading">
+                    <span>Payment Advice</span>
+                </h6>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-2">
+                <select class="form-control form-control-xs custom-select" name="status" id="field_status" [(ngModel)]="search.status">
+                    <option value="A">All</option>
+                    <option value="S">Sent</option>
+                    <option value="U">Unsent</option>
+                    <option value="M">Missing Email</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control form-control-xs" name="entryId" id="field_entryId" placeholder="Cheque#" [(ngModel)]="search.chequenumber"/>
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control form-control-xs" name="supplier" id="field_supplier" placeholder="Enter Supplier Code/Name" [(ngModel)]="search.supplier"/>
+            </div>
+            <div class="col-md-1 text-right">
+                <button class="btn btn-xs btn-round btn-warning m-0" type="button" (click)="loadPage();">
+                    <fa-icon [icon]="'search'"></fa-icon> <span>Search</span>
+                </button>
+            </div>
+            <div class="col-md-5 text-right">
+                <button class="btn btn-xs btn-round btn-success m-0" type="button" (click)="save()">
+                    &nbsp;<fa-icon [icon]="'save'"></fa-icon> <span>Save</span>&nbsp;
+                </button>
+                <button id="jh-excel-entity" class="btn btn-xs btn-blush btn-round jh-create-entity create-doc-file-upload" style="margin-top:0;" [routerLink]="['/payment-advice/upload']">
+                    <fa-icon [icon]="'upload'"></fa-icon>
+                    <span >Upload</span>
+                </button>
+                <button id="jh-download-entity" class="btn btn-xs btn-blush btn-round jh-create-entity create-doc-file-upload" style="margin-top:0;" (click)="download();">
+                    <fa-icon [icon]="'download'"></fa-icon>
+                    <span >Download</span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <select class="form-control form-control-xs custom-select" name="dateType" id="field_dateType" [(ngModel)]="search.dateType">
+                    <option value="P">Posting Date</option>
+                    <option value="U">UTR Date</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <div class="input-group mb-0">
+                    <input type="text" class="form-control form-control-xs" [owlDateTime]="bookingdate" name="bookingdate" id="field_bookingdate" [placeholder]="search.dateType === 'P' ? 'Posting From Date' : 'UTR Date From'" [(ngModel)]="search.dateFrom" readonly/>
+                    <div class="input-group-append input-group-append-top">
+                        <button type="button" class="btn btn-xs btn-blush"><fa-icon [icon]="'calendar'" [owlDateTimeTrigger]="bookingdate"></fa-icon></button>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #bookingdate></owl-date-time>
+            </div>
+            <div class="col-md-2">
+                <div class="input-group mb-0">
+                    <input type="text" class="form-control form-control-xs" [owlDateTime]="bookingdateTo" name="bookingdateTo" id="field_bookingdateTo" placeholder="Posting To Date" [(ngModel)]="search.dateTo" readonly/>
+                    <div class="input-group-append input-group-append-top">
+                        <button type="button" class="btn btn-xs btn-blush"><fa-icon [icon]="'calendar'" [owlDateTimeTrigger]="bookingdateTo"></fa-icon></button>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #bookingdateTo></owl-date-time>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"><span>Company</span></th>
+                    <th scope="col"><span>BU</span></th>
+                    <th scope="col"><span>Fin&nbsp;Year</span></th>
+                    <th scope="col"><span>Voucher</span></th>
+                    <th scope="col"><span>Posting&nbsp;Date</span></th>
+                    <th scope="col"><span>GL&nbsp;Code</span></th>
+                    <th scope="col"><span>Supplier</span></th>
+                    <th scope="col"><span>GST</span></th>
+                    <th scope="col"><span>Amount</span></th>
+                    <th scope="col"><span>Cheque#</span></th>
+                    <th scope="col"><span>UTR#</span></th>
+                    <th scope="col"><span>UTR&nbsp;Date</span></th>
+                    <th scope="col"><span><input type="checkbox" name="allowPliesAll" id="allowPliesAll" [(ngModel)]="allowPliesAll" *ngIf="viewDifindocumentpaymentadvices?.length>0" (change)="allowPliesChange();"/>&nbsp;All</span></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngIf="viewDifindocumentpaymentadvices">
+                    <tr *ngFor="let finPaymentAdvice of viewDifindocumentpaymentadvices; let index = index;">
+                        <td>{{ finPaymentAdvice.id.companycode }}</td>
+                        <td>{{ finPaymentAdvice.id.businessunitcode }}</td>
+                        <td>{{ finPaymentAdvice.id.financialyearcode }}</td>
+                        <td>{{ finPaymentAdvice.id.code }}</td>
+                        <td>{{ finPaymentAdvice.postingdate | date:'dd-MM-yyyy' }}</td>
+                        <td>{{ finPaymentAdvice.glcode }}</td>
+                        <td>{{ finPaymentAdvice.customersuppliercode + '-' + finPaymentAdvice.customersuppliername }}</td>
+                        <td>{{ finPaymentAdvice.gstinnumber }}</td>
+                        <td>{{ finPaymentAdvice.amountincc | number: '1.2-2' }}</td>
+                        <td>{{ finPaymentAdvice.chequenumber }}</td>
+                        <td>{{ finPaymentAdvice.utrnumber }}</td>
+                        <td>{{ finPaymentAdvice.utrdate | date:'dd-MM-yyyy' }}</td>
+                        <td>
+                            <input type="checkbox" name="advicesent{{index}}" id="field_advicesent{{index}}" [(ngModel)]="finPaymentAdvice.flag" [disabled]="finPaymentAdvice.advicesent ? true : null" class="custom-checkbox" *ngIf="finPaymentAdvice.emailaddress">
+                            <fa-icon class="text-danger" [icon]="'exclamation-triangle'" title="Email Address Missing" *ngIf="!finPaymentAdvice.emailaddress"></fa-icon>
+                        </td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <fa-icon [icon]="'share-square'" class="text-warning" style="cursor: pointer;" *ngIf="finPaymentAdvice.advicesent && finPaymentAdvice.flag" title="Re send Advice" (click)="resend(finPaymentAdvice);"></fa-icon>
+                                &nbsp;&nbsp;
+                                <fa-icon [icon]="'file-pdf'" class="text-danger" style="cursor: pointer;" title="Download Advice" (click)="downloadReport(finPaymentAdvice)"></fa-icon>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" id="no-result" *ngIf="viewDifindocumentpaymentadvices?.length === 0">
+            <span>No data found</span>
+        </div>
+        <div *ngIf="viewDifindocumentpaymentadvices?.length > 0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                                [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                                (pageChange)="loadPage($event)"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

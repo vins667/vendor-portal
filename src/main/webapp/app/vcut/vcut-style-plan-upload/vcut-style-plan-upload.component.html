@@ -1,0 +1,122 @@
+<div class="card">
+    <div class="card-header">
+        <h6 id="page-heading">
+            <span>Stitch Planning</span>
+            <button id="jh-create-entity"
+                    class="btn btn-sm btn-xs btn-blush btn-round float-right jh-create-entity create-cut-plan-entry m-0"
+                    [routerLink]="['/vcut-style-plan-upload/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span>New</span>&nbsp;
+            </button>
+        </h6>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="input-group">
+                    <input [owlDateTime]="leaveFrom" name="leaveDateFrom" id="field_leaveDateFrom" placeholder="Date From" class="form-control form-control-xs" required [(ngModel)]="leaveDateFrom">
+                    <div class="input-group-append input-group-append-top">
+                        <div class="btn btn-xs btn-blush" [owlDateTimeTrigger]="leaveFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #leaveFrom></owl-date-time>
+            </div>
+            <div class="col-md-2">
+                <div class="input-group">
+                    <input [owlDateTime]="leaveTo" name="leaveDateTo" id="field_leaveDateTo" placeholder="Date To" class="form-control form-control-xs" required [(ngModel)]="leaveDateTo">
+                    <div class="input-group-append input-group-append-top">
+                        <div class="btn btn-xs btn-blush" [owlDateTimeTrigger]="leaveTo"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #leaveTo></owl-date-time>
+            </div>
+            <div class="col-md-2">
+                <input class="form-control form-control-xs" name="style" id="field_ctyle" placeholder="Style" type="text" [(ngModel)]="search.style" />
+            </div>
+            <div class="col-md-2">
+                <input class="form-control form-control-xs" name="poNo" id="field_poNo" placeholder="Po No" type="text" [(ngModel)]="search.poNo" />
+            </div>
+            <div class="col-md-4 text-right">
+                <button class="btn btn-xs btn-info btn-round btn-round" style="margin-top:0;" type="button"  (click)="loadPage();">
+                    <fa-icon [icon]="'search'"></fa-icon>
+                    <span >Search</span>
+                </button>
+                <button id="jh-excel-entity" class="btn btn-xs btn-blush btn-round jh-create-entity create-vcut-style-plan-upload" style="margin-top:0;" [routerLink]="['/vcut-style-plan-upload/upload']">
+                    <fa-icon [icon]="'upload'"></fa-icon>
+                    <span >Upload From Excel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="factory"><span>Factory</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="line"><span>Line</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="planDate"><span>Plan Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="style"><span>Style</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="poNo"><span>Po No</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="colorName"><span>Color Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="buyerName"><span>Buyer Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="quantity"><span>Quantity</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="kickOff"><span>Plan Eff</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="smv"><span>Smv</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="days"><span>Days</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let vcutStylePlanUpload of vcutStylePlanUploads ;trackBy: trackId">
+                    <td>{{vcutStylePlanUpload.id}}</td>
+                    <td>{{vcutStylePlanUpload.factory}}</td>
+                    <td>{{vcutStylePlanUpload.lineNo}}</td>
+                    <td>{{vcutStylePlanUpload.planDate | date:'dd-MM-yyyy'}}</td>
+                    <td>{{vcutStylePlanUpload.style}}</td>
+                    <td>{{vcutStylePlanUpload.poNo}}</td>
+                    <td>{{vcutStylePlanUpload.colorName}}</td>
+                    <td>{{vcutStylePlanUpload.buyerName}}</td>
+                    <td>{{vcutStylePlanUpload.quantity}}</td>
+                    <td>{{vcutStylePlanUpload.kickOff | number:'1.2-2'}}</td>
+                    <td>{{vcutStylePlanUpload.smv | number:'1.2-2'}}</td>
+                    <td>{{vcutStylePlanUpload.days}}</td>
+                    <td class="text-right button-column">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/vcut-style-plan-upload', vcutStylePlanUpload.id, 'edit']"
+                                    class="btn btn-blush btn-xs">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/vcut-style-plan-upload', { outlets: { popup: vcutStylePlanUpload.id + '/delete'} }]"
+                                    replaceUrl="true"
+                                    queryParamsHandling="merge"
+                                    [disabled]="vcutStylePlanUpload.vcutSessionMasterId"
+                                    class="btn btn-danger btn-xs">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" id="no-result" *ngIf="vcutStylePlanUploads?.length === 0">
+            <span>No data found</span>
+        </div>
+        <div *ngIf="vcutStylePlanUploads?.length > 0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                                [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

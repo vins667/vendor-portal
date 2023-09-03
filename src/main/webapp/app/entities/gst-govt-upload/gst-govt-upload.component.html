@@ -1,0 +1,98 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading"><span>GST Upload (GOVT)</span></h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="col-md-4 text-right">
+                        <button id="jh-excel-entity"
+                            class="btn btn-sm btn-blush btn-round jh-create-entity create-vcut-style-plan-upload"
+                            style="margin-top:0;" [routerLink]="['/gst-govt-upload/upload']">
+                            <fa-icon [icon]="'upload'"></fa-icon>
+                            <span>Upload Excel</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <!--div class="uploadfilecontainer" (click)="fileInput.click()" jhiAppDragDrop
+                        (onFileDropped)="uploadFiles($event)">
+                        <input hidden type="file" #fileInput (change)="uploadFiles($event.target.files)">
+                    </div-->
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse"
+                                [callback]="transition.bind(this)">
+                                <th jhiSortBy="gGstin"><span>GSTIN</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th jhiSortBy="gSupplier"><span>Supplier</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th jhiSortBy="gInvno"><span>Inv.No</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th jhiSortBy="gInvdate"><span>Inv. Date</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th jhiSortBy="gState"><span>State</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th jhiSortBy="gReverse"><span>Reverse</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th jhiSortBy="gInvamt"><span>Inv.Amt</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th jhiSortBy="gInvnet"><span>Inv.Net</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th jhiSortBy="gRate"><span>Rate</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th jhiSortBy="gCgst"><span>CGST</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th jhiSortBy="gSgst"><span>SGST</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th jhiSortBy="gIgst"><span>IGST</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let gstGovtUpload of gstGovtUploads ;trackBy: trackId">
+                                <td>{{gstGovtUpload.gGstin}}</td>
+                                <td>{{gstGovtUpload.gSupplier}}</td>
+                                <td>{{gstGovtUpload.gInvno}}</td>
+                                <td>{{gstGovtUpload.gInvdate | date:'medium'}}</td>
+                                <td>{{gstGovtUpload.gState}}</td>
+                                <td>{{gstGovtUpload.gReverse}}</td>
+                                <td>{{gstGovtUpload.gInvamt}}</td>
+                                <td>{{gstGovtUpload.gInvnet}}</td>
+                                <td>{{gstGovtUpload.gRate}}</td>
+                                <td>{{gstGovtUpload.gCgst}}</td>
+                                <td>{{gstGovtUpload.gSgst}}</td>
+                                <td>{{gstGovtUpload.gIgst}}</td>
+                                <td class="text-right button-column">
+                                    <div class="btn-group">
+                                        <button type="submit"
+                                            [routerLink]="['/gst-govt-upload', gstGovtUpload.id, 'edit']"
+                                            class="btn btn-primary btn-sm">
+                                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                            <span class="d-none d-md-inline">Edit</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

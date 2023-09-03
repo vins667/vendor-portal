@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity FabricCreationMaster.
+    -->
+    <changeSet id="20190827085733-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="fabric_substract_master_id"
+                                 baseTableName="fabric_creation_master"
+                                 constraintName="fk_fabric_creation_master_fabric_substract_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fabric_substract_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="fabric_substract_details_id"
+                                 baseTableName="fabric_creation_master"
+                                 constraintName="fk_fabric_creation_master_fabric_substract_details_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fabric_substract_details"/>
+
+        <addForeignKeyConstraint baseColumnNames="fabric_spl_finish_master_id"
+                                 baseTableName="fabric_creation_master"
+                                 constraintName="fk_fabric_creation_master_fabric_spl_finish_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fabric_spl_finish_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="fabric_others_master_id"
+                                 baseTableName="fabric_creation_master"
+                                 constraintName="fk_fabric_creation_master_fabric_others_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fabric_others_master"/>
+
+    </changeSet>
+</databaseChangeLog>

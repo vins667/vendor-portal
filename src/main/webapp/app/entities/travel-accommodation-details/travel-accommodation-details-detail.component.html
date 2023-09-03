@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="travelAccommodationDetails">
+            <h2><span>Travel Accommodation Details</span> {{travelAccommodationDetails.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Accommodation Date</span></dt>
+                <dd>
+                    <span>{{travelAccommodationDetails.accommodationDate}}</span>
+                </dd>
+                <dt><span>Accommodation Type</span></dt>
+                <dd>
+                    <span>{{travelAccommodationDetails.accommodationType}}</span>
+                </dd>
+                <dt><span>Accommodation Name</span></dt>
+                <dd>
+                    <span>{{travelAccommodationDetails.accommodationName}}</span>
+                </dd>
+                <dt><span>Accommodation Tarif</span></dt>
+                <dd>
+                    <span>{{travelAccommodationDetails.accommodationTarif}}</span>
+                </dd>
+                <dt><span>Days Stay</span></dt>
+                <dd>
+                    <span>{{travelAccommodationDetails.daysStay}}</span>
+                </dd>
+                <dt><span>Early Checkin</span></dt>
+                <dd>
+                    <span>{{travelAccommodationDetails.earlyCheckin}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{travelAccommodationDetails.createdBy}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{travelAccommodationDetails.createdDate}}</span>
+                </dd>
+                <dt><span>Last Updated By</span></dt>
+                <dd>
+                    <span>{{travelAccommodationDetails.lastUpdatedBy}}</span>
+                </dd>
+                <dt><span>Last Updated Date</span></dt>
+                <dd>
+                    <span>{{travelAccommodationDetails.lastUpdatedDate}}</span>
+                </dd>
+                <dt><span>Travel Application Master</span></dt>
+                <dd>
+                    <div *ngIf="travelAccommodationDetails.travelApplicationMaster">
+                        <a [routerLink]="['/travel-application-master', travelAccommodationDetails.travelApplicationMaster?.id, 'view']">{{travelAccommodationDetails.travelApplicationMaster?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/travel-accommodation-details', travelAccommodationDetails.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="card">
+    <div class="body">
+        <div align="center" class="centered" *ngIf="isWait">
+            <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+        </div>
+        <div>
+            <h5 id="page-heading">
+                <span>TDS Computations</span>
+            </h5>
+            <div class="row">
+                <div class="col-md-2">
+                    <select class="form-control form-control-sm custom-select custom-select-sm" name="year" id="field_year" [(ngModel)]="tdsDeclarationSearch.year" required>
+                        <option *ngFor="let tdsYearMasterOption of tdsyearmasters;" [value]="tdsYearMasterOption.code">{{tdsYearMasterOption.financeYear}}</option>
+                    </select>
+                </div>
+                <div class="col-md-4"><input type="text" name="empCode" class="form-control form-control-sm text-uppercase" placeholder="Enter Emp Code/ Name" [(ngModel)]="tdsDeclarationSearch.cardNo"/></div>
+                <div class="col-md-6 text-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-round btn-blush" style="margin-top: 0;" (click)="search();" [disabled]="isWait"><fa-icon [icon]="'search'"></fa-icon> <span>Search</span></button>&nbsp;
+                        <button type="button" class="btn btn-sm btn-round btn-warning" style="margin-top: 0;" (click)="processAll();" [disabled]="isWait"><fa-icon [icon]="'sync'"></fa-icon> <span>Process All</span></button>&nbsp;
+                        <button type="button" class="btn btn-sm btn-round btn-primary" style="margin-top: 0;" (click)="exportAll();" [disabled]="isWait"><fa-icon [icon]="'download'"></fa-icon> <span>Export All</span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" *ngIf="tdsComputations">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th><span>ID</span></th>
+                        <th><span>Card No</span></th>
+                        <th><span>Name</span></th>
+                        <th class="text-right"><span>HRA Declared</span></th>
+                        <th class="text-right"><span>HRA Paid</span></th>
+                        <th class="text-right"><span>Tax Liability</span></th>
+                        <th class="text-right"><span>Tax Paid</span></th>
+                        <th class="text-right"><span>Balance Tax</span></th>
+                        <th><span>Process Date</span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let tdsComputation of tdsComputations ;trackBy: trackId">
+                        <td><a [routerLink]="['/tds-computation', tdsComputation.id, 'view' ]">{{tdsComputation.id}}</a></td>
+                        <td>{{tdsComputation.cardNo}}</td>
+                        <td>{{tdsComputation.name}}</td>
+                        <td class="text-right">{{tdsComputation.rentDeclare | number : '1.2-2'}}</td>
+                        <td class="text-right">{{tdsComputation.rentExempt | number : '1.2-2'}}</td>
+                        <td class="text-right">{{tdsComputation.totalTaxLiability | number : '1.2-2'}}</td>
+                        <td class="text-right">{{tdsComputation.taxDeductValue | number : '1.2-2'}}</td>
+                        <td class="text-right">{{tdsComputation.balanceTaxValue | number : '1.2-2'}}</td>
+                        <td>{{tdsComputation.processDate | date : 'dd/MM/yyyy HH:mm'}}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit" [routerLink]="['/tds-computation-qry', tdsComputation.id, 'edit']" class="btn btn-info btn-sm" [disabled]="isWait">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+                                <button type="button" (click)="processSingle(tdsComputation);" class="btn btn-warning btn-sm" [disabled]="isWait">
+                                    <fa-icon [icon]="'sync'"></fa-icon>
+                                    <span class="d-none d-md-inline">Process</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="tdsComputations && tdsComputations.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

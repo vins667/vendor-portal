@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    <!--
+        Added the entity PaymentRequestForward.
+    -->
+    <changeSet id="20221015062657-1" author="jhipster">
+        <createTable tableName="payment_request_forward">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="emp_code" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="emp_name" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+            <column name="flag" type="varchar(1)">
+                <constraints nullable="true" />
+            </column>
+            <column name="forward_code" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="forward_name" type="varchar(200)">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+        <createSequence startValue="1" sequenceName="payment_request_forward_seq" incrementBy="1" cycle="false"/>
+        <dropDefaultValue tableName="payment_request_forward" columnName="created_date" columnDataType="datetime"/>
+    </changeSet>
+</databaseChangeLog>

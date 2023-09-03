@@ -1,0 +1,45 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Payment Term Master</span> {{payTermMaster.id}}</h5>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="payTermMaster">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <dt><span>Code</span></dt>
+                        </div>
+                        <div class="col-md-9">
+                            <dd><span>{{payTermMaster.code}}</span></dd>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <dt><span>Description</span></dt>
+                        </div>
+                        <div class="col-md-9">
+                            <dd><span>{{payTermMaster.description}}</span></dd>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <dt><span>Status</span></dt>
+                        </div>
+                        <div class="col-md-9">
+                            <dd><span>{{payTermMaster.flag}}</span></dd>
+                        </div>
+                    </div>
+                    <button type="submit" (click)="previousState()" class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button" [routerLink]="['/pay-term-master', payTermMaster.id, 'edit']"
+                        class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

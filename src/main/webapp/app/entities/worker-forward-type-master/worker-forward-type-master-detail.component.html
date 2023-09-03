@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Worker Forward Type Master</span> {{workerForwardTypeMaster.id}}</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="workerForwardTypeMaster">
+                    <jhi-alert-error></jhi-alert-error>
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Code</span></dt>
+                        <dd>
+                            <span>{{workerForwardTypeMaster.code}}</span>
+                        </dd>
+                        <dt><span>Description</span></dt>
+                        <dd>
+                            <span>{{workerForwardTypeMaster.description}}</span>
+                        </dd>
+                    </dl>
+
+                    <button type="submit" (click)="previousState()" class="btn btn-sm btn-info btn-round">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/worker-forward-type-master', workerForwardTypeMaster.id, 'edit']"
+                            class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>TDS Year</span>
+                <button id="jh-create-entity" class="btn btn-blush btn-round btn-sm float-right jh-create-entity create-tds-year-master" [routerLink]="['/tds-year-master/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span >New</span>
+                </button>
+            </h5>
+            <jhi-alert></jhi-alert>
+            <div class="table-responsive" *ngIf="tdsYearMasters">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="code"><span>Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="financeYear"><span>Finance Year</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="active"><span>Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="expired"><span>Expired</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let tdsYearMaster of tdsYearMasters ;trackBy: trackId">
+                        <td><a [routerLink]="['/tds-year-master', tdsYearMaster.id, 'view' ]">{{tdsYearMaster.id}}</a></td>
+                        <td>{{tdsYearMaster.code}}</td>
+                        <td>{{tdsYearMaster.financeYear}}</td>
+                        <td>{{tdsYearMaster.active}}</td>
+                        <td>{{tdsYearMaster.expired}}</td>
+                        <td class="text-right button-column">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        [routerLink]="['/tds-year-master', tdsYearMaster.id, 'view' ]"
+                                        class="btn btn-info btn-sm">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/tds-year-master', tdsYearMaster.id, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/', 'tds-year-master', { outlets: { popup: tdsYearMaster.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="tdsYearMasters && tdsYearMasters.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

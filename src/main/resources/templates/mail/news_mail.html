@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Vamani News </title>
+</head>
+ <body>
+        <h3>Dear <span th:text="${fullName}" th:remove="tag"/>, </h3>
+        
+		<!-- div><strong>${newsName}</strong></div-->
+		
+		<p></p>
+		
+        <div>
+            <p>There is an urgent message on Intranet with the subject <b><span th:text="${newsSubject}" th:remove="tag"/></b></p>
+        </div>
+        <p></p>
+
+         <!-- div>
+            Thanks
+            <br>
+            Admin Shahi Exports
+            <br>
+            Email : <a href="mailto:${fromEmail}">${fromName} </a>.
+            
+        </div-->
+        
+    </body>
+</html>

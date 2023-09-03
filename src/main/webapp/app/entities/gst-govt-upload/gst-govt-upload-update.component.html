@@ -1,0 +1,211 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-gst-govt-upload-heading">Create or edit a Gst Govt Upload</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gGstin">G Gstin</label>
+                    <input type="text" class="form-control" name="gGstin" id="field_gGstin"
+                           formControlName="gGstin"/>
+                    <div *ngIf="editForm.get('gGstin').invalid && (editForm.get('gGstin').dirty || editForm.get('gGstin').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gGstin').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gGstin').errors.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gSupplier">G Supplier</label>
+                    <input type="text" class="form-control" name="gSupplier" id="field_gSupplier"
+                           formControlName="gSupplier"/>
+                    <div *ngIf="editForm.get('gSupplier').invalid && (editForm.get('gSupplier').dirty || editForm.get('gSupplier').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gSupplier').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gSupplier').errors.maxlength">
+                        This field cannot be longer than 200 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gInvno">G Invno</label>
+                    <input type="text" class="form-control" name="gInvno" id="field_gInvno"
+                           formControlName="gInvno"/>
+                    <div *ngIf="editForm.get('gInvno').invalid && (editForm.get('gInvno').dirty || editForm.get('gInvno').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gInvno').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gInvno').errors.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gInvdate">G Invdate</label>
+                    <div class="d-flex">
+                        <input id="field_gInvdate" type="datetime-local" class="form-control" name="gInvdate" formControlName="gInvdate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gInvtype">G Invtype</label>
+                    <input type="text" class="form-control" name="gInvtype" id="field_gInvtype"
+                           formControlName="gInvtype"/>
+                    <div *ngIf="editForm.get('gInvtype').invalid && (editForm.get('gInvtype').dirty || editForm.get('gInvtype').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gInvtype').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gInvtype').errors.maxlength">
+                        This field cannot be longer than 5 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gState">G State</label>
+                    <input type="text" class="form-control" name="gState" id="field_gState"
+                           formControlName="gState"/>
+                    <div *ngIf="editForm.get('gState').invalid && (editForm.get('gState').dirty || editForm.get('gState').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gState').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gState').errors.maxlength">
+                        This field cannot be longer than 40 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gReverse">G Reverse</label>
+                    <input type="text" class="form-control" name="gReverse" id="field_gReverse"
+                           formControlName="gReverse"/>
+                    <div *ngIf="editForm.get('gReverse').invalid && (editForm.get('gReverse').dirty || editForm.get('gReverse').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gReverse').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gReverse').errors.maxlength">
+                        This field cannot be longer than 5 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gInvamt">G Invamt</label>
+                    <input type="number" class="form-control" name="gInvamt" id="field_gInvamt"
+                           formControlName="gInvamt"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gInvnet">G Invnet</label>
+                    <input type="number" class="form-control" name="gInvnet" id="field_gInvnet"
+                           formControlName="gInvnet"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gRate">G Rate</label>
+                    <input type="number" class="form-control" name="gRate" id="field_gRate"
+                           formControlName="gRate"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gCgst">G Cgst</label>
+                    <input type="number" class="form-control" name="gCgst" id="field_gCgst"
+                           formControlName="gCgst"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gSgst">G Sgst</label>
+                    <input type="number" class="form-control" name="gSgst" id="field_gSgst"
+                           formControlName="gSgst"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gIgst">G Igst</label>
+                    <input type="number" class="form-control" name="gIgst" id="field_gIgst"
+                           formControlName="gIgst"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gCess">G Cess</label>
+                    <input type="number" class="form-control" name="gCess" id="field_gCess"
+                           formControlName="gCess"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gMonth">G Month</label>
+                    <div class="input-group">
+                        <input id="field_gMonth" type="text" class="form-control" name="gMonth" ngbDatepicker  #gMonthDp="ngbDatepicker" formControlName="gMonth"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="gMonthDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gLocation">G Location</label>
+                    <input type="text" class="form-control" name="gLocation" id="field_gLocation"
+                           formControlName="gLocation"/>
+                    <div *ngIf="editForm.get('gLocation').invalid && (editForm.get('gLocation').dirty || editForm.get('gLocation').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gLocation').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gLocation').errors.maxlength">
+                        This field cannot be longer than 40 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gSrlno">G Srlno</label>
+                    <input type="text" class="form-control" name="gSrlno" id="field_gSrlno"
+                           formControlName="gSrlno"/>
+                    <div *ngIf="editForm.get('gSrlno').invalid && (editForm.get('gSrlno').dirty || editForm.get('gSrlno').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gSrlno').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gSrlno').errors.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gStatus">G Status</label>
+                    <input type="text" class="form-control" name="gStatus" id="field_gStatus"
+                           formControlName="gStatus"/>
+                    <div *ngIf="editForm.get('gStatus').invalid && (editForm.get('gStatus').dirty || editForm.get('gStatus').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('gStatus').errors.maxlength">
+                        This field cannot be longer than 5 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gConfirmdate">G Confirmdate</label>
+                    <div class="d-flex">
+                        <input id="field_gConfirmdate" type="datetime-local" class="form-control" name="gConfirmdate" formControlName="gConfirmdate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

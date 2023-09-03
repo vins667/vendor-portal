@@ -1,0 +1,146 @@
+<div class="card">
+    <div class="card-header">
+        <h6 id="page-heading">
+            <span>Marker Entry Approval</span>
+        </h6>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-1 font-weight-bold">
+                Status#
+            </div>
+            <div class="col-md-2">
+                <select name="status" id="status" class="form-control custom-select custom-select-xs" [(ngModel)]="search.status">
+                    <option value="P">Pending</option>
+                    <option value="A">Approved</option>
+                    <option value="R">Rejected</option>
+                </select>
+            </div>
+            <div class="col-md-1 font-weight-bold">
+                Project#
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control form-control-xs text-uppercase" name="style" id="field_style"
+                    placeholder="Enter Project" [(ngModel)]="search.style" />
+            </div>
+            <div class="col-md-1 font-weight-bold">
+                Color#
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control form-control-xs text-uppercase" name="color" id="field_color"
+                    placeholder="Enter Color" [(ngModel)]="search.color" />
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2 text-right">
+                <button class="btn btn-sm btn-xs btn-round btn-success m-0" type="button" (click)="loadPage();">
+                    <fa-icon [icon]="'search'"></fa-icon> <span>Search</span>&nbsp;
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-xs table-striped">
+                <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                        <th jhiSortBy="marker"><span>Marker</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="style"><span>Project</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="color"><span>Color</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="plant_description"><span>Plant</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="item_code"><span>Item Desc</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="body_fabric"><span>Body Fabric</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="planned_avg"><span>Planned Avg</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="planned_avg"><span>Actual Avg</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="markerMasterEntries">
+                <ng-container *ngFor="let markerMasterEntry of markerMasterEntries; trackBy: trackId">
+                    <tr>
+                        <td>
+                            <fa-icon [icon]="'plus-circle'" class="text-success" style="cursor: pointer" (click)="showHide(markerMasterEntry, true)" *ngIf="!markerMasterEntry.exist"></fa-icon>
+                            <fa-icon [icon]="'minus-circle'" class="text-danger" style="cursor: pointer" (click)="showHide(markerMasterEntry, false)" *ngIf="markerMasterEntry.exist"></fa-icon>
+                            {{markerMasterEntry.markerCode}}
+                        </td>
+                        <td>{{markerMasterEntry.style}}</td>
+                        <td>{{markerMasterEntry.colorDesc}}</td>
+                        <td>{{ markerMasterEntry.plantDescription }}</td>
+                        <td>{{markerMasterEntry.itemCode?.summarizeddescription}}</td>
+                        <td>{{markerMasterEntry.bodyFabric ? 'YES' : 'NO'}}</td>
+                        <td>{{markerMasterEntry.plannedAvg | number: '1.3-3'}}</td>
+                        <td>{{markerMasterEntry.actualAvg | number: '1.3-3'}}</td>
+                        <td class="text-right">
+                            <div class="btn-group" *ngIf="markerMasterEntry.approvalFlag === 'P'">
+                                <button type="button" (click)="approveEntry(markerMasterEntry);"
+                                        class="btn btn-success btn-sm btn-xs m-0">
+                                    <fa-icon icon="pencil-alt"></fa-icon>
+                                    <span class="d-none d-md-inline">Approve</span>
+                                </button>
+                                <button type="button" (click)="RejectionEntry(markerMasterEntry);"
+                                        class="btn btn-danger btn-sm btn-xs m-0">
+                                    <fa-icon icon="pencil-alt"></fa-icon>
+                                    <span class="d-none d-md-inline">Reject</span>
+                                </button>
+                                <button type="button" (click)="ReturnEntry(markerMasterEntry);"
+                                        class="btn btn-secondary  btn-sm btn-xs m-0">
+                                    <fa-icon icon="pencil-alt"></fa-icon>
+                                    <span class="d-none d-md-inline">Return</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="markerMasterEntry.exist" class="bg-light">
+                        <td colspan="9">
+                            <table class="table table-sm table-bordered mb-0">
+                                <tr>
+                                    <td class="bg-white text-black font-weight-bold" style="width: 60px;">Size</td>
+                                    <td *ngFor="let markerEntryDetail of markerMasterEntry.markerEntryDetails" class="text-center bg-white text-black" style="width: 60px;">
+                                        {{markerEntryDetail.sizeCode}}
+                                    </td>
+                                    <td class="bg-white"></td>
+                                </tr>
+                                <tr>
+                                    <td class="bg-white text-black font-weight-bold">Ratio</td>
+                                    <td *ngFor="let markerEntryDetail of markerMasterEntry.markerEntryDetails" class="text-center bg-white text-black">
+                                        {{markerEntryDetail.sizeQty}}
+                                    </td>
+                                    <td class="bg-white"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" id="no-result" *ngIf="markerMasterEntries?.length === 0">
+            <span>No data found</span>
+        </div>
+        <div *ngIf="markerMasterEntries?.length > 0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                    [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

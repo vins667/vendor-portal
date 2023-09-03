@@ -1,0 +1,85 @@
+<div class="card">
+    <div class="body">
+        <h5 id="jhi-vendor-buyer-audit-linking-heading">Create or edit a Vendor Buyer Audit Linking</h5>
+        <hr/>
+        <div class="row">
+            <div class="col-10">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div>
+                        <div class="row">
+                            <div class="col-md-3"><label class="form-control-label" for="field_vendorMaster">Vendor Master</label></div>
+                            <div class="col-md-9">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control form-control-sm" id="field_vendorMaster" name="vendorMaster" [value]="this.vendorBuyerAuditLinking.vendorMaster ? this.vendorBuyerAuditLinking.vendorMaster.description : ''" required readonly>
+                                    <div class="input-group-append input-group-append-top"><button type="button" class="btn btn-sm btn-blush" (click)="searchContent();"><fa-icon [icon]="'search'"></fa-icon></button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><label>Buyer</label></div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="row" style="margin-right:15px;">
+                                        <div class="col-md-12 table-bordered" style="margin-left: 15px;">
+                                            <div class="row" [formGroup]="listBoxForm">
+                                                <div class="col-md-5 col-lg-5 col-sm-12">
+                                                    <label class="text-center vertical-spacing-5">{{availableText}}</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control form-control-sm vertical-spacing-5" placeholder="{{availableFilterPlaceholder}}" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"/>
+                                                        <div class="input-group-append">
+                                                            <button type="button" class="btn btn-blush btn-sm" (click)="searchBuyer();"><fa-icon [icon]="'search'"></fa-icon></button>
+                                                        </div>
+                                                    </div>
+                                                    <select class="form-control form-control-sm list-box" formControlName="availableListBox" multiple style="height: 150px;">
+                                                        <option *ngFor="let item of availableItems | arrayFilter:['name', searchTermAvailable] | arraySort:['name', 'ASC']; trackBy:trackByValue" [value]="item.buyerCode" (dblclick)="moveAvailableItemToSelected(item)">{{item.buyerName}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2 col-lg-2 col-sm-12 center-block text-center">
+                                                    <button type="button" class="btn btn-sm btn-blush col-md-8 col-md-offset-2 atr top80 sm-spacing" *ngIf="moveAllButton" (click)="moveAllItemsToSelected()">
+                                                        <fa-icon [icon]="'angle-double-right'"></fa-icon>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-blush col-md-8 col-md-offset-2 str vertical-spacing-5 sm-spacing" [disabled]="!availableListBoxControl.value?.length" (click)="moveMarkedAvailableItemsToSelected()">
+                                                        <fa-icon [icon]="'chevron-right'"></fa-icon>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-blush col-md-8 col-md-offset-2 stl vertical-spacing-5 sm-spacing" [disabled]="!selectedListBoxControl.value?.length" (click)="moveMarkedSelectedItemsToAvailable()">
+                                                        <fa-icon [icon]="'chevron-left'"></fa-icon>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-blush col-md-8 col-md-offset-2 atl bottom10 sm-spacing" *ngIf="moveAllButton" (click)="moveAllItemsToAvailable()">
+                                                        <fa-icon [icon]="'angle-double-left'"></fa-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-5 col-lg-5 col-sm-12">
+                                                    <label class="text-center vertical-spacing-5">{{selectedText}}</label>
+                                                    <input type="text" class="form-control form-control-sm vertical-spacing-5" placeholder="{{selectedFilterPlaceholder}}"
+                                                           formControlName="selectedSearchInput" />
+                                                    <select class="form-control form-control-sm list-box" multiple style="height: 150px;" formControlName="selectedListBox">
+                                                        <option *ngFor="let item of selectedItems | arrayFilter:['name', searchTermSelected] | arraySort:['name', 'ASC'];trackBy:trackByValue" [value]="item?.buyerCode" (dblclick)="moveSelectedItemToAvailable(item)">{{item?.buyerName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--div class="form-group">
+                            <label for="field_buyerMaster">Buyer Master</label>
+                            <select class="form-control" id="field_buyerMaster" multiple name="buyerMaster" [(ngModel)]="vendorBuyerAuditLinking.buyerMasters">
+                                <option [ngValue]="getSelected(vendorBuyerAuditLinking.buyerMasters, buyerMasterOption)" *ngFor="let buyerMasterOption of buyermasters; trackBy: trackBuyerMasterById">{{buyerMasterOption.buyerCode}}</option>
+                            </select>
+                        </div-->
+                    </div>
+                    <div>
+                        <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

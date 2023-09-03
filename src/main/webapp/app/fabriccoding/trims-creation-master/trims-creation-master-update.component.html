@@ -1,0 +1,81 @@
+<div class="card">
+    <div class="body">
+        <div class="row">
+            <div class="col-12">
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                    <div class="row card-margin-bottom-10" style="border-bottom: 1px solid #f2f2f2;">
+                        <div class="col-md-8">
+                            <h5 id="jhi-fabric-creation-master-heading" style="margin-bottom: 0;">Trims Code Creation</h5>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <button type="button" id="cancel-save" class="btn btn-sm btn-secondary btn-round"  (click)="previousState()">
+                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                            </button>
+                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm btn-blush btn-round">
+                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row card-margin-bottom-10" *ngIf="trimsCreationMaster.id">
+                        <div class="col-md-1">
+                            <label class="form-control-label" for="field_description">Code</label>
+                        </div>
+                        <div class="col-md-11">
+                            <input type="text" name="code" id="field_Code" class="form-control form-control-sm" [(ngModel)]="trimsCreationMaster.code" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="row card-margin-bottom-10">
+                        <div class="col-md-1">
+                            <label class="form-control-label" for="field_description">Description</label>
+                        </div>
+                        <div class="col-md-11">
+                            <textarea type="text" class="form-control form-control-sm" name="description" id="field_description" [(ngModel)]="trimsCreationMaster.description" maxlength="500" readonly="readonly" style="height: 60px;">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="row gutters-2">
+                        <div class="col-md-12">
+                            <fieldset class="scheduler-border">
+                                <legend class="scheduler-border">Template Type:</legend>
+                                <div class="row gutters-2">
+                                    <div class="col-md-12">
+                                        <select class="form-control form-control-sm custom-select custom-select-sm" id="field_trimsTemplateMaster" name="trimsTemplateMaster" [(ngModel)]="trimsCreationMaster.trimsTemplateMaster"  required (change)="trimsCoding();">
+                                            <option *ngIf="!editForm.value.trimsTemplateMaster" [ngValue]="null" selected></option>
+                                            <option [ngValue]="trimsTemplateMasterOption.id === trimsCreationMaster.trimsTemplateMaster?.id ? trimsCreationMaster.trimsTemplateMaster : trimsTemplateMasterOption" *ngFor="let trimsTemplateMasterOption of trimstemplatemasters; trackBy: trackTrimsTemplateMasterById">{{trimsTemplateMasterOption.accessoriesCode}} - {{trimsTemplateMasterOption.description}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="row gutters-2">
+                        <div class="col-md-12">
+                            <fieldset class="scheduler-border">
+                                <legend class="scheduler-border">Template Details:</legend>
+                                <div class="row gutters-2" *ngIf="trimsCreationMaster.trimsTemplateMaster">
+                                    <div class="col-md-12">
+                                        <div class="row card-margin-bottom-10" *ngFor="let trimsTemplateDetails of trimsCreationMaster.trimsTemplateMaster.trimsTemplateDetails;let index=index">
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control form-control-sm" name="fieldSpecification{{index}}" id="fieldSpecification{{index}}" [(ngModel)]="trimsTemplateDetails.specification" readonly/>
+                                            </div>
+                                            <div class="col-md-3" *ngIf="trimsTemplateDetails.fieldType==='T'">
+                                                <input type="text" class="form-control form-control-sm" name="fieldValue{{index}}" id="fieldValue{{index}}" [(ngModel)]="trimsTemplateDetails.fieldValue" [required]="trimsTemplateDetails.required" (keyup)="trimsCoding();"/>
+                                            </div>
+                                            <div class="col-md-3" *ngIf="trimsTemplateDetails.fieldType==='D'">
+                                                <select class="form-control form-control-sm custom-select custom-select-sm" name="fieldDropDownValue{{index}}" id="fieldDropDownValue{{index}}" [(ngModel)]="trimsTemplateDetails.fieldValueDropDown" [required]="trimsTemplateDetails.required" (change)="trimsCoding();">
+                                                    <option [ngValue]="null" selected></option>
+                                                    <option [value]="trimsTemplateBreakUpOption.id.id" *ngFor="let trimsTemplateBreakUpOption of trimsTemplateDetails.trimTemplateDetailsBreakup;">{{trimsTemplateBreakUpOption.description}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

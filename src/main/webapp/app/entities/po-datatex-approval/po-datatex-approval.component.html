@@ -1,0 +1,106 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Purchase Order Approval</span>
+            </h5>
+            <div class="row">
+                <div class="col-md-2">
+                    <label class="form-control-label">PO Type</label>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm" name="difference" id="field_difference"
+                        placeholder="PO Type" type="text" [(ngModel)]="parameterList.parameter2" required />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-control-label">PO Number</label>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm" name="difference" id="field_difference"
+                        placeholder="PO Number" type="text" [(ngModel)]="parameterList.parameter3" required />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-control-label">PO Status</label>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm" name="difference" id="field_difference"
+                        placeholder="Status" type="text" [(ngModel)]="parameterList.parameter4" required />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <label class="form-control-label">Date From </label>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm" name="difference" id="field_difference"
+                        placeholder="PO Type" type="text" [(ngModel)]="parameterList.parameter5" required />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-control-label">Date To</label>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm" name="difference" id="field_difference"
+                        placeholder="PO Number" type="text" [(ngModel)]="parameterList.parameter6" required />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-control-label">Party Name</label>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm" name="difference" id="field_difference"
+                        placeholder="Status" type="text" [(ngModel)]="parameterList.parameter7" required />
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse"
+                            [callback]="transition.bind(this)">
+                            <th jhiSortBy="srno"><span>Sr.No</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="porype"><span>PO Type</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="pono"><span>PO Nunber</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="project"><span>Project</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="podate"><span>PO Date</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="partyname"><span>Party Name</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="partygst"><span>Party GSTIN</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="warehouse"><span>Warehouse</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="status"><span>Status</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let reclist of poDatatexApprovals; let index = index; trackBy: trackId">
+                            <tr>
+                                <td class="align-middle">{{index+1}}</td>
+                                <td class="align-middle">{{reclist.countercode}}</td>
+                                <td class="align-middle">{{reclist.code}}</td>
+                                <td class="align-middle">{{reclist.projectcode}}</td>
+                                <td class="align-middle">{{reclist.orderdate}}</td>
+                                <td class="align-middle">{{reclist.vnname}}</td>
+                                <td class="align-middle">{{reclist.vngstnumber}}</td>
+                                <td class="align-middle">{{reclist.warehousecode}}</td>
+                                <td class="align-middle">{{reclist.currentstatus}}</td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

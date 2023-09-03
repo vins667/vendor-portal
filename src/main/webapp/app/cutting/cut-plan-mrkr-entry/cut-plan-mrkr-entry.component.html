@@ -1,0 +1,131 @@
+<div class="card">
+    <div class="card-header">
+        <h6 id="page-heading">
+            <span>Cut Plan Entry</span>
+            <button id="jh-create-entity"
+                    class="btn btn-sm btn-xs btn-blush btn-round float-right jh-create-entity create-cut-plan-entry m-0"
+                    [routerLink]="['/cut-plan-mrkr-entry/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span>New</span>&nbsp;
+            </button>
+        </h6>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-11">
+                <div class="row">
+                    <div class="col-md-1 font-weight-bold">
+                        Status
+                    </div>
+                    <div class="col-md-2">
+                        <select name="status" id="field_status" class="form-control custom-select custom-select-xs" [(ngModel)]="search.status">
+                            <option [value]="undefined">All</option>
+                            <option [value]="'P'">Pending</option>
+                            <option [value]="'R'">Released</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1 font-weight-bold">PO#</div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control form-control-xs text-uppercase" name="pono" id="field_pono" placeholder="Enter PO#" [(ngModel)]="search.pono"/>
+                    </div>
+                    <div class="col-md-1 font-weight-bold">Project</div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control form-control-xs text-uppercase" name="style" id="field_style" placeholder="Enter Project" [(ngModel)]="search.style"/>
+                    </div>
+                    <div class="col-md-1 font-weight-bold">
+                        Color
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control form-control-xs text-uppercase" name="color" id="field_color" placeholder="Enter Color" [(ngModel)]="search.color"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1 text-right">
+                <button class="btn btn-sm btn-xs btn-round btn-success m-0" type="button" (click)="loadPage();">
+                    <fa-icon [icon]="'search'"></fa-icon> <span>Search</span>&nbsp;
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col" jhiSortBy="id"><span>PLAN#</span>
+                        <fa-icon icon="sort"></fa-icon>
+                    </th>
+                    <th jhiSortBy="plantCode"><span>Plant#</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="productionCode"><span>PO#</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="style"><span>Project</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="color"><span>Color</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="destinationDesc"><span>Destination</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="summerizedDescription"><span>Fabric</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="summerizedDescription"><span>Fab&nbsp;Required</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="summerizedDescription"><span>Plies</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngIf="cutPlanEntries">
+                    <tr *ngFor="let cutPlanEntry of cutPlanEntries ;trackBy: trackId">
+                        <td>{{ cutPlanEntry.id }}</td>
+                        <td>{{cutPlanEntry.plantDescription}}</td>
+                        <td>{{cutPlanEntry.productionCode}}</td>
+                        <td>{{cutPlanEntry.style}}</td>
+                        <td>{{cutPlanEntry.color}}</td>
+                        <td>{{cutPlanEntry.destinationDesc}}</td>
+                        <td>{{cutPlanEntry.summerizedDescription}}</td>
+                        <td>{{cutPlanEntry.fabricRequired}}</td>
+                        <td>{{cutPlanEntry.noPlies}}</td>
+                        <td class="text-right">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/cut-plan-mrkr-entry', cutPlanEntry.id, 'edit']"
+                                        class="btn btn-blush btn-sm btn-xs m-0">
+                                    <fa-icon icon="pencil-alt"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="button" class="btn btn-warning btn-sm btn-xs m-0" [disabled]="cutPlanEntry.releaseBy" (click)="callRelease(cutPlanEntry)">
+                                    <fa-icon icon="caret-square-right"></fa-icon>
+                                    <span class="d-none d-md-inline">{{cutPlanEntry.releaseBy ? 'Released' : 'Release'}}</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" id="no-result" *ngIf="cutPlanEntries?.length === 0">
+            <span>No data found</span>
+        </div>
+        <div *ngIf="cutPlanEntries?.length > 0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                                [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-snotify></ng-snotify>

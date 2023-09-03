@@ -1,0 +1,48 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading"><span>Software Key Details</span></h5>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4">
+                    <input class="form-control form-control-sm text-uppercase ng-valid ng-dirty ng-touched" name="name" id="field_name" placeholder="Name" type="text" [(ngModel)]="softwareKeyDetailsSearch.name"/>
+                </div>
+                <div class="col-md-4">
+                    <input class="form-control form-control-sm  text-uppercase ng-valid ng-dirty ng-touched" name="jhiKey" id="field_jhiKey" placeholder="Key" type="text" [(ngModel)]="softwareKeyDetailsSearch.jhiKey"/>
+                </div>
+                <div class="col-md-4 text-right">
+                    <button class="btn btn-sm btn-round btn-blush"  style="margin-top:0;" type="button" (click)="search();">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                        <span >Search</span>
+                    </button>
+                </div>
+           </div>
+            <div class="table-responsive" *ngIf="softwareKeyDetails">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr>
+                        <th><span>Asset Code</span></th>
+                        <th><span>Name</span></th>
+                        <th><span>Key</span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let softwareKeyDetails of softwareKeyDetails ;trackBy: trackId">
+                        <td>{{softwareKeyDetails.assetCode}}</td>
+                        <td>{{softwareKeyDetails.name}}</td>
+                        <td>{{softwareKeyDetails.jhiKey}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="softwareKeyDetails && softwareKeyDetails.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

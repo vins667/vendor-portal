@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="vendorBuyerAuditLinking">
+            <h2><span>Vendor Buyer Audit Linking</span> {{vendorBuyerAuditLinking.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{vendorBuyerAuditLinking.createdBy}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{vendorBuyerAuditLinking.createdDate}}</span>
+                </dd>
+                <dt><span>Last Updated By</span></dt>
+                <dd>
+                    <span>{{vendorBuyerAuditLinking.lastUpdatedBy}}</span>
+                </dd>
+                <dt><span>Last Updated Date</span></dt>
+                <dd>
+                    <span>{{vendorBuyerAuditLinking.lastUpdatedDate}}</span>
+                </dd>
+                <dt><span>Vendor Master</span></dt>
+                <dd>
+                    <div *ngIf="vendorBuyerAuditLinking.vendorMaster">
+                        <a [routerLink]="['/vendor-master', vendorBuyerAuditLinking.vendorMaster?.id, 'view']">{{vendorBuyerAuditLinking.vendorMaster?.code}}</a>
+                    </div>
+                </dd>
+                <dt><span>Buyer Master</span></dt>
+                <dd>
+                    <span *ngFor="let buyerMaster of vendorBuyerAuditLinking.buyerMasters; let last = last">
+                        <a [routerLink]="['/buyer-master', buyerMaster?.id, 'view' ]">{{buyerMaster.buyerCode}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/vendor-buyer-audit-linking', vendorBuyerAuditLinking.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

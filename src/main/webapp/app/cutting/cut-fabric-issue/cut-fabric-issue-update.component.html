@@ -1,0 +1,129 @@
+<div align="center" class="centered" *ngIf="isProcess">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 id="jhi-asset-master-heading">Issue against Cut Plan# <span *ngIf="cutPlanEntry.id">{{cutPlanEntry.id}}</span></h6>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-right">
+                        <button type="button" id="report-entity" class="btn btn-sm btn-xs btn-danger btn-round m-0" (click)="generatePdf();">
+                            <fa-icon [icon]="'file-pdf'"></fa-icon>&nbsp;<span>Report</span>&nbsp;
+                        </button>
+                        <button type="button" id="cancel-entity" class="btn btn-sm btn-xs btn-second btn-round m-0" (click)="previousState();">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || cutplanEntryDetails?.length===0 || isSaving"
+                                class="btn btn-sm btn-xs btn-blush btn-round m-0">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body bg-white">
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_productionCode">PO#</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="productionCode" id="field_productionCode" [(ngModel)]="cutPlanEntry.productionCode" disabled/>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_plantDescription">Plant</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="plantDescription" id="field_plantDescription" [(ngModel)]="cutPlanEntry.plantDescription" readonly>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_noPlies">Plies#</label></div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="noPlies" id="field_noPlies" [(ngModel)]="cutPlanEntry.noPlies" readonly>
+                    <input type="hidden" name="noMarkers" id="field_noMarkers" [(ngModel)]="cutPlanEntry.noMarkers"/>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_style">Project</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="style" id="field_style" [(ngModel)]="cutPlanEntry.style" readonly required/>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_color">Color</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="color" id="field_color" [(ngModel)]="cutPlanEntry.color" readonly>
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_destination">Destination</label></div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-xs" name="destination" id="field_destination" [(ngModel)]="cutPlanEntry.destinationDesc" readonly>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1"><label class="form-control-label" for="field_orderQty">PO&nbsp;Qty</label></div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="orderQty" id="field_orderQty" [(ngModel)]="cutPlanEntry.orderQty" readonly />
+                </div>
+                <div class="col-md-1"><label class="form-control-label" for="field_tolerance">Tolerance</label></div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="tolerance" id="field_tolerance" [(ngModel)]="cutPlanEntry.tolerance" readonly />
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_widthLength">Fabric&nbsp;Req.</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-xs" name="widthLength" id="field_widthLength" [(ngModel)]="cutPlanEntry.fabricRequired" readonly required />
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_summerizedDescription">Fabric&nbsp;Code</label>
+                </div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control form-control-xs" name="summerizedDescription" id="field_summerizedDescription" [(ngModel)]="cutPlanEntry.summerizedDescription" readonly>
+                </div>
+                <div class="col-md-1">
+                    <label class="form-control-label" for="field_resourcecode">Cut&nbsp;Table</label>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control form-control-xs custom-select custom-select-xs" name="resourcecode" id="field_resourcecode" [(ngModel)]="resourceCode" [disabled]="isDisabled" required (change)="callResources();" *ngIf="!isDisabled">
+                        <option [value]="undefined">Select</option>
+                        <option *ngFor="let resource of resources" [value]="resource.id.code">{{resource.id.code +'-'+ resource.longdescription}}</option>
+                    </select>
+                    <input type="text" class="form-control form-control-xs" name="resourceDescription" id="field_resourceDescription" [value]="resourceCode +'-'+resourceDescription" readonly *ngIf="isDisabled"/>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer body p-0 m-0">
+            <div class="table-responsive scroll-popup-table">
+                <table class="table table-sm table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Roll#</th>
+                        <th>Lot#</th>
+                        <th>Quality Level</th>
+                        <th>L/W</th>
+                        <th>UOM</th>
+                        <th class="text-right">Selected/ROll&nbsp;Qty</th>
+                        <th class="text-right">Plies#</th>
+                        <th class="text-right">End&nbsp;bit</th>
+                        <th class="text-center" style="width: 50px;"><input type="checkbox" name="allowPliesAll" id="allowPliesAll" [(ngModel)]="allowPliesAll" *ngIf="cutplanEntryDetails?.length>0" (change)="allowPliesChange();"/></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ng-container *ngFor="let cutPlanEntryDetail of cutplanEntryDetails; let balIndex = index;">
+                        <tr>
+                            <td>{{cutPlanEntryDetail.elementscode}}</td>
+                            <td>{{cutPlanEntryDetail.lotcode}}</td>
+                            <td>{{cutPlanEntryDetail.qualitylevelcode}}</td>
+                            <td>{{cutPlanEntryDetail.logicalwarehousecode}}</td>
+                            <td>{{cutPlanEntryDetail.baseprimaryunitcode}}</td>
+                            <td class="text-right">{{cutPlanEntryDetail.baseprimaryquantityunit | number: '1.3-3'}}</td>
+                            <td class="text-right">{{cutPlanEntryDetail.splitNoPlies ? cutPlanEntryDetail.splitNoPlies :  cutPlanEntryDetail.noPlies}}</td>
+                            <td class="text-right"><fa-icon *ngIf="cutPlanEntryDetail.splitNoPlies && !cutPlanEntryDetail.splitFlag" [icon]="'cut'" class="font-15" style="cursor: pointer;" (click)="splitConfirm(cutPlanEntryDetail);"></fa-icon>&nbsp;&nbsp;{{cutPlanEntryDetail.splitEndBits ? cutPlanEntryDetail.splitEndBits : cutPlanEntryDetail.endBits | number: '1.3-3'}}</td>
+                            <td class="text-center"><input type="checkbox" name="allowPlies{{balIndex}}" id="allowPlies{{balIndex}}" [(ngModel)]="cutPlanEntryDetail.allowPlies" [disabled]="cutPlanEntryDetail.issuedBy || (!cutPlanEntryDetail.splitFlag && cutPlanEntryDetail.splitNoPlies)" /></td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
+<ng-snotify></ng-snotify>

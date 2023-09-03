@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity FactoryMaster.
+    -->
+    <changeSet id="20181229081906-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="news_details_id"
+                                 baseTableName="news_details_body"
+                                 constraintName="fk_news_details_body_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="news_details"/>
+		<addForeignKeyConstraint baseColumnNames="news_details_id"
+                                 baseTableName="news_details_attach"
+                                 constraintName="fk_news_details_attach_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="news_details"/>
+        <addForeignKeyConstraint baseColumnNames="news_details_id"
+                                 baseTableName="news_details_factory_master"
+                                 constraintName="fk_news_details_factory_master_news_details_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="news_details"/>
+        <addForeignKeyConstraint baseColumnNames="factory_masters_id"
+                                 baseTableName="news_details_factory_master"
+                                 constraintName="fk_news_details_factory_master_factory_masters_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="factory_master"/>
+        <addForeignKeyConstraint baseColumnNames="news_master_id"
+                                 baseTableName="news_details"
+                                 constraintName="fk_news_details_news_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="news_master"/>
+
+    </changeSet>
+</databaseChangeLog>

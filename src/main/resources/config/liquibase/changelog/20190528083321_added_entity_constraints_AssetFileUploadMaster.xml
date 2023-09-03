@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity AssetFileUploadMaster.
+    -->
+    <changeSet id="20190528083321-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="asset_supplier_master_id"
+                                 baseTableName="asset_file_upload_master"
+                                 constraintName="fk_asset_file_upload_master_asset_supplier_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="asset_supplier_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="asset_document_master_id"
+                                 baseTableName="asset_file_upload_master"
+                                 constraintName="fk_asset_file_upload_master_asset_document_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="asset_document_master"/>
+
+    </changeSet>
+</databaseChangeLog>

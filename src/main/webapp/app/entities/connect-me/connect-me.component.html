@@ -1,0 +1,58 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Connect Me</span>
+            </h5>
+            <jhi-alert></jhi-alert>
+            <div class="row">
+                <div class="col-md-4"><input type="text" name="name" class="form-control form-control-sm text-uppercase" placeholder="Enter Name" [(ngModel)]="employeesearch.name"/></div>
+                <div class="col-md-2"><input type="text" name="empCode" class="form-control form-control-sm text-uppercase" placeholder="Enter Emp Code" [(ngModel)]="employeesearch.empCode"/></div>
+                <div class="col-md-2"><input type="text" name="department" class="form-control form-control-sm text-uppercase" placeholder="Enter Department" [(ngModel)]="employeesearch.department"/></div>
+                <div class="col-md-2"><input type="text" name="designation" class="form-control form-control-sm text-uppercase" placeholder="Enter Designation" [(ngModel)]="employeesearch.designation"/></div>
+                <div class="col-md-2"><button type="button" class="btn btn-sm btn-round btn-blush" style="margin-top: 0;" (click)="search();"><fa-icon [icon]="'search'"></fa-icon> <span>Search</span></button></div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th><span>Emp&nbsp;Code</span></th>
+                        <th><span>Name</span></th>
+                        <th><span>Email</span></th>
+                        <th><span>Phone</span></th>
+                        <th><span>Factory</span></th>
+                        <th><span>Department</span></th>
+                        <th><span>Designation</span></th>
+                        <th><span></span></th>
+                    </tr>
+                    </thead>
+                    <tbody *ngIf="employeeViews">
+                    <ng-container *ngFor="let employeeView of employeeViews ;trackBy: trackId">
+                        <popover-content #myPopover title="{{employeeView.name}}" [closeOnClickOutside]="true">
+                            <img src="{{employeeView.imagePath}}" style="width: 200px; height: 150px;" alt="Profile Image"/>
+                        </popover-content>
+                        <tr>
+                            <td>{{employeeView.cardNo}}</td>
+                            <td>{{employeeView.name}}</td>
+                            <td>{{employeeView.email}}</td>
+                            <td>{{employeeView.phone}}</td>
+                            <td>{{employeeView.factoryDesc}}</td>
+                            <td>{{employeeView.depCodeDesc}}</td>
+                            <td>{{employeeView.desCodeDesc}}</td>
+                            <td class="text-right button-column" [popover]="myPopover"><fa-icon [icon]="'eye'"></fa-icon></td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="employeeViews && employeeViews.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

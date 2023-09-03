@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity AssetMaster.
+    -->
+    <changeSet id="20190525122501-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="asset_ownership_master_id"
+                                 baseTableName="asset_master"
+                                 constraintName="fk_asset_master_asset_ownership_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="asset_ownership_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="asset_type_master_id"
+                                 baseTableName="asset_master"
+                                 constraintName="fk_asset_master_asset_type_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="asset_type_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="asset_sub_type_master_id"
+                                 baseTableName="asset_master"
+                                 constraintName="fk_asset_master_asset_sub_type_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="asset_sub_type_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="asset_sub_type_detail_master_id"
+                                 baseTableName="asset_master"
+                                 constraintName="fk_asset_master_asset_sub_type_detail_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="asset_sub_type_detail_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="asset_company_master_id"
+                                 baseTableName="asset_master"
+                                 constraintName="fk_asset_master_asset_company_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="asset_company_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="asset_supplier_master_id"
+                                 baseTableName="asset_master"
+                                 constraintName="fk_asset_master_asset_supplier_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="asset_supplier_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="asset_location_master_id"
+                                 baseTableName="asset_master"
+                                 constraintName="fk_asset_master_asset_location_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="asset_location_master"/>
+
+        <!--addForeignKeyConstraint baseColumnNames="asset_masters_id"
+                                 baseTableName="asset_master_asset_audit_details"
+                                 constraintName="fk_asset_master_asset_audit_details_asset_masters_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="asset_master"/>
+        <addForeignKeyConstraint baseColumnNames="asset_audit_details_id"
+                                 baseTableName="asset_master_asset_audit_details"
+                                 constraintName="fk_asset_master_asset_audit_details_asset_audit_details_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="asset_audit_details"/-->
+        
+    </changeSet>
+</databaseChangeLog>

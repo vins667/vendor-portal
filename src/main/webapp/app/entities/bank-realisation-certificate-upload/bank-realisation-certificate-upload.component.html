@@ -1,0 +1,96 @@
+<div class="card">
+    <div class="card-header">
+        <h6 id="page-heading">
+            <span>BRC Details</span>
+        </h6>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="input-group">
+                    <input [owlDateTime]="brcFrom" name="brcDateFrom" id="field_brcDateFrom" placeholder="Date From" class="form-control form-control-xs" required [(ngModel)]="brcDateFrom">
+                    <div class="input-group-append input-group-append-top">
+                        <div class="btn btn-xs btn-blush" [owlDateTimeTrigger]="brcFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #brcFrom></owl-date-time>
+            </div>
+            <div class="col-md-2">
+                <div class="input-group">
+                    <input [owlDateTime]="brcTo" name="brcDateTo" id="field_brcDateTo" placeholder="Date To" class="form-control form-control-xs" required [(ngModel)]="brcDateTo">
+                    <div class="input-group-append input-group-append-top">
+                        <div class="btn btn-xs btn-blush" [owlDateTimeTrigger]="brcTo"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                    </div>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #brcTo></owl-date-time>
+            </div>
+            <div class="col-md-2">
+                <input class="form-control form-control-xs" name="brcNo" id="field_brcNo" placeholder="brcNo" type="text" [(ngModel)]="search.brcNo" />
+            </div>
+            <div class="col-md-6 text-right">
+                <button class="btn btn-xs btn-info btn-round btn-round" style="margin-top: 0;" type="button" (click)="loadPage();">
+                    <fa-icon [icon]="'search'"></fa-icon>
+                    <span>Search</span>
+                </button>
+                <button id="jh-excel-entity" class="btn btn-xs btn-blush btn-round jh-create-entity create-doc-file-upload" style="margin-top:0;" [routerLink]="['/brc-details-uploads/upload']">
+                    <fa-icon [icon]="'upload'"></fa-icon>
+                    <span >Upload From Excel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th jhiSortBy="sbNo"><span>SB No.</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="sbDate"><span>SB Date</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="brcNo"><span>BRC No.</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="brcDate"><span>BRC Date</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="portCode"><span>Port Code</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="fob"><span>FOB</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="currency"><span>Currency</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="realizationDate"><span>Realisation Date</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let bankRealisationCertificateUpload of bankRealisationCertificatUploads ;trackBy: trackId">
+                    <td>{{bankRealisationCertificateUpload.sbNo}}</td>
+                    <td>{{bankRealisationCertificateUpload.sbDate | date: 'dd-MM-yyyy'}}</td>
+                    <td>{{bankRealisationCertificateUpload.brcNo}}</td>
+                    <td>{{bankRealisationCertificateUpload.brcDate | date: 'dd-MM-yyyy'}}</td>
+                    <td>{{bankRealisationCertificateUpload.portCode}}</td>
+                    <td>{{bankRealisationCertificateUpload.fob}}</td>
+                    <td>{{bankRealisationCertificateUpload.currency}}</td>
+                    <td>{{bankRealisationCertificateUpload.realisationDate | date: 'dd-MM-yyyy'}}</td>
+                    <td class="text-right button-column">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/brc-details-uploads',bankRealisationCertificateUpload.id,'edit']"
+                                    class="btn btn-blush btn-xs">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" id="no-result" *ngIf="bankRealisationCertificatUploads?.length === 0">
+            <span>No data found</span>
+        </div>
+        <div class="bankRealizationCertificatUploads?.length>0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                                [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

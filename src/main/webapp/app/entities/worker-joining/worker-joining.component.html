@@ -1,0 +1,77 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading"><span>New Worker Joining</span></h5>
+            <div class="row card-margin-bottom-9">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input class="form-control form-control-sm text-uppercase ng-valid ng-dirty ng-touched" name="name" placeholder="Enter Name" type="text" [(ngModel)]="trailMockSearchOperation.name"/>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control form-control-sm  text-uppercase ng-valid ng-dirty ng-touched" name="aadharNo" id="field_aadharNo" placeholder="Enter Aadhar No" type="text" [(ngModel)]="trailMockSearchOperation.aadharNo"/>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control form-control-sm  text-uppercase ng-valid ng-dirty ng-touched" name="department" id="field_department" placeholder="Enter Department" type="text" [(ngModel)]="trailMockSearchOperation.department"/>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control form-control-sm  text-uppercase ng-valid ng-dirty ng-touched" name="designation" id="field_designation" placeholder="Enter Designation" type="text" [(ngModel)]="trailMockSearchOperation.designation"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-sm btn-round float-right btn-blush" style="margin-top:0;" type="button" (click)="search();">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                        <span >Search</span>
+                    </button>
+                </div>
+            </div>
+            <div class="table-responsive" *ngIf="workRecruitments">
+                 <table class="table table-sm table-striped">
+                     <thead>
+                         <tr>
+
+                             <th><span>ID</span></th>
+                             <th><span>Date</span></th>
+                             <th><span>Name</span></th>
+                             <th><span>Aadhar</span></th>
+                             <th><span>Dob</span></th>
+                             <th><span>Department</span></th>
+                             <th><span>Designation</span></th>
+                             <th></th>
+                         </tr>
+                     </thead>
+                       <tbody>
+                            <tr *ngFor="let workRecruitment of workRecruitments ;trackBy: trackId">
+                                <td><a [routerLink]="['/worker-recruitment', workRecruitment.id, 'view' ]">{{workRecruitment.id}}</a></td>
+                                <td>{{workRecruitment.createdDate | date: 'dd/MM/yyyy'}}</td>
+                                <td>{{workRecruitment.name}}</td>
+                                <td>{{workRecruitment.aadharNo}}</td>
+                                <td>{{workRecruitment.dob | date:'dd/MM/yyyy'}}</td>
+                                <td>{{workRecruitment.departmentMaster.deptDesc}}</td>
+                                <td>{{workRecruitment.designationMaster.designationName}}</td>
+                                    <td class="text-right button-column">
+                                        <div class="btn-group">
+                                            <button id="jh-create-entity"
+                                                [routerLink]="['/worker-joining', workRecruitment.id, 'edit']"
+                                                class="btn btn-blush btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                        </div>
+                                 </td>
+                            </tr>
+                       </tbody>
+                </table>
+            </div>
+            <div *ngIf="workRecruitments && workRecruitments.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

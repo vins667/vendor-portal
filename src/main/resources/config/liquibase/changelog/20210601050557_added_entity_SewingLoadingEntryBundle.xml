@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <!--
+        Added the entity SewingLoadingEntryBundle.
+    -->
+    <changeSet id="20210601050557-1" author="jhipster">
+        <createTable tableName="sewing_loading_entry_bundle">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="itemelementcode" type="varchar(15)">
+                <constraints nullable="false" />
+            </column>
+            <column name="lotcode" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="qualitylevelcode" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="warehousezonecode" type="varchar(3)">
+                <constraints nullable="true" />
+            </column>
+            <column name="warehouselocationcode" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+            <column name="uom" type="varchar(3)">
+                <constraints nullable="true" />
+            </column>
+            <column name="basequantity" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="sewing_loading_entry_details_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="sewing_loading_entry_bundle_seq" incrementBy="1" cycle="false"/>
+    </changeSet>
+</databaseChangeLog>

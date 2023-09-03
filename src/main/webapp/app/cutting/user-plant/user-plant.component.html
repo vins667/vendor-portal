@@ -1,0 +1,76 @@
+<!--div class="card">
+    <div class="card-header">
+        <h5 id="page-heading">
+            <span>User Plant</span>
+            <button id="jh-create-entity"
+                    class="btn btn-sm btn-blush btn-round float-right jh-create-entity create-cut-plan-entry"
+                    [routerLink]="['/user-plant/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span>New</span>
+            </button>
+        </h5>
+    </div>
+    <div class="card-body body">
+        <div class="row card-margin-bottom-10">
+            <div class="col-md-1 font-weight-bold">
+                Login Id#
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control form-control-xm text-uppercase" name="pono" id="field_pono" placeholder="Enter Login Id"  />
+            </div>
+            <div class="col-md-1 font-weight-bold">
+                Plant#
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control form-control-xm text-uppercase" name="style" id="field_style" placeholder="Enter Plant Code" />
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-2 text-right">
+                <button class="btn btn-sm btn-round btn-success" type="button" (click)="loadPage();">
+                    <fa-icon [icon]="'search'"></fa-icon> <span>Search</span>
+                </button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                        <th jhiSortBy="login"><span>Login</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="plantCode"><span>Plant Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="plantDescription"><span>Plant Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ng-container *ngIf="userPlantNew">
+                        <tr *ngFor="let userPlant of userPlantNews; trackBy: trackId">
+                        <td>{{userPlant.login}}</td>
+                        <td>{{userPlant.userPlantDetailsNew.plantCode}}</td>
+                        <td>{{userPlant.userPlantDetailsNew.plantDescription}}</td>
+                            <td class="text-right button-column">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-blush btn-sm">
+                                        <fa-icon icon="pencil-alt"></fa-icon>
+                                        <span class="d-none d-md-inline">Edit</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
+            </div>
+            <div class="alert alert-warning" id="no-result" *ngIf="userPlants?.length === 0">
+                <span>No data found</span>
+            </div>
+            <div *ngIf="userPlants?.length > 0">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                                    [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+                    </ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div-->

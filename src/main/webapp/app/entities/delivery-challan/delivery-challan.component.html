@@ -1,0 +1,79 @@
+<div class="card">
+    <div class="body">
+        <div align="center" class="centered" *ngIf="isDownload">
+            <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+        </div>
+        <div>
+            <h5 id="page-heading"><span>Delivery Challan</span></h5>
+            <div class="row">
+                <div class="col-md-3">
+                    <input type="text" name="factCode" id="factCode" class="form-control form-control-sm text-uppercase" [(ngModel)]="deliveryChallanSearch.factCode" placeholder="Factory Code"/>
+                </div>
+                <div class="col-md-9 text-right">
+                    <button id="jh-search-entity" class="btn btn-sm btn-info btn-round" type="button" style="margin: 0;" (click)="search()">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                        <span >Search</span>
+                    </button>
+                    <button id="jh-create-entity" class="btn btn-sm btn-blush btn-round" [routerLink]="['/delivery-challan/new']">
+                        <fa-icon [icon]="'plus'"></fa-icon>
+                        <span>new</span>
+                    </button>
+                </div>
+            </div>
+            <jhi-alert></jhi-alert>
+            <div class="table-responsive" *ngIf="deliveryChallans">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th><span>ID</span></th>
+                        <th><span>Code</span></th>
+                        <th><span>Factory</span></th>
+                        <th><span>GST Number</span></th>
+                        <th><span>Challan Type</span></th>
+                        <th><span>Challan Date</span></th>
+                        <th>Download</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let deliveryChallan of deliveryChallans ;trackBy: trackId">
+                        <td>{{deliveryChallan.id}}</a></td>
+                        <td>{{deliveryChallan.factCode}}</td>
+                        <td>{{deliveryChallan.factDescription}}</td>
+                        <td>{{deliveryChallan.fGSTNumber}}</td>
+                        <td><ng-container *ngIf="deliveryChallan.challanType =='R'">Returnable</ng-container><ng-container *ngIf="deliveryChallan.challanType =='N'">Non Returnable</ng-container></td>
+                        <td>{{deliveryChallan.challanDate | date:'dd/MM/yyyy'}}</td>
+                        <td *ngIf="deliveryChallan.id"> <fa-icon [icon]="'download'" style="color: #00FF00;cursor: pointer;padding-left: 10px;" (click)="download(deliveryChallan.id);"></fa-icon></td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/delivery-challan', deliveryChallan.id, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/', 'delivery-challan', { outlets: { popup:  deliveryChallan.id + '/delete'} }]"
+                                         replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="deliveryChallans && deliveryChallans.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

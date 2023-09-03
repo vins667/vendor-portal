@@ -1,0 +1,83 @@
+<div *ngIf="isAuthenticated()">
+    <!-- Top Bar -->
+    <nav class="navbar p-l-5 p-r-5">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <div class="navbar-header">
+                    <a href="javascript:void(0);" class="bars" (click)="commonService.mobileToggle();">
+                        <span *ngFor="let number of [0,1,2]"></span>
+                    </a>
+                    <a href="javascript:void(0);" class="ls-toggle-btn" data-close="true" (click)="commonService.sidebarMiniToggle()"><i class="zmdi zmdi-swap" style="font-size: 25px;"></i></a>
+                    <a class="navbar-brand" href="#/dashboard"><span class="m-l-10 saving">VAMANI</span></a>
+                </div>
+            </li>
+            <li>
+                <a href="javascript:void(0);">
+                    <div ngbDropdown style="margin-top: -32px; margin-left: -10px;" [ngbTooltip]="'Theme'" placement="bottom">
+                        <fa-icon [icon]="'cog'" class="fa fa-spin animated-active" ngbDropdownToggle></fa-icon>
+                        <div ngbDropdownMenu class="dropdown-menu">
+                            <div class="row" style="height: 30px;"><div class="col-md-12"><button type="button" class="btn btn-sm btn-link" style="display: block; width: 100%;" [class.active]="activeTheme()==='theme-blush'" [disabled]="activeTheme()==='theme-blush'" (click)="changeTheme('theme-blush');" ngbDropdownItem>Blush</button></div></div>
+                            <div class="row" style="height: 30px;"><div class="col-md-12"><button type="button" class="btn btn-sm btn-link" style="display: block; width: 100%;" [class.active]="activeTheme()==='theme-dark'" [disabled]="activeTheme()==='theme-dark'" (click)="changeTheme('theme-dark');" ngbDropdownItem>Dark</button></div></div>
+                            <div class="row" style="height: 30px;"><div class="col-md-12"><button type="button" class="btn btn-sm btn-link" style="display: block; width: 100%;" [class.active]="activeTheme()==='theme-forest'" [disabled]="activeTheme()==='theme-forest'" (click)="changeTheme('theme-forest');" ngbDropdownItem>Forest</button></div></div>
+                            <div class="row" style="height: 35px;"><div class="col-md-12"><button type="button" class="btn btn-sm btn-link" style="display: block; width: 100%;" [class.active]="activeTheme()==='theme-original'" [disabled]="activeTheme()==='theme-original'" (click)="changeTheme('theme-original');" ngbDropdownItem>Original</button></div></div>
+                            <div class="row" style="height: 35px;"><div class="col-md-12"><button type="button" class="btn btn-sm btn-link" style="display: block; width: 100%;" [class.active]="activeTheme()==='theme-sunshine'" [disabled]="activeTheme()==='theme-sunshine'" (click)="changeTheme('theme-sunshine');" ngbDropdownItem>Sunshine</button></div></div>
+                            <div class="row" style="height: 35px;"><div class="col-md-12"><button type="button" class="btn btn-sm btn-link" style="display: block; width: 100%;" [class.active]="activeTheme()==='theme-light'" [disabled]="activeTheme()==='theme-light'" (click)="changeTheme('theme-light');" ngbDropdownItem>Sky Blue</button></div></div>
+                        </div>
+                    </div>
+                </a>
+                <a routerLink="event" [ngbTooltip]="'Calendar'" placement="bottom"><i class="zmdi zmdi-calendar"></i></a>
+                <a routerLink="connect-me" [ngbTooltip]="'Connect Me'" placement="bottom"><i class="zmdi zmdi-account-box-phone"></i></a>
+                <a routerLink="news-headline" [ngbTooltip]="'News'" placement="bottom"><i class="zmdi zmdi-rss"></i></a>
+                <a routerLink="suggestion/new" [ngbTooltip]="'Suggestion'" placement="bottom"><fa-icon [icon]="'thumbs-up'"></fa-icon></a>
+                <a routerLink="employee-hierarchy" [ngbTooltip]="'Hierarchy Chart'" placement="bottom" style="padding-right: 30px;"><fa-icon [icon]="'sitemap'"></fa-icon></a>
+                <jhi-doctor-schedule style="padding-right: 30px;"></jhi-doctor-schedule>
+                <jhi-mobile-verify></jhi-mobile-verify>
+                <!--a [routerLink]="['https://web.whatsapp.com/']" title="Chat"><fa-icon [icon]="'comment-alt'"></fa-icon></a-->
+                <!--a href="javascript:void(0);"><i class="zmdi zmdi-notifications"></i></a-->
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="float-right text-right">
+                <img class="logo-img" width="175" height="40"/>
+                <a href="javascript:void(0);" (click)="logout()" class="mega-menu" data-close="true" title="Logout"><!--i class="zmdi zmdi-power"></i-->
+                    <img src="../../../content/images/f3.gif" alt="" width="32" height="32"/>
+                </a>
+                <!--a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a-->
+            </li>
+        </ul>
+    </nav>
+</div>
+<div *ngIf="isAuthenticated()">
+    <!-- Left Sidebar -->
+    <div ngSwitch="">
+        <div *ngSwitchDefault>
+            <aside id="leftsidebar" class="sidebar">
+                <div class="text-center" style="border-bottom: 1px solid hsla(0,0%,100%,.13);">
+                    <ul class="nav nav-tabs buttonwrapper">
+                        <li class="nav-item"><a class="nav-link nav-link-padding" [class.active]="sidebarActive=='menu'" data-toggle="tab" href="javascript:void(0);" (click)="changeSidebar('menu')" style="font-weight: 500 !important;"><i class="zmdi zmdi-home m-r-5"></i>Menu</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-padding" [class.active]="sidebarActive=='user'" data-toggle="tab" href="javascript:void(0);" (click)="changeSidebar('user')" style="font-weight: 500 !important;"><i class="zmdi zmdi-account m-r-5"></i>User</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content" style="height: calc(100% - 100px); overflow: hidden; overflow-y: auto;">
+                    <div class="tab-pane stretchRight" [class.active]="sidebarActive=='menu'">
+                        <div class="menu">
+                            <jhi-menu-details></jhi-menu-details>
+                        </div>
+                    </div>
+                    <div class="tab-pane stretchLeft" [class.active]="sidebarActive=='user'">
+                        <div class="menu">
+                            <ul class="list">
+                                <li>
+                                    <jhi-user-name-details></jhi-user-name-details>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="border-top: 1px solid hsla(0,0%,100%,.13);" class="text-center">
+                    <small>&copy;2019 Vamani Overseas Pvt Ltd</small>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>

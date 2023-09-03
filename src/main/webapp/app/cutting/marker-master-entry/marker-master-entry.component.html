@@ -1,0 +1,100 @@
+<div class="card">
+    <div class="card-header">
+        <h6 id="page-heading">
+            <span>Marker Master Entry</span>
+            <button id="jh-create-entity" class="btn btn-sm btn-xs btn-blush btn-round float-right jh-create-entity create-marker-master-entry m-0"
+                    [routerLink]="['/marker-master-entry/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>&nbsp;<span>New</span>&nbsp;
+            </button>
+        </h6>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-1 font-weight-bold">
+                Project#
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control form-control-xs text-uppercase" name="style" id="field_style" placeholder="Enter Project" [(ngModel)]="search.style"/>
+            </div>
+            <div class="col-md-1 font-weight-bold">
+                Color#
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control form-control-xs text-uppercase" name="color" id="field_color" placeholder="Enter Color" [(ngModel)]="search.color"/>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-2 text-right">
+                <button class="btn btn-sm btn-xs btn-round btn-success m-0" type="button" (click)="loadPage();">
+                    <fa-icon [icon]="'search'"></fa-icon> <span>Search</span>&nbsp;
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-xs table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th jhiSortBy="style"><span>Project</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="color"><span>Color</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="color_description"><span>Color Description</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="plant_description"><span>Plant</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="item_code"><span>Item Desc</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="body_fabric"><span>Body Fabric</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="planned_avg"><span>Planned Avg</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngIf="markerMasterEntries">
+                    <tr *ngFor="let markerMasterEntry of markerMasterEntries ;trackBy: trackId">
+                        <td>{{markerMasterEntry.style}}</td>
+                        <td>{{markerMasterEntry.color}}</td>
+                        <td>{{markerMasterEntry.colorDesc}}</td>
+                        <td>{{ markerMasterEntry.plantDescription }}</td>
+                        <td>{{markerMasterEntry.itemCode}}</td>
+                        <td>{{markerMasterEntry.bodyFabric ? 'YES' : 'NO'}}</td>
+                        <td>{{markerMasterEntry.plannedAvg | number: '1.3-3'}}</td>
+                        <td class="text-right">
+                            <div class="btn-group">
+                                <button type="button" (click)="viewEntry(markerMasterEntry);"
+                                        class="btn btn-blush btn-sm btn-xs m-0">
+                                    <fa-icon icon="pencil-alt"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" id="no-result" *ngIf="markerMasterEntries?.length === 0">
+            <span>No data found</span>
+        </div>
+        <div *ngIf="markerMasterEntries?.length > 0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                                [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

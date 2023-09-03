@@ -1,0 +1,95 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="assetAuditDetails">
+            <h2><span>Asset Audit Details</span> {{assetAuditDetails.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>System Id</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.systemId}}</span>
+                </dd>
+                <dt><span>Uuid</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.uuid}}</span>
+                </dd>
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.name}}</span>
+                </dd>
+                <dt><span>Ip</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.ip}}</span>
+                </dd>
+                <dt><span>Hostname</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.hostname}}</span>
+                </dd>
+                <dt><span>Manufacturer</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.manufacturer}}</span>
+                </dd>
+                <dt><span>Model</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.model}}</span>
+                </dd>
+                <dt><span>Serial</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.serial}}</span>
+                </dd>
+                <dt><span>Storage Count</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.storageCount}}</span>
+                </dd>
+                <dt><span>Memory Count</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.memoryCount}}</span>
+                </dd>
+                <dt><span>Type</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.type}}</span>
+                </dd>
+                <dt><span>Os Installation Date</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.osInstallationDate}}</span>
+                </dd>
+                <dt><span>Os Group</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.osGroup}}</span>
+                </dd>
+                <dt><span>Os Family</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.osFamily}}</span>
+                </dd>
+                <dt><span>Os Name</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.osName}}</span>
+                </dd>
+                <dt><span>Os Version</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.osVersion}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.createdBy}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{assetAuditDetails.createdDate}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/asset-audit-details', assetAuditDetails.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

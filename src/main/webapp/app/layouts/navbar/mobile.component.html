@@ -1,0 +1,7 @@
+<ng-template #htmlContent>
+    <span style="font-weight: bold;" *ngIf="!currentAccount.imei">Mobile app not register</span><br/>
+    <span style="font-weight: bold;" *ngIf="currentAccount.imei">Mobile app registered</span><br/>
+    <ng-container *ngIf="currentAccount.imei"><p style="font-weight: 600;">IMEI: {{currentAccount.imei}}</p></ng-container><br/>
+    <ng-container *ngIf="currentAccount.serial"><p style="font-weight: 600;">Serial: {{currentAccount.serial}}</p></ng-container>
+</ng-template>
+<a *ngIf="currentAccount" href="javascript:void(0);" placement="bottom"  [ngbTooltip]="htmlContent" style="padding-bottom: 21px;"><fa-icon [icon]="'mobile-alt'"></fa-icon></a>

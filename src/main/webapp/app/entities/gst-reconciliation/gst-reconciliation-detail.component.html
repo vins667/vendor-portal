@@ -1,0 +1,91 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="gstReconciliation">
+            <h2><span>Gst Reconciliation</span> {{gstReconciliation.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Unit Code</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.unitCode}}</span>
+                </dd>
+                <dt><span>Gstin</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.gstin}}</span>
+                </dd>
+                <dt><span>Invoice Type</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.invoiceType}}</span>
+                </dd>
+                <dt><span>Invoice No</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.invoiceNo}}</span>
+                </dd>
+                <dt><span>Invoice Date</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.invoiceDate}}</span>
+                </dd>
+                <dt><span>Supplier Name</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.supplierName}}</span>
+                </dd>
+                <dt><span>State</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.state}}</span>
+                </dd>
+                <dt><span>Invoice Amount</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.invoiceAmount}}</span>
+                </dd>
+                <dt><span>Reverse Amount</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.reverseAmount}}</span>
+                </dd>
+                <dt><span>Cgst Amount</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.cgstAmount}}</span>
+                </dd>
+                <dt><span>Sgst Amount</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.sgstAmount}}</span>
+                </dd>
+                <dt><span>Igst Amount</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.igstAmount}}</span>
+                </dd>
+                <dt><span>Cess Amount</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.cessAmount}}</span>
+                </dd>
+                <dt><span>Location</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.location}}</span>
+                </dd>
+                <dt><span>Srl Number</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.srlNumber}}</span>
+                </dd>
+                <dt><span>Status</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.status}}</span>
+                </dd>
+                <dt><span>Creation Date</span></dt>
+                <dd>
+                    <span>{{gstReconciliation.creationDate}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/gst-reconciliation', gstReconciliation.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

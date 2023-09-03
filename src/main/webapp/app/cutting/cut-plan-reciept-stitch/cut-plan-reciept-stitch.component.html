@@ -1,0 +1,101 @@
+<div class="card">
+    <div class="card-header">
+        <h6 id="page-heading">
+            <span>Cut Plan Reciept to Stitch</span>
+        </h6>
+    </div>
+    <div class="card-footer body py-2 bg-white">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-1 font-weight-bold">
+                        Type
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control form-control-xs custom-select custom-select-xs" name="transactionType" id="field_transactionType" [(ngModel)]="search.pono">
+                            <option [value]="undefined">Select</option>
+                            <option [value]="'I'">Intra Unit</option>
+                            <option [value]="'O'">Inter Unit</option>
+                            <option [value]="'J'">Job Work</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1 font-weight-bold">
+                        Style#
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control form-control-xs text-uppercase" name="style" id="field_style" placeholder="Enter Style#" [(ngModel)]="search.style"/>
+                    </div>
+                    <div class="col-md-1 font-weight-bold">
+                        Color
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control form-control-xs text-uppercase" name="color" id="field_color" placeholder="Enter Color" [(ngModel)]="search.color"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 text-right">
+                <button class="btn btn-sm btn-xs btn-round btn-success m-0" type="button" (click)="loadPage();">
+                    <fa-icon [icon]="'search'"></fa-icon> <span>Search</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body body p-0">
+        <div class="table-responsive" id="entities">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="transactionType"><span>Transaction Type</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="plantDescription"><span>Plant</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="destinationPlantDescription"><span>Dest&nbsp;Plant</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="projectcode"><span>Project</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="style"><span>Style</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="destinationDesc"><span>Destination</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="termsofdeliverydescription"><span>Delivery&nbsp;Term</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="termsofshippingdescription"><span>Shipping&nbsp;Term</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"><span>Status</span></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let cutPlanIssueStitch of cutPlanIssueStitches ;trackBy: trackId">
+                    <td><a [routerLink]="['/cut-plan-issue-stitch', cutPlanIssueStitch.id, 'view']">{{ cutPlanIssueStitch.id }}</a></td>
+                    <td>{{ cutPlanIssueStitch.transactionType === 'I' ? 'Intra Unit' : cutPlanIssueStitch.transactionType === 'O' ? 'Inter Unit' : 'Job Work' }}</td>
+                    <td>{{ cutPlanIssueStitch.plantDescription }}</td>
+                    <td>{{ cutPlanIssueStitch.destinationPlantDescription }}</td>
+                    <td>{{ cutPlanIssueStitch.projectcode }}</td>
+                    <td>{{ cutPlanIssueStitch.style }}</td>
+                    <td>{{ cutPlanIssueStitch.destinationDesc }}</td>
+                    <td>{{ cutPlanIssueStitch.termsofdeliverydescription }}</td>
+                    <td>{{ cutPlanIssueStitch.termsofshippingdescription }}</td>
+                    <td>{{ cutPlanIssueStitch.recieptPostedDate ? 'Recieved' : 'Pending' }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/cut-plan-reciept-stitch', cutPlanIssueStitch.id, 'edit']"
+                                    class="btn btn-blush btn-sm btn-xs m-0">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" id="no-result" *ngIf="cutPlanIssueStitches?.length === 0">
+            <span>No data found</span>
+        </div>
+        <div *ngIf="cutPlanIssueStitches?.length > 0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                                [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

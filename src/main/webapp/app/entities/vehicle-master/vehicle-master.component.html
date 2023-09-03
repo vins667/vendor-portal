@@ -1,0 +1,72 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading">
+                <span>Vehicle Request</span>
+                <button id="jh-create-entity" class="btn btn-sm btn-round btn-blush float-right jh-create-entity create-vehicle-master" [routerLink]="['/vehicle-master/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span >New</span>
+                </button>
+            </h5>
+            <!--jhi-alert></jhi-alert-->
+            <br/>
+            <div class="table-responsive" *ngIf="vehicleMasters">
+                <table class="table table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="vehicleType"><span>Vehicle&nbsp;Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="noVehicle"><span>No&nbsp;Vehicle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="vehicleDate"><span>Vehicle&nbsp;Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="placeFrom"><span>Place&nbsp;From</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="placeTo"><span>Place&nbsp;To</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="purpose"><span>Purpose</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th jhiSortBy="flag"><span>Flag</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let vehicleMaster of vehicleMasters ;trackBy: trackId">
+                        <td>{{vehicleMaster.id}}</td>
+                        <td>
+                            <ng-container *ngIf="vehicleMaster.vehicleType === 'NC'">Normal Vehicle</ng-container>
+                            <ng-container *ngIf="vehicleMaster.vehicleType === 'LC'">Luxury Vehicle</ng-container>
+                        <td>{{vehicleMaster.noVehicle}}</td>
+                        <td>{{vehicleMaster.vehicleDate | date:'dd-MM-yyyy HH:mm'}}</td>
+                        <td>{{vehicleMaster.placeFrom}}</td>
+                        <td>{{vehicleMaster.placeTo}}</td>
+                        <td>{{vehicleMaster.purpose}}</td>
+                        <td><ng-container *ngIf="vehicleMaster.flag=='E'">Pending</ng-container><ng-container *ngIf="vehicleMaster.flag=='A'">Approved By HOD</ng-container><ng-container *ngIf="vehicleMaster.flag=='C'">Approved By Transportation</ng-container><ng-container *ngIf="vehicleMaster.flag=='R'">Rejected</ng-container></td>
+                        <td class="text-right button-column">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        [routerLink]="['/vehicle-master', vehicleMaster.id, 'view' ]"
+                                        class="btn btn-info btn-sm">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/', { outlets: { popup: 'vehicle-master/'+ vehicleMaster.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm" [disabled]="vehicleMaster.flag=='A' || vehicleMaster.flag=='C' || vehicleMaster.flag=='R'">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="vehicleMasters && vehicleMasters.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

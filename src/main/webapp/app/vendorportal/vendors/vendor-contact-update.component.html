@@ -1,0 +1,303 @@
+<form name="editForm" role="form" novalidate #editForm="ngForm" *ngIf="vendorContact">
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-md-6">
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_vendorName">Vendor Name</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.vendorName | uppercase) != (vendorContact.vendorName | uppercase)) ? vendorContact.vendorName : ''"><input type="text" class="form-control form-control-sm text-uppercase" name="vendorName" id="field_vendorName" [(ngModel)]="vendorContactCompare.vendorName" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.vendorName | uppercase) != (vendorContact.vendorName | uppercase))" disabled maxlength="200"/></div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_organizationTypeId">Organization Type</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline"  placement="top" [ngbTooltip]="approved && approved === true && vendorContactCompare.organizationTypeId != vendorContact.organizationTypeId? vendorContact.organizationTypeId:''">
+                        <select class="form-control form-control-sm custom-select custom-select-sm" name="organizationTypeId" id="field_organizationTypeId" [(ngModel)]="vendorContactCompare.organizationTypeId" [class.bg-warning-light]="approved && approved === true && vendorContactCompare.organizationTypeId != vendorContact.organizationTypeId" disabled>
+                            <option *ngFor="let organizationType of organizationTypes" [value]="organizationType.id">{{organizationType.description}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_cinno">CIN No</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.cinno| uppercase) != (vendorContact.cinno | uppercase))? vendorContact.cinno:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="cinno" id="field_cinno" [(ngModel)]="vendorContactCompare.cinno" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.cinno | uppercase) != (vendorContact.cinno | uppercase))" maxlength="25" disabled/>
+                    </div>
+                </div>
+            </div>
+            <!--div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_transactionNature">Transaction Nature</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && vendorContactCompare.transactionNature != vendorContact.transactionNature? vendorContact.transactionNature:''">
+                        <select class="form-control form-control-sm custom-select custom-select-sm" name="transactionNature" id="field_transactionNature" [(ngModel)]="vendorContactCompare.transactionNature" [class.bg-warning-light]="approved && approved === true && vendorContactCompare.transactionNature != vendorContact.transactionNature" disabled>
+                            <option *ngFor="let transactionNature of transactionNatures" [value]="transactionNature.id">{{transactionNature.description}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div-->
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-12">
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Address:</legend>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_addressLine1">Address</label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.addressLine1 | uppercase) != (vendorContact.addressLine1 | uppercase)) ? vendorContact.addressLine1:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="addressLine1" id="field_addressLine1" [(ngModel)]="vendorContactCompare.addressLine1" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.addressLine1 | uppercase) != (vendorContact.addressLine1 | uppercase))" maxlength="100" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_addressLine2"></label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.addressLine2 | uppercase) != (vendorContact.addressLine2 | uppercase)) ? vendorContact.addressLine2:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="addressLine2" id="field_addressLine2" [(ngModel)]="vendorContactCompare.addressLine2" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.addressLine2 | uppercase) != (vendorContact.addressLine2 | uppercase))" maxlength="100" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_addressLine3"></label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.addressLine3 | uppercase) != (vendorContact.addressLine3 | uppercase)) ? vendorContact.addressLine3:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="addressLine3" id="field_addressLine3" [(ngModel)]="vendorContactCompare.addressLine3" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.addressLine3 | uppercase) != (vendorContact.addressLine3 | uppercase))" maxlength="100" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_countryId">Country</label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && vendorContactCompare.countryId != vendorContact.countryId ? vendorContact.countryId:''">
+                                    <select class="form-control form-control-sm custom-select custom-select-sm" name="countryId" id="field_countryId" [(ngModel)]="vendorContactCompare.countryId" [class.bg-warning-light]="approved && approved === true && vendorContactCompare.countryId != vendorContact.countryId" disabled>
+                                        <option *ngFor="let country of countries" [value]="country.id">{{country.countryName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_stateId">State</label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && vendorContactCompare.stateId != vendorContact.stateId ? vendorContact.stateId:''">
+                                    <select class="form-control form-control-sm custom-select custom-select-sm" name="stateId" id="field_stateId" [(ngModel)]="vendorContactCompare.stateId" [class.bg-warning-light]="approved && approved === true && vendorContactCompare.stateId != vendorContact.stateId" disabled>
+                                        <option *ngFor="let state of states" [value]="state.id">{{state.stateName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"><label class="form-control-label" for="field_pincode">Pin/Zip Code</label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" [ngbTooltip]="approved && approved === true && vendorContactCompare.pincode != vendorContact.pincode ? vendorContact.pincode:''">
+                                    <input type="number" class="form-control form-control-sm text-uppercase" name="pincode" id="field_pincode" [(ngModel)]="vendorContactCompare.pincode" [class.bg-warning-light]="approved && approved === true && vendorContactCompare.pincode != vendorContact.pincode" placement="top" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_telephoneNumber">Company Tel. Number</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && vendorContactCompare.telephoneNumber != vendorContact.telephoneNumber ? vendorContact.telephoneNumber:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="telephoneNumber" id="field_telephoneNumber" [(ngModel)]="vendorContactCompare.telephoneNumber" [class.bg-warning-light]="approved && approved === true && vendorContactCompare.telephoneNumber != vendorContact.telephoneNumber" maxlength="16" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_faxNumber">Company Fax Number</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && vendorContactCompare.faxNumber != vendorContact.faxNumber ? vendorContact.faxNumber:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="faxNumber" id="field_faxNumber" [(ngModel)]="vendorContactCompare.faxNumber" [class.bg-warning-light]="approved && approved === true && vendorContactCompare.faxNumber != vendorContact.faxNumber" disabled maxlength="16"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_website">Website</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.website | lowercase) != (vendorContact.website | lowercase)) ? vendorContact.website:''">
+                        <input type="text" class="form-control form-control-sm text-lowercase" name="website" id="field_website" [(ngModel)]="vendorContactCompare.website" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.website | lowercase) != (vendorContact.website | lowercase))" maxlength="200" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_contactPerson">Contact Person</label></div>
+                <div class="col-md-8"><input type="text" class="form-control form-control-sm text-uppercase" name="contactPerson" id="field_contactPerson" [(ngModel)]="vendorContactCompare.contactPerson" [class.bg-warning-light]="approved && approved === true && vendorContactCompare.contactPerson != vendorContact.contactPerson" placement="top" [ngbTooltip]="approved && approved === true && vendorContactCompare.contactPerson != vendorContact.contactPerson ? vendorContact.contactPerson:''" maxlength="100" disabled/></div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_contactDesignation">Designation</label></div>
+                <div class="col-md-8"><input type="text" class="form-control form-control-sm text-uppercase" name="contactDesignation" id="field_contactDesignation" [(ngModel)]="vendorContactCompare.contactDesignation" [class.bg-warning-light]="approved && approved === true && vendorContactCompare.contactDesignation != vendorContact.contactDesignation" placement="top" [ngbTooltip]="approved && approved === true && vendorContactCompare.contactDesignation != vendorContact.contactDesignation ? vendorContact.contactDesignation:''" maxlength="100" disabled/></div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_mobileNumber">Mobile Number</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && vendorContactCompare.mobileNumber != vendorContact.mobileNumber ? vendorContact.mobileNumber:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="mobileNumber" id="field_mobileNumber" [(ngModel)]="vendorContactCompare.mobileNumber" [class.bg-warning-light]="approved && approved === true && vendorContactCompare.mobileNumber != vendorContact.mobileNumber" maxlength="16" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_email">Email Address</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.email | lowercase) != (vendorContact.email | lowercase)) ? vendorContact.email:''">
+                        <input type="text" class="form-control form-control-sm text-lowercase" name="email" id="field_email" [(ngModel)]="vendorContactCompare.email" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.email | lowercase) != (vendorContact.email | lowercase))" maxlength="45" disabled/>
+                    </div>
+                </div>
+            </div>
+            <!--div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_branchesPresent">Branches Present</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline">
+                        <input type="checkbox" name="branchesPresent" id="field_branchesPresent" [(ngModel)]="vendorContactCompare.branchesPresent" [disabled]="branchPresent !=='N'"/>
+                    </div>
+                </div>
+            </div-->
+            <!--div class="row card-margin-bottom-10">
+                <div class="col-md-12"><input type="checkbox" name="addressForTax" id="field_addressForTax" [(ngModel)]="vendorContactCompare.addressForTax" />&nbsp; Address for tax related queries?</div>
+            </div-->
+        </div>
+        <div class="col-md-6">
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-4"><label class="form-control-label" for="field_panTaxNumber">Pan/Tax Number</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.panTaxNumber | uppercase) != (vendorContact.panTaxNumber | uppercase)) ? vendorContact.panTaxNumber:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="panTaxNumber" id="field_panTaxNumber" [(ngModel)]="vendorContactCompare.panTaxNumber" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.panTaxNumber | uppercase) != (vendorContact.panTaxNumber | uppercase))" maxlength="45" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN'">
+                <div class="col-md-4"><label class="form-control-label" for="field_vendTypeMasterId">Vendor Type</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && vendorContactCompare.vendTypeMasterId != vendorContact.vendTypeMasterId ? vendorContact.vendTypeMasterId:''">
+                        <select class="form-control form-control-sm custom-select custom-select-sm" name="vendTypeMasterId" id="field_vendTypeMasterId" [(ngModel)]="vendorContactCompare.vendTypeMasterId" [class.bg-warning-light]="approved && approved === true && vendorContactCompare.vendTypeMasterId != vendorContact.vendTypeMasterId" disabled>
+                            <option *ngFor="let vendTypeMaster of vendTypeMasters" [value]="vendTypeMaster.id">{{vendTypeMaster.description}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN'">
+                <div class="col-md-4"><label class="form-control-label" for="field_vendSubTypeMasterId">Vendor Sub Type</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && vendorContactCompare.vendSubTypeMasterId != vendorContact.vendSubTypeMasterId ? vendorContact.vendSubTypeMasterId:''">
+                        <select class="form-control form-control-sm custom-select custom-select-sm" name="vendSubTypeMasterId" id="field_vendSubTypeMasterId" [(ngModel)]="vendorContactCompare.vendSubTypeMasterId" [class.bg-warning-light]="approved && approved === true && vendorContactCompare.vendSubTypeMasterId != vendorContact.vendSubTypeMasterId" disabled>
+                            <option *ngFor="let vendSubTypeMaster of vendSubTypeMasters" [value]="vendSubTypeMaster.id">{{vendSubTypeMaster.description}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN' && selectedVendorTypeMaster && selectedVendorTypeMaster.description === 'Registered'">
+                <div class="col-md-4"><label class="form-control-label">GST Number</label></div>
+                <div class="col-md-8">
+                    <div class="row gutters-2">
+                        <div class="col-md-2"><input type="text" class="form-control form-control-sm text-uppercase" name="gstNumber1" id="field_gstNumber1" [(ngModel)]="vendorContactCompare.gstNumber1" maxlength="45" readonly="readonly"/></div>
+                        <div class="col-md-4"><input type="text" class="form-control form-control-sm text-uppercase" name="gstNumber2" id="field_gstNumber2" [(ngModel)]="vendorContactCompare.gstNumber2" maxlength="45" readonly="readonly"/></div>
+                        <div class="col-md-2">
+                            <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.gstNumber3 | uppercase) != (vendorContact.gstNumber3 | uppercase)) ? vendorContact.gstNumber3:''">
+                                <input type="text" class="form-control form-control-sm text-uppercase" name="gstNumber3" id="field_gstNumber3" [(ngModel)]="vendorContactCompare.gstNumber3" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.gstNumber3 | uppercase) != (vendorContact.gstNumber3 | uppercase))" maxlength="1" disabled/>
+                            </div>
+                        </div>
+                        <div class="col-md-2"><input type="text" class="form-control form-control-sm text-uppercase" name="gstNumber4" id="field_gstNumber4" [(ngModel)]="vendorContactCompare.gstNumber4" maxlength="45" readonly="readonly"/></div>
+                        <div class="col-md-2">
+                            <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.gstNumber5 | uppercase) != (vendorContact.gstNumber5 | uppercase)) ? vendorContact.gstNumber5:''">
+                                <input type="text" class="form-control form-control-sm text-uppercase" name="gstNumber5" id="field_gstNumber5" [(ngModel)]="vendorContactCompare.gstNumber5" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.gstNumber5 | uppercase) != (vendorContact.gstNumber5 | uppercase))" maxlength="1" disabled/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN'">
+                <div class="col-md-4">
+                    <label class="form-control-label">Service&nbsp;Tax&nbsp;Applicable</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="checkbox" name="registeredServiceTax" id="field_registeredServiceTax" [(ngModel)]="vendorContactCompare.registeredServiceTax" disabled/>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="vendorContactCompare.registeredServiceTax">
+                <div class="col-md-4"><label class="form-control-label" for="field_serviceTaxNumber">Service Tax No.</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.serviceTaxNumber | uppercase) != (vendorContact.serviceTaxNumber | uppercase)) ? vendorContact.serviceTaxNumber:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="serviceTaxNumber" [required]="vendorContactCompare.registeredServiceTax && vendorContactCompare.registeredServiceTax === true" id="field_serviceTaxNumber" [(ngModel)]="vendorContactCompare.serviceTaxNumber" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.serviceTaxNumber | uppercase) != (vendorContact.serviceTaxNumber | uppercase))" maxlength="45" disabled/>
+                    </div>
+                </div>
+            </div-->
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN'">
+                <div class="col-md-4"><label class="form-control-label">VAT</label></div>
+                <div class="col-md-8"><input type="checkbox" name="registeredForSaleTax" id="field_registeredForSaleTax" [(ngModel)]="vendorContactCompare.registeredForSaleTax" disabled/>&nbsp; </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN' && vendorContactCompare.registeredForSaleTax">
+                <div class="col-md-4"><label class="form-control-label" for="field_salesTaxVatTinNumber">VAT No.</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.salesTaxVatTinNumber | uppercase) != (vendorContact.salesTaxVatTinNumber | uppercase)) ? vendorContact.salesTaxVatTinNumber:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="salesTaxVatTinNumber" [required]="vendorContactCompare.registeredForSaleTax && vendorContactCompare.registeredForSaleTax === true" id="field_salesTaxVatTinNumber" [(ngModel)]="vendorContactCompare.salesTaxVatTinNumber" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.salesTaxVatTinNumber | uppercase) != (vendorContact.salesTaxVatTinNumber | uppercase))" maxlength="45" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN'">
+                <div class="col-md-4"><label class="form-control-label">Excise Applicable</label></div>
+                <div class="col-md-8"><input type="checkbox" name="exciseApplicable" id="field_exciseApplicable" [(ngModel)]="vendorContactCompare.exciseApplicable" disabled/></div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN' && vendorContactCompare.exciseApplicable">
+                <div class="col-md-4"><label class="form-control-label" for="field_exciseRegistrationNumber">Excise&nbsp;Registration&nbsp;No.</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.exciseRegistrationNumber | uppercase) != (vendorContact.exciseRegistrationNumber | uppercase)) ? vendorContact.exciseRegistrationNumber:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="exciseRegistrationNumber" [required]="vendorContactCompare.exciseApplicable && vendorContactCompare.exciseApplicable === true" id="field_exciseRegistrationNumber" [(ngModel)]="vendorContactCompare.exciseRegistrationNumber" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.exciseRegistrationNumber | uppercase) != (vendorContact.exciseRegistrationNumber | uppercase))" maxlength="45" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN' && vendorContactCompare.exciseApplicable">
+                <div class="col-md-4"><label class="form-control-label" for="field_exciseRange">Excise Range</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.exciseRange | uppercase) != (vendorContact.exciseRange | uppercase)) ? vendorContact.exciseRange:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="exciseRange" id="field_exciseRange" [(ngModel)]="vendorContactCompare.exciseRange" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.exciseRange | uppercase) != (vendorContact.exciseRange | uppercase))" placement="top" disabled maxlength="45"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN' && vendorContactCompare.exciseApplicable">
+                <div class="col-md-4"><label class="form-control-label" for="field_exciseDivision">Excise Division</label></div>
+                <div class="col-md-8">
+                    <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.exciseDivision | uppercase) != (vendorContact.exciseDivision | uppercase)) ? vendorContact.exciseDivision:''">
+                        <input type="text" class="form-control form-control-sm text-uppercase" name="exciseDivision" id="field_exciseDivision" [(ngModel)]="vendorContactCompare.exciseDivision" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.exciseDivision | uppercase) != (vendorContact.exciseDivision | uppercase))" disabled maxlength="45"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-margin-bottom-10" *ngIf="selectedCountry && selectedCountry.countryCode === 'IN' && vendorContactCompare.exciseApplicable">
+                <div class="col-md-12">
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Excise Address:</legend>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_exciseAddressLine1">Excise&nbsp;Address&nbsp;</label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.exciseAddressLine1 | uppercase) != (vendorContact.exciseAddressLine1 | uppercase)) ? vendorContact.exciseAddressLine1:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="exciseAddressLine1" id="field_exciseAddressLine1" [(ngModel)]="vendorContactCompare.exciseAddressLine1" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.exciseAddressLine1 | uppercase) != (vendorContact.exciseAddressLine1 | uppercase))"  maxlength="45" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_exciseAddressLine2"></label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.exciseAddressLine2 | uppercase) != (vendorContact.exciseAddressLine2 | uppercase)) ? vendorContact.exciseAddressLine2:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="exciseAddressLine2" id="field_exciseAddressLine2" [(ngModel)]="vendorContactCompare.exciseAddressLine2" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.exciseAddressLine2 | uppercase) != (vendorContact.exciseAddressLine2 | uppercase))" maxlength="45" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row card-margin-bottom-5">
+                            <div class="col-md-4"><label class="form-control-label" for="field_divisionAddressLine1">Division&nbsp;Address&nbsp;</label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.divisionAddressLine1 | uppercase) != (vendorContact.divisionAddressLine1 | uppercase)) ? vendorContact.divisionAddressLine1:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="divisionAddressLine1" id="field_divisionAddressLine1" [(ngModel)]="vendorContactCompare.divisionAddressLine1" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.divisionAddressLine1 | uppercase) != (vendorContact.divisionAddressLine1 | uppercase))" maxlength="45" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"><label class="form-control-label" for="field_divisionAddressLine2"></label></div>
+                            <div class="col-md-8">
+                                <div style="display: inline" placement="top" [ngbTooltip]="approved && approved === true && ((vendorContactCompare.divisionAddressLine2 | uppercase) != (vendorContact.divisionAddressLine2 | uppercase)) ? vendorContact.divisionAddressLine2:''">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" name="divisionAddressLine2" id="field_divisionAddressLine2" [(ngModel)]="vendorContactCompare.divisionAddressLine2" [class.bg-warning-light]="approved && approved === true && ((vendorContactCompare.divisionAddressLine2 | uppercase) != (vendorContact.divisionAddressLine2 | uppercase))" maxlength="45" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

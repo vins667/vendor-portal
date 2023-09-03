@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity WorkerRecruitment.
+    -->
+    <changeSet id="20190216070206-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="bank_master_id"
+                                 baseTableName="worker_recruitment"
+                                 constraintName="fk_worker_recruitment_bank_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="bank_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="designation_master_id"
+                                 baseTableName="worker_recruitment"
+                                 constraintName="fk_worker_recruitment_designation_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="designation_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="department_master_id"
+                                 baseTableName="worker_recruitment"
+                                 constraintName="fk_worker_recruitment_department_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="department_master"/>
+
+    </changeSet>
+</databaseChangeLog>

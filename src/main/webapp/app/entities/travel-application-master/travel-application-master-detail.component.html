@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="travelApplicationMaster">
+            <h2><span>Travel Application Master</span> {{travelApplicationMaster.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Emp Code</span></dt>
+                <dd>
+                    <span>{{travelApplicationMaster.empCode}}</span>
+                </dd>
+                <dt><span>Travel Destination</span></dt>
+                <dd>
+                    <span>{{travelApplicationMaster.travelDestination}}</span>
+                </dd>
+                <dt><span>Travel Days</span></dt>
+                <dd>
+                    <span>{{travelApplicationMaster.travelDays}}</span>
+                </dd>
+                <dt><span>Travel Purpose</span></dt>
+                <dd>
+                    <span>{{travelApplicationMaster.travelPurpose}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{travelApplicationMaster.createdBy}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{travelApplicationMaster.createdDate}}</span>
+                </dd>
+                <dt><span>Last Updated By</span></dt>
+                <dd>
+                    <span>{{travelApplicationMaster.lastUpdatedBy}}</span>
+                </dd>
+                <dt><span>Last Updated Date</span></dt>
+                <dd>
+                    <span>{{travelApplicationMaster.lastUpdatedDate}}</span>
+                </dd>
+                <dt><span>Status</span></dt>
+                <dd>
+                    <span>{{travelApplicationMaster.status}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/travel-application-master', travelApplicationMaster.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

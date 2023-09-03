@@ -1,0 +1,84 @@
+<div>
+    <h2 id="page-heading">
+        <span>Travel Flight Details</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-travel-flight-details" [routerLink]="['/travel-flight-details/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create a new Travel Flight Details
+            </span>
+        </button>
+    </h2>
+    <div class="table-responsive">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="travelDate"><span>Travel Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="ticketType"><span>Ticket Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="ticketNo"><span>Ticket No</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="departureDate"><span>Departure Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="arrivalDate"><span>Arrival Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="farePrice"><span>Fare Price</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdBy"><span>Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastUpdatedBy"><span>Last Updated By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastUpdatedDate"><span>Last Updated Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="travelApplicationMaster.id"><span>Travel Application Master</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let travelFlightDetails of travelFlightDetails ;trackBy: trackId">
+                <td><a [routerLink]="['/travel-flight-details', travelFlightDetails.id, 'view' ]">{{travelFlightDetails.id}}</a></td>
+                <td>{{travelFlightDetails.travelDate | date:'medium'}}</td>
+                <td>{{travelFlightDetails.ticketType}}</td>
+                <td>{{travelFlightDetails.ticketNo}}</td>
+                <td>{{travelFlightDetails.departureDate | date:'medium'}}</td>
+                <td>{{travelFlightDetails.arrivalDate | date:'medium'}}</td>
+                <td>{{travelFlightDetails.farePrice}}</td>
+                <td>{{travelFlightDetails.createdBy}}</td>
+                <td>{{travelFlightDetails.createdDate | date:'medium'}}</td>
+                <td>{{travelFlightDetails.lastUpdatedBy}}</td>
+                <td>{{travelFlightDetails.lastUpdatedDate | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="travelFlightDetails.travelApplicationMaster">
+                        <a [routerLink]="['/travel-application-master', travelFlightDetails.travelApplicationMaster?.id, 'view' ]" >{{travelFlightDetails.travelApplicationMaster?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/travel-flight-details', travelFlightDetails.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/travel-flight-details', travelFlightDetails.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/travel-flight-details', { outlets: { popup: travelFlightDetails.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="travelFlightDetails?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

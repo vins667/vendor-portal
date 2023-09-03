@@ -1,0 +1,45 @@
+<div class="card">
+    <div class="body">
+        <h5><span>Fabric Content Master</span> {{fabricContentMaster.id}}</h5>
+        <hr>
+        <div class="row">
+            <div class="col-8">
+                <div *ngIf="fabricContentMaster">
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Code</span></dt></div>
+                        <div class="col-md-9">
+                            <span>{{fabricContentMaster.code}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Description</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span>{{fabricContentMaster.description}}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><dt><span>Flag</span></dt></div>
+                        <div class="col-md-9">
+                            <dd>
+                                <span *ngIf="fabricContentMaster.flag=='Y'">Active</span>
+                                <span *ngIf="fabricContentMaster.flag=='N'">Inactive</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <button type="submit"
+                          (click)="previousState()"
+                          class="btn btn-sm btn-info btn-round">
+                          <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+                    <button type="button"
+                            [routerLink]="['/fabric-content-master', fabricContentMaster.id, 'edit']"
+                            class="btn btn-sm btn-blush btn-round">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

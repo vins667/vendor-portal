@@ -1,0 +1,92 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading"> <span>Travel Approval</span></h5>
+            <jhi-alert></jhi-alert>
+            <div class="row card-margin-bottom-10">
+                <div class="col-md-3">
+                    <select name="status" id="status" class="form-control custom-select custom-select-sm" [(ngModel)]="conveyanceSearchMaster.status">
+                        <option value="P">Pending</option>
+                        <option value="A">Approved</option>
+                        <option value="R">Rejected</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <ng-container *ngIf="conveyanceSearchMaster.status && conveyanceSearchMaster.status!=='P'">
+                        <div class="input-group input-group-sm">
+                            <input [owlDateTime]="leaveFrom" name="leaveDateFrom" id="field_leaveDateFrom" placeholder="Date From" class="form-control form-control-sm" required [(ngModel)]="leaveDateFrom">
+                            <div class="input-group-append input-group-append-top">
+                                <div class="btn btn-blush" [owlDateTimeTrigger]="leaveFrom"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                            </div>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #leaveFrom></owl-date-time>
+                    </ng-container>
+                </div>
+                <div class="col-md-3">
+                    <ng-container *ngIf="conveyanceSearchMaster.status && conveyanceSearchMaster.status!=='P'">
+                        <div class="input-group input-group-sm">
+                            <input [owlDateTime]="leaveTo" name="leaveDateTo" id="field_leaveDateTo" placeholder="Date To" class="form-control form-control-sm" required [(ngModel)]="leaveDateTo">
+                            <div class="input-group-append input-group-append-top">
+                                <div class="btn btn-blush" [owlDateTimeTrigger]="leaveTo"><span><fa-icon [icon]="'calendar'"></fa-icon></span></div>
+                            </div>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #leaveTo></owl-date-time>
+                    </ng-container>
+                </div>
+                <div class="col-md-3 text-right">
+                    <div class="btn-group">
+                        <button id="jh-search-entity" class="btn btn-sm btn-info btn-round" type="button" style="margin: 0;" (click)="search()">
+                            <fa-icon [icon]="'search'"></fa-icon>
+                            <span >Search</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-striped" aria-describedby="page-heading">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="empCode"><span>Emp Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="travelDestination"><span>Travel Destination</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="travelDays"><span>Travel Days</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="travelPurpose"><span>Travel Purpose</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let travelApplicationMaster of travelApplicationMasters ;trackBy: trackId">
+                        <td><a [routerLink]="['/travel-application-master', travelApplicationMaster.id, 'view' ]">{{travelApplicationMaster.id}}</a></td>
+                        <td>{{travelApplicationMaster.empCode}}</td>
+                        <td>{{travelApplicationMaster.name}}</td>
+                        <td>{{travelApplicationMaster.travelDestination}}</td>
+                        <td>{{travelApplicationMaster.travelDays}}</td>
+                        <td>{{travelApplicationMaster.travelPurpose}}</td>
+                        <td><ng-container *ngIf="travelApplicationMaster.status=='A'">Approved Hod</ng-container><ng-container *ngIf="travelApplicationMaster.status=='R'">Rejected</ng-container><ng-container *ngIf="travelApplicationMaster.status=='C'">Closed</ng-container></td>
+                        <td class="text-right button-column">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/travel-application-master-hr', travelApplicationMaster.id, 'edit']"
+                                        class="btn btn-blush btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div [hidden]="travelApplicationMasters?.length === 0">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
