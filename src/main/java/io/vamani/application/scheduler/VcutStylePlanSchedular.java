@@ -45,7 +45,7 @@ public class VcutStylePlanSchedular {
     @Autowired
     private VcutStyleOperationWiseSchUploadRepository vcutStyleOperationWiseSchUploadRepository;
 
-    @Scheduled(cron = "0 0 4 * * ?")
+   // @Scheduled(cron = "0 0 4 * * ?")  // vinay 11-10-23
     public void pushData() throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat simpleDateFormatParse = new SimpleDateFormat("yyyy-MM-dd");

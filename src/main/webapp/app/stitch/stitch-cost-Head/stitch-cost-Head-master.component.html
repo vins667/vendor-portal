@@ -1,0 +1,48 @@
+<div class="card">
+    <div class="body">
+        <div>
+            <h5 id="page-heading"><span>Stitch Cost Head Master</span></h5>
+            <br />
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead>
+                        <tr>
+                            <th><span>ID</span></th>
+                            <th><span>Head Name</span></th>
+                            <th>Action</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let master of stitchCostHeadMasters;let h = index;">
+                            <td>{{master.id}}</td>
+                            <td>{{master.headName}}
+                                  <ng-container *ngIf="master.expend || master.expend === true">
+                                    <ng-container *ngIf="master && master.stitchCostSubHeadMaster">
+                                        <tr *ngFor="let subHeadMaster of master.stitchCostSubHeadMaster; let i = index;" style="background-color: wheat;">
+                                            <td style="padding-left: 10px;font-weight: normal;">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;{{i + 1}}. {{subHeadMaster.subHeadName}}
+                                            </td>
+                                            <td style="width: 150px; max-width: 150px; min-width: 150px;" style="background-color:white;">
+                                                <input type="number" id="companyCost{{h}}_{{i}}" name="companyCost_{{h}}_{{i}}" class="form-control form-control-sm" [(ngModel)]="subHeadMaster.companyCost"/>
+                                            </td>
+                                        </tr>
+                                    </ng-container> 
+                            </td>
+                            <td>
+                                <fa-icon [icon]="'plus-circle'" style="color: #00FF00; cursor: pointer;" (click)="changeExpend(master);" *ngIf="!master.expend || master.expend === false"></fa-icon>
+                                <fa-icon [icon]="'minus-circle'"style="color: #FF0000; cursor: pointer;" (click)="changeExpend(master);" *ngIf="master.expend || master.expend === true"></fa-icon>
+                            </td>            
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <div class="text-right">
+                    <button  type="button" id="save-entity" class="btn btn-sm btn-xs btn-blush btn-round m-0">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>&nbsp;
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

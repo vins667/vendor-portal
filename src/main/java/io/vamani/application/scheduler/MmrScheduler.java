@@ -25,7 +25,7 @@ public class MmrScheduler {
     @Autowired
     private JobProfileRepository jobProfileRepository;
 
-    @Scheduled(cron = "* 0 11 * * ?")
+   // @Scheduled(cron = "* 0 11 * * ?")  by vinay 11-10-23
     public void pushMmrDataByDate() {
         List<JobProfile> jobProfiles = this.jobProfileRepository.findAll();
         Map<String, Map<String, MMRMaster>> factoryMap = new HashMap<String, Map<String, MMRMaster>>();
