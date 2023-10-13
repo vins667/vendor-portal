@@ -1,11 +1,8 @@
 package io.vamani.application.service;
-
-import java.util.List;
-import io.vamani.application.domain.StitchCostHeadMaster;
-import io.vamani.application.domain.StitchCostSubHeadMaster;
+import io.vamani.application.model.StitchCostHeadMasterBean;
 
 public interface StitchCostHeadMasterService {
-	public List<StitchCostHeadMaster> getAllStitchCostHeadMaster();
+	public StitchCostHeadMasterBean getAllStitchCostHeadMaster(String factory);
 
-	public StitchCostSubHeadMaster getUpdate(List<StitchCostSubHeadMaster>subHeadMaster);
+	public StitchCostHeadMasterBean getUpdate(StitchCostHeadMasterBean bean);
 }

@@ -11,10 +11,10 @@ import { StitchCostHeadMasterService } from './stitch-cost-Head-master.service';
 
 @Injectable({ providedIn: 'root' })
 export class StitchCostHeadMasterResolve implements Resolve<IStitchCostHeadMaster> {
-  constructor(private service: StitchCostHeadMasterService) {}
+  constructor(private service: StitchCostHeadMasterService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IStitchCostHeadMaster> {
-    
+
     return of(new StitchCostHeadMaster());
   }
 }

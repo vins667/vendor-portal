@@ -2,21 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
-import { IStitchCostHeadMaster } from 'app/shared/model/stitch-cost-head-master.model';
+import { IStitchCostHeadMasterBean } from 'app/shared/model/stitch-cost-head-master-bean.model';
 
-type EntityResponseType = HttpResponse<IStitchCostHeadMaster>;
+type EntityResponseType = HttpResponse<IStitchCostHeadMasterBean>;
 
 @Injectable({ providedIn: 'root' })
 export class StitchCostHeadMasterService {
   public resourceUrl = SERVER_API_URL + 'api/stitch-cost-head-masters';
 
-  constructor(protected http: HttpClient) {}
+  constructor(protected http: HttpClient) { }
 
-  update(buyerCosting: IStitchCostHeadMaster): Observable<EntityResponseType> {
-    return this.http.put<IStitchCostHeadMaster>(this.resourceUrl, buyerCosting, { observe: 'response' });
+  update(masterBean: IStitchCostHeadMasterBean): Observable<EntityResponseType> {
+    return this.http.put<IStitchCostHeadMasterBean>(this.resourceUrl + '-update', masterBean, { observe: 'response' });
   }
 
-  queryCostHeadMasters(): Observable<HttpResponse<IStitchCostHeadMaster[]>> {
-    return this.http.get<IStitchCostHeadMaster[]>(this.resourceUrl, { observe: 'response' });
+  query(factory: string): Observable<HttpResponse<IStitchCostHeadMasterBean>> {
+    return this.http.get<IStitchCostHeadMasterBean>(`${this.resourceUrl}/${factory}`, { observe: 'response' });
   }
 }

@@ -1,48 +1,78 @@
-<div class="card">
-    <div class="body">
-        <div>
-            <h5 id="page-heading"><span>Stitch Cost Head Master</span></h5>
-            <br />
-            <div class="table-responsive">
-                <table class="table table-sm table-striped">
-                    <thead>
-                        <tr>
-                            <th><span>ID</span></th>
-                            <th><span>Head Name</span></th>
-                            <th>Action</th>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let master of stitchCostHeadMasters;let h = index;">
-                            <td>{{master.id}}</td>
-                            <td>{{master.headName}}
-                                  <ng-container *ngIf="master.expend || master.expend === true">
-                                    <ng-container *ngIf="master && master.stitchCostSubHeadMaster">
-                                        <tr *ngFor="let subHeadMaster of master.stitchCostSubHeadMaster; let i = index;" style="background-color: wheat;">
-                                            <td style="padding-left: 10px;font-weight: normal;">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;{{i + 1}}. {{subHeadMaster.subHeadName}}
-                                            </td>
-                                            <td style="width: 150px; max-width: 150px; min-width: 150px;" style="background-color:white;">
-                                                <input type="number" id="companyCost{{h}}_{{i}}" name="companyCost_{{h}}_{{i}}" class="form-control form-control-sm" [(ngModel)]="subHeadMaster.companyCost"/>
-                                            </td>
-                                        </tr>
-                                    </ng-container> 
-                            </td>
-                            <td>
-                                <fa-icon [icon]="'plus-circle'" style="color: #00FF00; cursor: pointer;" (click)="changeExpend(master);" *ngIf="!master.expend || master.expend === false"></fa-icon>
-                                <fa-icon [icon]="'minus-circle'"style="color: #FF0000; cursor: pointer;" (click)="changeExpend(master);" *ngIf="master.expend || master.expend === true"></fa-icon>
-                            </td>            
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="card">
+        <div class="body">
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 id="page-heading"><span>Stitch Cost Head Master</span></h5>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-right">
+                                    <button type="button" id="cancel-entity"
+                                        class="btn btn-sm btn-xs btn-second btn-round m-0" (click)="clear();">
+                                        <fa-icon [icon]="'sync'"></fa-icon>&nbsp;<span>clear</span>
+                                    </button>
+                                    <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
+                                        class="btn btn-sm btn-xs btn-blush btn-round m-0">
+                                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer body bg-white p-2">
+                        <div class="row">
+                            <div class="col-md-1"><label class="form-control-label" for="field_factoryCode">Factory</label></div>
+                            <div class="col-md-2">
+                                <select type="text" class="form-control form-control-xs" name="factoryCode" id="field_factoryCode" [(ngModel)]="masterBean.factory" (change)="loadAll();" required>
+                                    <option [value]="null">Select</option>
+                                    <option [value]="factoryOption.factoryCode" *ngFor="let factoryOption of factories;">{{factoryOption.factoryName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th><span>ID</span></th>
+                                <th><span>Head Name</span></th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let master of masterBean.stitchCostHeadMasters;let h = index;">
+                                <td>{{h + 1}}</td>
+                                <td>{{master.headName}}
+                                    <ng-container *ngIf="master.expend || master.expend === true">
+                                        <ng-container *ngIf="master && master.stitchCostSubHeadMaster">
+                                            <tr *ngFor="let subHeadMaster of master.stitchCostSubHeadMaster; let i = index;" style="background-color: wheat;">
+                                                <td style="padding-left: 10px;font-weight: normal;">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;{{i + 1}}. {{subHeadMaster.subHeadName}}
+                                                </td>
+                                                <td style="width: 150px; max-width: 150px; min-width: 150px;" style="background-color:white;">
+                                                    <input type="number" id="companyCost{{h}}_{{i}}" name="companyCost_{{h}}_{{i}}"
+                                                    class="form-control form-control-sm" [(ngModel)]="subHeadMaster.companyCost" />
+                                                </td>
+                                            </tr>
+                                     </ng-container>
+                                </ng-container>
+                             </td>
+                             <td>
+                                <fa-icon [icon]="'plus-circle'" style="color: #00FF00; cursor: pointer;" (click)="changeExpend(master);"
+                                *ngIf="!master.expend || master.expend === false"></fa-icon>
+                                <fa-icon [icon]="'minus-circle'" style="color: #FF0000; cursor: pointer;" (click)="changeExpend(master);"
+                                *ngIf="master.expend || master.expend === true"></fa-icon>
+                             </td>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="col-md-6">
-                <div class="text-right">
-                    <button  type="button" id="save-entity" class="btn btn-sm btn-xs btn-blush btn-round m-0">
-                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>&nbsp;
-                    </button>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>

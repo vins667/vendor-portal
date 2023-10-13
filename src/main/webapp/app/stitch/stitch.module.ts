@@ -25,7 +25,7 @@ import { RouterModule } from '@angular/router';
           import('./stitch-line-issue-report/stitch-line-issue-report.module').then(m => m.VamaniportalStitchLineIssueReportModule)
       },
       {
-        path: 'stitching-manpower-cost', //stitch-cost-head-master
+        path: 'stitching-manpower-cost',
         loadChildren: () =>
           import('./stitch-cost-Head/stitch-cost-Head-master.module').then(m => m.VamaniportalStitchCostHeadMasterModule)
       }
