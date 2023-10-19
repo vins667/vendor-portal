@@ -1,3 +1,7 @@
+
+<div align="center" class="centered" *ngIf="isProcess">
+    <fa-icon [icon]="'sync-alt'" spin style="font-size: 100px;" class="fa fa-spin animated-active"></fa-icon>
+</div>
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
     <div class="card">
         <div class="body">
@@ -6,14 +10,14 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6">
-                                <h5 id="page-heading"><span>Stitch Cost Head Master</span></h5>
+                                <h5 id="page-heading"><span>Stitch Cost Head Details </span></h5>
                             </div>
                             <div class="col-md-6">
                                 <div class="text-right">
-                                    <button type="button" id="cancel-entity"
+                                    <!-- <button type="button" id="cancel-entity"
                                         class="btn btn-sm btn-xs btn-second btn-round m-0" (click)="clear();">
                                         <fa-icon [icon]="'sync'"></fa-icon>&nbsp;<span>clear</span>
-                                    </button>
+                                    </button> -->
                                     <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
                                         class="btn btn-sm btn-xs btn-blush btn-round m-0">
                                         <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
@@ -24,11 +28,12 @@
                     </div>
                     <div class="card-footer body bg-white p-2">
                         <div class="row">
-                            <div class="col-md-1"><label class="form-control-label" for="field_factoryCode">Factory</label></div>
-                            <div class="col-md-2">
-                                <select type="text" class="form-control form-control-xs" name="factoryCode" id="field_factoryCode" [(ngModel)]="masterBean.factory" (change)="loadAll();" required>
-                                    <option [value]="null">Select</option>
-                                    <option [value]="factoryOption.factoryCode" *ngFor="let factoryOption of factories;">{{factoryOption.factoryName}}</option>
+                            <div class="col-md-1"><label class="form-control-label" for="field_factory">Factory</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-control form-control-sm custom-select custom-select-sm"
+                                    name="factory" id="field_factory" [(ngModel)]="masterBean.factory" (change)="loadAll();" required>
+                                    <option *ngFor="let factoryOption of factories;" [value]="factoryOption.factoryCode">{{factoryOption.factoryName}}</option>
                                 </select>
                             </div>
                         </div>
@@ -46,33 +51,55 @@
                         <tbody>
                             <tr *ngFor="let master of masterBean.stitchCostHeadMasters;let h = index;">
                                 <td>{{h + 1}}</td>
-                                <td>{{master.headName}}
-                                    <ng-container *ngIf="master.expend || master.expend === true">
-                                        <ng-container *ngIf="master && master.stitchCostSubHeadMaster">
-                                            <tr *ngFor="let subHeadMaster of master.stitchCostSubHeadMaster; let i = index;" style="background-color: wheat;">
-                                                <td style="padding-left: 10px;font-weight: normal;">
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;{{i + 1}}. {{subHeadMaster.subHeadName}}
+                                <td style="font-weight: normal;width:900px;">{{master.headName}}
+                                    <!-- <ng-container *ngIf="master.expend || master.expend === true"> -->
+                                        <ng-container *ngIf="master.totalCtc">
+                                            <span style="color:#FF0000;margin-left:745px;">({{master.totalCtc}})</span><br/>
+                                        </ng-container>
+                                        <ng-container>
+                                            <table class="table table-sm table-bordered" style="background-color: transparent;">
+                                            <tr *ngFor="let subHeadMaster of master.stitchCostSubHeadMaster; let i = index;"
+                                                style="background-color: wheat;">
+                                                <td style="padding-left: 10px;font-weight: normal;width:900px;">
+                                                      &nbsp;&nbsp;&nbsp;&nbsp;{{i + 1}}. {{subHeadMaster.subHeadName}}
                                                 </td>
-                                                <td style="width: 150px; max-width: 150px; min-width: 150px;" style="background-color:white;">
+                                                <td style="background-color:white;width: 200px;">
                                                     <input type="number" id="companyCost{{h}}_{{i}}" name="companyCost_{{h}}_{{i}}"
-                                                    class="form-control form-control-sm" [(ngModel)]="subHeadMaster.companyCost" />
+                                                    class="form-control form-control-sm" (keyup)="totalCost(master);"
+                                                    [(ngModel)]="subHeadMaster.stitchCostSubHeadDetails.companyCost"/>
                                                 </td>
                                             </tr>
-                                     </ng-container>
-                                </ng-container>
-                             </td>
-                             <td>
-                                <fa-icon [icon]="'plus-circle'" style="color: #00FF00; cursor: pointer;" (click)="changeExpend(master);"
-                                *ngIf="!master.expend || master.expend === false"></fa-icon>
-                                <fa-icon [icon]="'minus-circle'" style="color: #FF0000; cursor: pointer;" (click)="changeExpend(master);"
-                                *ngIf="master.expend || master.expend === true"></fa-icon>
-                             </td>
+                                            <tr class="bg-light" *ngIf="master.headType!=='ABC'">
+                                                <td colspan="0" class="font-weight-bold">Total</td>
+                                                <td><input type="text" class="form-control form-control-xs"
+                                                        name="totalCost_{{h}}" id="totalCost_{{h}}" [(ngModel)]="master.totalCost"
+                                                        readonly [ngModelOptions]="{standalone: true}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        </ng-container>
+                                    <!-- </ng-container> -->
+                                <!-- <td style="width:50px;">
+                                    <fa-icon [icon]="'plus-circle'" style="color: #00FF00; cursor: pointer;" (click)="changeExpend(master);"
+                                        *ngIf="!master.expend || master.expend === false"></fa-icon>
+                                    <fa-icon [icon]="'minus-circle'" style="color: #FF0000; cursor: pointer;" (click)="changeExpend(master);"
+                                        *ngIf="master.expend || master.expend === true"></fa-icon>
+                                </td> -->
+                         </td>
+                         </tr>
+                         <tr class="bg-background" *ngIf="headTotal">
+                            <td style="padding-left:0px;font-weight: bold;width:100px;" colspan="2">Total CTC for the Day (A) + (B)
+                                <span style="color:#FF0000;margin-left:600px;">({{headTotal}})</span><br/>
                             </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            <!-- <td style="width: 200px;">
+                                <input type="text" class="form-control form-control-sm" id="headTotal" name="headTotal" [(ngModel)]="headTotal" readonly/>
+                            </td> -->
+                         </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </form>
+<ng-snotify></ng-snotify>

@@ -1,11 +1,14 @@
 package io.vamani.application.domain;
 import java.io.Serializable;
 import java.time.Instant;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,9 +28,6 @@ public class StitchCostSubHeadMaster implements Serializable{
 	@Column(name = "sub_heads_name")
 	private String subHeadName;
 	
-	@Column(name = "company_cost")
-	private Double companyCost;
-	
 	@Size(max = 50)
     @Column(name = "update_by", length = 50)
     private String updateBy;
@@ -39,6 +39,9 @@ public class StitchCostSubHeadMaster implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "head_id",referencedColumnName = "id",insertable = false)
 	private StitchCostHeadMaster stitchCostHeadMaster;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "stitchCostSubHeadMaster")
+	private StitchCostSubHeadDetails stitchCostSubHeadDetails;
 
 	public Long getId() {
 		return id;
@@ -56,13 +59,6 @@ public class StitchCostSubHeadMaster implements Serializable{
 		this.subHeadName = subHeadName;
 	}
 
-	public Double getCompanyCost() {
-		return companyCost;
-	}
-
-	public void setCompanyCost(Double companyCost) {
-		this.companyCost = companyCost;
-	}
 
 	public String getUpdateBy() {
 		return updateBy;
@@ -84,15 +80,24 @@ public class StitchCostSubHeadMaster implements Serializable{
 		return stitchCostHeadMaster;
 	}
 
-	public void setStitchCostHeadMastes(StitchCostHeadMaster stitchCostHeadMastes) {
-		this.stitchCostHeadMaster = stitchCostHeadMastes;
+	public void setStitchCostHeadMaster(StitchCostHeadMaster stitchCostHeadMaster) {
+		this.stitchCostHeadMaster = stitchCostHeadMaster;
+	}
+
+	public StitchCostSubHeadDetails getStitchCostSubHeadDetails() {
+		return stitchCostSubHeadDetails;
+	}
+
+	public void setStitchCostSubHeadDetails(StitchCostSubHeadDetails stitchCostSubHeadDetails) {
+		this.stitchCostSubHeadDetails = stitchCostSubHeadDetails;
 	}
 
 	@Override
 	public String toString() {
-		return "StitchCostSubHeadMaster [id=" + id + ", subHeadName=" + subHeadName + ", companyCost=" + companyCost
-				+ ", updateBy=" + updateBy + ", updatedDate=" + updatedDate + ", stitchCostHeadMastes="
-				+ stitchCostHeadMaster + "]";
+		return "StitchCostSubHeadMaster [id=" + id + ", subHeadName=" + subHeadName + ", updateBy=" + updateBy
+				+ ", updatedDate=" + updatedDate + ", stitchCostHeadMaster=" + stitchCostHeadMaster
+				+ ", stitchCostSubHeadDetails=" + stitchCostSubHeadDetails + "]";
 	}
-	
+
+
 }
