@@ -2,7 +2,6 @@ package io.vamani.application.service.impl;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,34 +30,28 @@ public class StitchCostSubHeadDetailsImpl implements StitchCostSubHeadDetailsSer
 	private StitchCostSubHeadDetailsRepository detailsRepository;
 
 	private final Logger log = LoggerFactory.getLogger(StitchCostSubHeadDetailsImpl.class);
-
+	
 	@Override
 	public StitchCostHeadMasterBean getAllStitchCostHeadMaster(String factory) {
-		List<StitchCostHeadMaster> result = null;
 		StitchCostHeadMasterBean bean = new StitchCostHeadMasterBean();
-		List<Long> masterId=detailsRepository.findMasterIdByFactoryCode(factory);
 		BigDecimal toatlCtc = ctcMasterRepository.findTotalCTC(factory);
-		
-		if(null!=masterId && masterId.size()>0) {
-			result= new ArrayList<>();
-			for(Long id:masterId) {
-				result.add(costHeadMasterRepository.findById(id).orElse(null));
-			}
-		}else {
-			result = costHeadMasterRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
-			result.forEach(header->{
-				header.getStitchCostSubHeadMaster().forEach(details->{
-					details.setStitchCostSubHeadDetails(null);
+		List<StitchCostHeadMaster> response=detailsRepository.findAllByFactoryCode(factory);
+		response=response.stream().distinct().toList();
+		if(response.size()<1) {
+			response= costHeadMasterRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+			response.forEach(data->{
+				data.getStitchCostSubHeadMaster().forEach(child->{
+					child.setStitchCostSubHeadDetails(null);
 				});
 			});
 		}
-		result.forEach(data -> {
-			if (null != data.getHeadType() && data.getHeadType().equals("CTC")) {
-				data.setTotalCtc(toatlCtc);
-			}
-		});
+		response.forEach(data -> {
+		if (null != data.getHeadType() && data.getHeadType().equals("CTC")) {
+			  data.setTotalCtc(toatlCtc);
+		   }
+	    });
 		bean.setFactory(factory);
-		bean.setStitchCostHeadMasters(result);
+		bean.setStitchCostHeadMasters(response);
 		return bean;
 	}
 

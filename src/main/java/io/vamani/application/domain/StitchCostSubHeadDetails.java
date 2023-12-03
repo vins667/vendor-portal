@@ -15,40 +15,40 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "STITCHING_COST_SUB_HEADS_DETAILS")
-public class StitchCostSubHeadDetails implements Serializable{
+public class StitchCostSubHeadDetails implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	
+
 	@Column(name = "factory_code")
 	private String factory;
-	
+
 	@Column(name = "company_cost")
 	private Double companyCost;
-	
-	@Column(name = "entry_by",length = 50)
-	private String enterBy;
-	
-	@Column(name = "entry_date")
-    private Instant enterdDate;
-	
-	@Size(max = 50)
-    @Column(name = "updated_by", length = 50)
-    private String updatedBy;
 
-    @Column(name = "updated_date")
-    private Instant updatedDate;
-    
+	@Column(name = "entry_by", length = 50)
+	private String enterBy;
+
+	@Column(name = "entry_date")
+	private Instant enterdDate;
+
+	@Size(max = 50)
+	@Column(name = "updated_by", length = 50)
+	private String updatedBy;
+
+	@Column(name = "updated_date")
+	private Instant updatedDate;
+
 	@JsonIgnore
-	@OneToOne()
-	@JoinColumn(name = "sub_head_id",referencedColumnName = "id")
+	@OneToOne
+	@JoinColumn(name = "sub_head_id", referencedColumnName = "id")
 	private StitchCostSubHeadMaster stitchCostSubHeadMaster;
 
 	public Long getId() {
@@ -113,13 +113,6 @@ public class StitchCostSubHeadDetails implements Serializable{
 
 	public void setStitchCostSubHeadMaster(StitchCostSubHeadMaster stitchCostSubHeadMaster) {
 		this.stitchCostSubHeadMaster = stitchCostSubHeadMaster;
-	}
-
-	@Override
-	public String toString() {
-		return "StitchCostSubHeadDetails [id=" + id + ", factory=" + factory + ", companyCost=" + companyCost
-				+ ", enterBy=" + enterBy + ", enterdDate=" + enterdDate + ", updateBy=" + updatedBy + ", updatedDate="
-				+ updatedDate + ", stitchCostSubHeadMaster=" + stitchCostSubHeadMaster + "]";
 	}
 
 }

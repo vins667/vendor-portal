@@ -3,16 +3,14 @@ package io.vamani.application.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
-
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -32,16 +30,15 @@ public class StitchCostHeadMaster implements Serializable {
 
 	@Column(name = "head_type", insertable = false)
 	private String headType;
-	
+
 	@Column(name = "fact_code")
 	private String factory;
-	
+
 	@Transient
 	@JsonProperty
 	private BigDecimal totalCtc;
 
-	@OrderBy("id")
-	@OneToMany(fetch = FetchType.EAGER,mappedBy = "stitchCostHeadMaster")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "stitchCostHeadMaster",orphanRemoval = true)
 	private List<StitchCostSubHeadMaster> stitchCostSubHeadMaster;
 
 	public Long getId() {
@@ -59,7 +56,7 @@ public class StitchCostHeadMaster implements Serializable {
 	public void setHeadName(String headName) {
 		this.headName = headName;
 	}
-	
+
 	public String getHeadType() {
 		return headType;
 	}
@@ -93,9 +90,20 @@ public class StitchCostHeadMaster implements Serializable {
 	}
 
 	@Override
-	public String toString() {
-		return "StitchCostHeadMaster [id=" + id + ", headName=" + headName + ", headType=" + headType + ", factory="
-				+ factory + ", totalCtc=" + totalCtc + ", stitchCostSubHeadMaster=" + stitchCostSubHeadMaster + "]";
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StitchCostHeadMaster other = (StitchCostHeadMaster) obj;
+		return Objects.equals(id, other.id);
 	}
 
 }

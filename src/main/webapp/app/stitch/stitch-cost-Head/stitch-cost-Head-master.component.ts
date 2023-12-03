@@ -48,23 +48,24 @@ export class StitchCostHeadMasterComponent implements OnInit {
 
   loadAll() {
     this.isProcess = true;
+    this.headTotal=0;
     this.service.query(this.masterBean.factory).subscribe(res => {
       this.isSaving = false;
       this.masterBean = res.body;
       if (undefined != this.masterBean) {
         this.masterBean.stitchCostHeadMasters.forEach(data => {
           this.totalCost(data);
-          data.stitchCostSubHeadMaster.forEach(details => {
+         /* data.stitchCostSubHeadMaster.forEach(details => {
             if (null == details.stitchCostSubHeadDetails) {
               let stitchCostSubHeadDetails = new StitchCostSubHeadDetails();
               stitchCostSubHeadDetails.companyCost = 0;
               details.stitchCostSubHeadDetails = stitchCostSubHeadDetails;
             }
-          })
+          })*/
         });
       }
       this.isProcess = false;
-    });
+    },(res: HttpErrorResponse) => this.onError(res));
   }
 
   changeExpend(mmrDepartment) {
@@ -78,20 +79,22 @@ export class StitchCostHeadMasterComponent implements OnInit {
   totalCost(master: IStitchCostHeadMaster): void {
     let total:number= 0;
     let head=0;
-    console.log('this.head',this.headTotal)
     master.stitchCostSubHeadMaster.forEach(data => {
       if (null != data.stitchCostSubHeadDetails && undefined != data.stitchCostSubHeadDetails.companyCost) {
         total = total + data.stitchCostSubHeadDetails.companyCost;
         master.totalCost = total;
-        //console.log('total',total)
       }
-      console.log('total',total)
     });
-    this.headTotal= total;
-    console.log(this.countTotal=head+this.headTotal);
+    this.masterBean.stitchCostHeadMasters.forEach(data=>{
+        if(undefined!=data.totalCost){
+          head= head + data.totalCost;
+          this.headTotal= head;
+        }
+    });
   }
 
   save() {
+    this.isProcess = true;
     this.isSaving = true;
     let isId = false;
     if (this.masterBean !== undefined) {
@@ -110,11 +113,11 @@ export class StitchCostHeadMasterComponent implements OnInit {
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IStitchCostHeadMasterBean>>) {
-    result.subscribe(() => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError(res.headers));
+    result.subscribe(() => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onError(res));
   }
 
   protected subscribeToUpdateResponse(result: Observable<HttpResponse<IStitchCostHeadMasterBean>>) {
-    result.subscribe(() => this.onUpdateSuccess(), (res: HttpErrorResponse) => this.onSaveError(res.headers));
+    result.subscribe(() => this.onUpdateSuccess(), (res: HttpErrorResponse) => this.onError(res));
   }
 
   protected onUpdateSuccess() {
@@ -129,10 +132,10 @@ export class StitchCostHeadMasterComponent implements OnInit {
     this.snotifyService.success("Stitch Manpower Cost saved Successfully !!", toastConfig);
   }
 
-  protected onSaveError(res: HttpHeaders) {
+  protected onError(res: HttpErrorResponse) {
     this.isProcess = false;
     this.isSaving = false;
-    this.snotifyService.error(res.get('X-vamaniportalApp-error'), '', toastConfig);
+    this.snotifyService.error(res.statusText, '', toastConfig);
   }
 
 }

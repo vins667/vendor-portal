@@ -40,12 +40,13 @@ public class StitchCostSubHeadMaster implements Serializable{
 	@JoinColumn(name = "head_id",referencedColumnName = "id",insertable = false)
 	private StitchCostHeadMaster stitchCostHeadMaster;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "stitchCostSubHeadMaster")
+	
+	@OneToOne(cascade = CascadeType.ALL,fetch =FetchType.LAZY,mappedBy = "stitchCostHeadMaster")
 	private StitchCostSubHeadDetails stitchCostSubHeadDetails;
-
-	public Long getId() {
+	 
+	 public Long getId() {
 		return id;
-	}
+	 }
 
 	public void setId(Long id) {
 		this.id = id;
@@ -92,12 +93,5 @@ public class StitchCostSubHeadMaster implements Serializable{
 		this.stitchCostSubHeadDetails = stitchCostSubHeadDetails;
 	}
 
-	@Override
-	public String toString() {
-		return "StitchCostSubHeadMaster [id=" + id + ", subHeadName=" + subHeadName + ", updateBy=" + updateBy
-				+ ", updatedDate=" + updatedDate + ", stitchCostHeadMaster=" + stitchCostHeadMaster
-				+ ", stitchCostSubHeadDetails=" + stitchCostSubHeadDetails + "]";
-	}
-
-
+	
 }

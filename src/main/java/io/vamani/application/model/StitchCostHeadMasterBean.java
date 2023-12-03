@@ -40,10 +40,4 @@ public class StitchCostHeadMasterBean implements Serializable {
 		this.stitchCostHeadMasters = stitchCostHeadMasters;
 	}
 
-	@Override
-	public String toString() {
-		return "StitchCostHeadMasterBean [factory=" + factory + ", totalCtc=" + totalCtc + ", stitchCostHeadMasters="
-				+ stitchCostHeadMasters + "]";
-	}
-
 }
